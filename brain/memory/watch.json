@@ -9,10 +9,6 @@
    "path": "summary.colonists"
   },
   {
-   "label": "mood_avg",
-   "path": "summary.mood_avg"
-  },
-  {
    "label": "wood",
    "path": "summary.key_stocks.WoodLog"
   },
@@ -27,33 +23,72 @@
   {
    "label": "blueprints",
    "path": "summary.blueprints"
+  },
+  {
+   "label": "mood_avg",
+   "path": "summary.mood_avg"
+  },
+  {
+   "label": "onesan_mood",
+   "path": "engine:Pawn:Onesan.mood"
   }
  ],
  "history": {
   "food_days": [
-   0.0
+   8.1,
+   7.3,
+   6.0,
+   6.4,
+   6.2,
+   5.8,
+   6.0,
+   5.8
   ],
   "colonists": [
    3.0
   ],
   "mood_avg": [
-   51.0,
-   50.0
+   37.0,
+   35.0,
+   34.0,
+   35.0,
+   38.0,
+   39.0,
+   37.0,
+   38.0
   ],
   "wood": [
-   0.0
+   0.0,
+   34.0,
+   65.0
   ],
   "outside_storage": [
-   53.0,
-   43.0
+   40.0,
+   39.0,
+   18.0,
+   17.0,
+   18.0,
+   14.0,
+   15.0,
+   16.0
   ],
   "threat_points": [
    37.0,
-   36.0
+   36.0,
+   35.0
   ],
   "blueprints": [
    0.0,
-   2.0
+   2.0,
+   0.0,
+   1.0,
+   16.0,
+   1.0,
+   0.0,
+   1.0
+  ],
+  "onesan_mood": [
+   "err:Pawn has no member 'mood'. Sim"
   ]
  }
 }
