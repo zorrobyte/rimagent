@@ -14,7 +14,10 @@ play:
   think_speed: 1           # 0 = fully paused while thinking, 1 = normal speed, 2 = fast
   speed: 3                 # between steps: 1 normal, 2 fast, 3 superfast
   improve_every_days: 4    # mid-episode improvement pass cadence
-  wake_hours: 6            # scheduled think interval (in-game hours)
+  wake_hours: 8            # scheduled think interval (in-game hours) when the model doesn't say
+  min_wake_hours: 3        # floor for the model's own wake_in_hours (danger events/alerts bypass this)
+  event_cooldown_hours: 1  # non-critical wake events are ignored this long after a step
+  critical_kinds: [dialog, hostile_group, colonist_downed, colonist_died, mental_break, building_lost]
   max_tool_calls: 30       # per think step
   max_days: 60             # episode length cap
   autosave: true

@@ -178,6 +178,25 @@ def create_app(bus: Any, bridge: Any, controls: Any) -> FastAPI:
         except Exception as e:  # noqa: BLE001
             return {"events": [], "error": str(e)}
 
+    @app.get("/api/ascii")
+    async def ascii_view(x: int | None = None, z: int | None = None, w: int = 80, h: int = 50, layer: str = "all"):
+        params: dict[str, Any] = {"w": w, "h": h, "layer": layer}
+        if x is not None:
+            params["x"] = x
+        if z is not None:
+            params["z"] = z
+        try:
+            return await _call_with_timeout(lambda: bridge.call("map.view", **params), timeout=20.0)
+        except Exception as e:  # noqa: BLE001
+            return JSONResponse({"error": str(e)}, status_code=503)
+
+    @app.get("/api/overview")
+    async def overview(blocks: int = 60):
+        try:
+            return await _call_with_timeout(lambda: bridge.call("map.overview", blocks=blocks), timeout=20.0)
+        except Exception as e:  # noqa: BLE001
+            return JSONResponse({"error": str(e)}, status_code=503)
+
     @app.get("/screenshot.png")
     async def screenshot(x: int | None = None, z: int | None = None, w: float = 80):
         try:
@@ -399,6 +418,7 @@ footer .r{margin-left:auto}
   <button data-tab="brain">Brain</button>
   <button data-tab="scores">Scores</button>
   <button data-tab="map">Map</button>
+  <button data-tab="ascii">ASCII</button>
 </nav>
 
 <main>
@@ -472,6 +492,24 @@ footer .r{margin-left:auto}
       <span class="dimmer" id="map-when" style="margin-left:auto"></span>
     </div>
     <div class="scroll"><img id="map-img" alt="map screenshot"></div>
+  </section>
+
+  <section class="tab col" id="tab-ascii">
+    <div class="toolbar">
+      <label class="dim">x <input type="number" id="a-x" placeholder="home"></label>
+      <label class="dim">z <input type="number" id="a-z" placeholder="home"></label>
+      <label class="dim">w <input type="number" id="a-w" value="80" min="10" max="150"></label>
+      <label class="dim">h <input type="number" id="a-h" value="50" min="10" max="150"></label>
+      <label class="dim">layer <select id="a-layer"><option>all</option><option>terrain</option><option>buildings</option><option>zones</option><option>pawns</option><option>items</option><option>roof</option><option>fog</option><option>home</option></select></label>
+      <button class="primary" onclick="loadAscii()">Refresh</button>
+      <button onclick="$('a-x').value='';$('a-z').value='';loadAscii()">Home</button>
+      <button onclick="loadOverview()">Whole map</button>
+      <label class="dim"><input type="checkbox" id="c-ascii-auto"> auto every 15s</label>
+      <span id="ascii-err"></span>
+      <span class="dimmer" id="ascii-when" style="margin-left:auto"></span>
+    </div>
+    <div class="dimmer" id="ascii-legend" style="padding:4px 8px;white-space:pre-wrap"></div>
+    <div class="scroll"><pre id="ascii-grid" style="font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:11px;letter-spacing:1px;margin:0;padding:8px"></pre></div>
   </section>
 </main>
 
@@ -807,6 +845,41 @@ function loadMap() {
   img.src = '/screenshot.png?' + q;
 }
 setInterval(() => { if ($('c-map-auto').checked && $('tab-map').classList.contains('active')) loadMap(); }, 30000);
+
+// ---------- ascii ----------
+const ASCII_COLORS = { '@': '#5fd7ff', '!': '#ff5f5f', 'a': '#87d787', 'w': '#afaf5f', 'n': '#d7afff', '#': '#c0c0c0', '+': '#ffd75f', '^': '#8a8a8a', 'o': '#ffaf00', 'b': '#ff87d7', 't': '#d7d787', 's': '#ff8700', 'r': '#87afff', 'g': '#ffff5f', '%': '#ff5faf', 'x': '#d0d0d0', 'p': '#5fafff', 'S': '#5f87ff', 'G': '#5fff5f', '~': '#0087ff', 'T': '#00af00', ',': '#5f875f', 'i': '#ffffaf', '*': '#ff0000', 'f': '#875f00', '?': '#303030', 'H': '#5f87ff', 'B': '#d0d0d0' };
+function paintAscii(grid) {
+  const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  return grid.split('\n').map((line, i) => {
+    if (i < 2) return `<span style="color:#666">${esc(line)}</span>`;
+    const head = line.slice(0, 5), body = line.slice(5);
+    let out = `<span style="color:#666">${esc(head)}</span>`;
+    for (const ch of body) { const c = ASCII_COLORS[ch]; out += c ? `<span style="color:${c}">${esc(ch)}</span>` : esc(ch); }
+    return out;
+  }).join('\n');
+}
+async function loadAscii() {
+  const q = new URLSearchParams(); const ax = $('a-x').value, az = $('a-z').value;
+  if (ax !== '') q.set('x', ax); if (az !== '') q.set('z', az); q.set('w', $('a-w').value || 80); q.set('h', $('a-h').value || 50); q.set('layer', $('a-layer').value);
+  $('ascii-err').textContent = '';
+  try {
+    const r = await fetch('/api/ascii?' + q); const j = await r.json();
+    if (j.error) { $('ascii-err').textContent = j.error; return; }
+    $('ascii-legend').textContent = j.legend || ''; $('ascii-grid').innerHTML = paintAscii(j.grid || '');
+    $('ascii-when').textContent = `box ${JSON.stringify(j.box && j.box.min)}..${JSON.stringify(j.box && j.box.max)} · ${new Date().toLocaleTimeString()}`;
+  } catch (e) { $('ascii-err').textContent = 'failed: ' + e; }
+}
+async function loadOverview() {
+  $('ascii-err').textContent = '';
+  try {
+    const j = await (await fetch('/api/overview?blocks=100')).json();
+    if (j.error) { $('ascii-err').textContent = j.error; return; }
+    $('ascii-legend').textContent = (j.legend || '') + `  (block size ${j.block_size})`; $('ascii-grid').innerHTML = paintAscii(j.grid || '');
+    $('ascii-when').textContent = 'whole map · ' + new Date().toLocaleTimeString();
+  } catch (e) { $('ascii-err').textContent = 'failed: ' + e; }
+}
+setInterval(() => { if ($('c-ascii-auto').checked && $('tab-ascii').classList.contains('active')) loadAscii(); }, 15000);
+document.querySelector('#tabs button[data-tab="ascii"]').addEventListener('click', () => { if (!$('ascii-grid').innerHTML) loadAscii(); });
 
 // ---------- event dispatch ----------
 function handle(ev) {

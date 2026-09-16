@@ -190,10 +190,11 @@ class Registry:
         try:
             if t.source == "bridge":
                 return t.fn(ctx, **args), True
-            args = {k: coerce_param(v) if k != "code" and k != "body" and k != "text" else v for k, v in args.items()}
+            args = {k: coerce_param(v) if k not in ("code", "body", "text", "content") else v for k, v in args.items()}
             sig = inspect.signature(t.fn)
             accepts_kwargs = any(p.kind == p.VAR_KEYWORD for p in sig.parameters.values())
             if not accepts_kwargs:
+                args = remap_params(sig, args)
                 unknown = [k for k in args if k not in sig.parameters]
                 if unknown:
                     return {"error": f"unknown parameter(s) {unknown} for {name}; accepted: {[p for p in sig.parameters if p != 'ctx']}"}, False
@@ -201,6 +202,23 @@ class Registry:
         except Exception as e:  # noqa: BLE001
             tb = traceback.format_exc(limit=4)
             return {"error": f"{type(e).__name__}: {e}", "trace": tb[-1200:] if t.source == "brain" else None}, False
+
+
+_ALIASES = {"content": "text", "body": "text", "markdown": "text", "note": "text", "message": "text", "notes": "text", "filename": "file", "path": "file", "source": "code", "python": "code", "skill": "name", "title": "name", "query": "q"}
+
+
+def remap_params(sig: inspect.Signature, args: dict[str, Any]) -> dict[str, Any]:
+    """Be lenient about parameter names: known aliases, then a single unknown -> single missing required."""
+    params = [p for p in sig.parameters if p != "ctx"]
+    out = dict(args)
+    for k in list(out):
+        if k not in params and k in _ALIASES and _ALIASES[k] in params and _ALIASES[k] not in out:
+            out[_ALIASES[k]] = out.pop(k)
+    unknown = [k for k in out if k not in params]
+    missing = [p for p in params if p not in out and sig.parameters[p].default is inspect.Parameter.empty]
+    if len(unknown) == 1 and len(missing) == 1:
+        out[missing[0]] = out.pop(unknown[0])
+    return out
 
 
 def coerce_param(v: Any) -> Any:

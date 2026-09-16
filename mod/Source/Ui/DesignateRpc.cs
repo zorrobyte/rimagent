@@ -92,8 +92,8 @@ namespace RimBridge.Ui
                 else
                 {
                     // No guessing on the model's behalf: report the options (with what is actually on the map) and let it choose.
-                    var opts = allowed.Select(a => new { a, n = map.resourceCounter.GetCount(a) }).OrderByDescending(x => x.n).Take(12)
-                        .Select(x => $"{x.a.defName}({x.n} stored, x{def.CostStuffCount * (x.a.smallVolume ? 10 : 1)} needed)");
+                    var opts = allowed.Select(a => new { a, n = map.listerThings.ThingsOfDef(a).Where(t => t.Spawned && !t.Position.Fogged(map)).Sum(t => t.stackCount) }).OrderByDescending(x => x.n).Take(12)
+                        .Select(x => $"{x.a.defName}({x.n} on map, x{def.CostStuffCount * (x.a.smallVolume ? 10 : 1)} needed)");
                     throw new RpcError($"{defName} is made from stuff; pass stuff=<ThingDef>. Options: " + string.Join(", ", opts));
                 }
             }

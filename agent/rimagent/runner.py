@@ -82,6 +82,10 @@ class Runner:
         self.thinking = False
         self._status_at = 0.0
         self._last_alive = time.time()
+        self._alerts_at = 0.0
+        self._seen_alerts: dict[str, int] = {}   # label -> tick last woken for it
+        self._last_step_end_tick = 0
+        self.critical_kinds = set(cfg["play"].get("critical_kinds", ["dialog", "hostile_group", "colonist_downed", "colonist_died", "mental_break", "building_lost"]))
 
     # ---------- lifecycle ----------
     def run(self) -> None:
@@ -253,13 +257,46 @@ class Runner:
         for a in self.pending_alerts:
             if a.get("wake"):
                 return f"watcher alert: {a.get('text')}"
+        play = self.cfg["play"]
+        cooldown = int(float(play.get("event_cooldown_hours", 1)) * TICKS_PER_HOUR)
+        recently = tick - self._last_step_end_tick < cooldown
         kinds = self.wake_kinds | set(self.ctx.wake.on_kinds or [])
         for e in new_events:
-            if e.get("kind") in kinds:
-                return f"event: {e.get('kind')} — {e.get('text', '')}"
+            k = e.get("kind")
+            if k in self.critical_kinds or (k in kinds and not recently):
+                return f"event: {k} — {e.get('text', '')}"
+        alert = self.game_alert_trigger(tick)
+        if alert:
+            return alert
         if tick >= self.next_wake_tick:
             return "scheduled check-in"
         return None
+
+    def game_alert_trigger(self, tick: int) -> str | None:
+        """Wake on new High/Critical game alerts (danger, starvation, idle colonists, ...), each at most once per 6h."""
+        if time.time() - self._alerts_at < 5:
+            return None
+        self._alerts_at = time.time()
+        try:
+            alerts = self.bridge.call("state.alerts")
+        except BridgeError:
+            return None
+        trigger = None
+        live = set()
+        for a in alerts:
+            label = str(a.get("label", "")); pr = str(a.get("priority", ""))
+            live.add(label)
+            urgent = pr in ("High", "Critical") or "idle" in label.lower()
+            if not urgent:
+                continue
+            last = self._seen_alerts.get(label)
+            if last is None or tick - last > 6 * TICKS_PER_HOUR:
+                self._seen_alerts[label] = tick
+                trigger = trigger or f"alert ({pr}): {label}"
+        for label in list(self._seen_alerts):
+            if label not in live:
+                del self._seen_alerts[label]  # cleared alerts may wake again if they return
+        return trigger
 
     def with_pause(self, fn) -> None:
         # think_speed: 0 = pause the game while thinking, 1 = normal speed, 2/3 faster. pause_to_think=False forces play speed.
@@ -293,12 +330,14 @@ class Runner:
         msg, hint = situation_packet(self.ctx, trigger, events, alerts)
         res = think(self.ctx, msg, hint, trigger=trigger)
         self.step_notes.append(res.notes)
-        hours = self.ctx.wake.in_hours if self.ctx.wake.in_hours else float(self.cfg["play"].get("wake_hours", 6))
-        hours = max(0.5, min(48.0, float(hours)))
+        play = self.cfg["play"]
+        hours = self.ctx.wake.in_hours if self.ctx.wake.in_hours else float(play.get("wake_hours", 8))
+        hours = max(float(play.get("min_wake_hours", 3)), min(48.0, float(hours)))
         try:
             tick = int(self.bridge.status().get("tick", tick))
         except BridgeError:
             pass
+        self._last_step_end_tick = tick
         self.next_wake_tick = tick + int(hours * TICKS_PER_HOUR)
 
     def run_improve(self, day: int) -> None:
