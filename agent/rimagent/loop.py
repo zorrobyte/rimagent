@@ -93,7 +93,8 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
     system = build_system(ctx, situation_hint or user_message[:2000])
     messages: list[dict[str, Any]] = [{"role": "system", "content": system}, {"role": "user", "content": user_message}]
     tools = ctx.registry.specs(groups=tool_groups)
-    ctx.emit("think_start", {"trigger": trigger, "prompt_chars": len(system) + len(user_message), "tools": len(tools)})
+    st = ctx.stream
+    ctx.emit("think_start", {"trigger": trigger, "prompt_chars": len(system) + len(user_message), "tools": len(tools), "stream": st})
     step = 0
     while True:
         if res.calls >= max_calls:
@@ -109,9 +110,9 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
             break
         step += 1
         if reply.reasoning:
-            ctx.emit("reasoning", {"text": reply.reasoning[:20000]})
+            ctx.emit("reasoning", {"text": reply.reasoning[:20000], "stream": st})
         if reply.content:
-            ctx.emit("assistant", {"text": reply.content})
+            ctx.emit("assistant", {"text": reply.content, "stream": st})
         res.transcript.append({"role": "assistant", "content": reply.content, "reasoning": reply.reasoning[:4000], "tool_calls": reply.tool_calls})
         messages.append(ctx.llm.assistant_message(reply))
         if not reply.tool_calls:
@@ -126,7 +127,7 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
         image_msgs: list[dict[str, Any]] = []
         for tc in reply.tool_calls:
             name, args, cid = tc["name"], tc["arguments"], tc["id"]
-            ctx.emit("tool_call", {"name": name, "args": args, "id": cid})
+            ctx.emit("tool_call", {"name": name, "args": args, "id": cid, "stream": st})
             t1 = time.time()
             result, ok = ctx.registry.execute(ctx, name, args)
             res.calls += 1
@@ -134,7 +135,7 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
             if isinstance(result, dict) and "_image_png_b64" in result:
                 image = result.pop("_image_png_b64")
             text = to_text(result)
-            ctx.emit("tool_result", {"name": name, "id": cid, "ok": ok, "text": text[:3000], "elapsed": round(time.time() - t1, 2)})
+            ctx.emit("tool_result", {"name": name, "id": cid, "ok": ok, "text": text[:3000], "elapsed": round(time.time() - t1, 2), "stream": st})
             res.transcript.append({"role": "tool", "name": name, "ok": ok, "text": text[:3000]})
             messages.append({"role": "tool", "tool_call_id": cid, "content": text})
             if image:
@@ -173,7 +174,7 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
                 if total < 120_000:
                     break
     res.elapsed = time.time() - t0
-    ctx.emit("think_end", {"notes": res.notes, "wake": {"in_hours": ctx.wake.in_hours, "on_kinds": ctx.wake.on_kinds}, "calls": res.calls, "elapsed": round(res.elapsed, 1), "end_episode": ctx.end_episode_reason})
+    ctx.emit("think_end", {"notes": res.notes, "wake": {"in_hours": ctx.wake.in_hours, "on_kinds": ctx.wake.on_kinds}, "calls": res.calls, "elapsed": round(res.elapsed, 1), "end_episode": ctx.end_episode_reason, "stream": st})
     return res
 
 

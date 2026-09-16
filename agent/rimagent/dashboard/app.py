@@ -182,14 +182,21 @@ def create_app(bus: Any, bridge: Any, controls: Any) -> FastAPI:
             return {"events": [], "error": str(e)}
 
     @app.get("/api/ascii")
-    async def ascii_view(x: int | None = None, z: int | None = None, w: int = 80, h: int = 50, layer: str = "all"):
-        params: dict[str, Any] = {"w": w, "h": h, "layer": layer}
-        if x is not None:
+    async def ascii_view(x: int | None = None, z: int | None = None, w: int = 80, h: int = 50, layer: str = "all", mode: str = "view", around: str | None = None, roof: bool = False):
+        params: dict[str, Any] = {"w": w, "h": h}
+        if mode == "detail":
+            if around:
+                params["around"] = around
+            params["roof"] = roof
+        else:
+            params["layer"] = layer
+        if x is not None and not around:
             params["x"] = x
-        if z is not None:
+        if z is not None and not around:
             params["z"] = z
+        method = "map.detail" if mode == "detail" else "map.view"
         try:
-            return await _call_with_timeout(lambda: bridge.call("map.view", **params), timeout=20.0)
+            return await _call_with_timeout(lambda: bridge.call(method, **params), timeout=20.0)
         except Exception as e:  # noqa: BLE001
             return JSONResponse({"error": str(e)}, status_code=503)
 
@@ -523,7 +530,10 @@ footer .r{margin-left:auto}
       <label class="dim">z <input type="number" id="a-z" placeholder="home"></label>
       <label class="dim">w <input type="number" id="a-w" value="80" min="10" max="150"></label>
       <label class="dim">h <input type="number" id="a-h" value="50" min="10" max="150"></label>
+      <label class="dim">mode <select id="a-mode" onchange="loadAscii()"><option value="view">region (1 char/cell)</option><option value="detail">building camera (numbered, legend)</option></select></label>
+      <label class="dim">around <input type="text" id="a-around" placeholder="thing id / pawn" style="width:120px"></label>
       <label class="dim">layer <select id="a-layer"><option>all</option><option>terrain</option><option>buildings</option><option>zones</option><option>pawns</option><option>items</option><option>roof</option><option>fog</option><option>home</option></select></label>
+      <label class="dim"><input type="checkbox" id="a-roof"> roof</label>
       <button class="primary" onclick="loadAscii()">Refresh</button>
       <button onclick="$('a-x').value='';$('a-z').value='';loadAscii()">Home</button>
       <button onclick="loadOverview()">Whole map</button>
@@ -619,7 +629,8 @@ async function pollState() {
 // ---------- live transcript ----------
 const live = $('live');
 const KEEP_OPEN = 5, KEEP_STEPS = 60;
-let curStep = null, stepCount = 0;
+let curStep = null, stepCount = 0; const stepsByStream = {};
+function useStream(d) { const st = (d && d.stream) || 'play'; if (stepsByStream[st] !== undefined) curStep = stepsByStream[st]; return st; }
 function clearLive() { live.innerHTML = ''; curStep = null; }
 function liveAppend(node) {
   const e = live.querySelector('.empty'); if (e) e.remove();
@@ -638,11 +649,13 @@ async function sayToAgent() {
 function newStep(d, t) {
   const s = document.createElement('div');
   s.className = 'step'; stepCount++;
-  s.innerHTML = `<div class="step-head"><span class="dim">${fmtT(t)}</span><span>step ${esc(d.step ?? stepCount)}</span><span class="trig">${esc(d.trigger || '')}</span><span class="sum"></span></div><div class="step-body"></div>`;
+  const st = (d && d.stream) || 'play';
+  s.innerHTML = `<div class="step-head"><span class="dim">${fmtT(t)}</span><span>step ${esc(d.step ?? stepCount)}</span>${st !== 'play' ? `<span class="badge info">${esc(st)} stream</span>` : ''}<span class="trig">${esc(d.trigger || '')}</span><span class="sum"></span></div><div class="step-body"></div>`;
+  if (st !== 'play') s.style.borderLeft = '3px solid var(--warn)';
   s.querySelector('.step-head').onclick = () => s.classList.toggle('collapsed');
   s._calls = 0; s._tools = [];
   const e = live.querySelector('.empty'); if (e) e.remove();
-  live.insertBefore(s, live.firstChild); curStep = s;
+  live.insertBefore(s, live.firstChild); curStep = s; stepsByStream[st] = s;
   const steps = live.querySelectorAll('.step');
   steps.forEach((x, i) => { if (i >= KEEP_OPEN) x.classList.add('collapsed'); });
   const all = live.querySelectorAll('.step'); if (all.length > KEEP_STEPS) all[all.length - 1].remove();
@@ -894,13 +907,32 @@ function paintAscii(grid) {
 async function loadAscii() {
   const q = new URLSearchParams(); const ax = $('a-x').value, az = $('a-z').value;
   if (ax !== '') q.set('x', ax); if (az !== '') q.set('z', az); q.set('w', $('a-w').value || 80); q.set('h', $('a-h').value || 50); q.set('layer', $('a-layer').value);
+  q.set('mode', $('a-mode').value); if ($('a-around').value.trim()) q.set('around', $('a-around').value.trim()); if ($('a-roof').checked) q.set('roof', 'true');
   $('ascii-err').textContent = '';
   try {
     const r = await fetch('/api/ascii?' + q); const j = await r.json();
     if (j.error) { $('ascii-err').textContent = j.error; return; }
-    $('ascii-legend').textContent = j.legend || ''; $('ascii-grid').innerHTML = paintAscii(j.grid || '');
-    $('ascii-when').textContent = `box ${JSON.stringify(j.box && j.box.min)}..${JSON.stringify(j.box && j.box.max)} · ${new Date().toLocaleTimeString()}`;
+    const detail = $('a-mode').value === 'detail';
+    $('ascii-legend').textContent = typeof j.legend === 'string' ? j.legend : Object.entries(j.legend || {}).map(([k, v]) => `${k} ${v}`).join('  |  ');
+    $('ascii-grid').innerHTML = detail ? paintDetail(j.grid || '') : paintAscii(j.grid || '');
+    $('ascii-when').textContent = `box ${JSON.stringify(j.box && j.box.min)}..${JSON.stringify(j.box && j.box.max)}${detail && j.things ? ' · ' + j.things.length + ' things in view' : ''} · ${new Date().toLocaleTimeString()}`;
   } catch (e) { $('ascii-err').textContent = 'failed: ' + e; }
+}
+const DETAIL_PALETTE = ['#ff8787', '#ffd75f', '#87d7ff', '#d7afff', '#87ffaf', '#ffaf5f', '#5fd7d7', '#ff87d7', '#afd75f', '#d7d7ff', '#ff5f87', '#5faf5f'];
+function paintDetail(grid) {
+  const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const fixed = { '@': '#5fd7ff', '!': '#ff5f5f', '*': '#ff00ff', '+': '#ffd75f', '_': '#5f87ff', ',': '#5fff5f', 'i': '#ffffaf', '^': '#8a8a8a', 'o': '#ffaf00', '~': '#0087ff', 'T': '#00af00', '?': '#303030', 'r': '#666', 'R': '#777' };
+  return grid.split('\n').map((line, i) => {
+    if (i < 3) return `<span style="color:#666">${esc(line)}</span>`;
+    const head = line.slice(0, 6), body = line.slice(6);
+    let out = `<span style="color:#666">${esc(head)}</span>`;
+    for (const ch of body) {
+      let c = fixed[ch];
+      if (!c && /[A-Za-z0-9]/.test(ch)) { const u = ch.toUpperCase(); c = DETAIL_PALETTE[(u.charCodeAt(0) * 7) % DETAIL_PALETTE.length]; if (ch !== u) c += '99'; }
+      out += c ? `<span style="color:${c}${/[a-z]/.test(ch) ? ';font-style:italic' : ''}">${esc(ch)}</span>` : esc(ch);
+    }
+    return out;
+  }).join('\n');
 }
 async function loadOverview() {
   $('ascii-err').textContent = '';
@@ -921,11 +953,11 @@ function handle(ev) {
   switch (ev.kind) {
     case 'status': Object.assign(state, d); state._t = t; renderStatus(); break;
     case 'think_start': newStep(d, t); break;
-    case 'reasoning': ensureStep(t); liveAppend(itemReasoning(d)); break;
-    case 'assistant': ensureStep(t); liveAppend(itemAssistant(d)); break;
-    case 'tool_call': ensureStep(t); liveAppend(itemToolCall(d)); break;
-    case 'tool_result': ensureStep(t); attachResult(d); break;
-    case 'think_end': ensureStep(t); liveAppend(itemThinkEnd(d)); curStep = null; break;
+    case 'reasoning': useStream(d); ensureStep(t); liveAppend(itemReasoning(d)); break;
+    case 'assistant': useStream(d); ensureStep(t); liveAppend(itemAssistant(d)); break;
+    case 'tool_call': useStream(d); ensureStep(t); liveAppend(itemToolCall(d)); break;
+    case 'tool_result': useStream(d); ensureStep(t); attachResult(d); break;
+    case 'think_end': { const st = useStream(d); ensureStep(t); liveAppend(itemThinkEnd(d)); stepsByStream[st] = null; curStep = stepsByStream['play'] || null; break; }
     case 'ledger': addLedger(d, t); break;
     case 'watcher': addWatcher(d, t); break;
     case 'brain_change': addBrainChange(d, t); break;

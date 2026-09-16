@@ -227,7 +227,7 @@ class Runner:
                 due = (day - self.start_day >= first and self.last_improve_day == self.start_day) or (day - self.last_improve_day >= int(play.get("improve_every_days", 3)))
                 if due:
                     self.last_improve_day = day
-                    self.with_pause(lambda: self.run_improve(day))
+                    self.start_improve_thread(day)
             if self.controls.paused:
                 time.sleep(1)
                 continue
@@ -390,12 +390,26 @@ class Runner:
         self._last_step_end_tick = tick
         self.next_wake_tick = tick + int(hours * TICKS_PER_HOUR)
 
-    def run_improve(self, day: int) -> None:
-        notes = reflect.improve(self.ctx, self.step_notes, day)
-        self.step_notes.append(f"[improvement pass day {day}] {notes}")
-        sha = braingit.commit(f"episode {self.episode} day {day}: improvement pass")
-        if sha:
-            self.bus.emit("brain_change", {"kind": "git", "action": "commit", "sha": sha})
+    def start_improve_thread(self, day: int) -> None:
+        """Improvement pass on a second LLM stream, concurrent with play (brain edits hot-load into the play stream)."""
+        if getattr(self, "_improve_thread", None) and self._improve_thread.is_alive():
+            return
+        ctx2 = self.ctx.fork("improve")
+        notes_snapshot = list(self.step_notes)
+
+        def run():
+            try:
+                notes = reflect.improve(ctx2, notes_snapshot, day)
+                self.step_notes.append(f"[improvement pass day {day}] {notes}")
+                sha = braingit.commit(f"episode {self.episode} day {day}: improvement pass")
+                if sha:
+                    self.bus.emit("brain_change", {"kind": "git", "action": "commit", "sha": sha})
+            except Exception as e:  # noqa: BLE001
+                self.bus.emit("error", {"text": f"improvement pass failed: {e}"})
+
+        self._improve_thread = threading.Thread(target=run, name="improve", daemon=True)
+        self._improve_thread.start()
+        self.bus.emit("log", {"text": f"improvement pass started on a second stream (day {day})"})
 
     # ---------- episode end ----------
     def end_episode(self, reason: str) -> None:

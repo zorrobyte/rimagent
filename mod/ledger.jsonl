@@ -5055,3 +5055,5 @@
 {"kind":"game","text":"game loaded/started","data":{"day":9},"seq":2}
 {"kind":"day","text":"day 9","tick":547000,"day":9,"hour":8,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":0,"wealth":15933.0,"wealth_items":10710.0,"wealth_buildings":3062.0,"mood_avg":49.0,"nutrition":20.6,"food_days":4.3,"threat_points":35.0,"research_done":8,"temp_outdoor":17.0,"danger":"None","assisted":false},"seq":3}
 {"kind":"message","text":"Turkey meat x21 has rotted away in storage.","tick":554981,"day":9,"hour":11,"cell":[135,137],"data":{"type":"NegativeEvent"},"seq":4}
+{"kind":"message","text":"Critical alert: Major break risk","tick":564575,"day":9,"hour":15,"cell":[154,129],"thing":"Human490","data":{"type":"ThreatBig"},"seq":5}
+{"kind":"letter","text":"Summer","tick":585001,"day":9,"hour":0,"data":{"label":"Summer","def":"NeutralEvent","text":"Summer has begun! But winter is coming.\n\nYour food crops won't grow in the winter cold. Be sure to store enough food to survive. You can build a walk-in refrigerator to prevent food from spoiling.\n\nTo prepare for winter, buy, steal, or make some parkas, or you'll freeze when you step outside.","id":26},"seq":6}

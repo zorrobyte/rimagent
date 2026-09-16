@@ -39,6 +39,18 @@ class Context:
     extra: dict[str, Any] = field(default_factory=dict)
     # set by the runner: returns urgent events that arrived while a step is running (already logged/tracked)
     interrupt_check: Callable[[], list[str]] | None = None
+    stream: str = "play"   # which LLM stream this context drives (play | improve | reflect)
+
+    def fork(self, stream: str) -> "Context":
+        """A sibling context sharing bridge/llm/registry/emit but with its own turn flags (for a concurrent stream)."""
+        import copy
+        c = copy.copy(self)
+        c.stream = stream
+        c.extra = {k: v for k, v in self.extra.items() if k != "operator_inbox"}
+        c.interrupt_check = None
+        c.recent_events = list(self.recent_events)
+        c.reset_turn()
+        return c
 
     def reset_turn(self) -> None:
         self.stop_turn = False
