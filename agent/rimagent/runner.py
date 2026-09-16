@@ -53,12 +53,10 @@ class Controls:
 
     def say(self, text: str, remember: bool = True):
         """Operator message: shown in the feed, handed to the model (mid-step or next step), and wakes it.
-        remember=True also appends it to brain/memory/operator.md, which is in every system prompt across games."""
-        if remember:
-            memory.operator_append(text)
-            self.r.bus.emit("brain_change", {"kind": "operator", "action": "append"})
+        Also logged to brain/memory/operator.md so the episode reflection can fold missed tips into skills."""
+        memory.operator_append(text)
         self.r.operator_inbox.append(text)
-        self.r.bus.emit("operator", {"text": text, "remembered": remember})
+        self.r.bus.emit("operator", {"text": text})
         self.r.force_think = "operator message"
 
 
@@ -357,7 +355,7 @@ class Runner:
         extra = ""
         if self.operator_inbox:
             msgs, self.operator_inbox[:] = list(self.operator_inbox), []
-            extra = "## Message from the human operator\nAnswer it FIRST with the reply_to_operator tool (one or two sentences), then act on it if it asks for something.\n" + "\n".join(f"- {m}" for m in msgs)
+            extra = "## Message from the human operator\nAnswer it FIRST with the reply_to_operator tool (one or two sentences). If it is a tip or instruction about how to play, LEARN it: edit the most relevant skill with skill_write so it says this from now on (mark the line "operator tip"), and act on it in the colony if it applies right now.\n" + "\n".join(f"- {m}" for m in msgs)
         msg, hint = situation_packet(self.ctx, trigger, events, alerts, extra=extra)
         res = think(self.ctx, msg, hint, trigger=trigger)
         self.step_notes.append(res.notes)

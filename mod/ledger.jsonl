@@ -4964,3 +4964,5 @@
 {"kind":"letter","text":"Raid: Gas Team","tick":324000,"day":5,"hour":15,"cell":[219,248],"thing":"Human50743","data":{"label":"Raid: Gas Team","def":"ThreatBig","text":"A group of wasters from Gas Team have arrived nearby.\n\nThey will prepare for a while, then attack.\n\nPrepare a defense or attack them pre-emptively.","id":3},"seq":7}
 {"kind":"hostile_group","text":"hostile group: Gas Team x0 ()","tick":324000,"day":5,"hour":15,"data":{"faction":"Gas Team","count":0,"job":null,"lord":2},"seq":8}
 {"kind":"incident","text":"enemy raid","tick":324000,"day":5,"hour":15,"data":{"def":"RaidEnemy","category":"ThreatBig","points":40.0,"faction":"Gas Team","strategy":"StageThenAttack","arrival":"EdgeWalkIn"},"seq":9}
+{"kind":"danger","text":"danger None -> Low (1 hostile targets)","tick":324060,"day":5,"hour":15,"data":{"from":"None","to":"Low","hostiles":1},"seq":10}
+{"kind":"message","text":"Wasters from Gas Team are beginning their assault.","tick":331687,"day":5,"hour":18,"cell":[235,232],"thing":"Human50743","data":{"type":"ThreatBig"},"seq":11}

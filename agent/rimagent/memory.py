@@ -54,5 +54,5 @@ def operator_append(text: str) -> None:
     stamp = _dt.datetime.now().strftime("%Y-%m-%d %H:%M")
     with OPERATOR.open("a", encoding="utf-8") as fh:
         if fh.tell() == 0:
-            fh.write("# Standing instructions from the human operator\n\nFollow these. They override skills when they conflict. Newest last.\n")
+            fh.write("# Tips and messages from the human operator (log; fold tips into skills)\n")
         fh.write(f"\n- [{stamp}] {text.strip()}\n")

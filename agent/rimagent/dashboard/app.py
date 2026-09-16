@@ -448,7 +448,6 @@ footer .r{margin-left:auto}
     </div>
     <div class="toolbar" style="gap:6px">
       <input type="text" id="say-text" placeholder="Say something to the agent — it wakes and reads this at the start of its next step" style="flex:1;min-width:200px" onkeydown="if(event.key==='Enter')sayToAgent()">
-      <label class="dim" title="Also saved to brain/memory/operator.md and shown to the agent in every step, in every game"><input type="checkbox" id="say-remember" checked> standing instruction</label>
       <button class="primary" onclick="sayToAgent()">Send</button>
       <span class="dimmer" id="say-status"></span>
     </div>
@@ -631,7 +630,7 @@ async function sayToAgent() {
   const inp = $('say-text'); const text = inp.value.trim(); if (!text) return;
   $('say-status').textContent = 'sending…';
   try {
-    const r = await fetch('/api/say', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text, remember: $('say-remember').checked }) });
+    const r = await fetch('/api/say', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text }) });
     const j = await r.json(); $('say-status').textContent = j.ok ? 'queued — the agent will read it next step' : ('failed: ' + (j.error || '')); if (j.ok) inp.value = '';
   } catch (e) { $('say-status').textContent = 'failed: ' + e; }
   setTimeout(() => { $('say-status').textContent = ''; }, 6000);
@@ -935,7 +934,7 @@ function handle(ev) {
     case 'error': { const s = curStep; curStep = null; liveAppend(sysLine('error', t, 'error: ' + (d.text || JSON.stringify(d)))); curStep = s; break; }
     case 'log': { const s = curStep; curStep = null; liveAppend(sysLine('log', t, d.text || JSON.stringify(d))); curStep = s; break; }
     case 'reply': { const s = curStep; curStep = null; const n = sysLine('log', t, '🤖 agent: ' + (d.text || '')); n.style.borderLeft = '3px solid var(--ok)'; n.style.fontSize = '13px'; n.style.padding = '6px 8px'; n.style.background = 'rgba(80,200,120,.08)'; liveAppend(n); curStep = s; $('say-status').textContent = 'agent replied ↑'; break; }
-    case 'operator': { const s = curStep; curStep = null; const n = sysLine('log', t, '🧑 you' + (d.remembered ? ' (standing)' : '') + ': ' + (d.text || '')); n.style.borderLeft = '3px solid var(--warn)'; liveAppend(n); curStep = s; break; }
+    case 'operator': { const s = curStep; curStep = null; const n = sysLine('log', t, '🧑 you: ' + (d.text || '')); n.style.borderLeft = '3px solid var(--warn)'; liveAppend(n); curStep = s; break; }
     default: break;
   }
   $('f-seq').textContent = lastSeq; $('f-n').textContent = nEvents;

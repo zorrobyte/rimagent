@@ -19,6 +19,9 @@ Your job now is to make the NEXT game go better. Do this concretely:
 5. If score_history shows the last brain change made things worse, consider brain_revert.
 Finish with end_turn(notes=<one-paragraph summary of what you changed and why>).
 
+## Tips from the human operator this run (make sure each one is reflected in a skill)
+{operator}
+
 ## Timeline
 {timeline}
 
@@ -75,6 +78,7 @@ def episode(ctx: Context, events: list[dict[str, Any]], step_notes: list[str], r
         reason=reason,
         days=str(days),
         timeline=compress_timeline(events, step_notes),
+        operator=memory.operator_read(3000) or "(none)",
         notebook=memory.notebook_read() or "(empty)",
         journal=memory.journal_read(20) or "(empty)",
         scores=scorecard.history_text(12),

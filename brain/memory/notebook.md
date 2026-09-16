@@ -45,3 +45,7 @@
 - Campfire: [150,129], Research bench: [148,128]
 - Spike trap: [149,132], Table: [148,130]
 - ButcherSpot: [138,141]
+
+Day 5 15h: Raid letter "Gas Team" (Nytro, drifter, club, 137 tiles SE). Also 3 fleshbeasts (fingerspike/trispike/bulbfreak) ~111 tiles NE, LordJob_FleshbeastAssault. All 3 colonists drafted at door [149,131]. Rice 75% growth, ~17h to harvest. Food 1.7 days CRITICAL.
+
+Day 5 17h: Undrafted all 3. Rice 77% growth, ~17h to harvest (21.6 nutrition). Food 1.7 days. Fleshbeasts (fingerspike x2, trispike, bulbfreak) at ~111 tiles NE, LordJob_FleshbeastAssault. Nytro (Gas Team drifter) at 137 tiles SE. All colonists undrafted, should resume work.

@@ -32,8 +32,6 @@ Protocol for every step: read the situation, act on the most urgent thing with t
 ## Journal (cross-game lessons, latest)
 {journal}
 
-## Standing instructions from the human operator (follow these; they override skills)
-{operator}
 
 ## Episode scores
 {scores}
@@ -78,7 +76,7 @@ def build_system(ctx: Context, situation_hint: str) -> str:
         selected_skills="\n\n".join(f"### {s.name}\n{s.body}" for s in selected) or "(none)",
         notebook=memory.notebook_read() or "(empty — start one)",
         journal=memory.journal_read(12) or "(empty)",
-        operator=memory.operator_read() or "(none yet)",
+        operator="",
         scores=scorecard.history_text(8),
         tool_errors="\n".join(errs) or "(none)",
     )
@@ -149,7 +147,7 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
             msgs, inbox[:] = list(inbox), []
             for m in msgs:
                 ctx.emit("log", {"text": f"operator message delivered mid-step: {m[:80]}"})
-            messages.append({"role": "user", "content": "## Message from the human operator\nAnswer it NOW with the reply_to_operator tool (one or two sentences), then act on it if it asks for something, then continue.\n" + "\n".join(f"- {m}" for m in msgs)})
+            messages.append({"role": "user", "content": "## Message from the human operator\nAnswer it NOW with the reply_to_operator tool (one or two sentences). If it is a tip or instruction about how to play, LEARN it: edit the most relevant skill with skill_write so it says this from now on (mark the line "operator tip"), and act on it in the colony if it applies right now. Then continue.\n" + "\n".join(f"- {m}" for m in msgs)})
         if ctx.stop_turn:
             res.ended_by_tool = True
             res.notes = ctx.wake.notes
