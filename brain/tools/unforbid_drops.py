@@ -5,11 +5,12 @@ from rimagent.registry import tool
       "unforbid them so colonists will haul them. Returns how many were unforbidden and their ids.",
       {"radius": "search radius from home (default 40)"})
 def unforbid_drops(ctx, radius=40):
-    items = ctx.bridge.call("map.find", kind="item", forbidden=True, radius=radius, limit=200)
+    res = ctx.bridge.call("map.find", kind="item", forbidden=True, radius=radius, limit=200)
+    items = res.get("things", res) if isinstance(res, dict) else res
     if not items:
         return {"unforbidden": 0, "ids": []}
-    ids = [it["id"] for it in items if it.get("id")]
+    ids = [it["id"] for it in items if isinstance(it, dict) and it.get("id")]
     if not ids:
         return {"unforbidden": 0, "ids": []}
-    res = ctx.bridge.call("ui.designate", designator="unforbid", things=ids)
-    return {"unforbidden": len(ids), "ids": ids, "result": res}
+    out = ctx.bridge.call("ui.designate", designator="unforbid", things=ids)
+    return {"unforbidden": len(ids), "ids": ids, "result": out}

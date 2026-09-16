@@ -15,3 +15,6 @@ Operator tip: outdoor stockpiles with no roof cause items to degrade (steel, com
 
 ## 2026-09-16 05:06 (episode 1): Confined interior (-10) is a real break trigger; bedrooms need >= 25 tiles
 A bedroom smaller than ~25 interior tiles gives the "Confined interior" moodlet (-10). A 2-cell room (just a bed + 1 free cell) is the worst case and on its own can push a fragile colonist (neurotic/depressive) to a mental break — verified day 10 with a 2-cell bedroom. Always build bedrooms at least 5x5 interior (>= 25 tiles). Check room size with rw_state_rooms; if a colonist's bedroom is small, expand it (deconstruct the wall, rebuild bigger) rather than leaving the -10.
+
+## 2026-09-16 05:39 (episode 1): Batteries must be roofed
+Operator tip: batteries placed outside (unroofed) can explode. Always keep batteries inside a roofed room. When placing a power setup, build a proper enclosed room for the battery + generator + conduits before connecting.

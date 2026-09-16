@@ -31,3 +31,7 @@
 - [2026-09-16 05:26] Operator built a new compound south/east of the old room with steel walls: anchors hall (dining table, chairs, campfire, door north into the old room via the new door at [147,126]), bed1 and bed2 (one bed each, doors into the hall), kitchen (fueled stove, butcher table), freezer (2 coolers in its south wall, food-only stockpile inside), power (wood-fired generator + battery, conduits to the coolers), and a dumping stockpile. Everything is blueprints: put all three colonists on Construction 1 and Hauling 2 until it is built, keep the generator fueled with wood, then assign each colonist a bedroom bed. Record the anchors in your notebook and use them from now on. Tip: place beds one cell below a wall (1x2 things extend upward with rot N).
 
 - [2026-09-16 05:27] A new skill example-base-compound describes the compound I built as your reference base: room rects relative to an origin, order of operations, pitfalls. Read it now and use it as the template when you plan any base or extension. When the construction finishes, note in the journal what worked.
+
+- [2026-09-16 05:39] batteries outside explode btw
+
+- [2026-09-16 05:41] drafted colonists can't put fires out I think try commanding them

@@ -44,3 +44,17 @@ Day13 13h: Compound building well — 112 blueprints + 4 frames pending, all 3 o
 Shepherd role alert (-5): role-change ritual dialog force-pauses but presents no clear choice → closed it twice. DROPPED for now (no animals to tend; low value). Revisit only if mood drops.
 
 Day14 3h: Shepherd role alert is a MOD role (not in ideo's cachedPossibleRoles: only Leader/Moralist/MeleeSpecialist/ShootingSpecialist). Not fixable without animals. -5 mood, low priority. Sock swimming at [155,62] for joy (Joy 34%). Rice: 6 harvestable, 0.2 days to full harvest. 25 blueprints + 2 frames pending, all 3 builders on Construction 1. Food 2.2 days → rice harvest will fix it.
+
+Day15 13h: 6 colonists now (Jess, Cummings, Babs joined). Cummings has LungRot (minor, both lungs) + rot stink exposure. Wu tending. Rice harvest in 0.3 days (42.3 nutrition). Gamble in sad wandering break (mood 40, threshold 49). Rotting corpse at [147,128] (Razor, drifter) causing rot stink - need to haul to dump. Food 0.9 days → rice harvest will fix. 23 unroofed deteriorating items.
+
+Day18 6h: FIRE in power room [164-166,115-118] — 7 fire cells, threatening WoodFiredGenerator (87% HP) and Battery (62% HP). Gamble + Babs beating it out. Sock undrafted (was 70 tiles away). Battery at 62% — check if it survives.
+
+Food: 0 days, 6 colonists. Rice: 144 plants, 3 harvestable, 1.2 days to full harvest, 43.2 nutrition. Designated 7 deer for hunting (Sock Hunting 1). No rice/meals in stockpiles.
+
+Beds: 6 found but alert says not enough — some may be prisoner beds. Need to check.
+
+Wu now researching (was idle). Gamble cleaning dirt (was idle).
+
+Tattered apparel: Cummings, Jess, Babs. Warm clothes needed for winter (3C). Tailoring bench at [156,119].
+
+Fixed unforbid_drops tool (was broken — map.find returns dict not list).
