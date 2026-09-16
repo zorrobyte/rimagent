@@ -52,3 +52,14 @@
 {"kind":"built","text":"bed built by McMillan","tick":39314,"day":0,"hour":21,"cell":[85,106],"data":{"def":"Bed","by":"Human421"},"seq":17}
 {"kind":"building_lost","text":"Wooden simple research bench (building) destroyed (FailConstruction)","tick":40899,"day":0,"hour":22,"cell":[86,101],"thing":"Frame_SimpleResearchBench39090","data":{"def":"Frame_SimpleResearchBench","mode":"FailConstruction"},"seq":18}
 {"kind":"message","text":"Wangleng failed while constructing a wooden simple research bench. Some resources have been wasted.","tick":40899,"day":0,"hour":22,"cell":[86,101],"data":{"type":"NegativeEvent"},"seq":19}
+{"kind":"game","text":"new game started","seq":1}
+{"kind":"game","text":"game loaded/started","data":{"day":0},"seq":2}
+{"kind":"research_finished","text":"complex furniture","tick":0,"day":0,"hour":6,"data":{"def":"ComplexFurniture"},"seq":3}
+{"kind":"research_finished","text":"passive cooler","tick":0,"day":0,"hour":6,"data":{"def":"PassiveCooler"},"seq":4}
+{"kind":"research_finished","text":"stonecutting","tick":0,"day":0,"hour":6,"data":{"def":"Stonecutting"},"seq":5}
+{"kind":"research_finished","text":"complex clothing","tick":0,"day":0,"hour":6,"data":{"def":"ComplexClothing"},"seq":6}
+{"kind":"research_finished","text":"electricity","tick":0,"day":0,"hour":6,"data":{"def":"Electricity"},"seq":7}
+{"kind":"research_finished","text":"nutrient paste","tick":0,"day":0,"hour":6,"data":{"def":"NutrientPaste"},"seq":8}
+{"kind":"research_finished","text":"air conditioning","tick":0,"day":0,"hour":6,"data":{"def":"AirConditioning"},"seq":9}
+{"kind":"research_finished","text":"deathrest","tick":0,"day":0,"hour":6,"data":{"def":"Deathrest"},"seq":10}
+{"kind":"day","text":"day 0","tick":250,"day":0,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":14582.0,"wealth_items":9579.0,"wealth_buildings":1973.0,"mood_avg":51.0,"nutrition":0.0,"food_days":0.0,"threat_points":35.0,"research_done":8,"temp_outdoor":2.0,"danger":"None","assisted":false},"seq":11}

@@ -13,6 +13,7 @@ namespace RimBridge.MapView
     /// to include the capture region, and let a second, enabled camera render into a RenderTexture through the
     /// normal pipeline. The following frame we read the pixels back and disable the camera again.
     /// </summary>
+    [StaticConstructorOnStartup]
     public static class Screenshot
     {
         public static CellRect? PendingRect;
