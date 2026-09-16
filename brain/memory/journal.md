@@ -49,3 +49,6 @@ Verified from RimWorld 1.6 source (FoodRestrictionDatabase.GenerateStartingFoodR
 - "NutrientPaste": allows everything except InsectJelly/HemogenPack.
 - Only "Any" (no restriction) and "Survival" allow survival packs.
 Rule: if your only food is survival packs, policy MUST be "Any" or "Survival". "Simple" and "Raw" both exclude them. This was the root cause of Kat starving twice in episode 3 (policy was "Simple" while 50 survival packs sat in the stockpile). The food_outlook tool detects this; the food_policy_watcher fires on day ticks.
+
+## 2026-09-16 11:01 (episode 3): Spike traps: colonists trigger their own traps
+Spike traps are not raider-only: colonists CAN trigger them. Episode 3 day 9: Kena was downed by a spike trap in the south approach lane [117,116] — the same lane she walked through to exit the barracks. The traps were meant for raiders but the colonist exit path went straight through them. Rule: place spike traps in the raider approach lane ONLY, offset from the colonist exit path. If the entrance is 2-wide: traps in the raider lane, a clear fence lane for colonists. If the entrance is 1-wide (a single door), put traps OUTSIDE the door on the raider approach side, not inside the barracks where colonists walk. A downed colonist in a spike trap is a medical emergency that wastes the doctor's time and can kill them if bleeding is severe.

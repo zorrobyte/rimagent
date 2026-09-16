@@ -5,7 +5,14 @@ description: Pull in when food stock is under ~10 days, when placing the first g
   how to cook (campfire vs stove, raw food, food poisoning). Also pull in when food_days
   is 0 or negative and you need to understand why the colony is starving.
 name: early-game-food
-tags: []
+tags:
+- food
+- cooking
+- crops
+- hunting
+- foraging
+- survival-packs
+- food-policy
 ---
 
 # Early-game food
@@ -21,6 +28,15 @@ Survival packs (MealSurvivalPack) are a **distinct food category** — they are 
 - **On refugee intake:** a new colonist may arrive with a food policy that excludes survival packs. Reset it to "Any" immediately.
 - **On any food crisis:** first check `rw_state_summary` → `food_policy` (or read the pawn's policy). If the policy excludes the food you actually have, fix the policy before doing anything else.
 - **Cooking survival packs:** you cannot cook them. They are pre-cooked. The only way to make them edible is to have the policy allow them.
+- **The `food_policy_watcher` checks ALL colonists on each day tick** (the old bug: it only checked the first colonist and missed others with different policies). If it fires, fix the policy for every flagged colonist.
+
+## Cooking bills — the #2 repeated failure
+The second most common food crisis cause: rice harvests but nobody cooked it because the cooking bill was never set (or got suspended/duplicate-cleaned). This happened ~8 times across episodes.
+- **`cook_bill` tool:** one call finds the best cooking station (FueledStove > Campfire) and sets a Forever CookMealSimple bill. Use it instead of 3-4 separate calls.
+- **`cook_gap` watcher:** fires on day tick; if no CookMealSimple bill is running and food_days < 6, it auto-sets a Forever bill on the best station and wakes the planner.
+- **Rule: after any food crisis, always verify a cooking bill is running** (check `food_outlook.cooking_bills`). If empty, run `cook_bill` immediately.
+- **Campfire work speed is 0.5x** (a 300-work meal takes 600). A fueled stove cooks 2x faster. Build a stove when you have the steel.
+- **Simple meals rot in 4 days** at room temperature: cook small batches until a freezer exists.
 
 ## Crop comparison (normal soil; all need fertility >= 70%)
 | Crop (def) | Grow days | Yield | Nutrition/harvest | Fertility sens. | Notes |
@@ -41,9 +57,17 @@ Per tile per day all three are within ~5% (rice slightly ahead). Grow days assum
 ## "It will self-correct" is only true if BOTH hold (the #1 repeated failure)
 A rice harvest "in 0.5 days" only saves you if:
 1. **A grower has Growing 1 AND PlantCutting 1** — otherwise nobody cuts the rice and it just sits at 100% while the colony starves. When a new colonist joins, the new roster's priorities often reset; re-audit Growing/PlantCutting on everyone.
-2. **A cook bill is running** (CookMealSimple on a campfire/stove) — harvested raw rice is useless until cooked, and raw food gives -7 mood. Check `rw_state_bills` / `food_outlook.cooking_bills`; if empty, queue the bill the same step.
+2. **A cook bill is running** (CookMealSimple on a campfire/stove) — harvested raw rice is useless until cooked, and raw food gives -7 mood. Check `food_outlook.cooking_bills`; if empty, run `cook_bill` immediately.
 3. **The food policy allows the food you have.** If you only have survival packs, the policy must be "Any" or "Survival". If you have raw rice, the policy must allow "Raw" or "Any". Check `food_outlook` → `food_policy` before calling a food crisis "self-correcting."
 If any of the three is missing, the harvest ETA is meaningless. Verify all three before calling a food crisis "self-correcting."
+
+## Campfire temperature in barracks (episode 3 lesson)
+A campfire inside a small barracks (8x6 room) raises the room to **28-32C** in spring/summer, causing "Slept in the heat" (-4 mood) every night for all colonists. This is a recurring mood drain that compounds with other debuffs.
+- **Fix options (in order of preference):**
+  1. **Move the campfire outside** the barracks (next to the wall, still roofed). The interaction cell must be free.
+  2. **Build a separate kitchen room** next to the barracks with the campfire/stove inside, and keep the barracks for sleeping only.
+  3. **Add a cooler** in the barracks (requires Cooler research + steel). Overkill for early game.
+- **If you can't move the campfire yet:** accept the -4 mood but note it in the notebook so you don't forget to fix it.
 
 ## Foraging
 Wild berry bushes give berries (14 days to rot). Find them with `rw_map_find` and harvest via `rw_ui_designate`. This bridges days 1-5 until the first rice comes in. In a crisis, designate 40-50 berry bushes for immediate food with no mood penalty.
@@ -60,6 +84,5 @@ Wild berry bushes give berries (14 days to rot). Find them with `rw_map_find` an
 - Drop a butcher spot immediately (free, 0 work) but it yields only 70% meat/leather; build a butcher table when materials allow. Raw meat rots in 2 days, vegetables ~30 days longer.
 - `rw_ui_build` def **Campfire**: 20 wood, burns 10 wood/day, holds 20, must sit under a roof (rain burns extra fuel). `rw_ui_add_bill` "simple meal, do until you have 10-15". Campfire work speed factor is 0.5 (a 300-work meal takes 600); a fueled stove cooks 2x faster and unlocks fine meals.
 - Give Cooking to the highest-skill cook. Food-poison chance by Cooking level: 0 = 5%, 3 = 2%, 4 = 1.5%, 6 = 0.5%, 8+ = 0.15% or less, scaled by kitchen cleanliness and difficulty (Losing is Fun x1.2). Skill 3+ in a clean room already beats raw food. Nutrient paste (dispenser + power) is 300% efficient and never poisons.
-- Simple meals rot in 4 days at room temperature: cook small batches until a freezer exists.
 
 Sources: Rice plant; Potato plant; Corn plant; Nutrition; Food; Saturation; Growing zone; Simple meal; Meals; Campfire; Food Poison Chance; Hunt; Hunting Stealth; Food production; Raw food; Berries; Butcher spot
