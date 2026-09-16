@@ -288,11 +288,12 @@ class Runner:
         for a in alerts:
             label = str(a.get("label", "")); pr = str(a.get("priority", ""))
             live.add(label)
-            urgent = pr in ("High", "Critical") or "idle" in label.lower()
+            prios = set(self.cfg["play"].get("alert_wake_priorities", ["Critical"]))
+            urgent = pr in prios or "idle" in label.lower()
             if not urgent:
                 continue
             last = self._seen_alerts.get(label)
-            if last is None or tick - last > 6 * TICKS_PER_HOUR:
+            if last is None or tick - last > float(self.cfg["play"].get("alert_rewake_hours", 24)) * TICKS_PER_HOUR:
                 self._seen_alerts[label] = tick
                 trigger = trigger or f"alert ({pr}): {label}"
         for label in list(self._seen_alerts):

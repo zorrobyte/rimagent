@@ -15,9 +15,11 @@ play:
   speed: 3                 # between steps: 1 normal, 2 fast, 3 superfast
   first_improve_day: 1     # first mid-episode improvement pass (skills/tools/watchers) this many days into a game
   improve_every_days: 3    # and then every N days
-  wake_hours: 8            # scheduled think interval (in-game hours) when the model doesn't say
-  min_wake_hours: 3        # floor for the model's own wake_in_hours (danger events/alerts bypass this)
-  event_cooldown_hours: 1  # non-critical wake events are ignored this long after a step
+  wake_hours: 12           # scheduled think interval (in-game hours) when the model doesn't say
+  min_wake_hours: 8        # floor for the model's own wake_in_hours (danger events/alerts bypass this)
+  event_cooldown_hours: 3  # non-critical wake events are ignored this long after a step
+  alert_wake_priorities: [Critical]   # game alerts that interrupt (plus any "idle colonist" alert); others wait for the next step
+  alert_rewake_hours: 24   # the same alert label won't interrupt again for this long
   critical_kinds: [dialog, hostile_group, colonist_downed, colonist_died, mental_break, building_lost]
   max_tool_calls: 30       # per think step
   max_days: 60             # episode length cap
