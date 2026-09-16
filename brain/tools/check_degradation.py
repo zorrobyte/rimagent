@@ -3,12 +3,12 @@ from rimagent.registry import tool
 @tool("check_degradation", "Find items degrading (HP < 90%) or rotting near the colony. Returns a list of degrading items with their HP and position.", {"radius": "search radius from home (default 30)"})
 def check_degradation(ctx, radius=30):
     import re
-    home = ctx.state.get("home_center", [0, 0])
+    summary = ctx.bridge.call("state.summary")
+    home = summary.get("home_center", [0, 0])
     items = ctx.bridge.call("map.find", kind="item", near=home, radius=radius, limit=200)
     degrading = []
     for t in items.get("things", []):
         label = t.get("label", "")
-        # Look for "(NN%)" pattern in label indicating HP < 100%
         m = re.search(r'\((\d+)%\)', label)
         if m:
             hp = int(m.group(1))
@@ -21,8 +21,6 @@ def check_degradation(ctx, radius=30):
                     "pos": t.get("pos"),
                     "count": t.get("count", 1),
                 })
-    # Also check outside_storage summary from state
-    summary = ctx.bridge.call("state.summary")
     outside = summary.get("outside_storage", {})
     result = {
         "degrading_count": len(degrading),

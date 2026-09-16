@@ -9,3 +9,6 @@ A campfire/stove/table/bed needs a free adjacent cell for a pawn to interact. Pl
 
 ## 2026-09-16 04:47 (episode 1): Hunting herbivores costs mood
 Killing an "innocent" herbivore (ibex, deer, elk, boar, turkey) triggers the "KilledInnocentAnimal_Horrible" moodlet (-15) on the hunter. This is a real tradeoff: those are the 0%-revenge species that are safe to hunt, but the hunter eats a -15 mood hit that lingers for days. For a small colony where a single colonist's mood is fragile (neurotic/depressive), prefer to (a) hunt sparingly, (b) rotate who hunts, or (c) accept the hit only when food is genuinely critical. If the hunter's mood is already low, the -15 can push them to a minor break.
+
+## 2026-09-16 04:51 (episode 1): Stockpiles need roofs or items degrade
+Operator tip: outdoor stockpiles with no roof cause items to degrade (steel, components, food, apparel all lose HP in rain). Check the roof layer over your main stockpile early (rw_map_view layer=roof). If it's all dots, build a roofed storage room or add a roof. Also check `outside_storage.storage_cells_free` in state.summary — if it's low, your stockpile is full and new items pile up loose/outside where they degrade. A roofed storage room (walls + roof + door) covering the stockpile is cheap insurance (~30 wall cells + roof) and protects 20+ stacks.
