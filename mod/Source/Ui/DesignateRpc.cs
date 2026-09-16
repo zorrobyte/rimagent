@@ -75,6 +75,23 @@ namespace RimBridge.Ui
         }
 
         [Rpc("ui.build", "{def: buildable defName (ThingDef or TerrainDef), at?: [x,z], rot?: N|E|S|W, stuff: ThingDef (required for stuff-made things; omit once to get the options), line?: [[x1,z1],[x2,z2]], rect?: [x,z,w,h], fill?: bool (rect: fill vs outline), dry_run?: bool} place blueprints; picks a stuff automatically if omitted (most plentiful allowed). Returns placed and failed cells with reasons.")]
+        [Rpc("ui.build_many", "{ops: [ {same params as ui.build}, ... ], stop_on_error?: false} place a whole layout in one call (walls as rect outlines, floors as filled rects, doors/furniture as single cells). Returns one result per op. Use map.detail before and after.")]
+        public static JToken BuildMany(JObject p)
+        {
+            Map();
+            var ops = P.Arr(p, "ops") ?? throw new RpcError("missing ops");
+            bool stop = P.Bool(p, "stop_on_error", false);
+            var results = new JArray();
+            int i = 0;
+            foreach (var op in ops.OfType<JObject>())
+            {
+                try { var r = (JObject)Build(op); r["op"] = i; results.Add(r); }
+                catch (RpcError e) { results.Add(new JObject { ["op"] = i, ["error"] = e.Message, ["def"] = (string?)op["def"] }); if (stop) break; }
+                i++;
+            }
+            return new JObject { ["results"] = results, ["placed_total"] = results.Sum(r => (r["placed"] as JArray)?.Count ?? 0), ["failed_total"] = results.Sum(r => (r["failed"] as JArray)?.Count ?? (r["error"] != null ? 1 : 0)) };
+        }
+
         public static JToken Build(JObject p)
         {
             var map = Map();

@@ -118,3 +118,12 @@ A step is one LLM conversation with a tool budget (~30 calls). Every step **must
 1. `rw_engine_members(path="Pawn:Sparky.health.hediffSet")` -> find `hediffs`.
 2. `rw_engine_get(path="Pawn:Sparky.health.hediffSet.hediffs", depth=2)` -> each hediff with `def`, `Severity`, `Part`.
 3. `rw_engine_get(path="Find.Storyteller.difficulty.threatScale")` -> `1.0` on Rough.
+
+## The building camera: `rw_map_detail` (use it for every build)
+
+`rw_map_detail(x=, z=, w=, h=)` or `rw_map_detail(around=<thingId|pawn>)` is a zoomed view (up to 60x60) where **every column is numbered** (read x down the three header rows: hundreds / tens / units; z is the row label), each building type gets its own letter (UPPER = built, lower = blueprint/frame, legend included), `*` marks interaction spots that must stay clear (benches, stoves, beds, tables), `+` doors, `_` stockpile, `,` growing zone, `i` items. It also returns `things` in view with id, rot, size and interaction_cell. Workflow for any construction:
+1. `rw_map_detail` around the site → pick exact cells on the numbered grid.
+2. `rw_ui_build(..., dry_run=true)` for anything with an interaction spot or footprint > 1x1; the failure reason tells you what blocks it; adjust `rot` (N/E/S/W moves the interaction spot) or the cell.
+3. For a whole room or layout use one `rw_ui_build_many(ops=[...])`: e.g. `[{"def":"Wall","stuff":"WoodLog","rect":[130,120,9,7]}, {"def":"Door","stuff":"WoodLog","at":[134,120]}, {"def":"WoodPlankFloor","rect":[131,121,7,5],"fill":true}, {"def":"Bed","stuff":"WoodLog","at":[132,124],"rot":"N"}]` — walls as rect outline, floors as filled rects, then furniture. It returns one result per op; failed cells list the reason.
+4. `rw_map_detail` again to verify (lowercase letters = your blueprints).
+Rooms: leave at least one free cell around furniture, put the door on the side facing the base, keep 2-3 cells of walking space; a bedroom is at least 5x5 interior, a workshop 8x8. To enlarge an existing room, designate `deconstruct` on the wall segment, build the new outline, then a door.

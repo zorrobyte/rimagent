@@ -29,6 +29,106 @@ namespace RimBridge.MapView
             return new JObject { ["legend"] = AsciiView.Legend, ["box"] = Render.Value(box, 1), ["grid"] = AsciiView.RenderLayer(map, box, layer) };
         }
 
+        [Rpc("map.detail", "{x?, z?, around?: thingId|pawn (centre on it), w?: 24, h?: 24 (max 60 — enough for a whole base), roof?: false} the BUILDING CAMERA: zoomed ASCII where every column is numbered, each building type gets its own letter (UPPER = built, lower = blueprint/frame), '*' marks interaction spots that must stay clear, '+' doors, '_' stockpile, ',' growing zone, 'i' items, '@' colonists, '!' hostiles, '^' rock, '~' water, '.' open ground. Returns legend + list of things in view with id/rot/size. Use before and after placing anything.")]
+        public static JToken Detail(JObject p)
+        {
+            var map = Map();
+            IntVec3 center;
+            if (p["around"] != null)
+            {
+                var t = Lookup.ThingOrNull(P.Str(p, "around")) ?? Lookup.Pawn(P.Str(p, "around"));
+                center = t.PositionHeld;
+            }
+            else
+            {
+                var home = State.Snapshot.HomeCenter(map);
+                center = new IntVec3(P.Int(p, "x", home.x), 0, P.Int(p, "z", home.z));
+            }
+            int w = Math.Min(P.Int(p, "w", 24), 60), h = Math.Min(P.Int(p, "h", 24), 60);
+            bool roofLayer = P.Bool(p, "roof", false);
+            var box = CellRect.CenteredOn(center, w, h).ClipInsideMap(map);
+
+            var letters = new Dictionary<string, char>();
+            var counts = new Dictionary<string, int>();
+            string alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ0123456789";
+            char LetterFor(string def)
+            {
+                if (!letters.TryGetValue(def, out var c)) { c = letters.Count < alphabet.Length ? alphabet[letters.Count] : '?'; letters[def] = c; }
+                counts[def] = counts.TryGetValue(def, out var n) ? n + 1 : 1;
+                return c;
+            }
+            var interaction = new HashSet<IntVec3>();
+            var things = new JArray();
+            var seen = new HashSet<Thing>();
+            foreach (var c in box)
+            {
+                foreach (var t in c.GetThingList(map))
+                {
+                    if (seen.Contains(t)) continue;
+                    if (t.def.category != ThingCategory.Building && !(t is Blueprint) && !(t is Frame)) continue;
+                    if (t.def.building?.isNaturalRock == true || t.def.defName.Contains("Conduit")) continue;
+                    seen.Add(t);
+                    var def = (t as Blueprint)?.def.entityDefToBuild ?? (t as Frame)?.def.entityDefToBuild ?? (BuildableDef)t.def;
+                    if (def is ThingDef td && td.hasInteractionCell)
+                        interaction.Add(ThingUtility.InteractionCellWhenAt(td, t.Position, t.Rotation, map));
+                    var o = new JObject { ["id"] = t.ThingID, ["def"] = def.defName, ["pos"] = new JArray(t.Position.x, t.Position.z), ["rot"] = t.Rotation.ToStringWord(), ["size"] = new JArray(t.def.size.x, t.def.size.z), ["state"] = t is Blueprint ? "blueprint" : t is Frame ? "frame" : "built" };
+                    if (def is ThingDef td2 && td2.hasInteractionCell) o["interaction_cell"] = State.Snapshot.Cell(ThingUtility.InteractionCellWhenAt(td2, t.Position, t.Rotation, map));
+                    things.Add(o);
+                }
+            }
+            var colonists = new HashSet<IntVec3>(map.mapPawns.FreeColonistsSpawned.Select(x => x.Position));
+            var hostiles = new HashSet<IntVec3>(map.mapPawns.AllPawnsSpawned.Where(x => x.HostileTo(Faction.OfPlayer)).Select(x => x.Position));
+            var sb = new System.Text.StringBuilder();
+            // rulers: tens digits then units digits, one column per cell
+            sb.Append("      "); for (int x = box.minX; x <= box.maxX; x++) sb.Append(x >= 100 ? (x / 100).ToString() : " "); sb.Append('\n');
+            sb.Append("      "); for (int x = box.minX; x <= box.maxX; x++) sb.Append((x / 10 % 10).ToString()); sb.Append('\n');
+            sb.Append("      "); for (int x = box.minX; x <= box.maxX; x++) sb.Append((x % 10).ToString()); sb.Append('\n');
+            for (int z = box.maxZ; z >= box.minZ; z--)
+            {
+                sb.Append(z.ToString().PadLeft(4)).Append("  ");
+                for (int x = box.minX; x <= box.maxX; x++)
+                {
+                    var c = new IntVec3(x, 0, z);
+                    char g;
+                    if (c.Fogged(map)) g = '?';
+                    else if (hostiles.Contains(c)) g = '!';
+                    else if (colonists.Contains(c)) g = '@';
+                    else
+                    {
+                        Thing? b = null;
+                        foreach (var t in c.GetThingList(map))
+                        {
+                            if (t.def.building?.isNaturalRock == true) { b = t; break; }
+                            if ((t.def.category == ThingCategory.Building || t is Blueprint || t is Frame) && !t.def.defName.Contains("Conduit")) { b = t; break; }
+                        }
+                        if (b != null && b.def.building?.isNaturalRock == true) g = b.def.building.isResourceRock ? 'o' : '^';
+                        else if (b != null)
+                        {
+                            var def = (b as Blueprint)?.def.entityDefToBuild ?? (b as Frame)?.def.entityDefToBuild ?? (BuildableDef)b.def;
+                            if (b is Building_Door || (def is ThingDef dd && dd.thingClass == typeof(Building_Door)) || def.defName.Contains("Door")) g = '+';
+                            else { g = LetterFor(def.defName); if (b is Blueprint || b is Frame) g = char.ToLowerInvariant(g); }
+                        }
+                        else if (interaction.Contains(c)) g = '*';
+                        else if (roofLayer && c.Roofed(map)) g = c.GetRoof(map).isThickRoof ? 'R' : 'r';
+                        else if (c.GetThingList(map).Any(t => t.def.category == ThingCategory.Item)) g = 'i';
+                        else if (c.GetZone(map) is Zone_Stockpile) g = '_';
+                        else if (c.GetZone(map) is Zone_Growing) g = ',';
+                        else if (c.GetTerrain(map).IsWater) g = '~';
+                        else if (c.GetTerrain(map).passability == Traversability.Impassable) g = '^';
+                        else if (c.GetPlant(map) is Plant pl && pl.def.plant.IsTree) g = 'T';
+                        else g = '.';
+                    }
+                    sb.Append(g);
+                }
+                sb.Append('\n');
+            }
+            var legend = new JObject();
+            foreach (var kv in letters) legend[kv.Value.ToString()] = kv.Key + " x" + counts[kv.Key] + " (lowercase = blueprint/frame)";
+            legend["*"] = "interaction spot — keep clear"; legend["+"] = "door"; legend["_"] = "stockpile"; legend[","] = "growing zone"; legend["i"] = "item"; legend["@"] = "colonist"; legend["!"] = "hostile"; legend["^"] = "rock"; legend["o"] = "ore"; legend["~"] = "water"; legend["T"] = "tree"; legend["."] = "open";
+            if (roofLayer) { legend["r"] = "roofed (constructed)"; legend["R"] = "thick rock roof"; }
+            return new JObject { ["box"] = Render.Value(box, 1), ["centre"] = State.Snapshot.Cell(center), ["grid"] = sb.ToString(), ["legend"] = legend, ["things"] = things, ["tip"] = "x is read down the three header rows (hundreds/tens/units); z is the row label. Cells: [x, z]." };
+        }
+
         [Rpc("map.overview", "{blocks?: 50} coarse whole-map picture, one char per block (majority feature)")]
         public static JToken Overview(JObject p)
         {

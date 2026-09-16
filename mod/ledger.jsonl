@@ -5015,3 +5015,39 @@
 {"kind":"built","text":"wood floor built by Gamble","tick":458621,"day":7,"hour":21,"cell":[147,128],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":58}
 {"kind":"built","text":"wood floor built by Gamble","tick":458682,"day":7,"hour":21,"cell":[147,127],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":59}
 {"kind":"built","text":"wood floor built by Gamble","tick":458776,"day":7,"hour":21,"cell":[146,129],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":60}
+{"kind":"quest","text":"Young Vagabonds Hope for Aid","tick":468000,"day":7,"hour":1,"data":{"id":1,"state":"Ongoing"},"seq":61}
+{"kind":"letter","text":"Quest active: Young Vagabonds Hope for Aid","tick":468000,"day":7,"hour":1,"data":{"label":"Quest active: Young Vagabonds Hope for Aid","def":"NewQuest","text":"A new quest is available.\n\nThe quest is called 'Young Vagabonds Hope for Aid'.","id":11,"quest":1},"seq":62}
+{"kind":"incident","text":"beggars arrive","tick":468000,"day":7,"hour":1,"data":{"def":"GiveQuest_Beggars","category":"GiveQuest","points":35.0,"faction":null,"strategy":null,"arrival":null},"seq":63}
+{"kind":"message","text":"Beggars have accepted the requested items and are leaving.","tick":470958,"day":7,"hour":2,"cell":[206,158],"thing":"Human53732","data":{"type":"PositiveEvent"},"seq":64}
+{"kind":"quest","text":"Ancient Warehouse","tick":470958,"day":7,"hour":2,"data":{"id":2,"state":"Ongoing"},"seq":65}
+{"kind":"letter","text":"Quest active: Ancient Warehouse","tick":470958,"day":7,"hour":2,"data":{"label":"Quest active: Ancient Warehouse","def":"NewQuest","text":"A new quest is available.\n\nThe quest is called 'Ancient Warehouse'.","id":12,"quest":2},"seq":66}
+{"kind":"built","text":"wood floor built by Gamble","tick":475549,"day":7,"hour":4,"cell":[146,128],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":67}
+{"kind":"construction_failed","text":"Wood floor (building) failed (materials lost)","tick":475636,"day":7,"hour":4,"cell":[146,127],"data":{"def":"Frame_WoodPlankFloor"},"seq":68}
+{"kind":"built","text":"wood floor built by Gamble","tick":475801,"day":7,"hour":4,"cell":[148,127],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":69}
+{"kind":"message","text":"Wu has gotten food poisoning from: Simple meal. Cause: Incompetent cook.","tick":479337,"day":7,"hour":5,"cell":[140,133],"thing":"Human496","data":{"type":"NegativeEvent"},"seq":70}
+{"kind":"built","text":"wood floor built by Gamble","tick":479620,"day":7,"hour":5,"cell":[146,127],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":71}
+{"kind":"quest","text":"The Solitary Knight","tick":480000,"day":8,"hour":6,"data":{"id":3,"state":"NotYetAccepted"},"seq":72}
+{"kind":"letter","text":"Quest available: The Solitary Knight","tick":480000,"day":8,"hour":6,"data":{"label":"Quest available: The Solitary Knight","def":"NewQuest","text":"A new quest is available.\n\nThe quest is called 'The Solitary Knight'.\n\nIf you don't accept the quest within 2 days, it will expire.","id":24,"quest":3},"seq":73}
+{"kind":"incident","text":"imperial wimp","tick":480000,"day":8,"hour":6,"data":{"def":"GiveQuest_Intro_Wimp","category":"GiveQuest","points":35.0,"faction":null,"strategy":null,"arrival":null},"seq":74}
+{"kind":"day","text":"day 8","tick":480000,"day":8,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":0,"wealth":16580.0,"wealth_items":11359.0,"wealth_buildings":2866.0,"mood_avg":51.0,"nutrition":23.0,"food_days":4.8,"threat_points":35.0,"research_done":8,"temp_outdoor":15.0,"danger":"None","assisted":false},"seq":75}
+{"kind":"built","text":"wall built by Gamble","tick":480952,"day":8,"hour":6,"cell":[144,128],"data":{"def":"Wall","by":"Human490"},"seq":76}
+{"kind":"message","text":"Critical alert: Major break risk","tick":483550,"day":8,"hour":7,"cell":[138,133],"thing":"Human490","data":{"type":"ThreatBig"},"seq":77}
+{"kind":"construction_failed","text":"Wooden wall (building) failed (materials lost)","tick":485935,"day":8,"hour":8,"cell":[142,127],"data":{"def":"Frame_Wall"},"seq":78}
+{"kind":"built","text":"wall built by Gamble","tick":486124,"day":8,"hour":8,"cell":[143,127],"data":{"def":"Wall","by":"Human490"},"seq":79}
+{"kind":"built","text":"wall built by Gamble","tick":486313,"day":8,"hour":8,"cell":[144,127],"data":{"def":"Wall","by":"Human490"},"seq":80}
+{"kind":"built","text":"wall built by Gamble","tick":488083,"day":8,"hour":9,"cell":[142,127],"data":{"def":"Wall","by":"Human490"},"seq":81}
+{"kind":"letter","text":"Fallen monolith","tick":502335,"day":8,"hour":14,"cell":[69,51],"thing":"VoidMonolith39043","data":{"label":"Fallen monolith","def":"PositiveEvent","text":"Sock has noticed an ancient monolith partly buried nearby.\n\nIf you investigate it, you could learn more.","id":25},"seq":82}
+{"kind":"message","text":"Critical alert: Major break risk","tick":503064,"day":8,"hour":15,"cell":[143,134],"thing":"Human490","data":{"type":"ThreatBig"},"seq":83}
+{"kind":"message","text":"Sock has gotten food poisoning from: Simple meal. Cause: Incompetent cook.","tick":514510,"day":8,"hour":19,"cell":[142,133],"thing":"Human493","data":{"type":"NegativeEvent"},"seq":84}
+{"kind":"built","text":"door built by Gamble","tick":516268,"day":8,"hour":20,"cell":[153,129],"data":{"def":"Door","by":"Human490"},"seq":85}
+{"kind":"built","text":"bed built by Gamble","tick":516508,"day":8,"hour":20,"cell":[154,129],"data":{"def":"Bed","by":"Human490"},"seq":86}
+{"kind":"built","text":"wall built by Gamble","tick":517804,"day":8,"hour":21,"cell":[154,128],"data":{"def":"Wall","by":"Human490"},"seq":87}
+{"kind":"built","text":"wall built by Gamble","tick":517849,"day":8,"hour":21,"cell":[153,128],"data":{"def":"Wall","by":"Human490"},"seq":88}
+{"kind":"built","text":"wall built by Gamble","tick":517894,"day":8,"hour":21,"cell":[155,128],"data":{"def":"Wall","by":"Human490"},"seq":89}
+{"kind":"built","text":"wall built by Gamble","tick":517960,"day":8,"hour":21,"cell":[156,128],"data":{"def":"Wall","by":"Human490"},"seq":90}
+{"kind":"built","text":"wall built by Gamble","tick":518077,"day":8,"hour":21,"cell":[156,129],"data":{"def":"Wall","by":"Human490"},"seq":91}
+{"kind":"built","text":"wall built by Gamble","tick":518143,"day":8,"hour":21,"cell":[156,130],"data":{"def":"Wall","by":"Human490"},"seq":92}
+{"kind":"built","text":"wall built by Gamble","tick":518284,"day":8,"hour":21,"cell":[155,130],"data":{"def":"Wall","by":"Human490"},"seq":93}
+{"kind":"built","text":"wall built by Gamble","tick":518329,"day":8,"hour":21,"cell":[154,130],"data":{"def":"Wall","by":"Human490"},"seq":94}
+{"kind":"built","text":"wall built by Gamble","tick":518668,"day":8,"hour":21,"cell":[153,130],"data":{"def":"Wall","by":"Human490"},"seq":95}
+{"kind":"day","text":"day 9","tick":540000,"day":9,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":0,"wealth":15363.0,"wealth_items":10720.0,"wealth_buildings":3062.0,"mood_avg":51.0,"nutrition":21.3,"food_days":4.4,"threat_points":35.0,"research_done":8,"temp_outdoor":13.0,"danger":"None","assisted":false},"seq":96}
