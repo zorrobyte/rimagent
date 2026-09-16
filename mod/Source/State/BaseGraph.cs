@@ -45,10 +45,11 @@ namespace RimBridge.State
             }
             // doors: border door cells and what they lead to
             var doors = new JArray();
+            var seenDoors = new HashSet<Building_Door>();
             foreach (var c in r.BorderCells)
             {
                 var d = c.GetEdifice(map) as Building_Door;
-                if (d == null) continue;
+                if (d == null || !seenDoors.Add(d)) continue;
                 var other = new IntVec3[] { c + IntVec3.North, c + IntVec3.South, c + IntVec3.East, c + IntVec3.West }
                     .Select(n => n.GetRoom(map)).FirstOrDefault(rr => rr != null && rr != r && !rr.IsDoorway);
                 string leads = other == null ? "?" : other.PsychologicallyOutdoors || other.TouchesMapEdge ? "outside" : (other.Role?.defName ?? "room") + " #" + other.ID;

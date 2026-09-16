@@ -1,64 +1,39 @@
 # Colony notebook — episode 1, seed rimagent-1
 
-## Roster (3 colonists, home [135,138], TemperateForest, Summer, 25C)
-- **Gamble** (Human490): Construction 12!!, Social 6!, Shooting 5! → BUILDER. Mood 67% (Catharsis +40). Malnutrition moderate (0.53), Consciousness 65%, Moving 46%. Resting at Bed39188 (now medical). Wu tending. Depressive + Very neurotic traits.
-- **Sock** (Human493): Mining 10!!, Medicine 5! → MINER/COOK. Mood 51%. Cooking. Revolver.
-- **Wu** (Human496): Medicine 8!!, Animals 3!! → DOCTOR/RESEARCHER. Mood 48%. Tending Gamble. Knife.
+## Roster (6 colonists, home [143,131], TemperateForest, Summer→Winter, 16C)
+- **Gamble** (Human490): Construction 12!!, Social 6!, Shooting 5! → BUILDER/COOK. Mood 25% (threshold 49%, Very neurotic + Depressive). Cooking at campfire. Bedroom Room:21 is 2x1 (2 cells) — "confined interior" trap, causes Awful bedroom -2.
+- **Sock** (Human493): Mining 10!!, Medicine 5! → MINER/COOK. Mood 69%. Bruises (right leg, left arm), 87% health, needs medical treatment. Revolver.
+- **Wu** (Human496): Medicine 8!!, Intellectual 4 → DOCTOR/RESEARCHER. Mood 24%. LungRot (minor). Set Doctor/Patient 1. Tending Sock.
+- **Jess** (Human78638): Melee 11!!, Plants 9!!, Cooking 4! → FARMER/FIGHTER. Mood 25%. Tattered apparel.
+- **Babs** (Human78642): Shooting 1, Mining 1, Cooking 1 → NEW REFUGEE. Mood 56%. Tattered apparel.
+- **Cummings** (Human78634): Mining 12!!, Intellectual 7!! → MINER/RESEARCHER. Mood 4%, DOWED. Alcohol withdrawal -35, LungRot (both lungs), Cirrhosis. In bedroom Room:10, medical_care Best. Wu tending.
 
-## Day 12 9h status
-- Gamble: mood 67% (Catharsis +40, will fade in ~2 days → mood drops to ~27% then). Malnutrition 0.53, recovering. Resting at medical bed.
-- Food 2.6 days. Rice: 71 plants, avg growth 0.698, 0 harvestable, est 0.9 days to full harvest. est_nutrition 21.3.
-- 17 wall blueprints + 1 door frame pending (storage room). Sock Construction 2 building.
-- 27 unroofed deteriorating items — storage room will fix.
-- No hostiles. threat_points 35.
-- Research: SolarPanels 19%.
-- Shepherd role unfilled (-5 mood all). Ritual "role change" pressed but didn't complete. Try again next step.
-- Medical bed set on Bed39188.
+## Day 21 6h status
+- Cummings DOWNED (mood 4%, alcohol withdrawal -35, no alcohol in colony). Wu tending.
+- Sock needs medical treatment (bruises, 87% HP).
+- Food 0.8 days → rice harvest in 0.5 days (+43.2 nutrition). CookMealSimple Forever bill on FueledStove75660.
+- All 6 food policies set to "Simple" (cooked meals).
+- No alcohol/beer in colony — Cummings's withdrawal can't be fixed.
+- Gamble mood 25% (threshold 49%) — below major break threshold 28%. Depressive -12, Hungry -6, No Shepherd -5.
+- 19 unroofed deteriorating items, 13 damaged items.
+- No hostiles. threat_points 47.
+- Research: SolarPanels 73%.
+- Quest "Hospitality for Skye" expires in 13h — letting it expire (colony too strained).
+- Winter coming (-5C). Need warm clothes. Tailoring bench in kitchen.
 
 ## Open / next
-- Gamble: watch mood after Catharsis fades (~day 14). If <35%, need to fix: private bedroom (Room:9 is 2x1, -10 confined), table, cooked meals.
-- Rice harvest: 0.9 days to full harvest. Sock Growing 1 will harvest.
-- Storage room: 17 blueprints, Sock building.
-- Shepherd role: try ritual again or engine assign.
-- 27 unroofed items: storage room will fix.
-- 4 fleshbeasts ~111 tiles NE (fogged, not urgent).
+- Cummings: watch after Wu tends her. Mood 4% is critical. If she breaks, draft others away.
+- Gamble: mood 25% vs threshold 49% — at risk of major break. Fix bedroom (Room:21, 2 cells) when construction bandwidth allows.
+- Sock: Wu should treat his bruises.
+- Rice harvest: 0.5 days to full harvest. Sock/Gamble Growing/PlantCutting 1 will harvest.
+- Warm clothes: set up tailoring bill for Winter clothes before cold snap.
+- 19 unroofed items: build storage room or add roof.
+- Tattered apparel: Jess, Babs, Cummings — need new clothes.
 
 ## Key coordinates
 - Shelter [145,126,8,6], door [149,131], spike traps [147,132][149,132][151,132]
-- Stockpile [142,136,8,6], Rice1 [122,143,6,6], Rice2 [119,152,6,6]
-- Campfire [150,129], Research bench [148,128], Table [148,130]
-- Horseshoes pins [146,124][151,130][152,132], Darktorch [151,128]
-- Beds: [146,129] normal (medical), [146,130] good, [146,127] normal, [154,129] excellent
-- RitualSpot [151,127]
-
-Day 12: Operator built new compound SE of old room (all blueprints, 153 total).
-Anchors: hall (dining/chairs/campfire/door N to old room via [147,126]), bed1 (8x7, 19 cells S), bed2 (8x7, 20 cells S), kitchen (fueled stove + butcher table), freezer (2 coolers + food stockpile), power (wood-fired gen + battery + conduits), dump (stockpile).
-All 3 set to Construction 1, Hauling 2. Generator is blueprint — fuel with wood once built.
-Tip: beds rot N extend 1 cell up — place 1 cell below wall.
-
-Day12 23h: FIRE at old campfire/research-bench area [150,126] (Critical alert). Gamble beat it out; no fires left near home (others 73+ tiles away). A wall near the fire took damage to ~85% (self-repairs). All 3 set Construction 1 / Firefighter 1 / Hauling 2 to push the 153-blueprint compound. Food 3.0 days. Mood avg 60.
-
-Day12 0h: Operator built compound (153 blueprints, 3 builders on Construction 1). Food 2.8 days but rice harvests in ~0.7 days (+~2 days nutrition) so it self-corrects. 2x CookMealSimple bills running on Campfire39256. Shepherd role still unfilled (-5 mood); role-change ritual dialog opened but had no clear choice, closed it — revisit later. Mood avg 62, no hostiles, threat 35.
-
-Day13 13h: Compound building well — 112 blueprints + 4 frames pending, all 3 on Construction 1 (Gamble/Wu/Sock), building ~25 walls/day. Wood: 61 logs + queued 14 trees for harvestwood (Poplar/Oak near home). Steel 549. Food 2.8 days but rice harvest in 0.6 days (+21.6 nutrition) → self-corrects. Mood avg 66. No hostiles, threat 36.
-Shepherd role alert (-5): role-change ritual dialog force-pauses but presents no clear choice → closed it twice. DROPPED for now (no animals to tend; low value). Revisit only if mood drops.
-
-Day14 3h: Shepherd role alert is a MOD role (not in ideo's cachedPossibleRoles: only Leader/Moralist/MeleeSpecialist/ShootingSpecialist). Not fixable without animals. -5 mood, low priority. Sock swimming at [155,62] for joy (Joy 34%). Rice: 6 harvestable, 0.2 days to full harvest. 25 blueprints + 2 frames pending, all 3 builders on Construction 1. Food 2.2 days → rice harvest will fix it.
-
-Day15 13h: 6 colonists now (Jess, Cummings, Babs joined). Cummings has LungRot (minor, both lungs) + rot stink exposure. Wu tending. Rice harvest in 0.3 days (42.3 nutrition). Gamble in sad wandering break (mood 40, threshold 49). Rotting corpse at [147,128] (Razor, drifter) causing rot stink - need to haul to dump. Food 0.9 days → rice harvest will fix. 23 unroofed deteriorating items.
-
-Day18 6h: FIRE in power room [164-166,115-118] — 7 fire cells, threatening WoodFiredGenerator (87% HP) and Battery (62% HP). Gamble + Babs beating it out. Sock undrafted (was 70 tiles away). Battery at 62% — check if it survives.
-
-Food: 0 days, 6 colonists. Rice: 144 plants, 3 harvestable, 1.2 days to full harvest, 43.2 nutrition. Designated 7 deer for hunting (Sock Hunting 1). No rice/meals in stockpiles.
-
-Beds: 6 found but alert says not enough — some may be prisoner beds. Need to check.
-
-Wu now researching (was idle). Gamble cleaning dirt (was idle).
-
-Tattered apparel: Cummings, Jess, Babs. Warm clothes needed for winter (3C). Tailoring bench at [156,119].
-
-Fixed unforbid_drops tool (was broken — map.find returns dict not list).
-
-Day19 15h: Cummings mood 0% (extreme break risk, -35 alcohol withdrawal, no alcohol in colony). Sock mood 11% (major break risk, -15 killed ibex, -12 ate corpse). Food 0.1 days, rice harvests in 0.6 days (43.2 nutrition). Wu has LungRot (minor), set medical policy NormalOrWorse. 4 fleshbeasts ~100 tiles NE fogged. No active fire found (alert likely stale). 6 beds for 6 colonists (alert may be stale). Tattered apparel: Jess, Babs, Cummings. Winter 3C coming — need warm clothes.
-
-Day21 improvement pass (no colony actions): (1) Fixed food_outlook tool (was SyntaxError: `def=` reserved kwarg → `**{"def":...}`); now also checks campfire bills. (2) Added bed_audit tool (per-bed owner setting/medical/owner + colonist-usable count) to settle the recurring "6 beds but alert says not enough" confusion. (3) Extended refugee_intake tool to flag drug-need pawns (-35 withdrawal = #1 break cause). (4) Tightened mood-and-mental-breaks skill: added crisis-debuff table (alcohol withdrawal -35, ate corpse -12, killed herbivore -15, rotting corpse -6, no shepherd -5) + social-fight gun handling. (5) Tightened early-game-food: "self-corrects" only true if a grower has Growing/PlantCutting 1 AND a cook bill is running. Journal: alcohol/drug withdrawal lesson.
+- Stockpile [142,136,8,6], Rice1 [127,143,6,6], Rice2 [117,150,6,6], Rice3 [130,152,6,6], Rice4 [135,153,6,6]
+- Campfire [150,129], FueledStove [158,121], Research bench [148,128]
+- Beds: [146,130] normal, [146,129] normal, [146,127] normal, [154,129] excellent, [142,114] normal, [149,114] normal
+- Kitchen (Room:15) [155,117], Tailoring bench in kitchen
+- Dump [128,140], [166,124]

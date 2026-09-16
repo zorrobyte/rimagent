@@ -5390,3 +5390,5 @@
 {"kind":"colonist_downed","text":"Cummings downed","tick":1256574,"day":20,"hour":4,"cell":[149,120],"thing":"Human78634","data":{"cause":null},"seq":74}
 {"kind":"message","text":"Critical alert: Colonist needs rescue","tick":1256641,"day":20,"hour":4,"cell":[149,120],"thing":"Human78634","data":{"type":"ThreatBig"},"seq":75}
 {"kind":"day","text":"day 21","tick":1260000,"day":21,"hour":6,"data":{"colonists":6,"downed":1,"prisoners":0,"animals":1,"wealth":16479.0,"wealth_items":7913.0,"wealth_buildings":6381.0,"mood_avg":33.0,"nutrition":7.5,"food_days":0.8,"threat_points":47.0,"research_done":8,"temp_outdoor":16.0,"danger":"None","assisted":false},"seq":76}
+{"kind":"message","text":"Cummings, Geologist is no longer incapable of walking.","tick":1264225,"day":21,"hour":7,"cell":[149,114],"thing":"Human78634","data":{"type":"PositiveEvent"},"seq":77}
+{"kind":"message","text":"The eclipse is ending.","tick":1271830,"day":21,"hour":10,"data":{"type":"NeutralEvent"},"seq":78}

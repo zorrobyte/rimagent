@@ -35,3 +35,5 @@
 - [2026-09-16 05:39] batteries outside explode btw
 
 - [2026-09-16 05:41] drafted colonists can't put fires out I think try commanding them
+
+- [2026-09-16 06:23] Compound is built (hall, bed1, bed2, kitchen, freezer, generator). Two things I fixed and you must learn: (1) coolers start at a 21C target — after building a freezer press the cooler gizmo -10C three times (check with rw_ui_gizmos; verify via GetInspectString or state.base room temp); (2) the battery blueprint never got built — check why and rebuild it near the generator. Also: the old room is open to the sky (3 beds, campfire, research bench are outside any enclosed room) — either close its wall or move those beds into bed1/bed2 and assign owners. Food is 0.8 days with 6 colonists: that is the top priority.
