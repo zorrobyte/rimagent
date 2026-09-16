@@ -61,6 +61,8 @@ namespace RimBridge.State
             o["designations"] = map.designationManager.AllDesignations.Count;
             o["power"] = PowerSummary(map);
             o["key_stocks"] = KeyStocks(map);
+            o["outside_storage"] = OutsideStorage(map);
+            o["room_digest"] = RoomDigest(map);
             o["speed"] = (int)Find.TickManager.CurTimeSpeed;
             o["paused"] = Find.TickManager.Paused;
             return o;
@@ -145,6 +147,43 @@ namespace RimBridge.State
             o["stone_blocks"] = map.resourceCounter.GetCountIn(ThingCategoryDefOf.StoneBlocks);
             o["meals_all"] = map.resourceCounter.GetCountIn(DefDatabase<ThingCategoryDef>.GetNamed("FoodMeals"));
             return o;
+        }
+
+        /// <summary>Haulable items lying outside any storage — the things that rot, deteriorate and get stolen.</summary>
+        public static JObject OutsideStorage(Map map)
+        {
+            int stacks = 0, food = 0, rotting = 0, corpses = 0, forbidden = 0;
+            var byCat = new Dictionary<string, int>();
+            foreach (var t in map.listerThings.ThingsInGroup(ThingRequestGroup.HaulableEver))
+            {
+                if (!t.Spawned || t.Position.Fogged(map) || t.IsInAnyStorage()) continue;
+                stacks++;
+                if (t.IsForbidden(Faction.OfPlayer)) forbidden++;
+                string cat = t.def.FirstThingCategory?.defName ?? t.def.category.ToString();
+                byCat[cat] = byCat.TryGetValue(cat, out var n) ? n + 1 : 1;
+                if (t.def.IsNutritionGivingIngestible) food++;
+                if (t is Corpse) corpses++;
+                var rot = t.TryGetComp<CompRottable>();
+                if (rot != null && rot.Stage != RotStage.Fresh) rotting++;
+            }
+            return new JObject { ["stacks"] = stacks, ["forbidden"] = forbidden, ["food_stacks"] = food, ["rotting"] = rotting, ["corpses"] = corpses, ["by_category"] = JObject.FromObject(byCat.OrderByDescending(kv => kv.Value).Take(10).ToDictionary(kv => kv.Key, kv => kv.Value)), ["storage_cells_free"] = FreeStorageCells(map) };
+        }
+
+        static int FreeStorageCells(Map map)
+        {
+            int free = 0;
+            foreach (var z in map.zoneManager.AllZones.OfType<Zone_Stockpile>())
+                foreach (var c in z.Cells) if (!c.GetThingList(map).Any(t => t.def.EverStorable(false))) free++;
+            return free;
+        }
+
+        /// <summary>Indoor rooms by role with sizes — makes "everything is a 3x3 box" visible.</summary>
+        public static JArray RoomDigest(Map map)
+        {
+            var arr = new JArray();
+            foreach (var r in map.regionGrid.AllRooms.Where(r => !r.PsychologicallyOutdoors && !r.TouchesMapEdge && r.CellCount < 2000 && r.Role != null && r.Role != RoomRoleDefOf.None).OrderByDescending(r => r.CellCount).Take(12))
+                arr.Add(new JObject { ["role"] = r.Role.defName, ["cells"] = r.CellCount, ["temp"] = Math.Round(r.Temperature), ["impressiveness"] = Math.Round(r.GetStat(RoomStatDefOf.Impressiveness)), ["owners"] = string.Join(",", r.Owners.Select(x => x.LabelShort)), ["at"] = Cell(r.Cells.FirstOrDefault()) });
+            return arr;
         }
 
         public static IntVec3 HomeCenter(Map map)
