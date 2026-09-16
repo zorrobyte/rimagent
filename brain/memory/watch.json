@@ -31,25 +31,29 @@
  ],
  "history": {
   "food_days": [
-   2.5
+   2.5,
+   2.7
   ],
   "colonists": [
    3.0
   ],
   "mood_avg": [
-   37.0
+   37.0,
+   41.0
   ],
   "wood": [
    null
   ],
   "outside_storage": [
-   44.0
+   44.0,
+   40.0
   ],
   "threat_points": [
    35.0
   ],
   "blueprints": [
-   33.0
+   33.0,
+   17.0
   ]
  }
 }

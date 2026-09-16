@@ -5106,3 +5106,11 @@
 {"kind":"hostile_group","text":"hostile group: Gas Team x0 ()","tick":713000,"day":11,"hour":3,"data":{"faction":"Gas Team","count":0,"job":null,"lord":4},"seq":23}
 {"kind":"incident","text":"enemy raid","tick":713000,"day":11,"hour":3,"data":{"def":"RaidEnemy","category":"ThreatBig","points":36.75,"faction":"Gas Team","strategy":"ImmediateAttack","arrival":"EdgeWalkInDarkness"},"seq":24}
 {"kind":"danger","text":"danger None -> Low (1 hostile targets)","tick":713040,"day":11,"hour":3,"data":{"from":"None","to":"Low","hostiles":1},"seq":25}
+{"kind":"dialog","text":"Dialog_BeginRitual: ","tick":713132,"day":11,"hour":3,"data":{"i":-1,"type":"Dialog_BeginRitual","force_pause":true},"seq":26}
+{"kind":"game","text":"loaded save rimagent-reload","seq":1}
+{"kind":"game","text":"game loaded/started","data":{"day":11},"seq":2}
+{"kind":"message","text":"Critical alert: Major break risk","tick":713147,"day":11,"hour":3,"cell":[146,129],"thing":"Human490","data":{"type":"ThreatBig"},"seq":3}
+{"kind":"danger","text":"danger None -> Low (1 hostile targets)","tick":713160,"day":11,"hour":3,"data":{"from":"None","to":"Low","hostiles":1},"seq":4}
+{"kind":"day","text":"day 11","tick":713250,"day":11,"hour":3,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":0,"wealth":15597.0,"wealth_items":10357.0,"wealth_buildings":3151.0,"mood_avg":41.0,"nutrition":12.9,"food_days":2.7,"threat_points":35.0,"research_done":8,"temp_outdoor":19.0,"danger":"Low","assisted":false},"seq":5}
+{"kind":"built","text":"wall built by Gamble","tick":716413,"day":11,"hour":4,"cell":[146,133],"data":{"def":"Wall","by":"Human490"},"seq":6}
+{"kind":"hostile_group_gone","text":"hostile group gone: Gas Team (LordJob_AssaultColony)","tick":716928,"day":11,"hour":4,"data":{"faction":"Gas Team","job":"LordJob_AssaultColony","lord":4},"seq":7}

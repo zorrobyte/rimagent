@@ -51,10 +51,13 @@ def annotate(png: bytes, cx: int, cz: int, cells_wide: float, wpx: int, hpx: int
     table: dict[int, dict[str, Any]] = {}
     if marks:
         n = 0
-        for t in things[:80]:
+        SKIP = ("Wall", "Door", "Fence", "Sandbag", "Conduit", "Barricade", "Embrasure", "Column")
+        for t in things:
             pos = t.get("pos")
-            if not pos:
+            if not pos or any(k in str(t.get("def", "")) for k in SKIP):
                 continue
+            if n >= 60:
+                break
             n += 1
             size = t.get("size") or [1, 1]
             X, Z = px(pos[0] + 0.5), py(pos[1] + 0.5)
