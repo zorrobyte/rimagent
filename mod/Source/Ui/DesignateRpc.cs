@@ -74,7 +74,6 @@ namespace RimBridge.Ui
             return new JObject { ["designator"] = cls, ["applied"] = ok, ["failed"] = failed };
         }
 
-        [Rpc("ui.build", "{def: buildable defName (ThingDef or TerrainDef), at?: [x,z], rot?: N|E|S|W, stuff: ThingDef (required for stuff-made things; omit once to get the options), line?: [[x1,z1],[x2,z2]], rect?: [x,z,w,h], fill?: bool (rect: fill vs outline), dry_run?: bool} place blueprints; picks a stuff automatically if omitted (most plentiful allowed). Returns placed and failed cells with reasons.")]
         [Rpc("ui.build_many", "{ops: [ {same params as ui.build}, ... ], stop_on_error?: false} place a whole layout in one call (walls as rect outlines, floors as filled rects, doors/furniture as single cells). Returns one result per op. Use map.detail before and after.")]
         public static JToken BuildMany(JObject p)
         {
@@ -92,6 +91,7 @@ namespace RimBridge.Ui
             return new JObject { ["results"] = results, ["placed_total"] = results.Sum(r => (r["placed"] as JArray)?.Count ?? 0), ["failed_total"] = results.Sum(r => (r["failed"] as JArray)?.Count ?? (r["error"] != null ? 1 : 0)) };
         }
 
+        [Rpc("ui.build", "{def: buildable defName (ThingDef or TerrainDef), at?: [x,z], rot?: N|E|S|W, stuff: ThingDef (required for stuff-made things; omit once to get the options), line?: [[x1,z1],[x2,z2]], rect?: [x,z,w,h], fill?: bool (rect: fill vs outline), dry_run?: bool} place blueprints; picks a stuff automatically if omitted (most plentiful allowed). Returns placed and failed cells with reasons.")]
         public static JToken Build(JObject p)
         {
             var map = Map();

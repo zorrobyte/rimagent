@@ -5051,3 +5051,7 @@
 {"kind":"built","text":"wall built by Gamble","tick":518329,"day":8,"hour":21,"cell":[154,130],"data":{"def":"Wall","by":"Human490"},"seq":94}
 {"kind":"built","text":"wall built by Gamble","tick":518668,"day":8,"hour":21,"cell":[153,130],"data":{"def":"Wall","by":"Human490"},"seq":95}
 {"kind":"day","text":"day 9","tick":540000,"day":9,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":0,"wealth":15363.0,"wealth_items":10720.0,"wealth_buildings":3062.0,"mood_avg":51.0,"nutrition":21.3,"food_days":4.4,"threat_points":35.0,"research_done":8,"temp_outdoor":13.0,"danger":"None","assisted":false},"seq":96}
+{"kind":"game","text":"loaded save rimagent-reload","seq":1}
+{"kind":"game","text":"game loaded/started","data":{"day":9},"seq":2}
+{"kind":"day","text":"day 9","tick":547000,"day":9,"hour":8,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":0,"wealth":15933.0,"wealth_items":10710.0,"wealth_buildings":3062.0,"mood_avg":49.0,"nutrition":20.6,"food_days":4.3,"threat_points":35.0,"research_done":8,"temp_outdoor":17.0,"danger":"None","assisted":false},"seq":3}
+{"kind":"message","text":"Turkey meat x21 has rotted away in storage.","tick":554981,"day":9,"hour":11,"cell":[135,137],"data":{"type":"NegativeEvent"},"seq":4}

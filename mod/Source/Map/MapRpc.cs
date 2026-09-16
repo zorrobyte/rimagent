@@ -54,7 +54,6 @@ namespace RimBridge.MapView
             char LetterFor(string def)
             {
                 if (!letters.TryGetValue(def, out var c)) { c = letters.Count < alphabet.Length ? alphabet[letters.Count] : '?'; letters[def] = c; }
-                counts[def] = counts.TryGetValue(def, out var n) ? n + 1 : 1;
                 return c;
             }
             var interaction = new HashSet<IntVec3>();
@@ -69,6 +68,8 @@ namespace RimBridge.MapView
                     if (t.def.building?.isNaturalRock == true || t.def.defName.Contains("Conduit")) continue;
                     seen.Add(t);
                     var def = (t as Blueprint)?.def.entityDefToBuild ?? (t as Frame)?.def.entityDefToBuild ?? (BuildableDef)t.def;
+                    counts[def.defName] = counts.TryGetValue(def.defName, out var cnt) ? cnt + 1 : 1;
+                    LetterFor(def.defName);
                     if (def is ThingDef td && td.hasInteractionCell)
                         interaction.Add(ThingUtility.InteractionCellWhenAt(td, t.Position, t.Rotation, map));
                     var o = new JObject { ["id"] = t.ThingID, ["def"] = def.defName, ["pos"] = new JArray(t.Position.x, t.Position.z), ["rot"] = t.Rotation.ToStringWord(), ["size"] = new JArray(t.def.size.x, t.def.size.z), ["state"] = t is Blueprint ? "blueprint" : t is Frame ? "frame" : "built" };
@@ -123,7 +124,7 @@ namespace RimBridge.MapView
                 sb.Append('\n');
             }
             var legend = new JObject();
-            foreach (var kv in letters) legend[kv.Value.ToString()] = kv.Key + " x" + counts[kv.Key] + " (lowercase = blueprint/frame)";
+            foreach (var kv in letters) legend[kv.Value.ToString()] = kv.Key + " x" + (counts.TryGetValue(kv.Key, out var n) ? n : 0) + " (lowercase = blueprint/frame)";
             legend["*"] = "interaction spot — keep clear"; legend["+"] = "door"; legend["_"] = "stockpile"; legend[","] = "growing zone"; legend["i"] = "item"; legend["@"] = "colonist"; legend["!"] = "hostile"; legend["^"] = "rock"; legend["o"] = "ore"; legend["~"] = "water"; legend["T"] = "tree"; legend["."] = "open";
             if (roofLayer) { legend["r"] = "roofed (constructed)"; legend["R"] = "thick rock roof"; }
             return new JObject { ["box"] = Render.Value(box, 1), ["centre"] = State.Snapshot.Cell(center), ["grid"] = sb.ToString(), ["legend"] = legend, ["things"] = things, ["tip"] = "x is read down the three header rows (hundreds/tens/units); z is the row label. Cells: [x, z]." };
