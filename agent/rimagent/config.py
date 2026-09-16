@@ -10,7 +10,7 @@ from .paths import ROOT
 _DEFAULTS: dict[str, Any] = {
     "llm": {"base_url": "http://127.0.0.1:8000/v1", "model": "qwen", "api_key": "not-needed", "max_streams": 4, "thinking": True, "max_tokens": 4000, "timeout_s": 900},
     "bridge": {"url": "http://127.0.0.1:8765"},
-    "play": {"pause_to_think": True, "speed": 3, "wake_hours": 6, "max_tool_calls": 30, "max_days": 60, "autosave": True, "seeds": ["rimagent-1"], "scenario": "Crashlanded", "storyteller": "Cassandra", "difficulty": "Rough", "wake_on_kinds": ["letter", "incident", "colonist_died", "colonist_downed", "mental_break", "hostile_group", "quest", "building_lost"]},
+    "play": {"pause_to_think": True, "speed": 3, "wake_hours": 6, "max_tool_calls": 30, "max_days": 60, "autosave": True, "seeds": ["rimagent-1"], "scenario": "Crashlanded", "storyteller": "Cassandra", "difficulty": "Rough", "wake_on_kinds": ["dialog", "letter", "incident", "colonist_died", "colonist_downed", "mental_break", "hostile_group", "quest", "building_lost"]},
     "dashboard": {"port": 8770},
 }
 

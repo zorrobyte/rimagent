@@ -169,6 +169,13 @@ def situation_packet(ctx: Context, trigger: str, events: list[dict[str, Any]], a
         parts.append(f"## Colony summary unavailable: {e}")
         hint = trigger
     try:
+        dialogs = ctx.bridge.call("state.dialogs")
+        if dialogs:
+            parts.append("## OPEN DIALOGS — the game is paused until you answer with rw_ui_dialog(choice=...)\n" + json.dumps(dialogs, ensure_ascii=False)[:6000])
+            hint += " dialog choice " + " ".join(str(d.get("text", ""))[:100] for d in dialogs)
+    except Exception:  # noqa: BLE001
+        pass
+    try:
         letters = ctx.bridge.call("state.letters")
         if letters:
             parts.append("## Letters waiting (respond with rw_ui_letter or they pile up)\n" + json.dumps(letters, ensure_ascii=False)[:6000])
