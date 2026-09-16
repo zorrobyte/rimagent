@@ -21,3 +21,9 @@ Operator tip: batteries placed outside (unroofed) can explode. Always keep batte
 
 ## 2026-09-16 06:21 (episode 1): Alcohol/drug withdrawal is the biggest early mood killer (-35)
 A refugee arriving with an alcohol/drug addiction who has NO drug in the colony gets a -35 withdrawal moodlet that alone drives mood to 0% and a psychotic break within ~1 day (verified day 19-20: Cummings at 0% mood, downed, for days). This dwarfs every other early debuff (malnutrition -26, confined interior -10, killed-herbivore -15). On refugee_intake, check each new pawn's needs for a drug need; if present, either bank that drug (trade/produce) or accept the break. Set drug policy to allow it. This is the #1 cause of repeated mental breaks in a small colony.
+
+## 2026-09-16 09:06 (episode 1): Wood walls are a fire death sentence
+A single fire in a wood-walled base consumes the entire structure in 2-4 hours. Episode 1: fire started day 25, destroyed all walls, beds, stove, research bench, and power infrastructure over 24h. Two colonists died of burns, one left, the last colonist was downed with no medicine, no beds, 0 food. The fix: replace wood walls with steel (40% flammable, smoulders but doesn't burn) or stone (0% flammable) as soon as you have the material. Keep a 2-wide non-flammable fire break between the kitchen/campfire area and bedrooms. Ensure at least one bed is OUTSIDE the main building (outdoor sleeping spot or a separate small room) so downed pawns have a rescue target in safe temperature.
+
+## 2026-09-16 09:06 (episode 1): Drafted pawns cannot fight fires
+Drafted colonists cannot extinguish fires. If you draft everyone for a raid and a fire starts, undraft at least one colonist immediately. The fire_alert watcher drafts one colonist on fire events, but if they are already drafted for combat, the draft order is a no-op. Always check: are all colonists drafted? If yes, undraft one for firefighting before the fire spreads.

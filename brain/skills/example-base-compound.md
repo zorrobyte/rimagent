@@ -1,9 +1,20 @@
 ---
-name: example-base-compound
-description: A worked, verified example of a compact early base (hall + 2 bedrooms + kitchen + freezer + power) with exact relative rects, the order of operations, and the pitfalls that were hit while building it. Pull in when planning a base or extending one.
-tags: [base, layout, example, building, kitchen, freezer, power]
 always: false
+description: A worked, verified example of a compact early base (hall + 2 bedrooms
+  + kitchen + freezer + power) with exact relative rects, the order of operations,
+  and the pitfalls that were hit while building it. Pull in when planning a base or
+  extending one.
+name: example-base-compound
+tags:
+- base
+- layout
+- example
+- building
+- kitchen
+- freezer
+- power
 ---
+
 # Example base: the "compound" (built day 12, episode 1, by the operator through the same tools you have)
 
 Everything below is relative to an **origin O** = the SW corner of the hall (it was [140,116]). Rooms share walls, so steel goes further and heat stays in.
@@ -27,6 +38,8 @@ Materials: ~100 wall cells x5 steel, 6 doors x25, 2 coolers (90 steel + 3 compon
 3. Furniture with `dry_run=true` first; read `failed[].reason` and the `camera` in the result, then place for real.
 4. `rw_map_detail` again to verify; lowercase letters are your blueprints.
 5. Put every colonist on Construction 1 / Hauling 2 until the frames are done, keep the generator fueled with wood, assign bedroom beds to owners.
+6. **After the build:** run the sealed-room check on every new room (see base-building skill). Verify doors are placed and rooms are reachable.
+7. **Cooler setup:** after the freezer is built, press each cooler's gizmo `-10C` three times to get from the default 21C target to 11C. Check with `rw_ui_gizmos` on the cooler; verify via `rw_state_base` room temperature.
 
 ## Pitfalls hit (and the fix)
 - A 1x2 thing with rot N occupies its cell AND the cell above it. Place beds at least one cell below a wall (`...:NW +S1`).
@@ -34,6 +47,9 @@ Materials: ~100 wall cells x5 steel, 6 doors x25, 2 coolers (90 steel + 3 compon
 - `ui.build` needs `stuff` for stuff-made things; it lists the options with on-map counts when you omit it. Steel is a fine wall material when wood is short (fireproof, strong).
 - Blueprints do not consume materials until built; check `rw_map_find(def="Steel")` for loose stock, not just `rw_state_stocks` (which counts stored items only).
 - The camera hides conduits (they are clutter); check power by reading `rw_state_summary.power` once built.
+- **Coolers start at 21C target.** After building a freezer, press the cooler gizmo `-10C` three times. If you forget, the freezer does nothing.
+- **Batteries must be roofed.** Unroofed batteries can explode. Keep the battery inside the power room (enclosed + roofed).
+- **Sealed rooms:** if a door cell is blocked by a doubled-up wall, the room is sealed and pawns inside are trapped. Deconstruct the blocking wall immediately. Check with `rw_map_detail` after every build.
 
 ## Why this shape
 Shared walls (5 steel per cell saved twice), one hub room so pawns walk short paths, bedrooms private (mood), freezer adjacent to the kitchen (haul distance), power outside (fire risk), doors facing inward toward the hub. Extend by adding rooms to the free walls: `hall:extend:W:8` for a workshop, `kitchen:extend:N:8` for storage.

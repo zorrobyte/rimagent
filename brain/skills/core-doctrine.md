@@ -1,9 +1,17 @@
 ---
-name: core-doctrine
-description: How rimagent plays and how it improves itself — priorities, the first-day checklist, the per-step routine, and the rules for editing skills, tools, watchers, notebook and journal.
-tags: [doctrine, priorities, routine, self-improvement, always]
 always: true
+description: How rimagent plays and how it improves itself — priorities, the first-day
+  checklist, the per-step routine, and the rules for editing skills, tools, watchers,
+  notebook and journal.
+name: core-doctrine
+tags:
+- doctrine
+- priorities
+- routine
+- self-improvement
+- always
 ---
+
 # Core doctrine
 
 You are running a Crashlanded colony (3 colonists, Cassandra, Rough) and you are scored on days survived, colonists alive, deaths, wealth, mood, research and raids survived. The same brain plays many games; what you learn in one must make the next one better.
@@ -11,7 +19,7 @@ You are running a Crashlanded colony (3 colonists, Cassandra, Rough) and you are
 ## Priorities (in this order, always)
 
 1. **Food** — `food_days` in `rw_state_summary` below 3 is an emergency; below 6 is the top task. Starvation causes mental breaks, then deaths.
-2. **Shelter** — a roofed, walled, doored room with a bed per colonist and a heat source before the first cold night; keeps mood up and hypothermia away.
+2. **Shelter** — a roofed, walled, doored room with a bed per colonist and a heat source before the first cold night; keeps mood up and hypothermia away. **Fire safety is part of shelter:** replace wood walls with steel/stone as soon as material flows (wood is 100% flammable; a single fire destroys the base in 2-4h). Keep a 2-wide non-flammable fire break between kitchen and bedrooms. Ensure at least one bed is outside the main building so downed pawns have a rescue target in safe temperature.
 3. **Defense** — the first raid comes in the first ~10 days on Rough. Weapons equipped, a single entrance to hold, everyone drafted at the door when `hostile_group` fires.
 4. **Mood** — below 35% a colonist can break; below 20% badly. Table, individual bedrooms, cooked meals, light, a recreation item.
 5. **Wealth and research** — last. Wealth raises raid points; only build wealth that defends itself (turrets, walls, weapons, food buffer).
@@ -25,11 +33,12 @@ When two things compete, the one higher on this list wins. When nothing is urgen
 3. **Stockpile**: `rw_map_open_rects(w=8,h=6)` -> `rw_ui_zone(action=create_stockpile, rect=..., label="main")`, priority Important. Nothing gets hauled without it.
 4. **Growing zone with rice** on fertile (`f`) soil, ~36-50 cells for 3 colonists: `rw_ui_zone(action=create_growing, rect=..., plant="Plant_Rice")`. Rice is the fastest first crop (see early-game-food).
 5. **Wood**: designate `harvestwood` on 20-30 nearby trees; keep 300+ logs flowing (walls, doors, beds, campfire fuel).
-6. **Shelter**: walls + door around ~8x6, beds (one each), a campfire inside if cold outdoors, roof forms automatically once enclosed. Use `dry_run=true` first.
+6. **Shelter**: walls + door around ~8x6, beds (one each), a campfire inside if cold outdoors, roof forms automatically once enclosed. Use `dry_run=true` first. **After the shelter is built, run the sealed-room check** (see base-building skill): verify the door is placed and the room is reachable.
 7. **Work priorities** for all three by top skills (see work-priorities); Firefighter/Patient/BedRest 1; someone with Cooking 1; grower Growing 1; builder Construction 1; everyone Hauling 3-4.
 8. **Research bench** (`SimpleResearchBench`, 3x2, 75 wood/stone + 25 steel, needs no power) and pick a project; Crashlanded already has Electricity, so `Batteries` then `SolarPanels` (defNames) is the usual start (see research-order).
 9. **Defenses**: equip the starting weapons (`rw_ui_order(... label="equip")`), pick the colonist(s) capable of violence as fighters, plan a single doorway you can hold; a few sandbags/chunks outside it later.
-10. Write the plan, roles and the map's key coordinates into `notebook_write`.
+10. **Fire safety**: as soon as steel flows, replace wood walls with steel. Keep a 2-wide steel/stone fire break between kitchen and bedrooms. Place at least one outdoor sleeping spot or a small separate room with a bed outside the main building.
+11. Write the plan, roles and the map's key coordinates into `notebook_write`.
 
 ## Per-step routine
 

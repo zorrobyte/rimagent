@@ -5,6 +5,9 @@ def watch(ctx, events):
     highest Medical skill, and issues a rescue order. Wakes the planner for
     medical setup. top_skills is a STRING like "Medicine 8!!" — parse it, don't
     iterate it as a list.
+
+    If the rescue order fails (no bed in safe temperature, sealed room), the
+    planner is woken with specific guidance.
     """
     import re
     out = []
@@ -47,7 +50,11 @@ def watch(ctx, events):
             "type": "alert",
             "text": (
                 f"{downed_name} downed - {rescuer['name']} sent to rescue. "
-                "Check medical policy, ensure a doctor has Doctor priority 1, and set up tending."
+                "If the rescue order fails (no bed in safe temperature, or sealed room): "
+                "(1) check rw_state_base for TRAPPED colonists, "
+                "(2) deconstruct blocking walls if sealed, "
+                "(3) place a bed blueprint in safe ground and have a builder construct it, "
+                "(4) check medical policy and set Doctor priority 1."
             ),
             "wake": True,
         })

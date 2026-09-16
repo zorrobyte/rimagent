@@ -1,38 +1,53 @@
 # Colony notebook — episode 1, seed rimagent-1
 
-## Roster (5 colonists, home [143,131], TemperateForest, Fall, 15C)
-- **Wu** (Human496): Medicine 8!!, Intellectual 4 → DOCTOR/RESEARCHER. Mood 41%. Tending Sock.
-- **Jess** (Human78638): Melee 11!!, Plants 9!!, Cooking 4! → FARMER/FIGHTER. Mood 43%. Burns + gunshot scars, needs tending. Undrafted.
-- **Cummings** (Human78634): Mining 12!!, Intellectual 8!! → MINER/RESEARCHER. Mood 5% (AT EXTREME BREAK THRESHOLD). Alcohol withdrawal -35. Cirrhosis. Sent to bed. Will break when wakes without alcohol.
-- **Babs** (Human78642): Shooting 1, Mining 1, Cooking 1 → CHILD (7yo). Mood 66%. Health 90%. Recovered from downed.
-- **Sock** (Human493): Mining 10!!, Medicine 5! → MINER/DOCTOR. Mood 3%. DOWNED (catatonic, 10% consciousness). Rat bites x4 + scratches. Wu tending.
+## Roster (3 colonists, home [143,131], TemperateForest, Fall, 8C)
+- **Wu** (Human496): Medicine 9!!, Intel 4 → DOCTOR. Mood 34%. Health 70%. Bleeding 0.42. Self-tending.
+- **Jess** (Human78638): Melee 11!!, Plants 9!!, Cooking 4! → FARMER/COOK. Mood 28%. Health 64%. Hauling Babs.
+- **Babs** (Human78642): Shooting 1, Mining 1, Cooking 1 → CHILD. Mood 26%. Health 49%. DOWNED (heatstroke + burns). At [143,139].
 
-## Day 25 11h status
-- **FIRE** at [163,110] (short circuit, outside freezer room). Cummings + Babs beating it out.
-- **Cummings** mood 5% (extreme break threshold). Alcohol withdrawal -35. Sent to bed. Will break when wakes.
-- **Sock** downed (catatonic, 10% consciousness). Wu tending.
-- **Jess** needs medical treatment (burns, gunshot scars). 92% health.
-- Dark entities (fingerspikes, trispike, bulbfreak) 100+ tiles away.
-- Food 2.8d. 14 meals stored. 200 raw rice. Cooking bills running (14 bills on stove).
-- Wood 111. Steel 378. Silver 808.
-- Brewing research 27%. Need FermentingBarrel after.
-- Winter coming (-9C). Need warm clothes (parkas).
-- 30 unroofed deteriorating items. 6 desiccated corpses near base.
+## Day 26 10h status
+- **Sock DIED** of burns (26d 9h). Letter dismissed.
+- **Fires**: 4 rooms at 870-1000C, burning out. No firefighters (Wu/Jess Firefighter disabled from burns).
+- **Babs downed** [143,139], Jess hauling to outdoor sleeping spot.
+- **Wu** bleeding 0.42, self-tending.
+- **Food**: 0d. Rice harvest in 1.1d (43.2 nutrition). 18 cook bills running on Campfire39256.
+- **Wood**: 64. Steel: 378. Silver: 500. Medicine: 6.
+- **11 blueprints + 1 frame** pending. HandTailoringBench critical for winter parkas.
+- **Winter**: -9C coming. Need parkas. Tattered apparel on Babs.
+
+## Work priorities set
+- Wu: Construction 1, Patient 1, PatientBedRest 1, Hauling 2, Research 2, Cooking 3
+- Jess: Construction 1, Growing 1, PlantCutting 1, Cooking 2, Hauling 2, Patient 1
 
 ## Open / next
-- **Cummings**: mood 5%, at extreme break threshold. Sleeping prevents breaks. When wakes, will break without alcohol. Need Brewing → FermentingBarrel → beer ASAP.
-- **Sock**: downed, catatonic. Will recover consciousness eventually. Mood 3% — will break when wakes if not fed.
-- **Jess**: needs tending (burns). Wu busy with Sock.
-- **Fire**: at [163,110], being handled. Check if still active next step.
-- **Winter**: -9C coming. Need parkas (tailoring). 3 tattered apparel (Jess, Cummings, Babs).
-- **Gamble**: kidnapped by Gas Team (lost builder). 5 colonists now.
+- **Babs rescue**: Jess hauling. Once at outdoor spot, tend burns/heatstroke.
+- **Wu**: bleeding 0.42, will self-tend.
+- **Food**: 0d now. Rice harvest 1.1d. Cook bills running.
+- **Fires**: burning out. Will destroy more structures.
+- **Winter**: -9C coming. Need parkas (HandTailoringBench blueprint pending).
+- **Power**: 0W. WoodFiredGenerator destroyed.
 
 ## Key coordinates
 - Shelter [145,126,8,6], door [149,131], spike traps [147,132][149,132][151,132]
 - Stockpile [142,136,8,6], Rice1 [127,143,6,6], Rice2 [117,150,6,6], Rice3 [130,152,6,6], Rice4 [135,153,6,6]
-- Campfire [150,129], FueledStove [158,121], Research bench [148,128]
-- Beds: [146,130] normal, [146,129] normal, [146,127] normal, [154,129] excellent, [142,114] normal, [149,114] normal
-- Kitchen (Room:15) [155,117], Tailoring bench [156,119]
-- Freezer room [154,109,9,8] (Room:8, 46C, coolers at [156,109] and [160,109])
-- Power area [164,112,5,6], WoodFiredGenerator [166,115]
+- Campfire [150,129], Campfire [151,121]
+- Sleeping spots: [143,135], [143,139], [145,139], [143,141], [145,141]
 - Dump [128,140], [166,124]
+
+Day 26 11h: Fires in 4 rooms (440-1000C), burning out. Babs downed at [143,139] with burns+heatstroke, Jess rescuing, Wu tending. Cooking bills added to both campfires (Forever). Rice harvest in 1.1d (43.2 nutrition). 0 food days now. Dark entities 100+ tiles away.
+
+Day 26 11h: Fires in 4 rooms (440-1000C), burning out. Babs downed at [143,139] with burns+heatstroke, Jess rescuing, Wu tending. Cooking bills added to both campfires (Forever). Rice harvest in 1.1d (43.2 nutrition). 0 food days now. Dark entities 100+ tiles away.
+
+Day 26 11h: MAJOR FIRE. 202 fire objects, rooms 9/10/14/24 at 480-1000C. Babs downed at [143,139] with severe burns (torso 5.57, left leg 7.36) + heatstroke. Jess rescuing Babs. Wu drafted, moving to [143,145] (outside fire zone). Both Wu and Jess have Firefighter disabled (burns). Cannot put out fire. Food 0 days. Rice harvest 1.1d. Dark entities 100+ tiles away.
+
+Day 26 11h: Wu downed at [137,129], Jess rescuing. Babs downed at [143,139] in fire zone - CANNOT RESCUE (child, no rescue order in UI). Fire 202 objects, rooms 480-1000C. Babs likely to die. Food 0d. Rice harvest 1.1d.
+
+Day 26 12h: Fire still raging (rooms 950-1000C). Wu downed at [134,141], Jess rescuing Wu. Babs still downed at [143,139] - Jess will rescue Babs after Wu. 4 dark entities 100+ tiles away. Cook bills added to both campfires (Forever). 0 food days. Rice harvest 1d.
+
+Day 26 12h: Fire still raging (rooms 950-1000C). Jess rescuing Babs (re-ordered). Wu downed at [134,141], will self-tend. Rice harvest 0.9d (43.2 nutrition). 0 food days. 4 dark entities 100+ tiles away. 10 blueprints pending.
+
+Day 26 12h: Fire still active (rooms 963-978C). Jess rescuing Babs (ordered). Wu still downed at [131,143]. 77 loose rice at [117-120,149-155] (3.85 nutrition). Cook bills running on Campfire39256. Rice zones 69% growth, 0.9d to harvest (43.2 nutrition). After Babs rescued, order Jess to rescue Wu. Fire will destroy more walls - accept it.
+
+Day 26 13h: Babs rescue BLOCKED — no bed in safe temperature (all beds in 964C fire zone). Jess rescuing Wu. Cook bills running on both campfires (Forever). Rice 69% growth, 0.9d to harvest (43.2 nutrition). 0 food days. Babs starvation alert. Fire cooling slowly. Check back in 2h for fire temp drop, then re-attempt Babs rescue.
+
+Day 26 13h: Babs rescue BLOCKED — no bed in safe temperature (all beds in 964C fire zone). Jess rescuing Wu. Cook bills running on both campfires (Forever). Rice 69% growth, 0.9d to harvest (43.2 nutrition). 0 food days. Babs starvation alert. Fire cooling slowly. Check back in 2h for fire temp drop, then re-attempt Babs rescue.
