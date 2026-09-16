@@ -1,32 +1,30 @@
-# Colony notebook — episode 2, seed rimagent-2
+# Episode 3 — seed rimagent-3 (TemperateForest, Spring)
 
-## Day 4, 1h — Both eating, mechs sleeping, extreme break risk
-- **Glasses**: mood 3% (extreme break, catharsis +40 fading → post-fade ~-37%). Just ate survival meal, going to barracks bed. Bolt-action rifle equipped.
-- **Furr**: health 76%, mood 32% (catharsis +40, post-fade ~0%). Trapped in barracks, in bed resting. Bite on left eye (sev 8.47), moderate blood loss. Bleeding stopped. 29 industrial med available.
-- Both just ate survival meals (MealSurvivalPack x10 at [138,111]).
+## Colonists (all healthy, mood ~72)
+- Kena (Human926): Shooting 13!, Artistic 9, Construction 8 — BUILDER. Incapable of Cooking/Growing/PlantCutting (trait).
+- Lumi (Human929): Shooting 12!!, Melee 12!!, Social 7 — GROWER/COOK + hunter.
+- Kat (Human932): Medicine 11!!, Intellectual 11!!, Melee 7 — DOCTOR/RESEARCHER.
 
-## Threats
-- **2 Irikil mechs SLEEPING** ~100 cells away: Scorcher2918 [133,207] (flameblaster) + Lancer2920 [139,201] (charge lance). LordJob_SleepThenAssaultColony — will wake and assault.
-- threat_points 35.
+## Roles set
+- Kena: Construction 1, BasicWorker 2, Hauling/Cleaning 3
+- Lumi: Growing/PlantCutting 1, Cooking/Hunting 2, Hauling 3
+- Kat: Doctor 1, Research 2, Hauling 3
+- Everyone: Firefighter/Patient/BedRest 1
 
-## Shelter
-- Barracks Room:118 (35 cells) — 3 beds, campfire, table, horseshoes. 15 cells unroofed.
-- 60 wood, 566 steel, 30 components, 29 industrial med, 800 silver.
+## Food (CRISIS FIXED)
+- 50 survival packs clustered at home [127-129,118-120] (~16 days). Food policy was "Lavish" -> set all 3 to "Simple" so they eat the packs. Unforbidden the 3 far packs.
+- Rice field "rice1" at [113,113,6,5] (27 cells, 3 failed) — harvest in ~3d. Lumi Growing 1.
 
-## Food
-- 8.2 days food (29 meals stored + 29 survival meals in stockpile). Rice field [133,86] growing.
+## Base (blueprints queued, 0 built yet)
+- Shelter: wall outline rect [113,117,10,8], door at [117,117] (south edge), 3 beds at [115/117/119,123] rot S, campfire [116,120], SimpleResearchBench [119,119].
+- Stockpile "main" at [118,110,8,6] (48 cells).
+- Wood: 9 trees designated harvestwood near home.
 
-## Mood
-- Furr 32% (catharsis +40, post-fade ~0% — extreme break risk)
-- Glasses 3% (extreme break NOW, catharsis fading)
+## Research
+- Batteries queued (400pt). No bench built yet — research won't start until SimpleResearchBench is built.
 
-## Key facts
-- Home center [139,104]. Barracks at [134,126]. Campfire [137,127]. Beds [134/136/138,128].
-- Desert biome, PermanentSummer, 27C.
-- Faction: "Dinonum Compact", settlement: "Attiing"
-
-## Plan / next
-- Wake in 1h: check if mechs woke, if both colonists ate, if Glasses broke.
-- If mechs wake: draft Glasses (only shooter), get Furr out of barracks if possible.
-- 566 steel — could build sandbags/wall but no turret research.
-- Colony likely lost when mechs assault: 2 weak colonists vs 2 mechs.
+## Open / next
+- Verify blueprints building (Kena Construction 1). Check wood stock (need 300+ logs; only 0 in storage now — cutting 9 trees).
+- Research bench needs 75 wood + 25 steel. Steel is scattered (forbidden drops at [168,117],[50,118],[183,160]...) — unforbid + haul some steel.
+- Fire safety: wood walls — plan steel/stone fire break later.
+- First raid ~day 8-10. Door at [117,117] is the chokepoint.

@@ -1,9 +1,9 @@
 def watch(ctx, events):
-    """On hostile_group: draft the best ranged shooters and wake the planner.
+    """On hostile_group: draft ALL violence-capable colonists (not just 2) and wake the planner.
 
-    Picks colonists by weapon (ranged first), drafts up to 2, and alerts so the
-    planner can position them at the held chokepoint (door cell is colony-specific
-    and lives in the notebook, so the watcher stays game-agnostic).
+    With 3+ armed colonists, every shooter should be drafted. Melee-only pawns are
+    drafted last (they can still fight but are less effective). The alert tells the
+    planner to position them at the chokepoint from the notebook.
     """
     out = []
     for ev in events:
@@ -14,24 +14,30 @@ def watch(ctx, events):
         except Exception:
             pawns = []
         ranged_kw = ("rifle", "revolver", "pistol", "musket", "shotgun",
-                     "bow", "crossbow", "smg", "carbine", "rifle", "machine")
+                     "bow", "crossbow", "smg", "carbine", "machine", "flamer")
         def is_ranged(w):
             w = (w or "").lower()
             return any(k in w for k in ranged_kw)
         shooters = [p for p in pawns if is_ranged(p.get("weapon"))]
-        fallback = [p for p in pawns if not is_ranged(p.get("weapon"))]
-        picks = (shooters + fallback)[:2]
+        melee = [p for p in pawns if not is_ranged(p.get("weapon"))]
+        # Draft all shooters first, then melee
+        picks = shooters + melee
         for p in picks:
             out.append({
                 "type": "action",
                 "method": "ui.draft",
                 "params": {"pawn": p["name"], "drafted": True},
-                "note": f"Drafted {p['name']} ({p.get('weapon')}) for hostile group",
+                "note": f"Drafted {p['name']} ({p.get('weapon') or 'melee'}) for hostile group",
             })
         who = ", ".join(p["name"] for p in picks) or "no colonists"
         out.append({
             "type": "alert",
-            "text": f"Hostile group spotted - drafted {who}; position them at the held chokepoint and check rw_state_threats",
+            "text": (
+                f"Hostile group spotted - drafted {who}. "
+                "Position shooters at the chokepoint (door cell from notebook), "
+                "melee behind them. Check rw_state_threats for count/weapons/distance. "
+                "Set game speed to 1 (normal) for precise orders."
+            ),
             "wake": True,
         })
     return out
