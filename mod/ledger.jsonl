@@ -5392,3 +5392,486 @@
 {"kind":"day","text":"day 21","tick":1260000,"day":21,"hour":6,"data":{"colonists":6,"downed":1,"prisoners":0,"animals":1,"wealth":16479.0,"wealth_items":7913.0,"wealth_buildings":6381.0,"mood_avg":33.0,"nutrition":7.5,"food_days":0.8,"threat_points":47.0,"research_done":8,"temp_outdoor":16.0,"danger":"None","assisted":false},"seq":76}
 {"kind":"message","text":"Cummings, Geologist is no longer incapable of walking.","tick":1264225,"day":21,"hour":7,"cell":[149,114],"thing":"Human78634","data":{"type":"PositiveEvent"},"seq":77}
 {"kind":"message","text":"The eclipse is ending.","tick":1271830,"day":21,"hour":10,"data":{"type":"NeutralEvent"},"seq":78}
+{"kind":"dialog","text":"Dialog_BeginRitual: A ceremony for changing social roles. The person changing roles will give a speech while others gather around. The required number of spectators must attend.","tick":1284691,"day":21,"hour":15,"data":{"i":-1,"type":"Dialog_BeginRitual","force_pause":true,"kind":"begin_ritual","title":"Role change","text":"A ceremony for changing social roles. The person changing roles will give a speech while others gather around. The required number of spectators must attend.","can_begin":true,"blocking_issues":[],"roles":[{"id":"role_changer","label":"role changer","required":true,"assigned":["Sock"],"candidates":["Wu","Gamble","Jess","Cummings"]}],"spectators":["Wu","Gamble","Jess","Babs","Cummings"],"choices":[{"i":0,"label":"Begin","disabled":false},{"i":1,"label":"Cancel"}],"how":"rw_ui_dialog(choice=\"Start\") begins it with the shown assignments; rw_ui_dialog(choice=\"Cancel\") dismisses. To (re)assign a role first: rw_ui_dialog(assign={\"<role id>\": \"<pawn>\"}) then Start."},"seq":79}
+{"kind":"message","text":"Role change has begun.","tick":1284691,"day":21,"hour":15,"cell":[151,127],"thing":"RitualSpot69113","data":{"type":"NeutralEvent"},"seq":80}
+{"kind":"dialog_answered","text":"started Role change","tick":1284691,"day":21,"hour":15,"seq":81}
+{"kind":"letter","text":"Successful role change","tick":1289323,"day":21,"hour":17,"cell":[151,127],"thing":"RitualSpot69113","data":{"label":"Successful role change","def":"RitualOutcomePositive","text":"The role change ritual was completed.\n\nRole change total quality was 100%, determined by these factors:\n\n  - 4 / 2 required spectator count: +100%","id":91},"seq":82}
+{"kind":"letter","text":"Dark visions: Jess","tick":1289877,"day":21,"hour":17,"cell":[149,120],"thing":"Human78638","data":{"label":"Dark visions: Jess","def":"NegativeEvent","text":"Jess has become overwhelmed with horrible visions, rambling about things that only he can see. He will snap out of it in a few hours.\n\nThis happened because of poor mood.\n\nThe final straw was: Observed rotting corpse","id":92},"seq":83}
+{"kind":"mental_break","text":"Jess: dark visions","tick":1289877,"day":21,"hour":17,"cell":[149,120],"thing":"Human78638","data":{"def":"DarkVisions","reason":"This happened because of poor mood.\n\nThe final straw was: Observed rotting corpse"},"seq":84}
+{"kind":"message","text":"Sock, Quarry worker is fully healed.","tick":1290116,"day":21,"hour":18,"cell":[141,133],"thing":"Human493","data":{"type":"PositiveEvent"},"seq":85}
+{"kind":"message","text":"Critical alert: Major break risk","tick":1295242,"day":21,"hour":20,"cell":[137,122],"thing":"Human490","data":{"type":"ThreatBig"},"seq":86}
+{"kind":"message","text":"Jess's dark visions have stopped.","tick":1302627,"day":21,"hour":23,"cell":[159,117],"thing":"Human78638","data":{"type":"SituationResolved"},"seq":87}
+{"kind":"message","text":"Critical alert: Major break risk","tick":1302655,"day":21,"hour":23,"cell":[159,117],"thing":"Human78638","data":{"type":"ThreatBig"},"seq":88}
+{"kind":"message","text":"Critical alert: Major break risk","tick":1317703,"day":21,"hour":5,"cell":[155,119],"thing":"Human490","data":{"type":"ThreatBig"},"seq":89}
+{"kind":"day","text":"day 22","tick":1320000,"day":22,"hour":6,"data":{"colonists":6,"downed":0,"prisoners":0,"animals":1,"wealth":16696.0,"wealth_items":7395.0,"wealth_buildings":6381.0,"mood_avg":36.0,"nutrition":4.9,"food_days":0.5,"threat_points":46.0,"research_done":8,"temp_outdoor":14.0,"danger":"None","assisted":false},"seq":90}
+{"kind":"message","text":"Critical alert: Major break risk","tick":1328668,"day":22,"hour":9,"cell":[129,139],"thing":"Human490","data":{"type":"ThreatBig"},"seq":91}
+{"kind":"message","text":"Wu, Medic is fully healed.","tick":1340262,"day":22,"hour":14,"cell":[146,129],"thing":"Human496","data":{"type":"PositiveEvent"},"seq":92}
+{"kind":"letter","text":"Tantrum: Gamble","tick":1345726,"day":22,"hour":16,"cell":[135,154],"thing":"Human490","data":{"label":"Tantrum: Gamble","def":"NegativeEvent","text":"Gamble is having a tantrum.\n\nHe is going to destroy component x21.\n\nThis happened because of poor mood.\n\nThe final straw was: Depressive","id":93},"seq":93}
+{"kind":"mental_break","text":"Gamble: tantrum","tick":1345726,"day":22,"hour":16,"cell":[135,154],"thing":"Human490","data":{"def":"TargetedTantrum","reason":"This happened because of poor mood.\n\nThe final straw was: Depressive"},"seq":94}
+{"kind":"message","text":"Gamble is no longer having a tantrum.","tick":1346800,"day":22,"hour":16,"cell":[141,135],"thing":"Human490","data":{"type":"SituationResolved"},"seq":95}
+{"kind":"letter","text":"Raid: Gas Team","tick":1361000,"day":22,"hour":22,"cell":[249,72],"thing":"Human97702","data":{"label":"Raid: Gas Team","def":"ThreatBig","text":"A group of wasters from Gas Team have arrived nearby.\n\nThey are attacking immediately.","id":94},"seq":96}
+{"kind":"hostile_group","text":"hostile group: Gas Team x0 ()","tick":1361000,"day":22,"hour":22,"data":{"faction":"Gas Team","count":0,"job":null,"lord":8},"seq":97}
+{"kind":"incident","text":"enemy raid","tick":1361000,"day":22,"hour":22,"data":{"def":"RaidEnemy","category":"ThreatBig","points":38.89804,"faction":"Gas Team","strategy":"ImmediateAttack","arrival":"EdgeWalkIn"},"seq":98}
+{"kind":"danger","text":"danger None -> Low (1 hostile targets)","tick":1361100,"day":22,"hour":22,"data":{"from":"None","to":"Low","hostiles":1},"seq":99}
+{"kind":"letter","text":"Death: Hare 1","tick":1362974,"day":22,"hour":23,"cell":[165,119],"thing":"Hare38949","data":{"label":"Death: Hare 1","def":"Death","text":"Hare 1 has been beaten to death.","id":95},"seq":100}
+{"kind":"pawn_died","text":"Hare 1 died","tick":1362974,"day":22,"hour":23,"cell":[165,119],"thing":"Hare38949","data":{"colonist":false,"faction":"Gaeria Sovereign Amalgamation","kind":"Hare","cause":"Blunt","by":"Human97702"},"seq":101}
+{"kind":"hostile_group_gone","text":"hostile group gone: Gas Team (LordJob_AssaultColony)","tick":1364247,"day":22,"hour":23,"data":{"faction":"Gas Team","job":"LordJob_AssaultColony","lord":8},"seq":102}
+{"kind":"danger","text":"danger Low -> None (0 hostile targets)","tick":1364340,"day":22,"hour":23,"data":{"from":"Low","to":"None","hostiles":0},"seq":103}
+{"kind":"day","text":"day 23","tick":1380000,"day":23,"hour":6,"data":{"colonists":6,"downed":0,"prisoners":0,"animals":0,"wealth":16466.0,"wealth_items":7322.0,"wealth_buildings":6319.0,"mood_avg":46.0,"nutrition":22.1,"food_days":2.3,"threat_points":39.0,"research_done":8,"temp_outdoor":16.0,"danger":"None","assisted":false},"seq":104}
+{"kind":"built","text":"spike trap built by Gamble","tick":1380823,"day":23,"hour":6,"cell":[151,132],"data":{"def":"TrapSpike","by":"Human490"},"seq":105}
+{"kind":"manhunter","text":"Rat (rat) is manhunter","tick":1413000,"day":23,"hour":19,"cell":[213,38],"thing":"Rat53271","data":{"def":"Manhunter","kind":"Rat"},"seq":106}
+{"kind":"letter","text":"Mad rat","tick":1413000,"day":23,"hour":19,"cell":[213,38],"thing":"Rat53271","data":{"label":"Mad rat","def":"ThreatSmall","text":"A local rat has gone mad. It will attack everyone it sees.","id":96},"seq":107}
+{"kind":"incident","text":"single animal insanity","tick":1413000,"day":23,"hour":19,"data":{"def":"AnimalInsanitySingle","category":"ThreatSmall","points":38.1030579,"faction":null,"strategy":null,"arrival":null},"seq":108}
+{"kind":"danger","text":"danger None -> Low (1 hostile targets)","tick":1413120,"day":23,"hour":19,"data":{"from":"None","to":"Low","hostiles":1},"seq":109}
+{"kind":"message","text":"Wu, Medic is fully healed.","tick":1415862,"day":23,"hour":20,"cell":[146,129],"thing":"Human496","data":{"type":"PositiveEvent"},"seq":110}
+{"kind":"colonist_downed","text":"Babs downed","tick":1416226,"day":23,"hour":20,"cell":[204,121],"thing":"Human78642","data":{"cause":"Scratch"},"seq":111}
+{"kind":"message","text":"Critical alert: Colonist needs rescue","tick":1416228,"day":23,"hour":20,"cell":[204,121],"thing":"Human78642","data":{"type":"ThreatBig"},"seq":112}
+{"kind":"colonist_downed","text":"Sock downed","tick":1419781,"day":23,"hour":21,"cell":[185,123],"thing":"Human493","data":{"cause":"Scratch"},"seq":113}
+{"kind":"message","text":"Critical alert: Colonists need rescue","tick":1419782,"day":23,"hour":21,"cell":[185,123],"thing":"Human493","data":{"type":"ThreatBig"},"seq":114}
+{"kind":"danger","text":"danger Low -> None (0 hostile targets)","tick":1420560,"day":23,"hour":22,"data":{"from":"Low","to":"None","hostiles":0},"seq":115}
+{"kind":"message","text":"Sock, Quarry worker is no longer incapable of walking.","tick":1430516,"day":23,"hour":2,"cell":[146,129],"thing":"Human493","data":{"type":"PositiveEvent"},"seq":116}
+{"kind":"message","text":"Critical alert: Medical emergency","tick":1431135,"day":23,"hour":2,"cell":[146,130],"thing":"Human78642","data":{"type":"ThreatBig"},"seq":117}
+{"kind":"message","text":"Critical alert: Major break risk","tick":1435169,"day":23,"hour":4,"cell":[146,129],"thing":"Human493","data":{"type":"ThreatBig"},"seq":118}
+{"kind":"day","text":"day 24","tick":1440000,"day":24,"hour":6,"data":{"colonists":6,"downed":1,"prisoners":0,"animals":0,"wealth":16281.0,"wealth_items":7780.0,"wealth_buildings":6381.0,"mood_avg":53.0,"nutrition":25.5,"food_days":2.7,"threat_points":47.0,"research_done":8,"temp_outdoor":14.0,"danger":"None","assisted":false},"seq":119}
+{"kind":"colonist_downed","text":"Sock downed","tick":1447016,"day":24,"hour":8,"cell":[149,120],"thing":"Human493","data":{"cause":null},"seq":120}
+{"kind":"letter","text":"Catatonic: Sock","tick":1447016,"day":24,"hour":8,"cell":[149,120],"thing":"Human493","data":{"label":"Catatonic: Sock","def":"NegativeEvent","text":"Sock has suffered a total mental breakdown and entered a catatonic state. He will recover in several days.\n\nThis happened because of poor mood.\n\nThe final straw was: Malnourished","id":97},"seq":121}
+{"kind":"message","text":"Critical alert: Colonist needs rescue","tick":1447031,"day":24,"hour":8,"cell":[149,120],"thing":"Human493","data":{"type":"ThreatBig"},"seq":122}
+{"kind":"message","text":"Critical alert: Major break risk","tick":1461650,"day":24,"hour":14,"cell":[147,122],"thing":"Human78634","data":{"type":"ThreatBig"},"seq":123}
+{"kind":"message","text":"Babs has gotten food poisoning from: Simple meal. Cause: Incompetent cook.","tick":1462419,"day":24,"hour":14,"cell":[146,130],"thing":"Human78642","data":{"type":"NegativeEvent"},"seq":124}
+{"kind":"message","text":"Critical alert: Major break risk","tick":1467338,"day":24,"hour":16,"cell":[147,128],"thing":"Human78634","data":{"type":"ThreatBig"},"seq":125}
+{"kind":"letter","text":"Raid: Gas Team","tick":1475000,"day":24,"hour":20,"cell":[0,205],"thing":"Human100030","data":{"label":"Raid: Gas Team","def":"ThreatBig","text":"A group of wasters from Gas Team have arrived nearby.\n\nThey are attacking immediately.","id":98},"seq":126}
+{"kind":"hostile_group","text":"hostile group: Gas Team x0 ()","tick":1475000,"day":24,"hour":20,"data":{"faction":"Gas Team","count":0,"job":null,"lord":9},"seq":127}
+{"kind":"incident","text":"enemy raid","tick":1475000,"day":24,"hour":20,"data":{"def":"RaidEnemy","category":"ThreatBig","points":42.153904,"faction":"Gas Team","strategy":"ImmediateAttack","arrival":"EdgeWalkIn"},"seq":128}
+{"kind":"danger","text":"danger None -> Low (1 hostile targets)","tick":1475040,"day":24,"hour":20,"data":{"from":"None","to":"Low","hostiles":1},"seq":129}
+{"kind":"message","text":"Critical alert: Major break risk","tick":1477835,"day":24,"hour":21,"cell":[147,128],"thing":"Human78634","data":{"type":"ThreatBig"},"seq":130}
+{"kind":"colonist_downed","text":"Gamble downed","tick":1477959,"day":24,"hour":21,"cell":[130,144],"thing":"Human490","data":{"cause":"Blunt"},"seq":131}
+{"kind":"message","text":"Critical alert: Colonist needs rescue","tick":1477968,"day":24,"hour":21,"cell":[130,144],"thing":"Human490","data":{"type":"ThreatBig"},"seq":132}
+{"kind":"message","text":"Wasters from Gas Team have decided to kidnap who they can and leave.","tick":1478040,"day":24,"hour":21,"cell":[129,144],"thing":"Human100030","data":{"type":"NeutralEvent"},"seq":133}
+{"kind":"message","text":"Gamble, Builder is no longer incapable of walking.","tick":1478926,"day":24,"hour":21,"cell":[128,174],"thing":"Human490","data":{"type":"PositiveEvent"},"seq":134}
+{"kind":"colonist_downed","text":"Gamble downed","tick":1479189,"day":24,"hour":21,"cell":[128,174],"thing":"Human490","data":{"cause":"Blunt"},"seq":135}
+{"kind":"message","text":"Critical alert: Colonist needs rescue","tick":1479195,"day":24,"hour":21,"cell":[128,174],"thing":"Human490","data":{"type":"ThreatBig"},"seq":136}
+{"kind":"hostile_group_gone","text":"hostile group gone: Gas Team (LordJob_AssaultColony)","tick":1481205,"day":24,"hour":22,"data":{"faction":"Gas Team","job":"LordJob_AssaultColony","lord":9},"seq":137}
+{"kind":"letter","text":"Gamble kidnapped","tick":1481205,"day":24,"hour":22,"data":{"label":"Gamble kidnapped","def":"NegativeEvent","text":"Gamble has been kidnapped by Gas Team!\n\nHowever, he is not lost forever. An opportunity to rescue him may present itself in the coming days or years.","id":99},"seq":138}
+{"kind":"danger","text":"danger Low -> None (0 hostile targets)","tick":1481280,"day":24,"hour":22,"data":{"from":"Low","to":"None","hostiles":0},"seq":139}
+{"kind":"message","text":"Fall has begun.","tick":1485001,"day":24,"hour":0,"data":{"type":"NeutralEvent"},"seq":140}
+{"kind":"day","text":"day 25","tick":1500000,"day":25,"hour":6,"data":{"colonists":5,"downed":2,"prisoners":0,"animals":0,"wealth":14618.0,"wealth_items":7137.0,"wealth_buildings":6381.0,"mood_avg":37.0,"nutrition":22.6,"food_days":2.8,"threat_points":36.0,"research_done":8,"temp_outdoor":8.0,"danger":"None","assisted":false},"seq":141}
+{"kind":"letter","text":"Zzztt...","tick":1504000,"day":25,"hour":7,"cell":[161,109],"data":{"label":"Zzztt...","def":"NegativeEvent","text":"A fault in an electrical conduit has caused a short circuit which started a fire.","id":100},"seq":142}
+{"kind":"incident","text":"short circuit","tick":1504000,"day":25,"hour":7,"data":{"def":"ShortCircuit","category":"Misc","points":40.1730461,"faction":null,"strategy":null,"arrival":null},"seq":143}
+{"kind":"message","text":"Critical alert: Fire!","tick":1504066,"day":25,"hour":7,"cell":[160,107],"thing":"Fire100550","data":{"type":"ThreatBig"},"seq":144}
+{"kind":"message","text":"Babs, Child is no longer incapable of walking.","tick":1510447,"day":25,"hour":10,"cell":[146,130],"thing":"Human78642","data":{"type":"PositiveEvent"},"seq":145}
+{"kind":"message","text":"A bed is no longer assigned to Babs.","tick":1514598,"day":25,"hour":11,"cell":[146,130],"thing":"Bed39170","data":{"type":"CautionInput"},"seq":146}
+{"kind":"building_lost","text":"Power conduit (0%) destroyed (KillFinalize)","tick":1516589,"day":25,"hour":12,"cell":[163,111],"thing":"PowerConduit75795","data":{"def":"PowerConduit","mode":"KillFinalize"},"seq":147}
+{"kind":"building_lost","text":"Power conduit (0%) destroyed (KillFinalize)","tick":1517782,"day":25,"hour":13,"cell":[163,109],"thing":"PowerConduit75801","data":{"def":"PowerConduit","mode":"KillFinalize"},"seq":148}
+{"kind":"building_lost","text":"Power conduit (0%) destroyed (KillFinalize)","tick":1520169,"day":25,"hour":14,"cell":[163,110],"thing":"PowerConduit75798","data":{"def":"PowerConduit","mode":"KillFinalize"},"seq":149}
+{"kind":"building_lost","text":"Power conduit (0%) destroyed (KillFinalize)","tick":1521548,"day":25,"hour":14,"cell":[163,113],"thing":"PowerConduit75750","data":{"def":"PowerConduit","mode":"KillFinalize"},"seq":150}
+{"kind":"building_lost","text":"Power conduit (0%) destroyed (KillFinalize)","tick":1521804,"day":25,"hour":14,"cell":[164,114],"thing":"PowerConduit75515","data":{"def":"PowerConduit","mode":"KillFinalize"},"seq":151}
+{"kind":"building_lost","text":"Power conduit (0%) destroyed (KillFinalize)","tick":1523607,"day":25,"hour":15,"cell":[163,114],"thing":"PowerConduit75514","data":{"def":"PowerConduit","mode":"KillFinalize"},"seq":152}
+{"kind":"building_lost","text":"Power conduit (0%) destroyed (KillFinalize)","tick":1524577,"day":25,"hour":15,"cell":[165,114],"thing":"PowerConduit75752","data":{"def":"PowerConduit","mode":"KillFinalize"},"seq":153}
+{"kind":"building_lost","text":"Power conduit (0%) destroyed (KillFinalize)","tick":1524599,"day":25,"hour":15,"cell":[165,115],"thing":"PowerConduit75753","data":{"def":"PowerConduit","mode":"KillFinalize"},"seq":154}
+{"kind":"building_lost","text":"Power conduit (0%) destroyed (KillFinalize)","tick":1524753,"day":25,"hour":15,"cell":[163,112],"thing":"PowerConduit75751","data":{"def":"PowerConduit","mode":"KillFinalize"},"seq":155}
+{"kind":"building_lost","text":"Wood-fired generator (0%) destroyed (KillFinalize)","tick":1524941,"day":25,"hour":15,"cell":[166,115],"thing":"WoodFiredGenerator75793","data":{"def":"WoodFiredGenerator","mode":"KillFinalize"},"seq":156}
+{"kind":"message","text":"Wu is being burned by superheated air!","tick":1525902,"day":25,"hour":16,"cell":[158,115],"thing":"Human496","data":{"type":"ThreatSmall"},"seq":157}
+{"kind":"colonist_downed","text":"Cummings downed","tick":1526574,"day":25,"hour":16,"cell":[158,115],"thing":"Human78634","data":{"cause":"Burn"},"seq":158}
+{"kind":"message","text":"Critical alert: Colonist needs rescue","tick":1526585,"day":25,"hour":16,"cell":[158,115],"thing":"Human78634","data":{"type":"ThreatBig"},"seq":159}
+{"kind":"message","text":"Wu is being burned by superheated air!","tick":1527582,"day":25,"hour":17,"cell":[158,115],"thing":"Human496","data":{"type":"ThreatSmall"},"seq":160}
+{"kind":"message","text":"Cummings is being burned by superheated air!","tick":1528254,"day":25,"hour":17,"cell":[158,115],"thing":"Human78634","data":{"type":"ThreatSmall"},"seq":161}
+{"kind":"message","text":"Cummings is being burned by superheated air!","tick":1528674,"day":25,"hour":17,"cell":[158,115],"thing":"Human78634","data":{"type":"ThreatSmall"},"seq":162}
+{"kind":"letter","text":"Visitors","tick":1531000,"day":25,"hour":18,"cell":[0,108],"thing":"Human101671","data":{"label":"Visitors","def":"NeutralEvent","text":"A group from Treaty of Busto are visiting the colony.\n\nThey seem to have a few items to trade.","id":101},"seq":163}
+{"kind":"incident","text":"visitor group","tick":1531000,"day":25,"hour":18,"data":{"def":"VisitorGroup","category":"FactionArrival","points":129.077179,"faction":"Treaty of Busto","strategy":null,"arrival":null},"seq":164}
+{"kind":"building_lost","text":"Cooler (0%) destroyed (KillFinalize)","tick":1533199,"day":25,"hour":19,"cell":[160,109],"thing":"Cooler75953","data":{"def":"Cooler","mode":"KillFinalize"},"seq":165}
+{"kind":"building_lost","text":"Power conduit (0%) destroyed (KillFinalize)","tick":1533349,"day":25,"hour":19,"cell":[160,109],"thing":"PowerConduit75859","data":{"def":"PowerConduit","mode":"KillFinalize"},"seq":166}
+{"kind":"letter","text":"Disease: Infection","tick":1534647,"day":25,"hour":19,"cell":[154,129],"thing":"Human78638","data":{"label":"Disease: Infection","def":"NegativeEvent","text":"Jess has gotten sick from infection. The infection is in his left leg.\n\nEnsure you have a medical bed and a doctor. Make sure that Jess gets proper treatment and spends as much time in bed as possible.","id":102},"seq":167}
+{"kind":"building_lost","text":"Power conduit (0%) destroyed (KillFinalize)","tick":1535759,"day":25,"hour":20,"cell":[162,109],"thing":"PowerConduit75802","data":{"def":"PowerConduit","mode":"KillFinalize"},"seq":168}
+{"kind":"building_lost","text":"Power conduit (0%) destroyed (KillFinalize)","tick":1536617,"day":25,"hour":20,"cell":[159,109],"thing":"PowerConduit75861","data":{"def":"PowerConduit","mode":"KillFinalize"},"seq":169}
+{"kind":"message","text":"Critical alert: Medical emergency","tick":1538875,"day":25,"hour":21,"cell":[149,114],"thing":"Human78634","data":{"type":"ThreatBig"},"seq":170}
+{"kind":"colonist_downed","text":"Babs downed","tick":1539165,"day":25,"hour":21,"cell":[175,114],"thing":"Human78642","data":{"cause":null},"seq":171}
+{"kind":"message","text":"Critical alert: Colonist needs rescue","tick":1539169,"day":25,"hour":21,"cell":[175,114],"thing":"Human78642","data":{"type":"ThreatBig"},"seq":172}
+{"kind":"building_lost","text":"Power conduit (0%) destroyed (KillFinalize)","tick":1539676,"day":25,"hour":21,"cell":[161,109],"thing":"PowerConduit75792","data":{"def":"PowerConduit","mode":"KillFinalize"},"seq":173}
+{"kind":"message","text":"Cummings is being burned by superheated air!","tick":1541694,"day":25,"hour":22,"cell":[149,114],"thing":"Human78634","data":{"type":"ThreatSmall"},"seq":174}
+{"kind":"message","text":"Critical alert: Colonist needs rescue","tick":1541700,"day":25,"hour":22,"cell":[149,125],"thing":"Human78642","data":{"type":"ThreatBig"},"seq":175}
+{"kind":"message","text":"Cummings is being burned by superheated air!","tick":1542534,"day":25,"hour":23,"cell":[150,115],"thing":"Human78634","data":{"type":"ThreatSmall"},"seq":176}
+{"kind":"message","text":"Critical alert: Medical emergency","tick":1542815,"day":25,"hour":23,"cell":[151,115],"thing":"Human78634","data":{"type":"ThreatBig"},"seq":177}
+{"kind":"message","text":"Critical alert: Medical emergency","tick":1542881,"day":25,"hour":23,"cell":[149,114],"thing":"Human78634","data":{"type":"ThreatBig"},"seq":178}
+{"kind":"message","text":"Cummings is being burned by superheated air!","tick":1543794,"day":25,"hour":23,"cell":[149,114],"thing":"Human78634","data":{"type":"ThreatSmall"},"seq":179}
+{"kind":"colonist_left","text":"Cummings left the colony","tick":1544094,"day":25,"hour":23,"cell":[149,114],"thing":"Human78634","data":{"to":"Andla"},"seq":180}
+{"kind":"letter","text":"Refugee died: Anger","tick":1544094,"day":25,"hour":23,"cell":[149,114],"thing":"Human78634","data":{"label":"Refugee died: Anger","def":"NegativeEvent","text":"Cummings, one of the desperate refugees who asked to stay with you has died.\n\nThe others seem appalled at this, but are not taking action against you.","id":103,"quest":4},"seq":181}
+{"kind":"message","text":"Cummings has died. Cause: Heatstroke.","tick":1544094,"day":25,"hour":23,"cell":[149,114],"thing":"Human78634","data":{"type":"PawnDeath"},"seq":182}
+{"kind":"building_lost","text":"Power conduit (0%) destroyed (KillFinalize)","tick":1545678,"day":25,"hour":0,"cell":[156,109],"thing":"PowerConduit75943","data":{"def":"PowerConduit","mode":"KillFinalize"},"seq":183}
+{"kind":"building_lost","text":"Cooler (0%) destroyed (KillFinalize)","tick":1546578,"day":25,"hour":0,"cell":[156,109],"thing":"Cooler77221","data":{"def":"Cooler","mode":"KillFinalize"},"seq":184}
+{"kind":"building_lost","text":"Power conduit (0%) destroyed (KillFinalize)","tick":1546641,"day":25,"hour":0,"cell":[158,109],"thing":"PowerConduit75863","data":{"def":"PowerConduit","mode":"KillFinalize"},"seq":185}
+{"kind":"quest","text":"Cali's Poor Drifters","tick":1547000,"day":25,"hour":0,"data":{"id":8,"state":"NotYetAccepted"},"seq":186}
+{"kind":"letter","text":"Quest available: Cali's Poor Drifters","tick":1547000,"day":25,"hour":0,"data":{"label":"Quest available: Cali's Poor Drifters","def":"NewQuest","text":"A new quest is available.\n\nThe quest is called 'Cali's Poor Drifters'.\n\nIf you don't accept the quest within 6 days, it will expire.","id":125,"quest":8},"seq":187}
+{"kind":"incident","text":"quest","tick":1547000,"day":25,"hour":0,"data":{"def":"GiveQuest_Random","category":"GiveQuest","points":38.78283,"faction":null,"strategy":null,"arrival":null},"seq":188}
+{"kind":"building_lost","text":"Wooden hand tailor bench (0%) destroyed (KillFinalize)","tick":1550736,"day":25,"hour":2,"cell":[156,119],"thing":"HandTailoringBench86788","data":{"def":"HandTailoringBench","mode":"KillFinalize"},"seq":189}
+{"kind":"building_lost","text":"Power conduit (0%) destroyed (KillFinalize)","tick":1551220,"day":25,"hour":2,"cell":[157,109],"thing":"PowerConduit75940","data":{"def":"PowerConduit","mode":"KillFinalize"},"seq":190}
+{"kind":"building_lost","text":"Wooden bed (poor 0%) destroyed (KillFinalize)","tick":1551782,"day":25,"hour":2,"cell":[142,114],"thing":"Bed82535","data":{"def":"Bed","mode":"KillFinalize"},"seq":191}
+{"kind":"message","text":"A bed assigned to Sock was destroyed.","tick":1551782,"day":25,"hour":2,"cell":[142,114],"thing":"Bed82535","data":{"type":"CautionInput"},"seq":192}
+{"kind":"building_lost","text":"Fueled stove (0%) destroyed (KillFinalize)","tick":1552184,"day":25,"hour":2,"cell":[158,121],"thing":"FueledStove75660","data":{"def":"FueledStove","mode":"KillFinalize"},"seq":193}
+{"kind":"letter","text":"Disease: Infection","tick":1553502,"day":25,"hour":3,"cell":[145,129],"thing":"Human78638","data":{"label":"Disease: Infection","def":"NegativeEvent","text":"Jess has gotten sick from infection. The infection is in his right arm.\n\nEnsure you have a medical bed and a doctor. Make sure that Jess gets proper treatment and spends as much time in bed as possible.","id":126},"seq":194}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1554111,"day":25,"hour":3,"cell":[162,112],"thing":"Wall75797","data":{"def":"Wall","mode":"KillFinalize"},"seq":195}
+{"kind":"building_lost","text":"Wooden bed (normal 0%) destroyed (KillFinalize)","tick":1554699,"day":25,"hour":3,"cell":[149,114],"thing":"Bed82467","data":{"def":"Bed","mode":"KillFinalize"},"seq":196}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1554761,"day":25,"hour":3,"cell":[162,111],"thing":"Wall76774","data":{"def":"Wall","mode":"KillFinalize"},"seq":197}
+{"kind":"message","text":"Visitors from Treaty of Busto are leaving.","tick":1555432,"day":25,"hour":4,"cell":[153,100],"thing":"Human101671","data":{"type":"NeutralEvent"},"seq":198}
+{"kind":"building_lost","text":"Wooden bed (excellent 0%) destroyed (KillFinalize)","tick":1555703,"day":25,"hour":4,"cell":[154,129],"thing":"Bed54637","data":{"def":"Bed","mode":"KillFinalize"},"seq":199}
+{"kind":"message","text":"A bed assigned to Jess was destroyed.","tick":1555703,"day":25,"hour":4,"cell":[154,129],"thing":"Bed54637","data":{"type":"CautionInput"},"seq":200}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1556144,"day":25,"hour":4,"cell":[162,113],"thing":"Wall75507","data":{"def":"Wall","mode":"KillFinalize"},"seq":201}
+{"kind":"building_lost","text":"Steel butcher table (0%) destroyed (KillFinalize)","tick":1557626,"day":25,"hour":5,"cell":[158,118],"thing":"TableButcher75540","data":{"def":"TableButcher","mode":"KillFinalize"},"seq":202}
+{"kind":"building_lost","text":"Wooden horseshoes pin (0%) destroyed (KillFinalize)","tick":1558385,"day":25,"hour":5,"cell":[152,132],"thing":"HorseshoesPin52895","data":{"def":"HorseshoesPin","mode":"KillFinalize"},"seq":203}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1558648,"day":25,"hour":5,"cell":[156,128],"thing":"Wall54688","data":{"def":"Wall","mode":"KillFinalize"},"seq":204}
+{"kind":"message","text":"Critical alert: Colonist needs rescue","tick":1558850,"day":25,"hour":5,"cell":[146,130],"thing":"Human78642","data":{"type":"ThreatBig"},"seq":205}
+{"kind":"building_lost","text":"Wooden spike trap (0%) destroyed (KillFinalize)","tick":1559141,"day":25,"hour":5,"cell":[151,132],"thing":"TrapSpike98048","data":{"def":"TrapSpike","mode":"KillFinalize"},"seq":206}
+{"kind":"message","text":"Critical alert: Colonist needs rescue","tick":1559885,"day":25,"hour":5,"cell":[140,134],"thing":"Human78642","data":{"type":"ThreatBig"},"seq":207}
+{"kind":"quest","text":"The Deserter","tick":1560000,"day":26,"hour":6,"data":{"id":9,"state":"NotYetAccepted"},"seq":208}
+{"kind":"letter","text":"Quest available: The Deserter","tick":1560000,"day":26,"hour":6,"data":{"label":"Quest available: The Deserter","def":"NewQuest","text":"A new quest is available.\n\nThe quest is called 'The Deserter'.\n\nIf you don't accept the quest within 5 days, it will expire.","id":128,"quest":9},"seq":209}
+{"kind":"incident","text":"imperial deserter","tick":1560000,"day":26,"hour":6,"data":{"def":"GiveQuest_Intro_Deserter","category":"GiveQuest","points":49.56048,"faction":null,"strategy":null,"arrival":null},"seq":210}
+{"kind":"day","text":"day 26","tick":1560000,"day":26,"hour":6,"data":{"colonists":4,"downed":2,"prisoners":0,"animals":0,"wealth":11922.0,"wealth_items":5986.0,"wealth_buildings":5161.0,"mood_avg":29.0,"nutrition":1.8,"food_days":0.3,"threat_points":50.0,"research_done":8,"temp_outdoor":3.0,"danger":"None","assisted":false},"seq":211}
+{"kind":"building_lost","text":"Wooden door (0%) destroyed (KillFinalize)","tick":1560348,"day":26,"hour":6,"cell":[153,129],"thing":"Door54630","data":{"def":"Door","mode":"KillFinalize"},"seq":212}
+{"kind":"building_lost","text":"Wooden simple research bench (0%) destroyed (KillFinalize)","tick":1560609,"day":26,"hour":6,"cell":[148,128],"thing":"SimpleResearchBench39253","data":{"def":"SimpleResearchBench","mode":"KillFinalize"},"seq":213}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1560613,"day":26,"hour":6,"cell":[155,128],"thing":"Wall54687","data":{"def":"Wall","mode":"KillFinalize"},"seq":214}
+{"kind":"building_lost","text":"Wooden horseshoes pin (0%) destroyed (KillFinalize)","tick":1560654,"day":26,"hour":6,"cell":[151,130],"thing":"HorseshoesPin40823","data":{"def":"HorseshoesPin","mode":"KillFinalize"},"seq":215}
+{"kind":"building_lost","text":"Steel door (0%) destroyed (KillFinalize)","tick":1561178,"day":26,"hour":6,"cell":[162,120],"thing":"Door75663","data":{"def":"Door","mode":"KillFinalize"},"seq":216}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1561498,"day":26,"hour":6,"cell":[156,129],"thing":"Wall54689","data":{"def":"Wall","mode":"KillFinalize"},"seq":217}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1561878,"day":26,"hour":6,"cell":[152,126],"thing":"Wall39300","data":{"def":"Wall","mode":"KillFinalize"},"seq":218}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1562000,"day":26,"hour":6,"cell":[162,114],"thing":"Wall75502","data":{"def":"Wall","mode":"KillFinalize"},"seq":219}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1562250,"day":26,"hour":6,"cell":[156,130],"thing":"Wall54691","data":{"def":"Wall","mode":"KillFinalize"},"seq":220}
+{"kind":"building_lost","text":"Wooden table (1x2) (poor 0%) destroyed (KillFinalize)","tick":1562733,"day":26,"hour":7,"cell":[148,130],"thing":"Table1x2c45934","data":{"def":"Table1x2c","mode":"KillFinalize"},"seq":221}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1562755,"day":26,"hour":7,"cell":[154,130],"thing":"Wall54694","data":{"def":"Wall","mode":"KillFinalize"},"seq":222}
+{"kind":"building_lost","text":"Wooden spike trap (0%) destroyed (KillFinalize)","tick":1562819,"day":26,"hour":7,"cell":[149,132],"thing":"TrapSpike51348","data":{"def":"TrapSpike","mode":"KillFinalize"},"seq":223}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1563295,"day":26,"hour":7,"cell":[154,128],"thing":"Wall54683","data":{"def":"Wall","mode":"KillFinalize"},"seq":224}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1563332,"day":26,"hour":7,"cell":[155,130],"thing":"Wall54693","data":{"def":"Wall","mode":"KillFinalize"},"seq":225}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1563424,"day":26,"hour":7,"cell":[162,110],"thing":"Wall75782","data":{"def":"Wall","mode":"KillFinalize"},"seq":226}
+{"kind":"building_lost","text":"Wooden dining chair (excellent 0%) destroyed (KillFinalize)","tick":1563514,"day":26,"hour":7,"cell":[149,120],"thing":"DiningChair78751","data":{"def":"DiningChair","mode":"KillFinalize"},"seq":227}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1563576,"day":26,"hour":7,"cell":[153,128],"thing":"Wall54685","data":{"def":"Wall","mode":"KillFinalize"},"seq":228}
+{"kind":"building_lost","text":"Wooden dining chair (good 0%) destroyed (KillFinalize)","tick":1563794,"day":26,"hour":7,"cell":[146,120],"thing":"DiningChair82537","data":{"def":"DiningChair","mode":"KillFinalize"},"seq":229}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1563824,"day":26,"hour":7,"cell":[151,126],"thing":"Wall39303","data":{"def":"Wall","mode":"KillFinalize"},"seq":230}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1564045,"day":26,"hour":7,"cell":[152,127],"thing":"Wall39302","data":{"def":"Wall","mode":"KillFinalize"},"seq":231}
+{"kind":"building_lost","text":"Wooden bed (normal 0%) destroyed (KillFinalize)","tick":1564117,"day":26,"hour":7,"cell":[146,129],"thing":"Bed39188","data":{"def":"Bed","mode":"KillFinalize"},"seq":232}
+{"kind":"building_lost","text":"Wooden bed (normal 0%) destroyed (KillFinalize)","tick":1564271,"day":26,"hour":7,"cell":[146,127],"thing":"Bed39245","data":{"def":"Bed","mode":"KillFinalize"},"seq":233}
+{"kind":"message","text":"A bed assigned to Wu was destroyed.","tick":1564271,"day":26,"hour":7,"cell":[146,127],"thing":"Bed39245","data":{"type":"CautionInput"},"seq":234}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1565301,"day":26,"hour":8,"cell":[150,126],"thing":"Wall39260","data":{"def":"Wall","mode":"KillFinalize"},"seq":235}
+{"kind":"building_lost","text":"Steel table (2x2) (good 0%) destroyed (KillFinalize)","tick":1565451,"day":26,"hour":8,"cell":[147,120],"thing":"Table2x2c74569","data":{"def":"Table2x2c","mode":"KillFinalize"},"seq":236}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1565866,"day":26,"hour":8,"cell":[153,130],"thing":"Wall54699","data":{"def":"Wall","mode":"KillFinalize"},"seq":237}
+{"kind":"building_lost","text":"Wooden horseshoes pin (0%) destroyed (KillFinalize)","tick":1565937,"day":26,"hour":8,"cell":[146,124],"thing":"HorseshoesPin40434","data":{"def":"HorseshoesPin","mode":"KillFinalize"},"seq":238}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1566212,"day":26,"hour":8,"cell":[152,131],"thing":"Wall39285","data":{"def":"Wall","mode":"KillFinalize"},"seq":239}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1566220,"day":26,"hour":8,"cell":[152,130],"thing":"Wall39284","data":{"def":"Wall","mode":"KillFinalize"},"seq":240}
+{"kind":"building_lost","text":"Wooden bed (good 0%) destroyed (KillFinalize)","tick":1566449,"day":26,"hour":8,"cell":[146,130],"thing":"Bed39170","data":{"def":"Bed","mode":"KillFinalize"},"seq":241}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1566655,"day":26,"hour":8,"cell":[152,128],"thing":"Wall39282","data":{"def":"Wall","mode":"KillFinalize"},"seq":242}
+{"kind":"building_lost","text":"Wooden spike trap (0%) destroyed (KillFinalize)","tick":1566715,"day":26,"hour":8,"cell":[147,132],"thing":"TrapSpike40880","data":{"def":"TrapSpike","mode":"KillFinalize"},"seq":243}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1566994,"day":26,"hour":8,"cell":[161,116],"thing":"Wall75330","data":{"def":"Wall","mode":"KillFinalize"},"seq":244}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1567939,"day":26,"hour":9,"cell":[162,115],"thing":"Wall75337","data":{"def":"Wall","mode":"KillFinalize"},"seq":245}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1567970,"day":26,"hour":9,"cell":[151,131],"thing":"Wall39286","data":{"def":"Wall","mode":"KillFinalize"},"seq":246}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1568309,"day":26,"hour":9,"cell":[162,109],"thing":"Wall75800","data":{"def":"Wall","mode":"KillFinalize"},"seq":247}
+{"kind":"letter","text":"Shepherd role deactivated","tick":1568999,"day":26,"hour":9,"data":{"label":"Shepherd role deactivated","def":"NeutralEvent","text":"Number of Super-Islamists in your colony fell to 1. The Shepherd role is no longer active. This role will become available once again when the number of Super-Islamists reaches 3.","id":129},"seq":248}
+{"kind":"letter","text":"Sock's a Shepherd role lost","tick":1568999,"day":26,"hour":9,"cell":[147,130],"thing":"Human493","data":{"label":"Sock's a Shepherd role lost","def":"NeutralEvent","text":"Sock no longer holds the role of a Shepherd. Reason: Role became inactive due to low Super-Islamist count.","id":130},"seq":249}
+{"kind":"letter","text":"Requiem of Blood opportunity for Sock","tick":1568999,"day":26,"hour":9,"cell":[147,130],"thing":"Human493","data":{"label":"Requiem of Blood opportunity for Sock","def":"NeutralEvent","text":"You can hold a Super-Islamist funeral for Sock.\n\nTo begin the ritual, select a grave containing Sock's corpse and click the 'Begin Requiem of Blood' command.\n\nExpires in 9 days, on 11th of Septober.","id":131},"seq":250}
+{"kind":"letter","text":"Death: Sock","tick":1568999,"day":26,"hour":9,"cell":[147,130],"thing":"Human493","data":{"label":"Death: Sock","def":"Death","text":"Sock has died. Cause: Burn.\n\nSock should be buried and given a funeral so his friends and family can say farewell.","id":132},"seq":251}
+{"kind":"colonist_died","text":"Sock died","tick":1568999,"day":26,"hour":9,"cell":[147,130],"thing":"Human493","data":{"colonist":true,"faction":"Gaeria Sovereign Amalgamation","kind":"Colonist","cause":null,"by":null},"seq":252}
+{"kind":"building_lost","text":"Wooden door (0%) destroyed (KillFinalize)","tick":1569105,"day":26,"hour":9,"cell":[149,131],"thing":"Door39288","data":{"def":"Door","mode":"KillFinalize"},"seq":253}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1570036,"day":26,"hour":10,"cell":[149,126],"thing":"Wall39207","data":{"def":"Wall","mode":"KillFinalize"},"seq":254}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1570570,"day":26,"hour":10,"cell":[150,131],"thing":"Wall39287","data":{"def":"Wall","mode":"KillFinalize"},"seq":255}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1570656,"day":26,"hour":10,"cell":[148,126],"thing":"Wall39206","data":{"def":"Wall","mode":"KillFinalize"},"seq":256}
+{"kind":"message","text":"Wu is being burned by superheated air!","tick":1571262,"day":26,"hour":10,"cell":[142,137],"thing":"Human496","data":{"type":"ThreatSmall"},"seq":257}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1571476,"day":26,"hour":10,"cell":[161,109],"thing":"Wall75790","data":{"def":"Wall","mode":"KillFinalize"},"seq":258}
+{"kind":"message","text":"Critical alert: Colonist needs rescue","tick":1571505,"day":26,"hour":10,"cell":[144,139],"thing":"Human78642","data":{"type":"ThreatBig"},"seq":259}
+{"kind":"message","text":"Wu is being burned by superheated air!","tick":1571682,"day":26,"hour":10,"cell":[141,134],"thing":"Human496","data":{"type":"ThreatSmall"},"seq":260}
+{"kind":"message","text":"Wu is being burned by superheated air!","tick":1572102,"day":26,"hour":10,"cell":[141,133],"thing":"Human496","data":{"type":"ThreatSmall"},"seq":261}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1572557,"day":26,"hour":11,"cell":[162,116],"thing":"Wall75478","data":{"def":"Wall","mode":"KillFinalize"},"seq":262}
+{"kind":"message","text":"Critical alert: Colonist needs rescue","tick":1572562,"day":26,"hour":11,"cell":[143,139],"thing":"Human78642","data":{"type":"ThreatBig"},"seq":263}
+{"kind":"building_lost","text":"Steel door (0%) destroyed (KillFinalize)","tick":1572754,"day":26,"hour":11,"cell":[158,116],"thing":"Door75341","data":{"def":"Door","mode":"KillFinalize"},"seq":264}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1572917,"day":26,"hour":11,"cell":[159,109],"thing":"Wall75870","data":{"def":"Wall","mode":"KillFinalize"},"seq":265}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1573121,"day":26,"hour":11,"cell":[160,116],"thing":"Wall75350","data":{"def":"Wall","mode":"KillFinalize"},"seq":266}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1573232,"day":26,"hour":11,"cell":[146,126],"thing":"Wall39246","data":{"def":"Wall","mode":"KillFinalize"},"seq":267}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1573275,"day":26,"hour":11,"cell":[145,128],"thing":"Wall39181","data":{"def":"Wall","mode":"KillFinalize"},"seq":268}
+{"kind":"colonist_downed","text":"Wu downed","tick":1573341,"day":26,"hour":11,"cell":[137,129],"thing":"Human496","data":{"cause":null},"seq":269}
+{"kind":"message","text":"Critical alert: Colonist needs rescue","tick":1573347,"day":26,"hour":11,"cell":[137,129],"thing":"Human496","data":{"type":"ThreatBig"},"seq":270}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1573696,"day":26,"hour":11,"cell":[145,130],"thing":"Wall39173","data":{"def":"Wall","mode":"KillFinalize"},"seq":271}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1573708,"day":26,"hour":11,"cell":[148,131],"thing":"Wall39257","data":{"def":"Wall","mode":"KillFinalize"},"seq":272}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1573859,"day":26,"hour":11,"cell":[148,133],"thing":"Wall68967","data":{"def":"Wall","mode":"KillFinalize"},"seq":273}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1574198,"day":26,"hour":11,"cell":[155,109],"thing":"Wall75959","data":{"def":"Wall","mode":"KillFinalize"},"seq":274}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1574316,"day":26,"hour":11,"cell":[146,131],"thing":"Wall39172","data":{"def":"Wall","mode":"KillFinalize"},"seq":275}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1574385,"day":26,"hour":11,"cell":[145,126],"thing":"Wall39249","data":{"def":"Wall","mode":"KillFinalize"},"seq":276}
+{"kind":"letter","text":"Requiem of Blood opportunity for Sock","tick":1574399,"day":26,"hour":11,"data":{"label":"Requiem of Blood opportunity for Sock","def":"NeutralEvent","text":"You can hold a Super-Islamist funeral for Sock even though the body was lost.\n\nTo begin the ritual, select an empty grave to mourn Sock's passing and click the 'Begin Requiem of Blood' command.\n\nExpires in 9 days, on 11th of Septober.","id":133},"seq":277}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1574691,"day":26,"hour":11,"cell":[158,109],"thing":"Wall75862","data":{"def":"Wall","mode":"KillFinalize"},"seq":278}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1574855,"day":26,"hour":11,"cell":[147,131],"thing":"Wall39168","data":{"def":"Wall","mode":"KillFinalize"},"seq":279}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1575310,"day":26,"hour":12,"cell":[145,131],"thing":"Wall39171","data":{"def":"Wall","mode":"KillFinalize"},"seq":280}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1575331,"day":26,"hour":12,"cell":[154,109],"thing":"Wall76711","data":{"def":"Wall","mode":"KillFinalize"},"seq":281}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1575381,"day":26,"hour":12,"cell":[148,135],"thing":"Wall68954","data":{"def":"Wall","mode":"KillFinalize"},"seq":282}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1575430,"day":26,"hour":12,"cell":[145,127],"thing":"Wall39248","data":{"def":"Wall","mode":"KillFinalize"},"seq":283}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1575460,"day":26,"hour":12,"cell":[144,128],"thing":"Wall54005","data":{"def":"Wall","mode":"KillFinalize"},"seq":284}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1575701,"day":26,"hour":12,"cell":[147,133],"thing":"Wall68958","data":{"def":"Wall","mode":"KillFinalize"},"seq":285}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1575891,"day":26,"hour":12,"cell":[146,133],"thing":"Wall72838","data":{"def":"Wall","mode":"KillFinalize"},"seq":286}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1575932,"day":26,"hour":12,"cell":[148,134],"thing":"Wall68957","data":{"def":"Wall","mode":"KillFinalize"},"seq":287}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1576046,"day":26,"hour":12,"cell":[144,127],"thing":"Wall54063","data":{"def":"Wall","mode":"KillFinalize"},"seq":288}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1576580,"day":26,"hour":12,"cell":[145,133],"thing":"Wall68971","data":{"def":"Wall","mode":"KillFinalize"},"seq":289}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1576703,"day":26,"hour":12,"cell":[148,136],"thing":"Wall68951","data":{"def":"Wall","mode":"KillFinalize"},"seq":290}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1576807,"day":26,"hour":12,"cell":[154,110],"thing":"Wall76671","data":{"def":"Wall","mode":"KillFinalize"},"seq":291}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1576832,"day":26,"hour":12,"cell":[154,112],"thing":"Wall75288","data":{"def":"Wall","mode":"KillFinalize"},"seq":292}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1577565,"day":26,"hour":13,"cell":[149,110],"thing":"Wall74902","data":{"def":"Wall","mode":"KillFinalize"},"seq":293}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1577763,"day":26,"hour":13,"cell":[147,110],"thing":"Wall78327","data":{"def":"Wall","mode":"KillFinalize"},"seq":294}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1577858,"day":26,"hour":13,"cell":[148,137],"thing":"Wall68980","data":{"def":"Wall","mode":"KillFinalize"},"seq":295}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1578005,"day":26,"hour":13,"cell":[143,127],"thing":"Wall54062","data":{"def":"Wall","mode":"KillFinalize"},"seq":296}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1578511,"day":26,"hour":13,"cell":[144,133],"thing":"Wall69021","data":{"def":"Wall","mode":"KillFinalize"},"seq":297}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1578835,"day":26,"hour":13,"cell":[159,116],"thing":"Wall75345","data":{"def":"Wall","mode":"KillFinalize"},"seq":298}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1579078,"day":26,"hour":13,"cell":[148,138],"thing":"Wall68982","data":{"def":"Wall","mode":"KillFinalize"},"seq":299}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1579299,"day":26,"hour":13,"cell":[143,133],"thing":"Wall68975","data":{"def":"Wall","mode":"KillFinalize"},"seq":300}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1579344,"day":26,"hour":13,"cell":[162,117],"thing":"Wall75356","data":{"def":"Wall","mode":"KillFinalize"},"seq":301}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1579396,"day":26,"hour":13,"cell":[144,110],"thing":"Wall74927","data":{"def":"Wall","mode":"KillFinalize"},"seq":302}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1579489,"day":26,"hour":13,"cell":[147,138],"thing":"Wall69038","data":{"def":"Wall","mode":"KillFinalize"},"seq":303}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1579929,"day":26,"hour":13,"cell":[162,121],"thing":"Wall75619","data":{"def":"Wall","mode":"KillFinalize"},"seq":304}
+{"kind":"building_lost","text":"Wooden wall (0%) destroyed (KillFinalize)","tick":1580235,"day":26,"hour":14,"cell":[142,127],"thing":"Wall54104","data":{"def":"Wall","mode":"KillFinalize"},"seq":305}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1580281,"day":26,"hour":14,"cell":[162,119],"thing":"Wall75468","data":{"def":"Wall","mode":"KillFinalize"},"seq":306}
+{"kind":"colonist_left","text":"Babs left the colony","tick":1580288,"day":26,"hour":14,"cell":[144,139],"thing":"Human78642","data":{"to":"Andla"},"seq":307}
+{"kind":"colonist_left","text":"Jess left the colony","tick":1580288,"day":26,"hour":14,"cell":[146,136],"thing":"Human78638","data":{"to":"Andla"},"seq":308}
+{"kind":"letter","text":"Refugee died: Departure","tick":1580288,"day":26,"hour":14,"cell":[144,139],"thing":"Human78642","data":{"label":"Refugee died: Departure","def":"NegativeEvent","text":"Babs, one of the desperate refugees who asked to stay with you has died.\n\nThe last refugee is not willing to accept this, and has decided to leave.","id":134,"quest":4},"seq":309}
+{"kind":"letter","text":"Quest failed","tick":1580288,"day":26,"hour":14,"data":{"label":"Quest failed","def":"NegativeEvent","text":"You have failed the quest 'Cummings's Forlorn Drifters'.","id":135,"quest":4},"seq":310}
+{"kind":"message","text":"Babs has died. Cause: Burn.","tick":1580288,"day":26,"hour":14,"cell":[144,139],"thing":"Human78642","data":{"type":"PawnDeath"},"seq":311}
+{"kind":"building_lost","text":"Steel wall (0%) destroyed (KillFinalize)","tick":1580297,"day":26,"hour":14,"cell":[146,110],"thing":"Wall74920","data":{"def":"Wall","mode":"KillFinalize"},"seq":312}
+{"kind":"game","text":"new game started","seq":313}
+{"kind":"game","text":"game loaded/started","data":{"day":0},"seq":314}
+{"kind":"research_finished","text":"complex furniture","tick":0,"day":0,"hour":6,"data":{"def":"ComplexFurniture"},"seq":315}
+{"kind":"research_finished","text":"passive cooler","tick":0,"day":0,"hour":6,"data":{"def":"PassiveCooler"},"seq":316}
+{"kind":"research_finished","text":"stonecutting","tick":0,"day":0,"hour":6,"data":{"def":"Stonecutting"},"seq":317}
+{"kind":"research_finished","text":"complex clothing","tick":0,"day":0,"hour":6,"data":{"def":"ComplexClothing"},"seq":318}
+{"kind":"research_finished","text":"electricity","tick":0,"day":0,"hour":6,"data":{"def":"Electricity"},"seq":319}
+{"kind":"research_finished","text":"nutrient paste","tick":0,"day":0,"hour":6,"data":{"def":"NutrientPaste"},"seq":320}
+{"kind":"research_finished","text":"air conditioning","tick":0,"day":0,"hour":6,"data":{"def":"AirConditioning"},"seq":321}
+{"kind":"day","text":"day 0","tick":250,"day":0,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":20872.0,"wealth_items":9018.0,"wealth_buildings":9064.0,"mood_avg":51.0,"nutrition":0.0,"food_days":0.0,"threat_points":37.0,"research_done":7,"temp_outdoor":25.0,"danger":"None","assisted":false},"seq":322}
+{"kind":"built","text":"wall built by Onesan","tick":4473,"day":0,"hour":7,"cell":[140,125],"data":{"def":"Wall","by":"Human1053"},"seq":323}
+{"kind":"built","text":"wall built by Onesan","tick":4521,"day":0,"hour":7,"cell":[139,125],"data":{"def":"Wall","by":"Human1053"},"seq":324}
+{"kind":"built","text":"wall built by Onesan","tick":4584,"day":0,"hour":7,"cell":[138,125],"data":{"def":"Wall","by":"Human1053"},"seq":325}
+{"kind":"built","text":"door built by Onesan","tick":4881,"day":0,"hour":7,"cell":[137,125],"data":{"def":"Door","by":"Human1053"},"seq":326}
+{"kind":"built","text":"wall built by Onesan","tick":5544,"day":0,"hour":8,"cell":[141,128],"data":{"def":"Wall","by":"Human1053"},"seq":327}
+{"kind":"built","text":"wall built by Onesan","tick":5592,"day":0,"hour":8,"cell":[141,127],"data":{"def":"Wall","by":"Human1053"},"seq":328}
+{"kind":"built","text":"wall built by Onesan","tick":5640,"day":0,"hour":8,"cell":[141,129],"data":{"def":"Wall","by":"Human1053"},"seq":329}
+{"kind":"built","text":"wall built by Onesan","tick":5703,"day":0,"hour":8,"cell":[141,126],"data":{"def":"Wall","by":"Human1053"},"seq":330}
+{"kind":"built","text":"wall built by Onesan","tick":5766,"day":0,"hour":8,"cell":[141,125],"data":{"def":"Wall","by":"Human1053"},"seq":331}
+{"kind":"built","text":"campfire built by Onesan","tick":7245,"day":0,"hour":8,"cell":[137,127],"data":{"def":"Campfire","by":"Human1053"},"seq":332}
+{"kind":"built","text":"bed built by Onesan","tick":7509,"day":0,"hour":9,"cell":[136,128],"data":{"def":"Bed","by":"Human1053"},"seq":333}
+{"kind":"built","text":"wall built by Onesan","tick":9009,"day":0,"hour":9,"cell":[140,131],"data":{"def":"Wall","by":"Human1053"},"seq":334}
+{"kind":"built","text":"wall built by Onesan","tick":9057,"day":0,"hour":9,"cell":[139,131],"data":{"def":"Wall","by":"Human1053"},"seq":335}
+{"kind":"built","text":"wall built by Onesan","tick":9123,"day":0,"hour":9,"cell":[138,131],"data":{"def":"Wall","by":"Human1053"},"seq":336}
+{"kind":"built","text":"bed built by Onesan","tick":9387,"day":0,"hour":9,"cell":[138,128],"data":{"def":"Bed","by":"Human1053"},"seq":337}
+{"kind":"built","text":"wall built by Onesan","tick":9468,"day":0,"hour":9,"cell":[136,131],"data":{"def":"Wall","by":"Human1053"},"seq":338}
+{"kind":"built","text":"bed built by Onesan","tick":9765,"day":0,"hour":9,"cell":[134,128],"data":{"def":"Bed","by":"Human1053"},"seq":339}
+{"kind":"built","text":"wall built by Onesan","tick":11421,"day":0,"hour":10,"cell":[141,130],"data":{"def":"Wall","by":"Human1053"},"seq":340}
+{"kind":"built","text":"wall built by Onesan","tick":11469,"day":0,"hour":10,"cell":[141,131],"data":{"def":"Wall","by":"Human1053"},"seq":341}
+{"kind":"built","text":"wall built by Onesan","tick":11586,"day":0,"hour":10,"cell":[135,131],"data":{"def":"Wall","by":"Human1053"},"seq":342}
+{"kind":"built","text":"wall built by Onesan","tick":11652,"day":0,"hour":10,"cell":[134,131],"data":{"def":"Wall","by":"Human1053"},"seq":343}
+{"kind":"built","text":"wall built by Onesan","tick":11718,"day":0,"hour":10,"cell":[133,130],"data":{"def":"Wall","by":"Human1053"},"seq":344}
+{"kind":"built","text":"wall built by Onesan","tick":11838,"day":0,"hour":10,"cell":[135,125],"data":{"def":"Wall","by":"Human1053"},"seq":345}
+{"kind":"built","text":"wall built by Onesan","tick":13329,"day":0,"hour":11,"cell":[133,128],"data":{"def":"Wall","by":"Human1053"},"seq":346}
+{"kind":"built","text":"wall built by Onesan","tick":13380,"day":0,"hour":11,"cell":[133,127],"data":{"def":"Wall","by":"Human1053"},"seq":347}
+{"kind":"built","text":"wall built by Onesan","tick":13431,"day":0,"hour":11,"cell":[133,129],"data":{"def":"Wall","by":"Human1053"},"seq":348}
+{"kind":"built","text":"wall built by Onesan","tick":13494,"day":0,"hour":11,"cell":[133,126],"data":{"def":"Wall","by":"Human1053"},"seq":349}
+{"kind":"built","text":"wall built by Onesan","tick":13557,"day":0,"hour":11,"cell":[134,125],"data":{"def":"Wall","by":"Human1053"},"seq":350}
+{"kind":"built","text":"wall built by Onesan","tick":13605,"day":0,"hour":11,"cell":[133,125],"data":{"def":"Wall","by":"Human1053"},"seq":351}
+{"kind":"day","text":"day 1","tick":60000,"day":1,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":20887.0,"wealth_items":8586.0,"wealth_buildings":9512.0,"mood_avg":53.0,"nutrition":0.0,"food_days":0.0,"threat_points":36.0,"research_done":7,"temp_outdoor":24.0,"danger":"None","assisted":false},"seq":352}
+{"kind":"built","text":"wall built by Onesan","tick":65973,"day":1,"hour":8,"cell":[137,131],"data":{"def":"Wall","by":"Human1053"},"seq":353}
+{"kind":"built","text":"wall built by Onesan","tick":66054,"day":1,"hour":8,"cell":[133,131],"data":{"def":"Wall","by":"Human1053"},"seq":354}
+{"kind":"letter","text":"Monitor lizard hunting Glasses","tick":87017,"day":1,"hour":16,"cell":[121,49],"thing":"MonitorLizard14209","data":{"label":"Monitor lizard hunting Glasses","def":"ThreatBig","text":"A monitor lizard is hunting Glasses for food!","id":0},"seq":355}
+{"kind":"danger","text":"danger None -> Low (1 hostile targets)","tick":87060,"day":1,"hour":16,"data":{"from":"None","to":"Low","hostiles":1},"seq":356}
+{"kind":"danger","text":"danger Low -> None (0 hostile targets)","tick":88080,"day":1,"hour":17,"data":{"from":"Low","to":"None","hostiles":0},"seq":357}
+{"kind":"letter","text":"Food binge: Furr","tick":101892,"day":1,"hour":22,"cell":[135,126],"thing":"Human1056","data":{"label":"Food binge: Furr","def":"NegativeEvent","text":"Furr is pigging out on food.\n\nThis happened because of poor mood.\n\nThe final straw was: Malnourished","id":1},"seq":358}
+{"kind":"mental_break","text":"Furr: binging on food","tick":101892,"day":1,"hour":22,"cell":[135,126],"thing":"Human1056","data":{"def":"Binging_Food","reason":"This happened because of poor mood.\n\nThe final straw was: Malnourished"},"seq":359}
+{"kind":"day","text":"day 2","tick":120000,"day":2,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":20752.0,"wealth_items":8648.0,"wealth_buildings":9524.0,"mood_avg":45.0,"nutrition":34.2,"food_days":7.1,"threat_points":35.0,"research_done":7,"temp_outdoor":26.0,"danger":"None","assisted":false},"seq":360}
+{"kind":"built","text":"fence built by Onesan","tick":123174,"day":2,"hour":7,"cell":[146,102],"data":{"def":"Fence","by":"Human1053"},"seq":361}
+{"kind":"built","text":"fence built by Onesan","tick":123246,"day":2,"hour":7,"cell":[147,102],"data":{"def":"Fence","by":"Human1053"},"seq":362}
+{"kind":"built","text":"fence built by Onesan","tick":123306,"day":2,"hour":7,"cell":[147,103],"data":{"def":"Fence","by":"Human1053"},"seq":363}
+{"kind":"built","text":"fence gate built by Onesan","tick":124869,"day":2,"hour":7,"cell":[145,102],"data":{"def":"FenceGate","by":"Human1053"},"seq":364}
+{"kind":"built","text":"fence built by Onesan","tick":129582,"day":2,"hour":9,"cell":[146,105],"data":{"def":"Fence","by":"Human1053"},"seq":365}
+{"kind":"built","text":"fence built by Onesan","tick":129609,"day":2,"hour":9,"cell":[147,104],"data":{"def":"Fence","by":"Human1053"},"seq":366}
+{"kind":"built","text":"pen marker built by Onesan","tick":129810,"day":2,"hour":9,"cell":[145,103],"data":{"def":"PenMarker","by":"Human1053"},"seq":367}
+{"kind":"built","text":"fence built by Onesan","tick":129837,"day":2,"hour":9,"cell":[145,105],"data":{"def":"Fence","by":"Human1053"},"seq":368}
+{"kind":"built","text":"fence built by Onesan","tick":129864,"day":2,"hour":9,"cell":[147,105],"data":{"def":"Fence","by":"Human1053"},"seq":369}
+{"kind":"built","text":"fence built by Onesan","tick":129909,"day":2,"hour":9,"cell":[144,104],"data":{"def":"Fence","by":"Human1053"},"seq":370}
+{"kind":"built","text":"fence built by Onesan","tick":129936,"day":2,"hour":9,"cell":[144,103],"data":{"def":"Fence","by":"Human1053"},"seq":371}
+{"kind":"built","text":"fence built by Onesan","tick":129963,"day":2,"hour":9,"cell":[144,105],"data":{"def":"Fence","by":"Human1053"},"seq":372}
+{"kind":"built","text":"fence built by Onesan","tick":130011,"day":2,"hour":10,"cell":[144,102],"data":{"def":"Fence","by":"Human1053"},"seq":373}
+{"kind":"built","text":"simple research bench built by Onesan","tick":132516,"day":2,"hour":11,"cell":[142,122],"data":{"def":"SimpleResearchBench","by":"Human1053"},"seq":374}
+{"kind":"message","text":"Critical alert: Major break risk","tick":142294,"day":2,"hour":14,"cell":[142,121],"thing":"Human1053","data":{"type":"ThreatBig"},"seq":375}
+{"kind":"message","text":"Furr is no longer pigging out on food.","tick":146862,"day":2,"hour":16,"cell":[137,114],"thing":"Human1056","data":{"type":"SituationResolved"},"seq":376}
+{"kind":"letter","text":"Visitor","tick":150000,"day":2,"hour":18,"cell":[3,191],"thing":"Human14910","data":{"label":"Visitor","def":"NeutralEvent","text":"A paramedic from North Eretheistan is visiting the colony.\n\nShe is named Harae Lee.\n\nShe seems to have a few items to trade.","id":2},"seq":377}
+{"kind":"incident","text":"visitor group","tick":150000,"day":2,"hour":18,"data":{"def":"VisitorGroup","category":"FactionArrival","points":54.0,"faction":"North Eretheistan","strategy":null,"arrival":null},"seq":378}
+{"kind":"message","text":"Visitors from North Eretheistan are leaving.","tick":176269,"day":2,"hour":4,"cell":[140,141],"thing":"Human14910","data":{"type":"NeutralEvent"},"seq":379}
+{"kind":"day","text":"day 3","tick":180000,"day":3,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":20576.0,"wealth_items":8188.0,"wealth_buildings":9808.0,"mood_avg":51.0,"nutrition":28.8,"food_days":6.0,"threat_points":35.0,"research_done":7,"temp_outdoor":23.0,"danger":"None","assisted":false},"seq":380}
+{"kind":"message","text":"Critical alert: Major break risk","tick":198414,"day":3,"hour":13,"cell":[142,121],"thing":"Human1053","data":{"type":"ThreatBig"},"seq":381}
+{"kind":"manhunter","text":"Iguana (iguana) is manhunter","tick":204000,"day":3,"hour":15,"cell":[202,167],"thing":"Iguana14204","data":{"def":"Manhunter","kind":"Iguana"},"seq":382}
+{"kind":"letter","text":"Mad iguana","tick":204000,"day":3,"hour":15,"cell":[202,167],"thing":"Iguana14204","data":{"label":"Mad iguana","def":"ThreatSmall","text":"A local iguana has gone mad. It will attack everyone it sees.","id":3},"seq":383}
+{"kind":"incident","text":"single animal insanity","tick":204000,"day":3,"hour":15,"data":{"def":"AnimalInsanitySingle","category":"ThreatSmall","points":35.0,"faction":null,"strategy":null,"arrival":null},"seq":384}
+{"kind":"danger","text":"danger None -> Low (1 hostile targets)","tick":204060,"day":3,"hour":15,"data":{"from":"None","to":"Low","hostiles":1},"seq":385}
+{"kind":"danger","text":"danger Low -> None (0 hostile targets)","tick":205860,"day":3,"hour":16,"data":{"from":"Low","to":"None","hostiles":0},"seq":386}
+{"kind":"letter","text":"Daze: Glasses","tick":209104,"day":3,"hour":17,"cell":[148,33],"thing":"Human1050","data":{"label":"Daze: Glasses","def":"NegativeEvent","text":"Glasses is wandering around in a psychotic state.\n\nThis happened because of poor mood.\n\nThe final straw was: Malnourished","id":4},"seq":387}
+{"kind":"mental_break","text":"Glasses: wandering in psychosis","tick":209104,"day":3,"hour":17,"cell":[148,33],"thing":"Human1050","data":{"def":"Wander_Psychotic","reason":"This happened because of poor mood.\n\nThe final straw was: Malnourished"},"seq":388}
+{"kind":"built","text":"horseshoes pin built by Onesan","tick":210846,"day":3,"hour":18,"cell":[140,126],"data":{"def":"HorseshoesPin","by":"Human1053"},"seq":389}
+{"kind":"built","text":"table (1x2) built by Onesan","tick":211137,"day":3,"hour":18,"cell":[139,129],"data":{"def":"Table1x2c","by":"Human1053"},"seq":390}
+{"kind":"built","text":"stool built by Onesan","tick":211296,"day":3,"hour":18,"cell":[140,129],"data":{"def":"Stool","by":"Human1053"},"seq":391}
+{"kind":"message","text":"Critical alert: Major break risk","tick":217271,"day":3,"hour":20,"cell":[142,121],"thing":"Human1053","data":{"type":"ThreatBig"},"seq":392}
+{"kind":"colonist_downed","text":"Furr downed","tick":236622,"day":3,"hour":4,"cell":[136,128],"thing":"Human1056","data":{"cause":null},"seq":393}
+{"kind":"message","text":"Critical alert: Medical emergency","tick":236668,"day":3,"hour":4,"cell":[136,128],"thing":"Human1056","data":{"type":"ThreatBig"},"seq":394}
+{"kind":"day","text":"day 4","tick":240000,"day":4,"hour":6,"data":{"colonists":3,"downed":1,"prisoners":0,"animals":1,"wealth":20056.0,"wealth_items":8195.0,"wealth_buildings":9896.0,"mood_avg":38.0,"nutrition":27.9,"food_days":5.8,"threat_points":35.0,"research_done":7,"temp_outdoor":24.0,"danger":"None","assisted":false},"seq":395}
+{"kind":"built","text":"wall built by Onesan","tick":246522,"day":4,"hour":8,"cell":[136,125],"data":{"def":"Wall","by":"Human1053"},"seq":396}
+{"kind":"letter","text":"Cougar hunting Onesan","tick":251687,"day":4,"hour":10,"cell":[133,243],"thing":"Cougar14205","data":{"label":"Cougar hunting Onesan","def":"ThreatBig","text":"A cougar is hunting Onesan for food!","id":5},"seq":397}
+{"kind":"danger","text":"danger None -> Low (1 hostile targets)","tick":251760,"day":4,"hour":10,"data":{"from":"None","to":"Low","hostiles":1},"seq":398}
+{"kind":"message","text":"Onesan is being attacked by a cougar!","tick":254942,"day":4,"hour":11,"cell":[77,113],"thing":"Human1053","data":{"type":"ThreatSmall"},"seq":399}
+{"kind":"danger","text":"danger Low -> High (1 hostile targets)","tick":255060,"day":4,"hour":12,"data":{"from":"Low","to":"High","hostiles":1},"seq":400}
+{"kind":"colonist_downed","text":"Onesan downed","tick":255632,"day":4,"hour":12,"cell":[77,113],"thing":"Human1053","data":{"cause":"Scratch"},"seq":401}
+{"kind":"message","text":"Critical alert: Colonist needs rescue","tick":255636,"day":4,"hour":12,"cell":[77,113],"thing":"Human1053","data":{"type":"ThreatBig"},"seq":402}
+{"kind":"letter","text":"Skin-Caliphic Eulogy opportunity for Onesan","tick":256412,"day":4,"hour":12,"cell":[77,113],"thing":"Human1053","data":{"label":"Skin-Caliphic Eulogy opportunity for Onesan","def":"NeutralEvent","text":"You can hold a Skin-Caliphic funeral for Onesan.\n\nTo begin the ritual, select a grave containing Onesan's corpse and click the 'Begin Skin-Caliphic Eulogy' command.\n\nExpires in 9 days, on 14th of Aprimay.","id":6},"seq":403}
+{"kind":"letter","text":"Death: Onesan","tick":256412,"day":4,"hour":12,"cell":[77,113],"thing":"Human1053","data":{"label":"Death: Onesan","def":"Death","text":"Onesan has been torn to death.\n\nOnesan should be buried and given a funeral so her friends and family can say farewell.","id":7},"seq":404}
+{"kind":"colonist_died","text":"Onesan died","tick":256412,"day":4,"hour":12,"cell":[77,113],"thing":"Human1053","data":{"colonist":true,"faction":"New Arrivals","kind":"Colonist","cause":"Scratch","by":"Cougar14205"},"seq":405}
+{"kind":"danger","text":"danger High -> None (0 hostile targets)","tick":256560,"day":4,"hour":12,"data":{"from":"High","to":"None","hostiles":0},"seq":406}
+{"kind":"dialog","text":"Dialog_NamePlayerFactionAndSettlement: Since it looks like you'll be here for a while, Furr thinks that you should give your faction a name. What should your faction be called?","tick":258200,"day":4,"hour":13,"data":{"i":-1,"type":"Dialog_NamePlayerFactionAndSettlement","force_pause":true,"text":"Since it looks like you'll be here for a while, Furr thinks that you should give your faction a name. What should your faction be called?","kind":"give_name","fields":{"name":"Dinonum Compact","second_name":"Attiing"},"how":"rw_ui_dialog(name=..., second_name=...) to set your own, or rw_ui_dialog(choice=\"OK\") to accept the suggestions"},"seq":407}
+{"kind":"dialog_answered","text":"named 'Dinonum Compact' / 'Attiing'","tick":258200,"day":4,"hour":13,"seq":408}
+{"kind":"message","text":"Furr, Captain is no longer incapable of walking.","tick":262542,"day":4,"hour":15,"cell":[136,128],"thing":"Human1056","data":{"type":"PositiveEvent"},"seq":409}
+{"kind":"letter","text":"Cargo pods","tick":264000,"day":4,"hour":15,"cell":[145,140],"data":{"label":"Cargo pods","def":"PositiveEvent","text":"You have detected a cluster of cargo pods crashing nearby.\n\nPerhaps you'll find something useful in the wreckage.","id":8},"seq":410}
+{"kind":"incident","text":"resource pod crash","tick":264000,"day":4,"hour":15,"data":{"def":"ResourcePodCrash","category":"Misc","points":35.0,"faction":null,"strategy":null,"arrival":null},"seq":411}
+{"kind":"message","text":"Glasses is no longer wandering in a psychotic state.","tick":280414,"day":4,"hour":22,"cell":[138,139],"thing":"Human1050","data":{"type":"SituationResolved"},"seq":412}
+{"kind":"message","text":"Critical alert: Extreme break risk","tick":280415,"day":4,"hour":22,"cell":[138,139],"thing":"Human1050","data":{"type":"ThreatBig"},"seq":413}
+{"kind":"game","text":"new game started","seq":414}
+{"kind":"game","text":"game loaded/started","data":{"day":0},"seq":415}
+{"kind":"research_finished","text":"complex furniture","tick":0,"day":0,"hour":6,"data":{"def":"ComplexFurniture"},"seq":416}
+{"kind":"research_finished","text":"passive cooler","tick":0,"day":0,"hour":6,"data":{"def":"PassiveCooler"},"seq":417}
+{"kind":"research_finished","text":"stonecutting","tick":0,"day":0,"hour":6,"data":{"def":"Stonecutting"},"seq":418}
+{"kind":"research_finished","text":"complex clothing","tick":0,"day":0,"hour":6,"data":{"def":"ComplexClothing"},"seq":419}
+{"kind":"research_finished","text":"electricity","tick":0,"day":0,"hour":6,"data":{"def":"Electricity"},"seq":420}
+{"kind":"research_finished","text":"nutrient paste","tick":0,"day":0,"hour":6,"data":{"def":"NutrientPaste"},"seq":421}
+{"kind":"research_finished","text":"air conditioning","tick":0,"day":0,"hour":6,"data":{"def":"AirConditioning"},"seq":422}
+{"kind":"day","text":"day 0","tick":250,"day":0,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":13829.0,"wealth_items":8922.0,"wealth_buildings":2027.0,"mood_avg":51.0,"nutrition":0.0,"food_days":0.0,"threat_points":35.0,"research_done":7,"temp_outdoor":7.0,"danger":"None","assisted":false},"seq":423}
+{"kind":"built","text":"wall built by Kena","tick":6507,"day":0,"hour":8,"cell":[113,120],"data":{"def":"Wall","by":"Human926"},"seq":424}
+{"kind":"built","text":"wall built by Kena","tick":6567,"day":0,"hour":8,"cell":[113,119],"data":{"def":"Wall","by":"Human926"},"seq":425}
+{"kind":"built","text":"wall built by Kena","tick":6627,"day":0,"hour":8,"cell":[113,121],"data":{"def":"Wall","by":"Human926"},"seq":426}
+{"kind":"built","text":"wall built by Kena","tick":6702,"day":0,"hour":8,"cell":[113,118],"data":{"def":"Wall","by":"Human926"},"seq":427}
+{"kind":"built","text":"wall built by Kena","tick":6777,"day":0,"hour":8,"cell":[114,117],"data":{"def":"Wall","by":"Human926"},"seq":428}
+{"kind":"built","text":"wall built by Kena","tick":6837,"day":0,"hour":8,"cell":[113,117],"data":{"def":"Wall","by":"Human926"},"seq":429}
+{"kind":"built","text":"wall built by Kena","tick":6897,"day":0,"hour":8,"cell":[115,117],"data":{"def":"Wall","by":"Human926"},"seq":430}
+{"kind":"built","text":"door built by Kena","tick":7281,"day":0,"hour":8,"cell":[117,117],"data":{"def":"Door","by":"Human926"},"seq":431}
+{"kind":"built","text":"campfire built by Kena","tick":8049,"day":0,"hour":9,"cell":[116,120],"data":{"def":"Campfire","by":"Human926"},"seq":432}
+{"kind":"built","text":"simple research bench built by Kena","tick":10278,"day":0,"hour":10,"cell":[119,119],"data":{"def":"SimpleResearchBench","by":"Human926"},"seq":433}
+{"kind":"built","text":"bed built by Kena","tick":11349,"day":0,"hour":10,"cell":[119,123],"data":{"def":"Bed","by":"Human926"},"seq":434}
+{"kind":"built","text":"wall built by Kena","tick":11409,"day":0,"hour":10,"cell":[118,124],"data":{"def":"Wall","by":"Human926"},"seq":435}
+{"kind":"built","text":"wall built by Kena","tick":11469,"day":0,"hour":10,"cell":[119,124],"data":{"def":"Wall","by":"Human926"},"seq":436}
+{"kind":"built","text":"wall built by Kena","tick":11586,"day":0,"hour":10,"cell":[120,124],"data":{"def":"Wall","by":"Human926"},"seq":437}
+{"kind":"built","text":"bed built by Kena","tick":12717,"day":0,"hour":11,"cell":[117,123],"data":{"def":"Bed","by":"Human926"},"seq":438}
+{"kind":"built","text":"wall built by Kena","tick":12777,"day":0,"hour":11,"cell":[116,124],"data":{"def":"Wall","by":"Human926"},"seq":439}
+{"kind":"built","text":"bed built by Kena","tick":24201,"day":0,"hour":15,"cell":[115,123],"data":{"def":"Bed","by":"Human926"},"seq":440}
+{"kind":"built","text":"wall built by Kena","tick":24261,"day":0,"hour":15,"cell":[115,124],"data":{"def":"Wall","by":"Human926"},"seq":441}
+{"kind":"built","text":"wall built by Kena","tick":25371,"day":0,"hour":16,"cell":[117,124],"data":{"def":"Wall","by":"Human926"},"seq":442}
+{"kind":"built","text":"wall built by Kena","tick":25488,"day":0,"hour":16,"cell":[114,124],"data":{"def":"Wall","by":"Human926"},"seq":443}
+{"kind":"built","text":"wall built by Kena","tick":25563,"day":0,"hour":16,"cell":[113,123],"data":{"def":"Wall","by":"Human926"},"seq":444}
+{"kind":"built","text":"wall built by Kena","tick":25623,"day":0,"hour":16,"cell":[113,122],"data":{"def":"Wall","by":"Human926"},"seq":445}
+{"kind":"built","text":"wall built by Kena","tick":25683,"day":0,"hour":16,"cell":[113,124],"data":{"def":"Wall","by":"Human926"},"seq":446}
+{"kind":"built","text":"wall built by Kena","tick":25836,"day":0,"hour":16,"cell":[116,117],"data":{"def":"Wall","by":"Human926"},"seq":447}
+{"kind":"built","text":"wall built by Kena","tick":25926,"day":0,"hour":16,"cell":[118,117],"data":{"def":"Wall","by":"Human926"},"seq":448}
+{"kind":"built","text":"wall built by Kena","tick":26337,"day":0,"hour":16,"cell":[120,117],"data":{"def":"Wall","by":"Human926"},"seq":449}
+{"kind":"built","text":"wall built by Kena","tick":26424,"day":0,"hour":16,"cell":[122,117],"data":{"def":"Wall","by":"Human926"},"seq":450}
+{"kind":"built","text":"wall built by Kena","tick":33597,"day":0,"hour":19,"cell":[122,121],"data":{"def":"Wall","by":"Human926"},"seq":451}
+{"kind":"built","text":"wall built by Kena","tick":33657,"day":0,"hour":19,"cell":[122,120],"data":{"def":"Wall","by":"Human926"},"seq":452}
+{"kind":"built","text":"wall built by Kena","tick":33723,"day":0,"hour":19,"cell":[122,122],"data":{"def":"Wall","by":"Human926"},"seq":453}
+{"kind":"built","text":"wall built by Kena","tick":33798,"day":0,"hour":19,"cell":[122,119],"data":{"def":"Wall","by":"Human926"},"seq":454}
+{"kind":"built","text":"wall built by Kena","tick":33879,"day":0,"hour":19,"cell":[122,118],"data":{"def":"Wall","by":"Human926"},"seq":455}
+{"kind":"built","text":"wall built by Kena","tick":34020,"day":0,"hour":19,"cell":[121,117],"data":{"def":"Wall","by":"Human926"},"seq":456}
+{"kind":"built","text":"wall built by Kena","tick":36480,"day":0,"hour":20,"cell":[119,117],"data":{"def":"Wall","by":"Human926"},"seq":457}
+{"kind":"built","text":"wall built by Kena","tick":36741,"day":0,"hour":20,"cell":[122,123],"data":{"def":"Wall","by":"Human926"},"seq":458}
+{"kind":"built","text":"wall built by Kena","tick":36834,"day":0,"hour":20,"cell":[122,124],"data":{"def":"Wall","by":"Human926"},"seq":459}
+{"kind":"built","text":"wall built by Kena","tick":36993,"day":0,"hour":20,"cell":[121,124],"data":{"def":"Wall","by":"Human926"},"seq":460}
+{"kind":"day","text":"day 1","tick":60000,"day":1,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":13699.0,"wealth_items":8592.0,"wealth_buildings":2607.0,"mood_avg":52.0,"nutrition":44.1,"food_days":9.2,"threat_points":35.0,"research_done":7,"temp_outdoor":8.0,"danger":"None","assisted":false},"seq":461}
+{"kind":"letter","text":"Hide in room: Lumi","tick":117429,"day":1,"hour":4,"cell":[122,128],"thing":"Human929","data":{"label":"Hide in room: Lumi","def":"NegativeEvent","text":"Lumi is hiding in her room.\n\nThis happened because of poor mood.\n\nThe final straw was: Starving","id":0},"seq":462}
+{"kind":"mental_break","text":"Lumi: sitting alone","tick":117429,"day":1,"hour":4,"cell":[122,128],"thing":"Human929","data":{"def":"Wander_OwnRoom","reason":"This happened because of poor mood.\n\nThe final straw was: Starving"},"seq":463}
+{"kind":"day","text":"day 2","tick":120000,"day":2,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":12933.0,"wealth_items":8766.0,"wealth_buildings":2607.0,"mood_avg":36.0,"nutrition":45.9,"food_days":9.6,"threat_points":35.0,"research_done":7,"temp_outdoor":5.0,"danger":"None","assisted":false},"seq":464}
+{"kind":"construction_failed","text":"Wooden table (1x2) (building) failed (materials lost)","tick":123795,"day":2,"hour":7,"cell":[114,121],"data":{"def":"Frame_Table1x2c"},"seq":465}
+{"kind":"built","text":"table (1x2) built by Kena","tick":124716,"day":2,"hour":7,"cell":[114,121],"data":{"def":"Table1x2c","by":"Human926"},"seq":466}
+{"kind":"dialog","text":"Dialog_NodeTree: Research finished: Battery\n\nBuild batteries for storing electricity.","tick":138806,"day":2,"hour":13,"data":{"i":-1,"type":"Dialog_NodeTree","force_pause":true,"text":"Research finished: Battery\n\nBuild batteries for storing electricity.","choices":[{"i":0,"label":"OK","disabled":false,"reason":null},{"i":1,"label":"Research Screen","disabled":false,"reason":null}]},"seq":467}
+{"kind":"research_finished","text":"battery","tick":138806,"day":2,"hour":13,"data":{"def":"Batteries"},"seq":468}
+{"kind":"dialog_answered","text":"chose 'OK'","tick":138806,"day":2,"hour":13,"seq":469}
+{"kind":"message","text":"Critical alert: Major break risk","tick":140481,"day":2,"hour":14,"cell":[117,109],"thing":"Human932","data":{"type":"ThreatBig"},"seq":470}
+{"kind":"colonist_downed","text":"Kat downed","tick":147947,"day":2,"hour":17,"cell":[118,114],"thing":"Human932","data":{"cause":null},"seq":471}
+{"kind":"message","text":"Critical alert: Colonist needs rescue","tick":147975,"day":2,"hour":17,"cell":[118,114],"thing":"Human932","data":{"type":"ThreatBig"},"seq":472}
+{"kind":"message","text":"Critical alert: Medical emergency","tick":147978,"day":2,"hour":17,"cell":[118,114],"thing":"Human932","data":{"type":"ThreatBig"},"seq":473}
+{"kind":"letter","text":"Visitor","tick":150000,"day":2,"hour":18,"cell":[249,208],"thing":"Human52104","data":{"label":"Visitor","def":"NeutralEvent","text":"A Streamer from Northeast Erestbium is visiting the colony.\n\nHe is named Dennis Richtarski.","id":1},"seq":474}
+{"kind":"incident","text":"visitor group","tick":150000,"day":2,"hour":18,"data":{"def":"VisitorGroup","category":"FactionArrival","points":96.0,"faction":"Northeast Erestbium","strategy":null,"arrival":null},"seq":475}
+{"kind":"message","text":"Critical alert: Medical emergency","tick":150863,"day":2,"hour":18,"cell":[117,123],"thing":"Human932","data":{"type":"ThreatBig"},"seq":476}
+{"kind":"message","text":"Lumi is no longer hiding in her room.","tick":160989,"day":2,"hour":22,"cell":[117,119],"thing":"Human929","data":{"type":"SituationResolved"},"seq":477}
+{"kind":"message","text":"Kat, Tactician is no longer incapable of walking.","tick":165797,"day":2,"hour":0,"cell":[117,123],"thing":"Human932","data":{"type":"PositiveEvent"},"seq":478}
+{"kind":"message","text":"Critical alert: Major break risk","tick":165853,"day":2,"hour":0,"cell":[117,123],"thing":"Human932","data":{"type":"ThreatBig"},"seq":479}
+{"kind":"message","text":"Visitors from Northeast Erestbium are leaving.","tick":167809,"day":2,"hour":1,"cell":[105,122],"thing":"Human52104","data":{"type":"NeutralEvent"},"seq":480}
+{"kind":"day","text":"day 3","tick":180000,"day":3,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":13099.0,"wealth_items":8672.0,"wealth_buildings":2652.0,"mood_avg":64.0,"nutrition":36.9,"food_days":7.7,"threat_points":35.0,"research_done":8,"temp_outdoor":9.0,"danger":"None","assisted":false},"seq":481}
+{"kind":"message","text":"Herbal medicine has deteriorated away in storage.","tick":196521,"day":3,"hour":12,"cell":[118,110],"data":{"type":"NegativeEvent"},"seq":482}
+{"kind":"letter","text":"Inspired surgery: Kat","tick":198197,"day":3,"hour":13,"cell":[119,118],"thing":"Human932","data":{"label":"Inspired surgery: Kat","def":"PositiveEvent","text":"Thanks to high mood, Kat has experienced an inspiration!\n\nThe next time she performs a surgery, her chance of success will be doubled. A small minimum chance of failure still applies.\n\nThe inspiration will end after 8 days, or when the surgery is performed.","id":2},"seq":483}
+{"kind":"manhunter","text":"Quail (quail) is manhunter","tick":204000,"day":3,"hour":15,"cell":[13,140],"thing":"Quail51325","data":{"def":"Manhunter","kind":"Quail"},"seq":484}
+{"kind":"letter","text":"Mad quail","tick":204000,"day":3,"hour":15,"cell":[13,140],"thing":"Quail51325","data":{"label":"Mad quail","def":"ThreatSmall","text":"A local quail has gone mad. It will attack everyone it sees.","id":3},"seq":485}
+{"kind":"incident","text":"single animal insanity","tick":204000,"day":3,"hour":15,"data":{"def":"AnimalInsanitySingle","category":"ThreatSmall","points":35.0,"faction":null,"strategy":null,"arrival":null},"seq":486}
+{"kind":"danger","text":"danger None -> Low (1 hostile targets)","tick":204060,"day":3,"hour":15,"data":{"from":"None","to":"Low","hostiles":1},"seq":487}
+{"kind":"danger","text":"danger Low -> None (0 hostile targets)","tick":213000,"day":3,"hour":19,"data":{"from":"Low","to":"None","hostiles":0},"seq":488}
+{"kind":"colonist_downed","text":"Kat downed","tick":226577,"day":3,"hour":0,"cell":[117,123],"thing":"Human932","data":{"cause":null},"seq":489}
+{"kind":"message","text":"Kat, Tactician is no longer incapable of walking.","tick":227597,"day":3,"hour":1,"cell":[117,123],"thing":"Human932","data":{"type":"PositiveEvent"},"seq":490}
+{"kind":"day","text":"day 4","tick":240000,"day":4,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":13104.0,"wealth_items":8747.0,"wealth_buildings":2652.0,"mood_avg":61.0,"nutrition":30.6,"food_days":6.4,"threat_points":35.0,"research_done":8,"temp_outdoor":13.0,"danger":"None","assisted":false},"seq":491}
+{"kind":"message","text":"Lumi, Hunter is fully healed.","tick":243729,"day":4,"hour":7,"cell":[115,123],"thing":"Human929","data":{"type":"PositiveEvent"},"seq":492}
+{"kind":"built","text":"spike trap built by Kena","tick":244035,"day":4,"hour":7,"cell":[117,114],"data":{"def":"TrapSpike","by":"Human926"},"seq":493}
+{"kind":"built","text":"spike trap built by Kena","tick":245571,"day":4,"hour":8,"cell":[117,116],"data":{"def":"TrapSpike","by":"Human926"},"seq":494}
+{"kind":"built","text":"spike trap built by Kena","tick":247911,"day":4,"hour":9,"cell":[117,112],"data":{"def":"TrapSpike","by":"Human926"},"seq":495}
+{"kind":"built","text":"horseshoes pin built by Kena","tick":250437,"day":4,"hour":10,"cell":[115,119],"data":{"def":"HorseshoesPin","by":"Human926"},"seq":496}
+{"kind":"dialog","text":"Dialog_NamePlayerFactionAndSettlement: Since it looks like you'll be here for a while, Kat thinks that you should give your faction a name. What should your faction be called?","tick":258200,"day":4,"hour":13,"data":{"i":-1,"type":"Dialog_NamePlayerFactionAndSettlement","force_pause":true,"text":"Since it looks like you'll be here for a while, Kat thinks that you should give your faction a name. What should your faction be called?","kind":"give_name","fields":{"name":"Anditeria","second_name":"Aswell"},"how":"rw_ui_dialog(name=..., second_name=...) to set your own, or rw_ui_dialog(choice=\"OK\") to accept the suggestions"},"seq":497}
+{"kind":"dialog_answered","text":"named 'Anditeria' / 'Aswell'","tick":258200,"day":4,"hour":13,"seq":498}
+{"kind":"message","text":"Kat, Tactician is fully healed.","tick":288197,"day":4,"hour":1,"cell":[117,123],"thing":"Human932","data":{"type":"PositiveEvent"},"seq":499}
+{"kind":"built","text":"wall built by Kena","tick":297753,"day":4,"hour":5,"cell":[115,117],"data":{"def":"Wall","by":"Human926"},"seq":500}
+{"kind":"built","text":"wall built by Kena","tick":297948,"day":4,"hour":5,"cell":[114,117],"data":{"def":"Wall","by":"Human926"},"seq":501}
+{"kind":"built","text":"wall built by Kena","tick":298059,"day":4,"hour":5,"cell":[116,117],"data":{"def":"Wall","by":"Human926"},"seq":502}
+{"kind":"built","text":"door built by Kena","tick":298590,"day":4,"hour":5,"cell":[117,117],"data":{"def":"Door","by":"Human926"},"seq":503}
+{"kind":"built","text":"wall built by Kena","tick":298740,"day":4,"hour":5,"cell":[118,117],"data":{"def":"Wall","by":"Human926"},"seq":504}
+{"kind":"built","text":"wall built by Kena","tick":298824,"day":4,"hour":5,"cell":[119,117],"data":{"def":"Wall","by":"Human926"},"seq":505}
+{"kind":"built","text":"wall built by Kena","tick":298935,"day":4,"hour":5,"cell":[120,117],"data":{"def":"Wall","by":"Human926"},"seq":506}
+{"kind":"built","text":"wall built by Kena","tick":299166,"day":4,"hour":5,"cell":[113,117],"data":{"def":"Wall","by":"Human926"},"seq":507}
+{"kind":"built","text":"wall built by Kena","tick":299310,"day":4,"hour":5,"cell":[113,118],"data":{"def":"Wall","by":"Human926"},"seq":508}
+{"kind":"built","text":"wall built by Kena","tick":299409,"day":4,"hour":5,"cell":[113,119],"data":{"def":"Wall","by":"Human926"},"seq":509}
+{"kind":"built","text":"wall built by Kena","tick":299508,"day":4,"hour":5,"cell":[113,120],"data":{"def":"Wall","by":"Human926"},"seq":510}
+{"kind":"built","text":"wall built by Kena","tick":299850,"day":4,"hour":5,"cell":[121,117],"data":{"def":"Wall","by":"Human926"},"seq":511}
+{"kind":"built","text":"wall built by Kena","tick":299949,"day":4,"hour":5,"cell":[122,117],"data":{"def":"Wall","by":"Human926"},"seq":512}
+{"kind":"day","text":"day 5","tick":300000,"day":5,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":14218.0,"wealth_items":8513.0,"wealth_buildings":2835.0,"mood_avg":81.0,"nutrition":23.4,"food_days":4.9,"threat_points":35.0,"research_done":8,"temp_outdoor":12.0,"danger":"None","assisted":false},"seq":513}
+{"kind":"built","text":"wall built by Kena","tick":300150,"day":5,"hour":6,"cell":[113,121],"data":{"def":"Wall","by":"Human926"},"seq":514}
+{"kind":"built","text":"wall built by Kena","tick":300291,"day":5,"hour":6,"cell":[113,122],"data":{"def":"Wall","by":"Human926"},"seq":515}
+{"kind":"built","text":"wall built by Kena","tick":300402,"day":5,"hour":6,"cell":[113,123],"data":{"def":"Wall","by":"Human926"},"seq":516}
+{"kind":"letter","text":"Raid: Toxin Outfit","tick":324000,"day":5,"hour":15,"cell":[3,183],"thing":"Human53155","data":{"label":"Raid: Toxin Outfit","def":"ThreatBig","text":"A group of wasters from Toxin Outfit have arrived nearby.\n\nThey will prepare for a while, then attack.\n\nPrepare a defense or attack them pre-emptively.","id":4},"seq":517}
+{"kind":"hostile_group","text":"hostile group: Toxin Outfit x0 ()","tick":324000,"day":5,"hour":15,"data":{"faction":"Toxin Outfit","count":0,"job":null,"lord":1},"seq":518}
+{"kind":"incident","text":"enemy raid","tick":324000,"day":5,"hour":15,"data":{"def":"RaidEnemy","category":"ThreatBig","points":40.0,"faction":"Toxin Outfit","strategy":"StageThenAttack","arrival":"EdgeWalkIn"},"seq":519}
+{"kind":"danger","text":"danger None -> Low (1 hostile targets)","tick":324120,"day":5,"hour":15,"data":{"from":"None","to":"Low","hostiles":1},"seq":520}
+{"kind":"message","text":"Wasters from Toxin Outfit are beginning their assault.","tick":330635,"day":5,"hour":18,"cell":[39,185],"thing":"Human53155","data":{"type":"ThreatBig"},"seq":521}
+{"kind":"message","text":"Critical alert: Fire!","tick":332816,"day":5,"hour":19,"cell":[119,124],"thing":"Fire53218","data":{"type":"ThreatBig"},"seq":522}
+{"kind":"hostile_group_gone","text":"hostile group gone: Toxin Outfit (LordJob_StageThenAttack)","tick":333755,"day":5,"hour":19,"data":{"faction":"Toxin Outfit","job":"LordJob_StageThenAttack","lord":1},"seq":523}
+{"kind":"danger","text":"danger Low -> None (0 hostile targets)","tick":333780,"day":5,"hour":19,"data":{"from":"Low","to":"None","hostiles":0},"seq":524}
+{"kind":"letter","text":"Visitor","tick":338000,"day":5,"hour":21,"cell":[61,247],"thing":"Human53254","data":{"label":"Visitor","def":"NeutralEvent","text":"A gatherer from The Galrarbo League is visiting the colony.\n\nHe is named Monkey Bilda.","id":5},"seq":525}
+{"kind":"incident","text":"visitor group","tick":338000,"day":5,"hour":21,"data":{"def":"VisitorGroup","category":"FactionArrival","points":62.1134758,"faction":"The Galrarbo League","strategy":null,"arrival":null},"seq":526}
+{"kind":"day","text":"day 6","tick":360000,"day":6,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":14327.0,"wealth_items":8539.0,"wealth_buildings":2938.0,"mood_avg":73.0,"nutrition":18.9,"food_days":3.9,"threat_points":35.0,"research_done":8,"temp_outdoor":13.0,"danger":"None","assisted":false},"seq":527}
+{"kind":"quest","text":"Mechanoid Signal","tick":361000,"day":6,"hour":6,"data":{"id":0,"state":"NotYetAccepted"},"seq":528}
+{"kind":"letter","text":"Quest available: Mechanoid Signal","tick":361000,"day":6,"hour":6,"data":{"label":"Quest available: Mechanoid Signal","def":"NewQuest","text":"A new quest is available.\n\nThe quest is called 'Mechanoid Signal'.","id":7,"quest":0},"seq":529}
+{"kind":"incident","text":"mechanoid signal","tick":361000,"day":6,"hour":6,"data":{"def":"GiveQuest_MechanoidSignal","category":"GiveQuest","points":35.0,"faction":null,"strategy":null,"arrival":null},"seq":530}
+{"kind":"built","text":"spike trap built by Kena","tick":364728,"day":6,"hour":7,"cell":[117,116],"data":{"def":"TrapSpike","by":"Human926"},"seq":531}
+{"kind":"incident","text":"orbital trader arrival","tick":366000,"day":6,"hour":8,"data":{"def":"OrbitalTraderArrival","category":"OrbitalVisitor","points":-1.0,"faction":null,"strategy":null,"arrival":null},"seq":532}
+{"kind":"message","text":"Chunks of a spacecraft have impacted nearby. You can deconstruct them to yield resources.","tick":367000,"day":6,"hour":8,"cell":[216,196],"data":{"type":"NeutralEvent"},"seq":533}
+{"kind":"incident","text":"ship chunk drop","tick":367000,"day":6,"hour":8,"data":{"def":"ShipChunkDrop","category":"ShipChunkDrop","points":-1.0,"faction":null,"strategy":null,"arrival":null},"seq":534}
+{"kind":"message","text":"Visitors from The Galrarbo League are leaving.","tick":368859,"day":6,"hour":9,"cell":[115,132],"thing":"Human53254","data":{"type":"NeutralEvent"},"seq":535}
+{"kind":"day","text":"day 7","tick":420000,"day":7,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":14257.0,"wealth_items":8372.0,"wealth_buildings":3035.0,"mood_avg":64.0,"nutrition":15.7,"food_days":3.3,"threat_points":35.0,"research_done":8,"temp_outdoor":12.0,"danger":"None","assisted":false},"seq":536}
+{"kind":"letter","text":"Fallen monolith","tick":423409,"day":7,"hour":7,"cell":[199,192],"thing":"VoidMonolith51403","data":{"label":"Fallen monolith","def":"PositiveEvent","text":"Kena has noticed an ancient monolith partly buried nearby.\n\nIf you investigate it, you could learn more.","id":8},"seq":537}
+{"kind":"dialog","text":"Dialog_NodeTree: Research finished: Solar panel\n\nBuild solar panels for electricity generation.","tick":432962,"day":7,"hour":11,"data":{"i":-1,"type":"Dialog_NodeTree","force_pause":true,"text":"Research finished: Solar panel\n\nBuild solar panels for electricity generation.","choices":[{"i":0,"label":"OK","disabled":false,"reason":null},{"i":1,"label":"Research Screen","disabled":false,"reason":null}]},"seq":538}
+{"kind":"research_finished","text":"solar panel","tick":432962,"day":7,"hour":11,"data":{"def":"SolarPanels"},"seq":539}
+{"kind":"dialog_answered","text":"chose 'OK'","tick":432962,"day":7,"hour":11,"seq":540}
+{"kind":"message","text":"Kena has gotten food poisoning from: Simple meal. Cause: Incompetent cook.","tick":445132,"day":7,"hour":16,"cell":[131,115],"thing":"Human926","data":{"type":"NegativeEvent"},"seq":541}
+{"kind":"built","text":"solar generator built by Kena","tick":461346,"day":7,"hour":22,"cell":[124,121],"data":{"def":"SolarGenerator","by":"Human926"},"seq":542}
+{"kind":"quest","text":"The Ambushed Knight","tick":480000,"day":8,"hour":6,"data":{"id":1,"state":"NotYetAccepted"},"seq":543}
+{"kind":"letter","text":"Quest available: The Ambushed Knight","tick":480000,"day":8,"hour":6,"data":{"label":"Quest available: The Ambushed Knight","def":"NewQuest","text":"A new quest is available.\n\nThe quest is called 'The Ambushed Knight'.\n\nIf you don't accept the quest within 2 days, it will expire.","id":20,"quest":1},"seq":544}
+{"kind":"incident","text":"imperial wimp","tick":480000,"day":8,"hour":6,"data":{"def":"GiveQuest_Intro_Wimp","category":"GiveQuest","points":35.0,"faction":null,"strategy":null,"arrival":null},"seq":545}
+{"kind":"day","text":"day 8","tick":480000,"day":8,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":13770.0,"wealth_items":7955.0,"wealth_buildings":3330.0,"mood_avg":49.0,"nutrition":9.4,"food_days":2.0,"threat_points":35.0,"research_done":9,"temp_outdoor":12.0,"danger":"None","assisted":false},"seq":546}
+{"kind":"built","text":"battery built by Kena","tick":536844,"day":8,"hour":4,"cell":[116,121],"data":{"def":"Battery","by":"Human926"},"seq":547}
+{"kind":"colonist_downed","text":"Tiffy downed","tick":539187,"day":8,"hour":5,"thing":"Human947","data":{"cause":null},"seq":548}
+{"kind":"day","text":"day 9","tick":540000,"day":9,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":13673.0,"wealth_items":7537.0,"wealth_buildings":3330.0,"mood_avg":55.0,"nutrition":7.6,"food_days":1.6,"threat_points":35.0,"research_done":9,"temp_outdoor":14.0,"danger":"None","assisted":false},"seq":549}
+{"kind":"colonist_downed","text":"Tiffy downed","tick":555687,"day":9,"hour":12,"thing":"Human947","data":{"cause":null},"seq":550}
+{"kind":"letter","text":"Loyal Eulogy opportunity for Tiffy","tick":559812,"day":9,"hour":13,"data":{"label":"Loyal Eulogy opportunity for Tiffy","def":"NeutralEvent","text":"You can hold a fidelist funeral for Tiffy.\n\nTo begin the ritual, select a grave containing Tiffy's corpse and click the 'Begin Loyal Eulogy' command.\n\nExpires in 9 days, on 4th of Jugust.","id":21},"seq":551}
+{"kind":"colonist_died","text":"Tiffy died","tick":559812,"day":9,"hour":13,"thing":"Human947","data":{"colonist":true,"faction":"Anditeria","kind":"Colonist","cause":null,"by":null},"seq":552}
+{"kind":"colonist_downed","text":"Kena downed","tick":574326,"day":9,"hour":19,"cell":[117,116],"thing":"Human926","data":{"cause":"Stab"},"seq":553}
+{"kind":"letter","text":"Kena hit trap","tick":574326,"day":9,"hour":19,"cell":[117,116],"data":{"label":"Kena hit trap","def":"NegativeEvent","text":"Kena has accidentally sprung a trap and taken damage from it.","id":22},"seq":554}
+{"kind":"message","text":"Critical alert: Colonist needs rescue","tick":574353,"day":9,"hour":19,"cell":[117,116],"thing":"Human926","data":{"type":"ThreatBig"},"seq":555}
+{"kind":"message","text":"A bed is no longer assigned to Kena.","tick":575210,"day":9,"hour":20,"cell":[119,123],"thing":"Bed51599","data":{"type":"CautionInput"},"seq":556}
+{"kind":"day","text":"day 10","tick":600000,"day":10,"hour":6,"data":{"colonists":3,"downed":1,"prisoners":0,"animals":1,"wealth":13237.0,"wealth_items":7344.0,"wealth_buildings":3433.0,"mood_avg":45.0,"nutrition":2.8,"food_days":0.6,"threat_points":35.0,"research_done":9,"temp_outdoor":17.0,"danger":"None","assisted":false},"seq":557}
+{"kind":"dialog","text":"Dialog_NodeTree: Research finished: Pemmican\n\nMake pemmican, a preserved mixture of meat and plant matter that doesn't go bad for a long time. Great for traveling.","tick":601349,"day":10,"hour":6,"data":{"i":-1,"type":"Dialog_NodeTree","force_pause":true,"text":"Research finished: Pemmican\n\nMake pemmican, a preserved mixture of meat and plant matter that doesn't go bad for a long time. Great for traveling.","choices":[{"i":0,"label":"OK","disabled":false,"reason":null},{"i":1,"label":"Research Screen","disabled":false,"reason":null}]},"seq":558}
+{"kind":"research_finished","text":"pemmican","tick":601349,"day":10,"hour":6,"data":{"def":"Pemmican"},"seq":559}
+{"kind":"dialog_answered","text":"chose 'OK'","tick":601349,"day":10,"hour":6,"seq":560}
+{"kind":"built","text":"spike trap built by Lumi","tick":620013,"day":10,"hour":14,"cell":[117,116],"data":{"def":"TrapSpike","by":"Human929"},"seq":561}

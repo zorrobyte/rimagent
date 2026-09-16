@@ -12,7 +12,25 @@ from .bus import BUS, Bus
 from .context import Context
 from .llm import LLM
 from .loop import situation_packet, think
-from .paths import ROOT
+from .paths import ROOT, RUNS
+
+EPISODE_FILE = RUNS / "episode.json"
+
+
+def _save_episode(d: dict) -> None:
+    try:
+        import json
+        EPISODE_FILE.write_text(json.dumps(d))
+    except Exception:  # noqa: BLE001
+        pass
+
+
+def _load_episode() -> dict:
+    try:
+        import json
+        return json.loads(EPISODE_FILE.read_text()) if EPISODE_FILE.exists() else {}
+    except Exception:  # noqa: BLE001
+        return {}
 from .registry import Registry
 from .tools import brain as brain_tools
 from .tools import knowledge as knowledge_tools
@@ -123,11 +141,20 @@ class Runner:
         st = self.bridge.status()
         if st.get("state") == "playing":
             if not self.seed:
-                # Resumed into an existing game (agent restarted): continue it as the current episode.
+                # Resumed into an existing game (agent restarted): continue it as the current episode,
+                # restoring the episode number / start day / counters saved by this same game if they match its seed.
+                saved = _load_episode()
                 self.seed = st.get("seed") or "resumed"
-                self.episode = max(self.episode, 1)
-                self.start_day = int(st.get("day", 0))
-                self.last_day = self.start_day
+                if saved.get("seed") == self.seed:
+                    self.episode = int(saved.get("episode", self.episode or 1))
+                    self.start_day = int(saved.get("start_day", 0))
+                    self.deaths = int(saved.get("deaths", 0)); self.raids = int(saved.get("raids", 0))
+                    self.last_improve_day = int(saved.get("last_improve_day", self.start_day))
+                else:
+                    self.episode = max(self.episode, 1)
+                    self.start_day = int(st.get("day", 0))
+                    self.last_improve_day = self.start_day
+                self.last_day = int(st.get("day", 0))
                 self.ctx.last_seq = int(st.get("seq", 0))
                 self.ctx.episode, self.ctx.seed = self.episode, self.seed
                 self.bus.emit("episode_start", {"episode": self.episode, "seed": self.seed, "resumed": True, "day": self.start_day})
@@ -161,6 +188,7 @@ class Runner:
         from .tools import meta as meta_tools_mod
         tracker.reset(); worlddiff.reset(); meta_tools_mod.reset_repl()
         self.bus.emit("episode_start", {"episode": self.episode, "seed": self.seed})
+        _save_episode({"seed": self.seed, "episode": self.episode, "start_day": self.start_day, "deaths": 0, "raids": 0, "last_improve_day": self.last_improve_day})
         self.force_think = "new game started"
 
     def recover_game(self) -> None:
@@ -221,6 +249,7 @@ class Runner:
             # day rollover: autosave + maybe improvement pass
             if day != self.last_day:
                 self.last_day = day
+                _save_episode({"seed": self.seed, "episode": self.episode, "start_day": self.start_day, "deaths": self.deaths, "raids": self.raids, "last_improve_day": self.last_improve_day})
                 if play.get("autosave", True):
                     try:
                         self.bridge.call("game.save", name="rimagent-autosave")
