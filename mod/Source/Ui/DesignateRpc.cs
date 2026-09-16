@@ -121,6 +121,27 @@ namespace RimBridge.Ui
                 var rep = GenConstruct.CanPlaceBlueprintAt(def, c, rot, map, false, null, null, stuff);
                 if (!rep.Accepted) { if (failed.Count < 25) failed.Add(new JObject { ["cell"] = State.Snapshot.Cell(c), ["reason"] = rep.Reason?.StripTags() ?? "blocked" }); continue; }
                 if (dry) { placed.Add(State.Snapshot.Cell(c)); continue; }
+                // Same as Designator_Build: zero-work things (crafting/butcher/sleeping spots, plan markers) and god mode spawn instantly.
+                if (DebugSettings.godMode || def.GetStatValueAbstract(StatDefOf.WorkToBuild, stuff) == 0f)
+                {
+                    if (def is TerrainDef terr)
+                    {
+                        map.terrainGrid.RemoveTempTerrain(c);
+                        if (terr.isFoundation) { if (map.terrainGrid.CanRemoveTopLayerAt(c)) map.terrainGrid.RemoveTopLayer(c, !DebugSettings.godMode); map.terrainGrid.SetFoundation(c, terr); }
+                        else if (terr.temporary) map.terrainGrid.SetTempTerrain(c, terr);
+                        else map.terrainGrid.SetTerrain(c, terr);
+                        placed.Add(State.Snapshot.Cell(c));
+                    }
+                    else
+                    {
+                        var thing = ThingMaker.MakeThing((ThingDef)def, stuff);
+                        thing.SetFactionDirect(Faction.OfPlayer);
+                        var spawned = GenSpawn.Spawn(thing, c, map, rot);
+                        placed.Add(Render.ThingHandle(spawned));
+                    }
+                    continue;
+                }
+                GenSpawn.WipeExistingThings(c, rot, def.blueprintDef, map, DestroyMode.Deconstruct);
                 var bp = GenConstruct.PlaceBlueprintForBuild(def, c, map, rot, Faction.OfPlayer, stuff);
                 placed.Add(bp != null ? (JToken)Render.ThingHandle(bp) : State.Snapshot.Cell(c));
             }
