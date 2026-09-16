@@ -157,6 +157,7 @@ namespace RimBridge.State
             foreach (var t in map.listerThings.ThingsInGroup(ThingRequestGroup.HaulableEver))
             {
                 if (!t.Spawned || t.Position.Fogged(map) || t.IsInAnyStorage()) continue;
+                if (t.def.thingCategories != null && t.def.thingCategories.Any(c => c.defName == "Chunks" || c.defName == "StoneChunks")) continue; // natural debris, not stock
                 stacks++;
                 if (t.IsForbidden(Faction.OfPlayer)) forbidden++;
                 string cat = t.def.FirstThingCategory?.defName ?? t.def.category.ToString();
