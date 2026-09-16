@@ -93,3 +93,9 @@
 {"kind":"built","text":"wall built by Elekio","tick":10226,"day":0,"hour":10,"cell":[133,119],"data":{"def":"Wall","by":"Human762"},"seq":39}
 {"kind":"built","text":"wall built by Elekio","tick":10394,"day":0,"hour":10,"cell":[127,119],"data":{"def":"Wall","by":"Human762"},"seq":40}
 {"kind":"built","text":"wall built by Elekio","tick":10511,"day":0,"hour":10,"cell":[126,121],"data":{"def":"Wall","by":"Human762"},"seq":41}
+{"kind":"day","text":"day 1","tick":60000,"day":1,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":14787.0,"wealth_items":9455.0,"wealth_buildings":2302.0,"mood_avg":72.0,"nutrition":41.4,"food_days":8.6,"threat_points":35.0,"research_done":8,"temp_outdoor":5.0,"danger":"None","assisted":false},"seq":42}
+{"kind":"construction_failed","text":"Steel simple research bench (building) failed (materials lost)","tick":63608,"day":1,"hour":7,"cell":[127,126],"data":{"def":"Frame_SimpleResearchBench"},"seq":43}
+{"kind":"message","text":"Chavi failed while constructing a steel simple research bench. Some resources have been wasted.","tick":63608,"day":1,"hour":7,"cell":[127,126],"data":{"type":"NegativeEvent"},"seq":44}
+{"kind":"built","text":"simple research bench built by Chavi","tick":68846,"day":1,"hour":9,"cell":[127,126],"data":{"def":"SimpleResearchBench","by":"Human765"},"seq":45}
+{"kind":"letter","text":"Fallen monolith","tick":69532,"day":1,"hour":9,"cell":[69,51],"thing":"VoidMonolith39288","data":{"label":"Fallen monolith","def":"PositiveEvent","text":"Maisie has noticed an ancient monolith partly buried nearby.\n\nIf you investigate it, you could learn more.","id":0},"seq":46}
+{"kind":"built","text":"table (2x4) built by Elekio","tick":69938,"day":1,"hour":9,"cell":[128,121],"data":{"def":"Table2x4c","by":"Human762"},"seq":47}

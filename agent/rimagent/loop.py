@@ -113,7 +113,12 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
         res.transcript.append({"role": "assistant", "content": reply.content, "reasoning": reply.reasoning[:4000], "tool_calls": reply.tool_calls})
         messages.append(ctx.llm.assistant_message(reply))
         if not reply.tool_calls:
-            # No tools: treat visible text as the notes and stop.
+            # Narration without action. Nudge back into the loop a couple of times before accepting it as the notes.
+            nudges = res.transcript.count({"role": "nudge"})
+            if nudges < 2 and res.calls < max_calls:
+                res.transcript.append({"role": "nudge"})
+                messages.append({"role": "user", "content": "You wrote text but called no tool. Continue with tool calls, or call end_turn(notes, wake_in_hours, wake_on) if you are done with this step."})
+                continue
             res.notes = reply.content.strip()
             break
         image_msgs: list[dict[str, Any]] = []
