@@ -5114,3 +5114,6 @@
 {"kind":"day","text":"day 11","tick":713250,"day":11,"hour":3,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":0,"wealth":15597.0,"wealth_items":10357.0,"wealth_buildings":3151.0,"mood_avg":41.0,"nutrition":12.9,"food_days":2.7,"threat_points":35.0,"research_done":8,"temp_outdoor":19.0,"danger":"Low","assisted":false},"seq":5}
 {"kind":"built","text":"wall built by Gamble","tick":716413,"day":11,"hour":4,"cell":[146,133],"data":{"def":"Wall","by":"Human490"},"seq":6}
 {"kind":"hostile_group_gone","text":"hostile group gone: Gas Team (LordJob_AssaultColony)","tick":716928,"day":11,"hour":4,"data":{"faction":"Gas Team","job":"LordJob_AssaultColony","lord":4},"seq":7}
+{"kind":"danger","text":"danger Low -> None (0 hostile targets)","tick":717060,"day":11,"hour":4,"data":{"from":"Low","to":"None","hostiles":0},"seq":8}
+{"kind":"day","text":"day 12","tick":720000,"day":12,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":0,"wealth":15617.0,"wealth_items":10621.0,"wealth_buildings":3157.0,"mood_avg":46.0,"nutrition":12.4,"food_days":2.6,"threat_points":35.0,"research_done":8,"temp_outdoor":20.0,"danger":"None","assisted":false},"seq":9}
+{"kind":"dialog","text":"Dialog_BeginRitual: ","tick":721057,"day":12,"hour":6,"data":{"i":-1,"type":"Dialog_BeginRitual","force_pause":true},"seq":10}

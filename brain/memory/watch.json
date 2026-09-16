@@ -39,14 +39,16 @@
   ],
   "mood_avg": [
    37.0,
-   41.0
+   41.0,
+   43.0
   ],
   "wood": [
    null
   ],
   "outside_storage": [
    44.0,
-   40.0
+   40.0,
+   43.0
   ],
   "threat_points": [
    35.0

@@ -89,6 +89,8 @@ def sample(bridge: Any, summary: dict[str, Any] | None) -> str:
         try:
             if path.startswith("summary."):
                 v = _dig(summary or {}, path[len("summary."):])
+                if v is None and path.startswith("summary.key_stocks."):
+                    v = 0  # key_stocks omits zero counts
             elif path.startswith("stock."):
                 v = (summary or {}).get("key_stocks", {}).get(path[len("stock."):])
                 if v is None:
