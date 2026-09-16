@@ -10,8 +10,10 @@ llm:
 bridge:
   url: http://127.0.0.1:8765
 play:
-  pause_to_think: true     # pause the game while the agent thinks
-  speed: 3                 # 1 normal, 2 fast, 3 superfast
+  pause_to_think: true     # slow the game while the agent thinks (see think_speed); false = keep play speed
+  think_speed: 1           # 0 = fully paused while thinking, 1 = normal speed, 2 = fast
+  speed: 3                 # between steps: 1 normal, 2 fast, 3 superfast
+  improve_every_days: 4    # mid-episode improvement pass cadence
   wake_hours: 6            # scheduled think interval (in-game hours)
   max_tool_calls: 30       # per think step
   max_days: 60             # episode length cap

@@ -259,12 +259,17 @@ class Runner:
         return None
 
     def with_pause(self, fn) -> None:
+        # think_speed: 0 = pause the game while thinking, 1 = normal speed, 2/3 faster. pause_to_think=False forces play speed.
         pause = bool(self.cfg["play"].get("pause_to_think", True))
-        if pause:
-            try:
+        think_speed = int(self.cfg["play"].get("think_speed", 1)) if pause else int(self.cfg["play"].get("speed", 3))
+        try:
+            if think_speed <= 0:
                 self.bridge.call("game.pause", paused=True)
-            except BridgeError:
-                pass
+            else:
+                self.bridge.call("game.speed", speed=think_speed)
+                self.bridge.call("game.pause", paused=False)
+        except BridgeError:
+            pass
         self.thinking = True
         self.bus.emit("status", {"phase": "thinking"})
         try:

@@ -46,3 +46,9 @@
 {"kind":"day","text":"day 0","tick":250,"day":0,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":14038.0,"wealth_items":8970.0,"wealth_buildings":1973.0,"mood_avg":51.0,"nutrition":0.0,"food_days":0.0,"threat_points":35.0,"research_done":8,"temp_outdoor":2.0,"danger":"None","assisted":false},"seq":11}
 {"kind":"built","text":"bed built by Wangleng","tick":30552,"day":0,"hour":18,"cell":[85,108],"data":{"def":"Bed","by":"Human415"},"seq":12}
 {"kind":"building_lost","text":"Wooden bed (building) destroyed (FailConstruction)","tick":30978,"day":0,"hour":18,"cell":[85,106],"thing":"Frame_Bed39077","data":{"def":"Frame_Bed","mode":"FailConstruction"},"seq":13}
+{"kind":"building_lost","text":"Campfire (building) destroyed (FailConstruction)","tick":31401,"day":0,"hour":18,"cell":[88,103],"thing":"Frame_Campfire39093","data":{"def":"Frame_Campfire","mode":"FailConstruction"},"seq":14}
+{"kind":"built","text":"campfire built by Wangleng","tick":36228,"day":0,"hour":20,"cell":[88,103],"data":{"def":"Campfire","by":"Human415"},"seq":15}
+{"kind":"built","text":"bed built by Wangleng","tick":38859,"day":0,"hour":21,"cell":[85,104],"data":{"def":"Bed","by":"Human415"},"seq":16}
+{"kind":"built","text":"bed built by McMillan","tick":39314,"day":0,"hour":21,"cell":[85,106],"data":{"def":"Bed","by":"Human421"},"seq":17}
+{"kind":"building_lost","text":"Wooden simple research bench (building) destroyed (FailConstruction)","tick":40899,"day":0,"hour":22,"cell":[86,101],"thing":"Frame_SimpleResearchBench39090","data":{"def":"Frame_SimpleResearchBench","mode":"FailConstruction"},"seq":18}
+{"kind":"message","text":"Wangleng failed while constructing a wooden simple research bench. Some resources have been wasted.","tick":40899,"day":0,"hour":22,"cell":[86,101],"data":{"type":"NegativeEvent"},"seq":19}

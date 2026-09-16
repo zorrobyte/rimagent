@@ -160,7 +160,13 @@ namespace RimBridge.Ledger
         {
             try
             {
-                if (__instance.Faction != Faction.OfPlayer || mode == DestroyMode.Deconstruct || mode == DestroyMode.Vanish) return;
+                if (__instance.Faction != Faction.OfPlayer || mode == DestroyMode.Deconstruct || mode == DestroyMode.Vanish || mode == DestroyMode.Cancel) return;
+                if (__instance is Frame || __instance is Blueprint)
+                {
+                    if (mode == DestroyMode.FailConstruction)
+                        EventLedger.Add("construction_failed", $"{__instance.LabelCap} failed (materials lost)", new JObject { ["def"] = __instance.def.defName }, __instance.Position);
+                    return;
+                }
                 if (!__instance.def.building.isNaturalRock && __instance.def.category == ThingCategory.Building)
                     EventLedger.Add("building_lost", $"{__instance.LabelCap} destroyed ({mode})", new JObject { ["def"] = __instance.def.defName, ["mode"] = mode.ToString() }, __instance.Position, __instance.ThingID);
             }
