@@ -200,6 +200,34 @@ def create_app(bus: Any, bridge: Any, controls: Any) -> FastAPI:
         except Exception as e:  # noqa: BLE001
             return JSONResponse({"error": str(e)}, status_code=503)
 
+    @app.get("/api/base")
+    async def base_view(verbose: bool = False):
+        try:
+            return await _call_with_timeout(lambda: bridge.call("state.base", verbose=verbose), timeout=20.0)
+        except Exception as e:  # noqa: BLE001
+            return JSONResponse({"error": str(e)}, status_code=503)
+
+    @app.get("/api/anchors")
+    async def anchors_view():
+        try:
+            return await _call_with_timeout(lambda: bridge.call("anchor.list"), timeout=10.0)
+        except Exception as e:  # noqa: BLE001
+            return JSONResponse({"error": str(e)}, status_code=503)
+
+    @app.get("/screenshot_marked.png")
+    async def screenshot_marked(x: int | None = None, z: int | None = None, w: float = 80):
+        try:
+            from ..annotate import annotate
+            if x is None or z is None:
+                hc = await _call_with_timeout(lambda: bridge.call("state.base")["home_center"], timeout=10.0)
+                x, z = (x if x is not None else hc[0]), (z if z is not None else hc[1])
+            png = await _call_with_timeout(bridge.screenshot, x, z, w, 1024, 768, timeout=35.0)
+            detail = await _call_with_timeout(lambda: bridge.call("map.detail", x=x, z=z, w=min(60, int(w)), h=min(60, int(w * 768 / 1024) + 2)), timeout=20.0)
+            png2, _ = annotate(png, x, z, w, 1024, 768, detail.get("things") or [], detail.get("anchors_in_view") or {}, marks=True)
+            return Response(content=png2, media_type="image/png", headers={"Cache-Control": "no-store"})
+        except Exception as e:  # noqa: BLE001
+            return JSONResponse({"error": str(e)}, status_code=503)
+
     @app.get("/api/overview")
     async def overview(blocks: int = 60):
         try:
@@ -443,6 +471,7 @@ footer .r{margin-left:auto}
   <button data-tab="watchers">Watchers<span class="cnt" id="n-watchers"></span></button>
   <button data-tab="brain">Brain</button>
   <button data-tab="scores">Scores</button>
+  <button data-tab="base">Base</button>
   <button data-tab="map">Map</button>
   <button data-tab="ascii">ASCII</button>
 </nav>
@@ -458,7 +487,26 @@ footer .r{margin-left:auto}
       <button class="primary" onclick="sayToAgent()">Send</button>
       <span class="dimmer" id="say-status"></span>
     </div>
+    <details id="situation" open style="margin:0 8px 6px;border:1px solid var(--line, #333);border-radius:6px;padding:4px 8px;background:rgba(255,255,255,.03)">
+      <summary class="dim">Situation the model was last shown <span id="sit-when" class="dimmer"></span></summary>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <div style="flex:1;min-width:260px"><div class="dimmer">tracked (oldest→newest)</div><pre id="sit-tracked" style="margin:2px 0;white-space:pre-wrap;font-size:12px">—</pre></div>
+        <div style="flex:2;min-width:300px"><div class="dimmer">what changed since the previous step</div><pre id="sit-changes" style="margin:2px 0;white-space:pre-wrap;font-size:12px">—</pre></div>
+      </div>
+    </details>
     <div class="scroll" id="live"><div class="empty">Waiting for the agent…</div></div>
+  </section>
+
+  <section class="tab col" id="tab-base">
+    <div class="toolbar">
+      <span class="dim">The base as objects (state.base) — what the model reasons over</span>
+      <label class="dim"><input type="checkbox" id="base-verbose"> verbose contents</label>
+      <button class="primary" onclick="loadBase()">Refresh</button>
+      <label class="dim"><input type="checkbox" id="c-base-auto"> auto every 20s</label>
+      <span id="base-err"></span>
+      <span class="dimmer" id="base-when" style="margin-left:auto"></span>
+    </div>
+    <div class="scroll" id="base-view" style="padding:8px"></div>
   </section>
 
   <section class="tab col" id="tab-ledger">
@@ -517,6 +565,7 @@ footer .r{margin-left:auto}
       <label class="dim">w <input type="number" id="m-w" value="80" min="10" max="300"></label>
       <button class="primary" onclick="loadMap()">Refresh</button>
       <button onclick="mx.value='';mz.value='';loadMap()">Home</button>
+      <label class="dim" title="grid + numbered marks on buildings (what the model's look tool sees)"><input type="checkbox" id="c-map-marks" checked> marks</label>
       <label class="dim"><input type="checkbox" id="c-map-auto"> auto every 30s</label>
       <span id="map-err"></span>
       <span class="dimmer" id="map-when" style="margin-left:auto"></span>
@@ -531,7 +580,7 @@ footer .r{margin-left:auto}
       <label class="dim">w <input type="number" id="a-w" value="80" min="10" max="150"></label>
       <label class="dim">h <input type="number" id="a-h" value="50" min="10" max="150"></label>
       <label class="dim">mode <select id="a-mode" onchange="loadAscii()"><option value="view">region (1 char/cell)</option><option value="detail">building camera (numbered, legend)</option></select></label>
-      <label class="dim">around <input type="text" id="a-around" placeholder="thing id / pawn" style="width:120px"></label>
+      <label class="dim">around <input type="text" id="a-around" placeholder="thing id / pawn / anchor" style="width:130px" list="anchor-names"></label><datalist id="anchor-names"></datalist>
       <label class="dim">layer <select id="a-layer"><option>all</option><option>terrain</option><option>buildings</option><option>zones</option><option>pawns</option><option>items</option><option>roof</option><option>fog</option><option>home</option></select></label>
       <label class="dim"><input type="checkbox" id="a-roof"> roof</label>
       <button class="primary" onclick="loadAscii()">Refresh</button>
@@ -887,8 +936,9 @@ function loadMap() {
   const q = new URLSearchParams(); if (mx.value !== '') q.set('x', mx.value); if (mz.value !== '') q.set('z', mz.value); q.set('w', $('m-w').value || 80); q.set('t', Date.now());
   const img = $('map-img'); $('map-err').textContent = ''; img.style.opacity = .5;
   img.onload = () => { img.classList.add('shown'); img.style.opacity = 1; $('map-when').textContent = 'captured ' + new Date().toLocaleTimeString(); };
-  img.onerror = async () => { img.classList.remove('shown'); img.style.opacity = 1; try { const j = await (await fetch('/screenshot.png?' + q)).json(); $('map-err').textContent = j.error || 'screenshot failed'; } catch (_) { $('map-err').textContent = 'screenshot failed'; } };
-  img.src = '/screenshot.png?' + q;
+  const ep = $('c-map-marks').checked ? '/screenshot_marked.png?' : '/screenshot.png?';
+  img.onerror = async () => { img.classList.remove('shown'); img.style.opacity = 1; try { const j = await (await fetch(ep + q)).json(); $('map-err').textContent = j.error || 'screenshot failed'; } catch (_) { $('map-err').textContent = 'screenshot failed'; } };
+  img.src = ep + q;
 }
 setInterval(() => { if ($('c-map-auto').checked && $('tab-map').classList.contains('active')) loadMap(); }, 30000);
 
@@ -934,6 +984,33 @@ function paintDetail(grid) {
     return out;
   }).join('\n');
 }
+function esc2(t) { return String(t ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+async function loadBase() {
+  $('base-err').textContent = '';
+  try {
+    const j = await (await fetch('/api/base?verbose=' + ($('base-verbose').checked ? 'true' : 'false'))).json();
+    if (j.error) { $('base-err').textContent = j.error; return; }
+    let h = '';
+    if (j.trapped_colonists && j.trapped_colonists.length) h += `<div style="color:var(--err)"><b>TRAPPED:</b> ${esc2(j.trapped_colonists.map(t => `${t.pawn} at ${JSON.stringify(t.at)} (${t.room || '?'})`).join('; '))}</div>`;
+    if (j.furniture_not_in_any_room) h += `<div style="color:var(--warn)"><b>Furniture not in any enclosed room:</b> ${esc2(j.furniture_not_in_any_room)}</div>`;
+    h += `<div class="dim">home ${JSON.stringify(j.home_center)} · blueprints pending ${j.blueprints_pending} · frames ${j.frames_in_progress}</div>`;
+    h += '<table style="width:100%;border-collapse:collapse;font-size:12px;margin-top:6px"><tr><th align=left>room</th><th align=left>role</th><th align=left>size</th><th>free</th><th align=left>doors</th><th align=left>contents</th><th align=left>problems</th><th align=left>owner</th><th>temp</th><th>impr.</th></tr>';
+    for (const r of j.rooms || []) {
+      const contents = Object.entries(r.contents || {}).map(([k, v]) => Array.isArray(v) ? `${k} x${v.length}: ${v.map(t => t.id + '@' + JSON.stringify(t.at) + (t.interaction_cell ? '*' + JSON.stringify(t.interaction_cell) : '')).join(', ')}` : `${k} x${v}`).join('; ');
+      const doors = (r.doors || []).map(d => `${JSON.stringify(d.cell)}→${d.leads_to}`).join(', ') || '<span style="color:var(--err)">none</span>';
+      h += `<tr style="border-top:1px solid #333"><td>${esc2(r.ref)}${r.anchor ? ` <span class="badge info">${esc2(r.anchor)}</span>` : ''}</td><td>${esc2(r.role)}</td><td>${esc2(r.size)}</td><td align=center>${r.free_floor}</td><td>${doors}</td><td>${esc2(contents)}</td><td style="color:var(--warn)">${esc2((r.problems || []).join(', '))}</td><td>${esc2(r.owners)}</td><td align=center>${r.temp}</td><td align=center>${r.impressiveness}</td></tr>`;
+    }
+    h += '</table>';
+    const so = j.structures_outside_rooms || {};
+    if (Object.keys(so).length) h += '<h4 style="margin:10px 0 4px">Structures outside rooms</h4><div style="font-size:12px">' + Object.entries(so).map(([k, v]) => `<b>${esc2(k)}</b>: ${Array.isArray(v) ? v.map(t => t.id + '@' + JSON.stringify(t.at)).join(', ') : esc2(v)}`).join('<br>') + '</div>';
+    const an = j.anchors || [];
+    h += '<h4 style="margin:10px 0 4px">Anchors</h4><div style="font-size:12px">' + (an.length ? an.map(a => `<b>${esc2(a.name)}</b> ${esc2(a.size)} at ${JSON.stringify(a.rect.min)}..${JSON.stringify(a.rect.max)} (${esc2(a.from_home)})`).join('<br>') : '<span class="dimmer">none yet</span>') + '</div>';
+    $('base-view').innerHTML = h; $('base-when').textContent = new Date().toLocaleTimeString();
+    const dl = $('anchor-names'); if (dl) dl.innerHTML = an.map(a => `<option value="${esc2(a.name)}">`).join('');
+  } catch (e) { $('base-err').textContent = 'failed: ' + e; }
+}
+setInterval(() => { if ($('c-base-auto').checked && $('tab-base').classList.contains('active')) loadBase(); }, 20000);
+document.querySelector('#tabs button[data-tab="base"]').addEventListener('click', () => loadBase());
 async function loadOverview() {
   $('ascii-err').textContent = '';
   try {
@@ -966,6 +1043,7 @@ function handle(ev) {
     case 'error': { const s = curStep; curStep = null; liveAppend(sysLine('error', t, 'error: ' + (d.text || JSON.stringify(d)))); curStep = s; break; }
     case 'log': { const s = curStep; curStep = null; liveAppend(sysLine('log', t, d.text || JSON.stringify(d))); curStep = s; break; }
     case 'reply': { const s = curStep; curStep = null; const n = sysLine('log', t, '🤖 agent: ' + (d.text || '')); n.style.borderLeft = '3px solid var(--ok)'; n.style.fontSize = '13px'; n.style.padding = '6px 8px'; n.style.background = 'rgba(80,200,120,.08)'; liveAppend(n); curStep = s; $('say-status').textContent = 'agent replied ↑'; break; }
+    case 'situation': { $('sit-tracked').textContent = d.tracked || '—'; $('sit-changes').textContent = d.changes || '—'; $('sit-when').textContent = `· day ${d.day} ${d.hour}h · ${d.trigger || ''} · ${d.chars || 0} chars`; break; }
     case 'operator': { const s = curStep; curStep = null; const n = sysLine('log', t, '🧑 you: ' + (d.text || '')); n.style.borderLeft = '3px solid var(--warn)'; liveAppend(n); curStep = s; break; }
     default: break;
   }

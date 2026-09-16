@@ -5102,3 +5102,7 @@
 {"kind":"built","text":"wall built by Gamble","tick":708976,"day":11,"hour":1,"cell":[145,138],"data":{"def":"Wall","by":"Human490"},"seq":19}
 {"kind":"built","text":"wall built by Gamble","tick":709066,"day":11,"hour":1,"cell":[146,138],"data":{"def":"Wall","by":"Human490"},"seq":20}
 {"kind":"built","text":"wall built by Gamble","tick":709156,"day":11,"hour":1,"cell":[147,138],"data":{"def":"Wall","by":"Human490"},"seq":21}
+{"kind":"letter","text":"Raid: Gas Team","tick":713000,"day":11,"hour":3,"cell":[0,30],"thing":"Human69106","data":{"label":"Raid: Gas Team","def":"ThreatBig","text":"A group of wasters have arrived from nearby.\n\nThey are attacking immediately.","id":28},"seq":22}
+{"kind":"hostile_group","text":"hostile group: Gas Team x0 ()","tick":713000,"day":11,"hour":3,"data":{"faction":"Gas Team","count":0,"job":null,"lord":4},"seq":23}
+{"kind":"incident","text":"enemy raid","tick":713000,"day":11,"hour":3,"data":{"def":"RaidEnemy","category":"ThreatBig","points":36.75,"faction":"Gas Team","strategy":"ImmediateAttack","arrival":"EdgeWalkInDarkness"},"seq":24}
+{"kind":"danger","text":"danger None -> Low (1 hostile targets)","tick":713040,"day":11,"hour":3,"data":{"from":"None","to":"Low","hostiles":1},"seq":25}

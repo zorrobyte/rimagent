@@ -241,4 +241,10 @@ def situation_packet(ctx: Context, trigger: str, events: list[dict[str, Any]], a
             slim["zones"] = summary["zones"][:12]
         parts.append("## Colony numbers (state.summary)\n" + json.dumps(slim, ensure_ascii=False))
     parts.append("Act now. End with end_turn (notes + wake plan).")
+    try:
+        tracked = next((p for p in parts if p.startswith("## Tracked values")), "")
+        changes = next((p for p in parts if p.startswith("## What changed")), "")
+        ctx.emit("situation", {"trigger": trigger, "tracked": tracked.split("\n", 1)[-1] if tracked else "", "changes": changes.split("\n", 1)[-1] if changes else "", "day": summary.get("day"), "hour": summary.get("hour"), "chars": sum(len(p) for p in parts)})
+    except Exception:  # noqa: BLE001
+        pass
     return "\n\n".join(parts), hint

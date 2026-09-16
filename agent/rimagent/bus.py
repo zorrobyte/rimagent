@@ -13,6 +13,7 @@ Every event is {"seq": int, "t": epoch seconds, "kind": str, "data": dict}. Kind
   brain_change  data: {"kind": skill|tool|watcher|notebook|journal|git, "name"?: str, "action": str}
   episode_start data: {"episode": int, "seed": str}
   episode_end   data: {"episode": int, "score": float, "reason": str, "assisted": bool, "brain_sha": str}
+  situation     data: {"trigger", "tracked": str, "changes": str, "day", "hour", "chars"}   what the model was just shown
   operator      data: {"text": str}                         message typed by the human on the dashboard
   reply         data: {"text": str}                         the agent's reply_to_operator
   log           data: {"text": str, ...}
