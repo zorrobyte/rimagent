@@ -1,9 +1,17 @@
 ---
-name: base-building
-description: Pull in when planning or placing walls, doors, roofs, floors, bedrooms/barracks, the home area, or choosing wood vs stone; also when a roof collapse, fire or "sleeping outside" mood problem shows up.
-tags: [building, construction, rooms, layout, materials]
 always: false
+description: Pull in when planning or placing walls, doors, roofs, floors, bedrooms/barracks,
+  the home area, or choosing wood vs stone; also when a roof collapse, fire or "sleeping
+  outside" mood problem shows up.
+name: base-building
+tags:
+- building
+- construction
+- rooms
+- layout
+- materials
 ---
+
 # Base building
 
 ## Structures: costs and numbers
@@ -29,6 +37,9 @@ Materials: **Wood** 0.65x HP (195 HP wall), **100% flammable**, 0.7x work; **Ste
 
 ## Floors
 Floors stop wild plant growth, speed movement and remove the terrain cleanliness penalty (kitchen food poisoning, hospital, research). A 2-wide non-flammable strip is a fire break. Pawns pick up filth on soil (10%/step) and drop it on floors (5%/step), so floor the paths into the kitchen.
+
+## Interaction clearance (furniture near fires/stoves)
+- A pawn needs a **free adjacent cell** to use a campfire, stove, table or bed. Placing a 2x2 table directly against a campfire blocks the interaction cell and the bill/fuel job stalls (`rw_ui_build` returns a `failed` cell, or the pawn just stops). Leave at least one open cell on the side pawns approach from. When a placement fails with a blocked-interaction reason, shift the item one cell, not onto the fire's reach.
 
 ## Layout checklist (first days)
 1. `rw_ui_zone` stockpile where the base will be and build around it (outdoor items take months to deteriorate).
