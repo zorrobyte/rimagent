@@ -4991,3 +4991,27 @@
 {"kind":"research_finished","text":"battery","tick":429669,"day":7,"hour":9,"data":{"def":"Batteries"},"seq":34}
 {"kind":"built","text":"horseshoes pin built by Gamble","tick":429894,"day":7,"hour":9,"cell":[152,132],"data":{"def":"HorseshoesPin","by":"Human490"},"seq":35}
 {"kind":"built","text":"darktorch built by Gamble","tick":430638,"day":7,"hour":10,"cell":[151,128],"data":{"def":"Darktorch","by":"Human490"},"seq":36}
+{"kind":"message","text":"Gamble has gotten food poisoning from: Simple meal. Cause: Incompetent cook.","tick":453581,"day":7,"hour":19,"cell":[141,132],"thing":"Human490","data":{"type":"NegativeEvent"},"seq":37}
+{"kind":"built","text":"wood floor built by Gamble","tick":455049,"day":7,"hour":20,"cell":[149,129],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":38}
+{"kind":"built","text":"wood floor built by Gamble","tick":455110,"day":7,"hour":20,"cell":[148,129],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":39}
+{"kind":"built","text":"wood floor built by Gamble","tick":455171,"day":7,"hour":20,"cell":[149,128],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":40}
+{"kind":"built","text":"wood floor built by Gamble","tick":455232,"day":7,"hour":20,"cell":[149,130],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":41}
+{"kind":"built","text":"wood floor built by Gamble","tick":455293,"day":7,"hour":20,"cell":[150,129],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":42}
+{"kind":"built","text":"wood floor built by Gamble","tick":455354,"day":7,"hour":20,"cell":[148,128],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":43}
+{"kind":"built","text":"wood floor built by Gamble","tick":455415,"day":7,"hour":20,"cell":[148,130],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":44}
+{"kind":"built","text":"wood floor built by Gamble","tick":455510,"day":7,"hour":20,"cell":[147,129],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":45}
+{"kind":"built","text":"wood floor built by Gamble","tick":455571,"day":7,"hour":20,"cell":[147,130],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":46}
+{"kind":"construction_failed","text":"Wood floor (building) failed (materials lost)","tick":455583,"day":7,"hour":20,"cell":[147,128],"data":{"def":"Frame_WoodPlankFloor"},"seq":47}
+{"kind":"built","text":"wood floor built by Gamble","tick":455794,"day":7,"hour":20,"cell":[146,130],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":48}
+{"kind":"built","text":"wood floor built by Gamble","tick":457959,"day":7,"hour":21,"cell":[151,129],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":49}
+{"kind":"built","text":"wood floor built by Gamble","tick":458019,"day":7,"hour":21,"cell":[151,128],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":50}
+{"kind":"built","text":"wood floor built by Gamble","tick":458079,"day":7,"hour":21,"cell":[151,130],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":51}
+{"kind":"built","text":"wood floor built by Gamble","tick":458139,"day":7,"hour":21,"cell":[150,130],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":52}
+{"kind":"built","text":"wood floor built by Gamble","tick":458199,"day":7,"hour":21,"cell":[150,128],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":53}
+{"kind":"built","text":"wood floor built by Gamble","tick":458307,"day":7,"hour":21,"cell":[151,127],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":54}
+{"kind":"built","text":"wood floor built by Gamble","tick":458367,"day":7,"hour":21,"cell":[150,127],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":55}
+{"kind":"built","text":"wood floor built by Gamble","tick":458427,"day":7,"hour":21,"cell":[149,127],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":56}
+{"kind":"construction_failed","text":"Wood floor (building) failed (materials lost)","tick":458526,"day":7,"hour":21,"cell":[148,127],"data":{"def":"Frame_WoodPlankFloor"},"seq":57}
+{"kind":"built","text":"wood floor built by Gamble","tick":458621,"day":7,"hour":21,"cell":[147,128],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":58}
+{"kind":"built","text":"wood floor built by Gamble","tick":458682,"day":7,"hour":21,"cell":[147,127],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":59}
+{"kind":"built","text":"wood floor built by Gamble","tick":458776,"day":7,"hour":21,"cell":[146,129],"data":{"def":"WoodPlankFloor","by":"Human490"},"seq":60}

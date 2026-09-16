@@ -152,7 +152,7 @@ namespace RimBridge.State
         /// <summary>Haulable items lying outside any storage — the things that rot, deteriorate and get stolen.</summary>
         public static JObject OutsideStorage(Map map)
         {
-            int stacks = 0, food = 0, rotting = 0, corpses = 0, forbidden = 0;
+            int stacks = 0, food = 0, rotting = 0, corpses = 0, forbidden = 0, unroofed = 0, damaged = 0;
             var byCat = new Dictionary<string, int>();
             foreach (var t in map.listerThings.ThingsInGroup(ThingRequestGroup.HaulableEver))
             {
@@ -166,8 +166,10 @@ namespace RimBridge.State
                 if (t is Corpse) corpses++;
                 var rot = t.TryGetComp<CompRottable>();
                 if (rot != null && rot.Stage != RotStage.Fresh) rotting++;
+                if (t.def.CanEverDeteriorate && !t.Position.Roofed(map)) unroofed++;   // deteriorates in the open (rain/sun)
+                if (t.def.useHitPoints && t.HitPoints < t.MaxHitPoints) damaged++;
             }
-            return new JObject { ["stacks"] = stacks, ["forbidden"] = forbidden, ["food_stacks"] = food, ["rotting"] = rotting, ["corpses"] = corpses, ["by_category"] = JObject.FromObject(byCat.OrderByDescending(kv => kv.Value).Take(10).ToDictionary(kv => kv.Key, kv => kv.Value)), ["storage_cells_free"] = FreeStorageCells(map) };
+            return new JObject { ["stacks"] = stacks, ["forbidden"] = forbidden, ["food_stacks"] = food, ["rotting"] = rotting, ["corpses"] = corpses, ["unroofed_deteriorating"] = unroofed, ["damaged"] = damaged, ["by_category"] = JObject.FromObject(byCat.OrderByDescending(kv => kv.Value).Take(10).ToDictionary(kv => kv.Key, kv => kv.Value)), ["storage_cells_free"] = FreeStorageCells(map) };
         }
 
         static int FreeStorageCells(Map map)

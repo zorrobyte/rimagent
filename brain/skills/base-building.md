@@ -10,6 +10,7 @@ tags:
 - rooms
 - layout
 - materials
+- stockpile
 ---
 
 # Base building
@@ -27,8 +28,14 @@ Materials: **Wood** 0.65x HP (195 HP wall), **100% flammable**, 0.7x work; **Ste
 ## Rooms and roofs
 - A room = area fully enclosed by walls/doors/coolers/rock; corners are optional (but leak more heat). Use `rw_ui_build` with `rect` for walls and `at` for a Door on the traffic side.
 - Roofs extend **6 tiles** from any wall/column, so interiors up to **12 wide** roof fully; wider needs interior columns/walls. Temperature control needs **>= 75% roofed**; under that the room snaps to outdoor temperature. 300+ unroofed tiles = "outdoors" (Slept outside, no room mood).
-- Roofs are free and auto-designated over new rooms. Removing the last support within 6 tiles collapses the roof: thin/constructed roof deals **15-30 crush damage to head/neck** (roughly 1 in 3 kills an unhelmeted pawn); **overhead mountain** collapse destroys everything beneath. Lay a Remove-roof area before mining or deconstructing support walls. Trees cannot grow under roofs.
+- Roofs are free and auto-designated over new rooms. Removing the last support within 6 tiles collapses the roof: thin/constructed roof deals **15-30 crush damage to head/neck** (roughly 1 in 3 kills an unhelmeted pawn); **overhead mountain** collapse destroys everything beneath. Trees cannot grow under roofs.
 - Indoor items never deteriorate. Dark rooms give 80% work/move speed; a torch lamp is 10 wood for 10 days.
+
+## Stockpile roofing (operator tip)
+- **Stockpiles need a roof (or some structure overhead) or items will degrade** — food rots faster, leather/cloth deteriorate, and in rain everything takes water damage. An unroofed stockpile in a temperate forest will lose food to rot within days.
+- Check `rw_state_storage` for `storage_cells_free`: if it's 0-1 the zone is full and items are spilling out. Expand with `rw_ui_zone(action=add_cells, label=..., rect=...)` or create a second stockpile.
+- A simple roofed shed (4 walls + roof) over the stockpile is worth the ~20 wall cells + door. Prioritise this after the first raid.
+- **Dumping zone:** create a `DumpingStockpile` preset zone outside the home area for corpses, rotting food, and filth. Keep it off walking paths. `rw_ui_zone(action=create_stockpile, preset=DumpingStockpile, rect=..., label="dump")`.
 
 ## Bedroom vs barracks
 - Bedroom = only the owner's bed(s) (a lover pair is fine), no medical/prisoner bed; more than one unassigned bed makes a barracks. A barracks costs about **-5 mood vs an equivalent private bedroom** (-4 at higher quality). One barracks is fine on day 1; split into bedrooms within the first season.
@@ -39,13 +46,14 @@ Materials: **Wood** 0.65x HP (195 HP wall), **100% flammable**, 0.7x work; **Ste
 Floors stop wild plant growth, speed movement and remove the terrain cleanliness penalty (kitchen food poisoning, hospital, research). A 2-wide non-flammable strip is a fire break. Pawns pick up filth on soil (10%/step) and drop it on floors (5%/step), so floor the paths into the kitchen.
 
 ## Interaction clearance (furniture near fires/stoves)
-- A pawn needs a **free adjacent cell** to use a campfire, stove, table or bed. Placing a 2x2 table directly against a campfire blocks the interaction cell and the bill/fuel job stalls (`rw_ui_build` returns a `failed` cell, or the pawn just stops). Leave at least one open cell on the side pawns approach from. When a placement fails with a blocked-interaction reason, shift the item one cell, not onto the fire's reach.
+- A pawn needs a **free adjacent cell** to use a campfire, stove, table or bed. Placing a 2x2 table directly against a campfire blocks the interaction cell and the bill/fuel job stalls (`rw_ui_build` may return a `failed` cell, or the pawn just stops). Leave at least one open cell on the side pawns approach from. When a placement fails with a blocked-interaction reason, shift the item one cell, not onto the fire's reach.
 
 ## Layout checklist (first days)
-1. `rw_ui_zone` stockpile where the base will be and build around it (outdoor items take months to deteriorate).
+1. `rw_ui_zone` stockpile where the base will be and build around it (outdoor items take months to deteriorate). **Roof the stockpile** — unroofed stockpiles degrade food and leather in rain.
 2. Priority 1: walls + door for one ~7x7 room, beds (a normal bed saves ~1 hour sleep/day, avoids Slept on the ground), a 1x2 table + stools (avoids Ate without table).
 3. Kitchen: raw-food shelf/stockpile **adjacent** to the stove (otherwise the cook hauls one meal's ingredients per trip); meal stockpile next door, later a freezer (coolers blue side in, fully enclosed and roofed, usually 2+). Keep fields, kitchen and freezer within a short walk.
 4. Priority 2: wood-fired generator, conduits (buildings connect within 6 tiles), lamps, end table + dresser.
+5. **Dumping zone** outside the home area for corpses/rot/filth, off walking paths.
 
 ## Home area
 Colonists **repair, clean and extinguish fires only inside the home area** (`rw_ui_area(action=home_add, rect=...)` / `home_remove`). Keep it tight around buildings and fields, add a 1-wide strip along critical conduits so short-circuit breaks self-repair, and widen it temporarily when a wildfire approaches.
