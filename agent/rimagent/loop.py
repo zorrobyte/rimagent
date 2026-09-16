@@ -140,6 +140,12 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
             if ctx.stop_turn:
                 break
         messages.extend(image_msgs)
+        inbox = ctx.extra.get("operator_inbox")
+        if inbox:
+            msgs, inbox[:] = list(inbox), []
+            for m in msgs:
+                ctx.emit("log", {"text": f"operator message delivered mid-step: {m[:80]}"})
+            messages.append({"role": "user", "content": "## Message from the human operator (answer briefly in visible text, act on it)\n" + "\n".join(f"- {m}" for m in msgs)})
         if ctx.stop_turn:
             res.ended_by_tool = True
             res.notes = ctx.wake.notes

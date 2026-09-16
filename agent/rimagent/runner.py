@@ -73,6 +73,7 @@ class Runner:
         self.force_think: str | None = None
         self.force_end: str | None = None
         self.operator_inbox: list[str] = []
+        self.ctx.extra["operator_inbox"] = self.operator_inbox  # shared with the loop so messages land mid-step
         # episode state
         self.episode = len(scorecard.history(10_000))
         self.seed = ""
@@ -93,7 +94,7 @@ class Runner:
         self._alerts_at = 0.0
         self._seen_alerts: dict[str, int] = {}   # label -> tick last woken for it
         self._last_step_end_tick = 0
-        self.critical_kinds = set(cfg["play"].get("critical_kinds", ["dialog", "hostile_group", "colonist_downed", "colonist_died", "mental_break", "building_lost"]))
+        self.critical_kinds = set(cfg["play"].get("critical_kinds", ["dialog", "danger", "manhunter", "hostile_group", "colonist_downed", "colonist_died", "mental_break", "building_lost"]))
 
     # ---------- lifecycle ----------
     def run(self) -> None:
@@ -351,7 +352,7 @@ class Runner:
         self.ctx.watcher_alerts = alerts
         extra = ""
         if self.operator_inbox:
-            msgs, self.operator_inbox = self.operator_inbox, []
+            msgs, self.operator_inbox[:] = list(self.operator_inbox), []
             extra = "## Message from the human operator (they watch the dashboard; answer briefly in your visible text and act on it)\n" + "\n".join(f"- {m}" for m in msgs)
         msg, hint = situation_packet(self.ctx, trigger, events, alerts, extra=extra)
         res = think(self.ctx, msg, hint, trigger=trigger)

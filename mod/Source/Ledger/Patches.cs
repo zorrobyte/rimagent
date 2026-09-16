@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using HarmonyLib;
 using Newtonsoft.Json.Linq;
 using RimWorld;
@@ -121,8 +122,11 @@ namespace RimBridge.Ledger
         {
             try
             {
-                if (!__result || ___pawn == null || !___pawn.IsColonist) return;
-                EventLedger.Add("mental_break", $"{___pawn.LabelShortCap}: {stateDef.label}", new JObject { ["def"] = stateDef.defName, ["reason"] = reason }, ___pawn.PositionHeld, ___pawn.ThingID);
+                if (!__result || ___pawn == null) return;
+                if (___pawn.IsColonist)
+                    EventLedger.Add("mental_break", $"{___pawn.LabelShortCap}: {stateDef.label}", new JObject { ["def"] = stateDef.defName, ["reason"] = reason }, ___pawn.PositionHeld, ___pawn.ThingID);
+                else if (stateDef.IsAggro && ___pawn.Spawned && ___pawn.Map == Find.CurrentMap)
+                    EventLedger.Add("manhunter", $"{___pawn.LabelShortCap} ({___pawn.kindDef?.label}) is {stateDef.label}", new JObject { ["def"] = stateDef.defName, ["kind"] = ___pawn.kindDef?.defName }, ___pawn.PositionHeld, ___pawn.ThingID);
             }
             catch (Exception ex) { BridgeLog.Warning("ledger mental: " + ex.Message); }
         }
@@ -242,6 +246,7 @@ namespace RimBridge.Ledger
     public class LedgerComponent : GameComponent
     {
         private int _lastDay = -1;
+        private StoryDanger _lastDanger = StoryDanger.None;
         public LedgerComponent(Game game) { }
 
         public override void FinalizeInit()
@@ -251,6 +256,24 @@ namespace RimBridge.Ledger
 
         public override void GameComponentTick()
         {
+            if (Find.TickManager.TicksGame % 60 == 0)
+            {
+                try
+                {
+                    var m = Find.CurrentMap;
+                    if (m != null)
+                    {
+                        var d = m.dangerWatcher.DangerRating;
+                        if (d != _lastDanger)
+                        {
+                            int hostiles = m.attackTargetsCache.TargetsHostileToColony.Count(t => t.Thing.Spawned && !t.ThreatDisabled(null));
+                            EventLedger.Add("danger", $"danger {_lastDanger} -> {d} ({hostiles} hostile targets)", new JObject { ["from"] = _lastDanger.ToString(), ["to"] = d.ToString(), ["hostiles"] = hostiles });
+                            _lastDanger = d;
+                        }
+                    }
+                }
+                catch (Exception ex) { BridgeLog.Warning("danger watch: " + ex.Message); }
+            }
             if (Find.TickManager.TicksGame % 250 != 0) return;
             try
             {

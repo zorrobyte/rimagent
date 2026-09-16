@@ -20,7 +20,7 @@ play:
   event_cooldown_hours: 3  # non-critical wake events are ignored this long after a step
   alert_wake_priorities: [Critical]   # game alerts that interrupt (plus any "idle colonist" alert); others wait for the next step
   alert_rewake_hours: 24   # the same alert label won't interrupt again for this long
-  critical_kinds: [dialog, hostile_group, colonist_downed, colonist_died, mental_break, building_lost]
+  critical_kinds: [dialog, danger, manhunter, hostile_group, colonist_downed, colonist_died, mental_break, building_lost]
   max_tool_calls: 30       # per think step
   max_days: 60             # episode length cap
   autosave: true
@@ -28,6 +28,6 @@ play:
   scenario: Crashlanded
   storyteller: Cassandra
   difficulty: Rough
-  wake_on_kinds: [dialog, letter, incident, colonist_died, colonist_downed, mental_break, hostile_group, quest, building_lost]
+  wake_on_kinds: [dialog, danger, manhunter, letter, incident, colonist_died, colonist_downed, mental_break, hostile_group, quest, building_lost]
 dashboard:
   port: 8770
