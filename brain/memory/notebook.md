@@ -1,9 +1,9 @@
 # Episode 3 — seed rimagent-3 (TemperateForest, Spring)
 
 ## Colonists
-- Kena (Human926): Shooting 13!, Artistic 9, Construction 8 — BUILDER. Incapable of Cooking/Growing/PlantCutting.
-- Lumi (Human929): Shooting 12!!, Melee 12!!, Social 7 — GROWER/COOK + hunter.
-- Kat (Human932): Medicine 11!!, Intellectual 11!!, Melee 7 — DOCTOR/RESEARCHER.
+- Kena (Human926): Shooting 12!, Artistic 9, Construction 8 — BUILDER. Weapon: Revolver. Incapable of Cooking/Growing/PlantCutting/Mining.
+- Lumi (Human929): Shooting 12!!, Melee 12!!, Social 7 — GROWER/COOK + hunter. Weapon: Bolt-action rifle. Wimp trait.
+- Kat (Human932): Medicine 11!!, Intellectual 11!!, Melee 7 — DOCTOR/RESEARCHER. Weapon: Plasteel knife.
 
 ## Roles
 - Kena: Construction 1, BasicWorker 2, Hauling/Cleaning 3
@@ -11,30 +11,48 @@
 - Kat: Doctor 1, Research 2, Hauling 3
 - Everyone: Firefighter/Patient/BedRest 1
 
-## FOOD POLICY — CRITICAL (verified from source FoodRestrictionDatabase.cs:109)
-- **"Simple" does NOT include survival packs.** Simple blocks preferability>=9 AND explicitly SetAllow(MealSurvivalPack, false).
-- "Raw" also excludes survival packs. Only "Any" or "Survival" allow them.
-- 50 survival packs in stockpile. To eat them the policy MUST be "Any" or "Survival".
-- Kat starved twice because policy was "Simple" while only survival packs were in stock. FIX: set all 3 to "Any" (or "Survival") so the packs are edible. Do NOT trust "Simple" for survival packs.
-- Rice field "rice1" [113,113,6,5] (27 cells) — once rice is cooked into simple meals, policy can go back to "Simple"/"Cooked".
+## Food
+- food_days 3.9. 21 meals in storage. Rice at 76.1% growth, harvest in ~0.7d (+5.7 nutrition).
+- Cook bill: Forever CookMealSimple at campfire (ongoing).
+- Food policy "Lavish" — matches cooked meals.
+- 6 food stacks outside (unroofed, deteriorating).
 
 ## Base
-- Shelter built+roofed 10x8, 3 beds, campfire, research bench, door [117,117] (south chokepoint).
-- 3 spike traps placed [117,116/114/112] in south approach lane.
-- Stockpile "main" [118,110,8,6].
-- Table [114,121] in barracks.
+- Shelter: Room:182 Barracks 8x6 (48 cells), x=114-121, z=118-123. Door at [117,117] (south edge).
+- 3 beds, campfire, research bench, table, horseshoes pin all inside.
+- 2 spike traps built + 2 more planned (frames in progress).
+- Stockpile "main" at [125,112] (57 cells).
+- Rice field "rice1" at [115,115] (21 cells, 19 plants).
 
-## Research
-- SolarPanels in progress (Batteries done).
+## In Progress
+- Steel wall conversion DONE: 15 steel walls + 1 steel door.
+- SolarPanels research at 53%.
+- 2 spike trap frames being built.
 
-## Threats / notes
-- Quail attack day 3: Kat injured (quail bites, bleeding stopped, in bed), Lumi minor injuries. Both tending.
-- Wood walls = fire risk; plan steel fire break when steel flows.
-- First raid ~day 8-10. Chokepoint = door [117,117].
-- Kat consciousness recovering; check in ~4h.
+## Mood
+- Kena 70%, Lumi 91%, Kat 66%. All above minor threshold (35%).
+- Lumi negatives: barracks -7, unsightly -5, slept in heat -4, corpse -4, no table -3.
+
+## Threats
+- threat_points 35. No hostiles on map.
+- 2 spike traps built + 2 more being built.
+- Pirate raid expected ~day 8-10.
+
+## Day 6 notes
+- Visitor: Monkey Bilda (Tribal_Archer, Galrarbo League) at [123,138]. Lumi sent to trade.
+- Quest "Mechanoid Signal" available — declined (sends pawns far, risky early).
+- 6 unroofed deteriorating items outside storage (corpses).
+- Barracks temp 28C (campfire inside) — recurring "slept in heat" issue.
 
 ## Open / next
-- SET FOOD POLICY TO "Any" (survival packs won't eat under "Simple").
-- Verify rice harvest + cooking bill running.
-- Unforbid+haul steel for turrets/walls later.
-- Fire safety: steel fire break.
+- Rice harvest in ~0.7d — confirm Lumi harvests it.
+- Trade with Monkey Bilda when he arrives.
+- Plan bedroom split when materials allow.
+- Consider moving campfire outside or adding cooler.
+- Fire safety: south+west walls converted to steel. East/north walls still wood.
+
+Day 6 7h: Set cooking bill (Forever CookMealSimple on Campfire51575). Designated 5 trees/stumps for wood. Kena work priorities set (Construction 1). Drifter corpse at [117,116] (barracks door) can't be hauled — no stockpile slot for corpses. Will rot soon (-4 mood). 7 outside stacks rotting.
+
+Day 6 11h: Set cooking bill (Forever CookMealSimple on Campfire51575). Designated 5 trees/stumps for wood. Kena work priorities set (Construction 1). Drifter corpse at [117,116] (barracks door) can't be hauled — no stockpile slot for corpses. Will rot soon (-4 mood). 7 outside stacks rotting.
+
+Day 7 10h: Set CookMealSimple Forever bill on Campfire51575 (was missing — caused food_days drop to 2.9). Research: SolarPanels done, Pemmican started (500). Food policy "Lavish" is fine (matches meals in stock). Rice 35.5% growth, harvest ~1.9d. Wood 727 logs. 3 spike traps built. Barracks temp 28C (campfire inside) — recurring "slept in heat".
