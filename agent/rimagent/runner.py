@@ -50,6 +50,12 @@ class Controls:
     def kill(self):
         self.r.stop = True
 
+    def say(self, text: str):
+        """Operator message: shown in the feed, handed to the model at the start of its next step, and wakes it."""
+        self.r.operator_inbox.append(text)
+        self.r.bus.emit("operator", {"text": text})
+        self.r.force_think = "operator message"
+
 
 class Runner:
     def __init__(self, cfg: dict[str, Any], bus: Bus | None = None):
@@ -65,6 +71,7 @@ class Runner:
         self.stop = False
         self.force_think: str | None = None
         self.force_end: str | None = None
+        self.operator_inbox: list[str] = []
         # episode state
         self.episode = len(scorecard.history(10_000))
         self.seed = ""
@@ -330,7 +337,11 @@ class Runner:
         events, self.pending_events = self.pending_events, []
         alerts, self.pending_alerts = self.pending_alerts, []
         self.ctx.watcher_alerts = alerts
-        msg, hint = situation_packet(self.ctx, trigger, events, alerts)
+        extra = ""
+        if self.operator_inbox:
+            msgs, self.operator_inbox = self.operator_inbox, []
+            extra = "## Message from the human operator (they watch the dashboard; answer briefly in your visible text and act on it)\n" + "\n".join(f"- {m}" for m in msgs)
+        msg, hint = situation_packet(self.ctx, trigger, events, alerts, extra=extra)
         res = think(self.ctx, msg, hint, trigger=trigger)
         self.step_notes.append(res.notes)
         play = self.cfg["play"]

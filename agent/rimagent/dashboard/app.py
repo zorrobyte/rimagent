@@ -205,6 +205,18 @@ def create_app(bus: Any, bridge: Any, controls: Any) -> FastAPI:
             return JSONResponse({"error": str(e)}, status_code=503)
         return Response(content=png, media_type="image/png", headers={"Cache-Control": "no-store"})
 
+    @app.post("/api/say")
+    async def say(req: Request):
+        body = await req.json()
+        text = str(body.get("text", "")).strip()
+        if not text:
+            return JSONResponse({"ok": False, "error": "empty"}, status_code=400)
+        fn = getattr(controls, "say", None)
+        if not callable(fn):
+            return JSONResponse({"ok": False, "error": "runner has no say()"}, status_code=501)
+        fn(text)
+        return {"ok": True}
+
     @app.post("/api/control")
     def api_control(req: ControlRequest) -> dict[str, Any]:
         method = _CONTROL_ACTIONS.get(req.action)
@@ -424,9 +436,13 @@ footer .r{margin-left:auto}
 <main>
   <section class="tab active col" id="tab-live">
     <div class="toolbar">
-      <span class="dim">Think steps · newest at bottom · older steps collapse to one line</span>
-      <label class="dim" style="margin-left:auto"><input type="checkbox" id="c-autoscroll" checked> auto-scroll</label>
-      <button onclick="clearLive()">Clear</button>
+      <span class="dim">Think steps · newest at top · older steps collapse to one line</span>
+      <button style="margin-left:auto" onclick="clearLive()">Clear</button>
+    </div>
+    <div class="toolbar" style="gap:6px">
+      <input type="text" id="say-text" placeholder="Say something to the agent — it wakes and reads this at the start of its next step" style="flex:1;min-width:200px" onkeydown="if(event.key==='Enter')sayToAgent()">
+      <button class="primary" onclick="sayToAgent()">Send</button>
+      <span class="dimmer" id="say-status"></span>
     </div>
     <div class="scroll" id="live"><div class="empty">Waiting for the agent…</div></div>
   </section>
@@ -600,8 +616,16 @@ let curStep = null, stepCount = 0;
 function clearLive() { live.innerHTML = ''; curStep = null; }
 function liveAppend(node) {
   const e = live.querySelector('.empty'); if (e) e.remove();
-  (curStep ? curStep.querySelector('.step-body') : live).appendChild(node);
-  if ($('c-autoscroll').checked) scrollBottom(live);
+  if (curStep) curStep.querySelector('.step-body').appendChild(node); else live.insertBefore(node, live.firstChild);
+}
+async function sayToAgent() {
+  const inp = $('say-text'); const text = inp.value.trim(); if (!text) return;
+  $('say-status').textContent = 'sending…';
+  try {
+    const r = await fetch('/api/say', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text }) });
+    const j = await r.json(); $('say-status').textContent = j.ok ? 'queued — the agent will read it next step' : ('failed: ' + (j.error || '')); if (j.ok) inp.value = '';
+  } catch (e) { $('say-status').textContent = 'failed: ' + e; }
+  setTimeout(() => { $('say-status').textContent = ''; }, 6000);
 }
 function newStep(d, t) {
   const s = document.createElement('div');
@@ -610,11 +634,10 @@ function newStep(d, t) {
   s.querySelector('.step-head').onclick = () => s.classList.toggle('collapsed');
   s._calls = 0; s._tools = [];
   const e = live.querySelector('.empty'); if (e) e.remove();
-  live.appendChild(s); curStep = s;
+  live.insertBefore(s, live.firstChild); curStep = s;
   const steps = live.querySelectorAll('.step');
-  steps.forEach((x, i) => { if (i < steps.length - KEEP_OPEN) x.classList.add('collapsed'); });
-  while (live.querySelectorAll('.step').length > KEEP_STEPS) live.querySelector('.step').remove();
-  if ($('c-autoscroll').checked) scrollBottom(live);
+  steps.forEach((x, i) => { if (i >= KEEP_OPEN) x.classList.add('collapsed'); });
+  const all = live.querySelectorAll('.step'); if (all.length > KEEP_STEPS) all[all.length - 1].remove();
 }
 function ensureStep(t) { if (!curStep) newStep({trigger: '(in progress)'}, t); }
 function updateSummary(s) {
@@ -652,7 +675,7 @@ function attachResult(d) {
     const b = card.querySelector('.badge'); b.textContent = d.ok ? 'ok' : 'err'; b.className = 'badge ' + (d.ok ? 'ok' : 'err');
     card.querySelector('.el').textContent = d.elapsed != null ? `${Number(d.elapsed).toFixed(2)}s` : '';
     card.appendChild(res);
-    if ($('c-autoscroll').checked) scrollBottom(live);
+
   } else {
     const n = document.createElement('div'); n.className = 'item tool';
     n.innerHTML = `<div class="tool-head"><span class="tname">${esc(d.name)}</span><span class="badge ${d.ok ? 'ok' : 'err'}">${d.ok ? 'ok' : 'err'}</span><span class="el">${d.elapsed != null ? Number(d.elapsed).toFixed(2) + 's' : ''}</span></div>`;
@@ -902,6 +925,7 @@ function handle(ev) {
     case 'episode_end': { const s = curStep; curStep = null; liveAppend(sysLine('episode', t, `episode ${d.episode} ended · score ${d.score}${d.assisted ? ' (assisted)' : ''} · ${d.reason || ''}`)); curStep = s; if (scoresLoaded) loadScores(); break; }
     case 'error': { const s = curStep; curStep = null; liveAppend(sysLine('error', t, 'error: ' + (d.text || JSON.stringify(d)))); curStep = s; break; }
     case 'log': { const s = curStep; curStep = null; liveAppend(sysLine('log', t, d.text || JSON.stringify(d))); curStep = s; break; }
+    case 'operator': { const s = curStep; curStep = null; const n = sysLine('log', t, '🧑 you: ' + (d.text || '')); n.style.borderLeft = '3px solid var(--warn)'; liveAppend(n); curStep = s; break; }
     default: break;
   }
   $('f-seq').textContent = lastSeq; $('f-n').textContent = nEvents;
