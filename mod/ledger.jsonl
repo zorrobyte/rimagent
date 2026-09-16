@@ -99,3 +99,14 @@
 {"kind":"built","text":"simple research bench built by Chavi","tick":68846,"day":1,"hour":9,"cell":[127,126],"data":{"def":"SimpleResearchBench","by":"Human765"},"seq":45}
 {"kind":"letter","text":"Fallen monolith","tick":69532,"day":1,"hour":9,"cell":[69,51],"thing":"VoidMonolith39288","data":{"label":"Fallen monolith","def":"PositiveEvent","text":"Maisie has noticed an ancient monolith partly buried nearby.\n\nIf you investigate it, you could learn more.","id":0},"seq":46}
 {"kind":"built","text":"table (2x4) built by Elekio","tick":69938,"day":1,"hour":9,"cell":[128,121],"data":{"def":"Table2x4c","by":"Human762"},"seq":47}
+{"kind":"game","text":"new game started","seq":1}
+{"kind":"game","text":"game loaded/started","data":{"day":0},"seq":2}
+{"kind":"research_finished","text":"complex furniture","tick":0,"day":0,"hour":6,"data":{"def":"ComplexFurniture"},"seq":3}
+{"kind":"research_finished","text":"passive cooler","tick":0,"day":0,"hour":6,"data":{"def":"PassiveCooler"},"seq":4}
+{"kind":"research_finished","text":"stonecutting","tick":0,"day":0,"hour":6,"data":{"def":"Stonecutting"},"seq":5}
+{"kind":"research_finished","text":"complex clothing","tick":0,"day":0,"hour":6,"data":{"def":"ComplexClothing"},"seq":6}
+{"kind":"research_finished","text":"electricity","tick":0,"day":0,"hour":6,"data":{"def":"Electricity"},"seq":7}
+{"kind":"research_finished","text":"nutrient paste","tick":0,"day":0,"hour":6,"data":{"def":"NutrientPaste"},"seq":8}
+{"kind":"research_finished","text":"air conditioning","tick":0,"day":0,"hour":6,"data":{"def":"AirConditioning"},"seq":9}
+{"kind":"research_finished","text":"deathrest","tick":0,"day":0,"hour":6,"data":{"def":"Deathrest"},"seq":10}
+{"kind":"day","text":"day 0","tick":250,"day":0,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":15611.0,"wealth_items":9553.0,"wealth_buildings":1973.0,"mood_avg":51.0,"nutrition":0.0,"food_days":0.0,"threat_points":35.0,"research_done":8,"temp_outdoor":2.0,"danger":"None","assisted":false},"seq":11}

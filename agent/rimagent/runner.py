@@ -118,7 +118,10 @@ class Runner:
                 self.force_think = "agent (re)started mid-game"
             return
         if st.get("state") == "loading":
-            self.bridge.wait_for("playing", 600)
+            # Startup or a scene change in progress: wait until it settles (menu or playing), then decide.
+            t0 = time.time()
+            while time.time() - t0 < 600 and self.bridge.status().get("state") == "loading":
+                time.sleep(2)
             return self.ensure_game()
         self.new_game()
 
