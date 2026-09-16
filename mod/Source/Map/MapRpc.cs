@@ -29,6 +29,14 @@ namespace RimBridge.MapView
             return new JObject { ["legend"] = AsciiView.Legend, ["box"] = Render.Value(box, 1), ["grid"] = AsciiView.RenderLayer(map, box, layer) };
         }
 
+        /// <summary>Shared renderer for the building camera; marks are drawn as 'X'.</summary>
+        public static JObject DetailRender(Verse.Map map, CellRect box, bool roofLayer, HashSet<IntVec3>? marks)
+        {
+            var p = new JObject { ["x"] = box.CenterCell.x, ["z"] = box.CenterCell.z, ["w"] = box.Width, ["h"] = box.Height, ["roof"] = roofLayer };
+            if (marks != null) p["mark"] = new JArray(marks.Select(m => new JArray(m.x, m.z)));
+            return (JObject)Detail(p);
+        }
+
         [Rpc("map.detail", "{x?, z?, around?: thingId|pawn (centre on it), w?: 24, h?: 24 (max 60 — enough for a whole base), roof?: false} the BUILDING CAMERA: zoomed ASCII where every column is numbered, each building type gets its own letter (UPPER = built, lower = blueprint/frame), '*' marks interaction spots that must stay clear, '+' doors, '_' stockpile, ',' growing zone, 'i' items, '@' colonists, '!' hostiles, '^' rock, '~' water, '.' open ground. Returns legend + list of things in view with id/rot/size. Use before and after placing anything.")]
         public static JToken Detail(JObject p)
         {
@@ -77,6 +85,8 @@ namespace RimBridge.MapView
                     things.Add(o);
                 }
             }
+            var marks = new HashSet<IntVec3>();
+            if (p["mark"] is JArray mk) foreach (var m in mk) marks.Add(Lookup.Cell(m));
             var colonists = new HashSet<IntVec3>(map.mapPawns.FreeColonistsSpawned.Select(x => x.Position));
             var hostiles = new HashSet<IntVec3>(map.mapPawns.AllPawnsSpawned.Where(x => x.HostileTo(Faction.OfPlayer)).Select(x => x.Position));
             var sb = new System.Text.StringBuilder();
@@ -91,7 +101,8 @@ namespace RimBridge.MapView
                 {
                     var c = new IntVec3(x, 0, z);
                     char g;
-                    if (c.Fogged(map)) g = '?';
+                    if (marks.Contains(c)) g = 'X';
+                    else if (c.Fogged(map)) g = '?';
                     else if (hostiles.Contains(c)) g = '!';
                     else if (colonists.Contains(c)) g = '@';
                     else
@@ -127,7 +138,10 @@ namespace RimBridge.MapView
             foreach (var kv in letters) legend[kv.Value.ToString()] = kv.Key + " x" + (counts.TryGetValue(kv.Key, out var n) ? n : 0) + " (lowercase = blueprint/frame)";
             legend["*"] = "interaction spot — keep clear"; legend["+"] = "door"; legend["_"] = "stockpile"; legend[","] = "growing zone"; legend["i"] = "item"; legend["@"] = "colonist"; legend["!"] = "hostile"; legend["^"] = "rock"; legend["o"] = "ore"; legend["~"] = "water"; legend["T"] = "tree"; legend["."] = "open";
             if (roofLayer) { legend["r"] = "roofed (constructed)"; legend["R"] = "thick rock roof"; }
-            return new JObject { ["box"] = Render.Value(box, 1), ["centre"] = State.Snapshot.Cell(center), ["grid"] = sb.ToString(), ["legend"] = legend, ["things"] = things, ["tip"] = "x is read down the three header rows (hundreds/tens/units); z is the row label. Cells: [x, z]." };
+            if (marks.Count > 0) legend["X"] = "marked cell";
+            var anchorsInView = new JObject();
+            foreach (var kv in AnchorComponent.All()) if (kv.Value.Overlaps(box)) anchorsInView[kv.Key] = Render.Value(kv.Value, 1);
+            return new JObject { ["box"] = Render.Value(box, 1), ["centre"] = State.Snapshot.Cell(center), ["grid"] = sb.ToString(), ["legend"] = legend, ["anchors_in_view"] = anchorsInView, ["things"] = things, ["tip"] = "x is read down the three header rows (hundreds/tens/units); z is the row label. Cells: [x, z]. Locations also accept 'ThingId +E2', '@Pawn', anchors ('bedroom2:NW') and 'Room:<id>'." };
         }
 
         [Rpc("map.overview", "{blocks?: 50} coarse whole-map picture, one char per block (majority feature)")]

@@ -5057,3 +5057,27 @@
 {"kind":"message","text":"Turkey meat x21 has rotted away in storage.","tick":554981,"day":9,"hour":11,"cell":[135,137],"data":{"type":"NegativeEvent"},"seq":4}
 {"kind":"message","text":"Critical alert: Major break risk","tick":564575,"day":9,"hour":15,"cell":[154,129],"thing":"Human490","data":{"type":"ThreatBig"},"seq":5}
 {"kind":"letter","text":"Summer","tick":585001,"day":9,"hour":0,"data":{"label":"Summer","def":"NeutralEvent","text":"Summer has begun! But winter is coming.\n\nYour food crops won't grow in the winter cold. Be sure to store enough food to survive. You can build a walk-in refrigerator to prevent food from spoiling.\n\nTo prepare for winter, buy, steal, or make some parkas, or you'll freeze when you step outside.","id":26},"seq":6}
+{"kind":"game","text":"loaded save rimagent-reload","seq":1}
+{"kind":"game","text":"game loaded/started","data":{"day":9},"seq":2}
+{"kind":"message","text":"Critical alert: Major break risk","tick":593821,"day":9,"hour":3,"cell":[154,129],"thing":"Human490","data":{"type":"ThreatBig"},"seq":3}
+{"kind":"message","text":"Chunks of a spacecraft have impacted nearby. You can deconstruct them to yield resources.","tick":594000,"day":9,"hour":3,"cell":[213,48],"data":{"type":"NeutralEvent"},"seq":4}
+{"kind":"incident","text":"ship chunk drop","tick":594000,"day":9,"hour":3,"data":{"def":"ShipChunkDrop","category":"ShipChunkDrop","points":-1.0,"faction":null,"strategy":null,"arrival":null},"seq":5}
+{"kind":"day","text":"day 9","tick":594000,"day":9,"hour":3,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":0,"wealth":16858.0,"wealth_items":10766.0,"wealth_buildings":3062.0,"mood_avg":40.0,"nutrition":25.4,"food_days":5.3,"threat_points":35.0,"research_done":8,"temp_outdoor":11.0,"danger":"None","assisted":false},"seq":6}
+{"kind":"day","text":"day 10","tick":600000,"day":10,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":0,"wealth":16856.0,"wealth_items":10764.0,"wealth_buildings":3062.0,"mood_avg":38.0,"nutrition":25.4,"food_days":5.3,"threat_points":35.0,"research_done":8,"temp_outdoor":11.0,"danger":"None","assisted":false},"seq":7}
+{"kind":"message","text":"Ibex meat x41 has rotted away in storage.","tick":615979,"day":10,"hour":12,"cell":[139,133],"data":{"type":"NegativeEvent"},"seq":8}
+{"kind":"letter","text":"Berserk: Gamble","tick":634726,"day":10,"hour":19,"cell":[155,129],"thing":"Human490","data":{"label":"Berserk: Gamble","def":"ThreatSmall","text":"Gamble has gone berserk.\n\nHe will attack anyone he sees.\n\nThis happened because of poor mood.\n\nThe final straw was: Starving","id":27},"seq":9}
+{"kind":"mental_break","text":"Gamble: berserk","tick":634726,"day":10,"hour":19,"cell":[155,129],"thing":"Human490","data":{"def":"Berserk","reason":"This happened because of poor mood.\n\nThe final straw was: Starving"},"seq":10}
+{"kind":"danger","text":"danger None -> Low (1 hostile targets)","tick":634800,"day":10,"hour":19,"data":{"from":"None","to":"Low","hostiles":1},"seq":11}
+{"kind":"day","text":"day 11","tick":660000,"day":11,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":0,"wealth":16324.0,"wealth_items":10621.0,"wealth_buildings":3062.0,"mood_avg":38.0,"nutrition":16.5,"food_days":3.4,"threat_points":35.0,"research_done":8,"temp_outdoor":18.0,"danger":"Low","assisted":false},"seq":12}
+{"kind":"message","text":"Simple meal has rotted away in storage.","tick":671419,"day":11,"hour":10,"cell":[139,136],"data":{"type":"NegativeEvent"},"seq":13}
+{"kind":"message","text":"Gamble's berserk rage has come to an end.","tick":678976,"day":11,"hour":13,"cell":[155,129],"thing":"Human490","data":{"type":"SituationResolved"},"seq":14}
+{"kind":"colonist_downed","text":"Gamble downed","tick":678976,"day":11,"hour":13,"cell":[155,129],"thing":"Human490","data":{"cause":null},"seq":15}
+{"kind":"message","text":"Critical alert: Colonist needs rescue","tick":678985,"day":11,"hour":13,"cell":[155,129],"thing":"Human490","data":{"type":"ThreatBig"},"seq":16}
+{"kind":"message","text":"Critical alert: Medical emergency","tick":678991,"day":11,"hour":13,"cell":[155,129],"thing":"Human490","data":{"type":"ThreatBig"},"seq":17}
+{"kind":"danger","text":"danger Low -> None (0 hostile targets)","tick":679020,"day":11,"hour":13,"data":{"from":"Low","to":"None","hostiles":0},"seq":18}
+{"kind":"message","text":"Simple meal x4 has rotted away in storage.","tick":680228,"day":11,"hour":14,"cell":[141,135],"data":{"type":"NegativeEvent"},"seq":19}
+{"kind":"message","text":"Wu has gotten food poisoning from: Simple meal. Cause: Incompetent cook.","tick":680974,"day":11,"hour":14,"cell":[143,135],"thing":"Human496","data":{"type":"NegativeEvent"},"seq":20}
+{"kind":"message","text":"Critical alert: Medical emergency","tick":681794,"day":11,"hour":14,"cell":[146,129],"thing":"Human490","data":{"type":"ThreatBig"},"seq":21}
+{"kind":"message","text":"Critical alert: Colonist needs rescue","tick":683077,"day":11,"hour":15,"cell":[146,129],"thing":"Human490","data":{"type":"ThreatBig"},"seq":22}
+{"kind":"message","text":"Gamble, Builder is no longer incapable of walking.","tick":686926,"day":11,"hour":16,"cell":[146,129],"thing":"Human490","data":{"type":"PositiveEvent"},"seq":23}
+{"kind":"message","text":"Critical alert: Extreme break risk","tick":686948,"day":11,"hour":16,"cell":[146,129],"thing":"Human490","data":{"type":"ThreatBig"},"seq":24}

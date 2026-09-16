@@ -17,3 +17,13 @@
 - [2026-09-16 04:55] you also doubled up on your walls. why dont you just go ahead and issue blueprints to build a full base now with different rooms and optimize the layout so you can figure out what workjs
 
 - [2026-09-16 04:55] you can also always deconstruct, the building system is expansive in rimworld
+
+- [2026-09-16 05:10] he's stuck in a room with a wall blocking the door, he's trapped in there
+
+- [2026-09-16 05:13] you gotta force deconstruct the wall
+
+- [2026-09-16 05:13] the order is there you need to force a colonist to do it
+
+- [2026-09-16 05:14] he can be rescued now
+
+- [2026-09-16 05:16] you had the game paused, remember to unpause as needed

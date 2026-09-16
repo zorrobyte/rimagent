@@ -57,12 +57,7 @@ namespace RimBridge.Engine
                 if (t is JArray a3 && a3.Count == 3) return new Vector3((float)a3[0]!, (float)a3[1]!, (float)a3[2]!);
                 return Lookup.Cell(t).ToVector3Shifted();
             }
-            if (type == typeof(CellRect))
-            {
-                if (t is JArray a4 && a4.Count == 4) return new CellRect((int)a4[0]!, (int)a4[1]!, (int)a4[2]!, (int)a4[3]!);
-                if (t is JObject o && o["min"] != null) { var mn = Lookup.Cell(o["min"]); var mx = Lookup.Cell(o["max"]); return CellRect.FromLimits(mn, mx); }
-                throw new RpcError("CellRect must be [minX, minZ, width, height] or {min:[x,z], max:[x,z]}");
-            }
+            if (type == typeof(CellRect)) return Locate.Rect(t, Lookup.Map());
             if (type == typeof(IntRange)) { var a = (JArray)t; return new IntRange((int)a[0]!, (int)a[1]!); }
             if (type == typeof(FloatRange)) { var a = (JArray)t; return new FloatRange((float)a[0]!, (float)a[1]!); }
             if (type == typeof(Rot4))

@@ -179,15 +179,22 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
 
 
 def situation_packet(ctx: Context, trigger: str, events: list[dict[str, Any]], alerts: list[dict[str, Any]], extra: str = "") -> tuple[str, str]:
-    """Build the user message for a play step. Returns (message, hint-for-skill-selection)."""
+    """Build the user message for a play step: change first, then objects, then raw state. Returns (message, hint)."""
+    from . import tracker, worlddiff
     parts: list[str] = [f"## Wake trigger\n{trigger}"]
+    hint = trigger
+    summary: dict[str, Any] = {}
+    base: dict[str, Any] = {}
     try:
         summary = ctx.bridge.call("state.summary")
-        parts.append("## Colony summary (state.summary)\n" + json.dumps(summary, ensure_ascii=False))
-        hint = " ".join(str(a.get("label", "")) for a in summary.get("alerts", [])) + " " + trigger
     except Exception as e:  # noqa: BLE001
         parts.append(f"## Colony summary unavailable: {e}")
-        hint = trigger
+    try:
+        base = ctx.bridge.call("state.base")
+    except Exception as e:  # noqa: BLE001
+        parts.append(f"## Base graph unavailable: {e}")
+    if extra:
+        parts.append(extra)
     try:
         dialogs = ctx.bridge.call("state.dialogs")
         if dialogs:
@@ -195,20 +202,43 @@ def situation_packet(ctx: Context, trigger: str, events: list[dict[str, Any]], a
             hint += " dialog choice " + " ".join(str(d.get("text", ""))[:100] for d in dialogs)
     except Exception:  # noqa: BLE001
         pass
-    try:
-        letters = ctx.bridge.call("state.letters")
-        if letters:
-            parts.append("## Letters waiting (respond with rw_ui_letter or they pile up)\n" + json.dumps(letters, ensure_ascii=False)[:6000])
-            hint += " " + " ".join(l.get("label", "") for l in letters)
-    except Exception:  # noqa: BLE001
-        pass
+    if summary:
+        try:
+            parts.append("## Tracked values (trend, oldest→newest)\n" + tracker.sample(ctx.bridge, summary))
+        except Exception as e:  # noqa: BLE001
+            parts.append(f"## Tracked values unavailable: {e}")
+    if summary and base:
+        try:
+            parts.append("## What changed since your last step\n" + worlddiff.diff_text(summary, base))
+        except Exception as e:  # noqa: BLE001
+            parts.append(f"## Diff unavailable: {e}")
     if events:
         lines = [f"- [{e.get('day', '?')}d {e.get('hour', '?')}h] {e.get('kind')}: {e.get('text', '')}" for e in events[-80:]]
-        parts.append(f"## New events since your last step ({len(events)})\n" + "\n".join(lines))
+        parts.append(f"## New events ({len(events)})\n" + "\n".join(lines))
         hint += " " + " ".join(e.get("kind", "") for e in events[-30:])
     if alerts:
         parts.append("## Watcher alerts\n" + "\n".join(f"- {a.get('watcher')}: {a.get('text')}" for a in alerts))
-    if extra:
-        parts.append(extra)
+    if summary.get("alerts"):
+        parts.append("## Game alerts\n" + "\n".join(f"- [{a.get('priority')}] {a.get('label')}: {str(a.get('explanation', ''))[:160]}" for a in summary["alerts"][:12]))
+        hint += " " + " ".join(str(a.get("label", "")) for a in summary["alerts"])
+    try:
+        letters = ctx.bridge.call("state.letters")
+        if letters:
+            parts.append("## Letters waiting (respond with rw_ui_letter or they pile up)\n" + json.dumps(letters, ensure_ascii=False)[:5000])
+            hint += " " + " ".join(l.get("label", "") for l in letters)
+    except Exception:  # noqa: BLE001
+        pass
+    if base:
+        parts.append("## The base as objects (state.base)\n" + worlddiff.base_text(base))
+    if summary:
+        cols = summary.get("colonist_list") or []
+        col_lines = [f"- {c.get('name')} ({c.get('id')}) at {c.get('pos')}: mood {c.get('mood')}, health {c.get('health')}, {c.get('job')}; {c.get('top_skills')}; weapon {c.get('weapon')}" + (" DOWNED" if c.get("downed") else "") + (f" MENTAL: {c.get('mental_state')}" if c.get("mental_state") else "") for c in cols]
+        parts.append("## Colonists\n" + "\n".join(col_lines))
+        slim = {k: v for k, v in summary.items() if k not in ("colonist_list", "alerts", "zones", "hostiles")}
+        if summary.get("hostiles"):
+            slim["hostiles"] = summary["hostiles"][:20]
+        if summary.get("zones"):
+            slim["zones"] = summary["zones"][:12]
+        parts.append("## Colony numbers (state.summary)\n" + json.dumps(slim, ensure_ascii=False))
     parts.append("Act now. End with end_turn (notes + wake plan).")
     return "\n\n".join(parts), hint

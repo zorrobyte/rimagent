@@ -134,18 +134,7 @@ namespace RimBridge.Engine
                 ?? Find.FactionManager.AllFactions.FirstOrDefault(f => f.loadID.ToString() == name);
         }
 
-        public static IntVec3 Cell(Newtonsoft.Json.Linq.JToken? t, string what = "cell")
-        {
-            if (t == null) throw new RpcError($"missing {what}");
-            if (t is Newtonsoft.Json.Linq.JArray a && a.Count >= 2) return new IntVec3((int)a[0]!, 0, (int)a[a.Count - 1]!);
-            if (t.Type == Newtonsoft.Json.Linq.JTokenType.String)
-            {
-                var parts = ((string)t!).Split(',');
-                if (parts.Length == 2 && int.TryParse(parts[0].Trim(), out int x) && int.TryParse(parts[1].Trim(), out int z)) return new IntVec3(x, 0, z);
-            }
-            if (t is Newtonsoft.Json.Linq.JObject o && o["x"] != null && o["z"] != null) return new IntVec3((int)o["x"]!, 0, (int)o["z"]!);
-            throw new RpcError($"{what} must be [x, z]");
-        }
+        public static IntVec3 Cell(Newtonsoft.Json.Linq.JToken? t, string what = "cell") => Locate.Cell(t, Find.CurrentMap ?? throw new RpcError("no map"), what);
 
         public static Room? RoomOrNull(string id)
         {

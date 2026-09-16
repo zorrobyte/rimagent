@@ -15,9 +15,9 @@ namespace RimBridge.Ui
 
         static IEnumerable<IntVec3> Cells(JObject p, Verse.Map map)
         {
-            if (p["rect"] is JArray r && r.Count == 4)
+            if (p["rect"] != null)
             {
-                var rect = new CellRect((int)r[0]!, (int)r[1]!, (int)r[2]!, (int)r[3]!).ClipInsideMap(map);
+                var rect = Locate.Rect(p["rect"], map).ClipInsideMap(map);
                 foreach (var c in rect) yield return c;
             }
             else if (p["cells"] is JArray cs)
@@ -122,9 +122,9 @@ namespace RimBridge.Ui
                 foreach (var c in GenSight.PointsOnLineOfSight(a, b)) cells.Add(c);
                 if (!cells.Contains(b)) cells.Add(b);
             }
-            else if (p["rect"] is JArray r && r.Count == 4)
+            else if (p["rect"] != null)
             {
-                var rect = new CellRect((int)r[0]!, (int)r[1]!, (int)r[2]!, (int)r[3]!);
+                var rect = Locate.Rect(p["rect"], map);
                 cells.AddRange(P.Bool(p, "fill", def is TerrainDef) ? rect.Cells : rect.EdgeCells);
             }
             else cells.Add(Lookup.Cell(p["at"], "at"));
@@ -163,9 +163,17 @@ namespace RimBridge.Ui
                 placed.Add(bp != null ? (JToken)Render.ThingHandle(bp) : State.Snapshot.Cell(c));
             }
             var cost = def.CostListAdjusted(stuff);
+            JObject? camera = null;
+            if (failed.Count > 0 && placed.Count == 0)
+            {
+                // show why: an 13x13 camera around the first failed cell with the failed cells marked X
+                var first = Lookup.Cell(failed[0]["cell"]);
+                var marks = new HashSet<IntVec3>(failed.Select(f => Lookup.Cell(f["cell"])));
+                try { camera = MapView.MapRpc.DetailRender(map, CellRect.CenteredOn(first, 13, 13), false, marks); camera.Remove("things"); camera.Remove("tip"); } catch { }
+            }
             return new JObject
             {
-                ["def"] = def.defName, ["stuff"] = stuff?.defName, ["placed"] = placed, ["failed"] = failed, ["dry_run"] = dry,
+                ["def"] = def.defName, ["stuff"] = stuff?.defName, ["placed"] = placed, ["failed"] = failed, ["dry_run"] = dry, ["camera"] = camera,
                 ["cost_each"] = new JObject(cost.Select(c => new JProperty(c.thingDef.defName, c.count))),
                 ["work"] = Math.Round(def.GetStatValueAbstract(StatDefOf.WorkToBuild, stuff)),
             };

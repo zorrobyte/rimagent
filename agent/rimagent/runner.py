@@ -157,6 +157,9 @@ class Runner:
         self.ctx.last_seq = 0
         self.ctx.episode, self.ctx.seed = self.episode, self.seed
         memory.notebook_reset(f"# Colony notebook — episode {self.episode}, seed {self.seed}\n\n(new game; nothing decided yet)")
+        from . import tracker, worlddiff
+        from .tools import meta as meta_tools_mod
+        tracker.reset(); worlddiff.reset(); meta_tools_mod.reset_repl()
         self.bus.emit("episode_start", {"episode": self.episode, "seed": self.seed})
         self.force_think = "new game started"
 
