@@ -37,3 +37,7 @@
 - Beds: [146,130] normal, [146,129] normal, [146,127] normal, [154,129] excellent, [142,114] normal, [149,114] normal
 - Kitchen (Room:15) [155,117], Tailoring bench in kitchen
 - Dump [128,140], [166,124]
+
+Day 21 17h: Jess dark visions (minor) from observed rotting ibex corpse at [145,129]. Sock hauling it to dump. Gamble undrafted (was watching for targets, no real threat). Mood 23% — below extreme threshold 28%, Depressive -12 + rotting corpse -6 + insulted -5 + unsightly -5. Rice 94% growth, harvest in 0.2 days (43.2 nutrition). Cooking bills cleaned up (6 active). Parka bill x6 added for winter. Dark entities (fingerspikes) 100+ tiles away, fogged. 6 beds, 6 colonists, no shortfall.
+
+Day 22 0h: Food crisis 0.5d → rice 96% grown (30 harvestable NOW), Jess set Growing/PlantCutting 1, CookMealSimple x20 queued on stove. Should self-correct in 2-4h. Gamble 30% (major threshold 28%) — rotting corpse -6 will fade. Jess 14% (extreme threshold 5%) — eating now, will recover. Parka x6 + shirt x3 + pants x3 queued at tailoring bench for winter. Ibex corpse at dump [128,140] can't be hauled further (in dump zone). 6 beds / 6 colonists OK.
