@@ -27,3 +27,5 @@
 - [2026-09-16 05:14] he can be rescued now
 
 - [2026-09-16 05:16] you had the game paused, remember to unpause as needed
+
+- [2026-09-16 05:26] Operator built a new compound south/east of the old room with steel walls: anchors hall (dining table, chairs, campfire, door north into the old room via the new door at [147,126]), bed1 and bed2 (one bed each, doors into the hall), kitchen (fueled stove, butcher table), freezer (2 coolers in its south wall, food-only stockpile inside), power (wood-fired generator + battery, conduits to the coolers), and a dumping stockpile. Everything is blueprints: put all three colonists on Construction 1 and Hauling 2 until it is built, keep the generator fueled with wood, then assign each colonist a bedroom bed. Record the anchors in your notebook and use them from now on. Tip: place beds one cell below a wall (1x2 things extend upward with rot N).

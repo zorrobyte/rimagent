@@ -30,3 +30,8 @@
 - Horseshoes pins [146,124][151,130][152,132], Darktorch [151,128]
 - Beds: [146,129] normal (medical), [146,130] good, [146,127] normal, [154,129] excellent
 - RitualSpot [151,127]
+
+Day 12: Operator built new compound SE of old room (all blueprints, 153 total).
+Anchors: hall (dining/chairs/campfire/door N to old room via [147,126]), bed1 (8x7, 19 cells S), bed2 (8x7, 20 cells S), kitchen (fueled stove + butcher table), freezer (2 coolers + food stockpile), power (wood-fired gen + battery + conduits), dump (stockpile).
+All 3 set to Construction 1, Hauling 2. Generator is blueprint — fuel with wood once built.
+Tip: beds rot N extend 1 cell up — place 1 cell below wall.

@@ -5117,3 +5117,10 @@
 {"kind":"danger","text":"danger Low -> None (0 hostile targets)","tick":717060,"day":11,"hour":4,"data":{"from":"Low","to":"None","hostiles":0},"seq":8}
 {"kind":"day","text":"day 12","tick":720000,"day":12,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":0,"wealth":15617.0,"wealth_items":10621.0,"wealth_buildings":3157.0,"mood_avg":46.0,"nutrition":12.4,"food_days":2.6,"threat_points":35.0,"research_done":8,"temp_outdoor":20.0,"danger":"None","assisted":false},"seq":9}
 {"kind":"dialog","text":"Dialog_BeginRitual: ","tick":721057,"day":12,"hour":6,"data":{"i":-1,"type":"Dialog_BeginRitual","force_pause":true},"seq":10}
+{"kind":"message","text":"A group of travelers from Southeast Alunt are passing by.","tick":726000,"day":12,"hour":8,"cell":[84,0],"thing":"Human73019","data":{"type":"NeutralEvent"},"seq":11}
+{"kind":"incident","text":"traveler group","tick":726000,"day":12,"hour":8,"data":{"def":"TravelerGroup","category":"FactionArrival","points":179.2836,"faction":"Southeast Alunt","strategy":null,"arrival":null},"seq":12}
+{"kind":"dialog","text":"Dialog_BeginRitual: ","tick":726469,"day":12,"hour":8,"data":{"i":-1,"type":"Dialog_BeginRitual","force_pause":true},"seq":13}
+{"kind":"message","text":"A bed is no longer assigned to Gamble.","tick":732811,"day":12,"hour":11,"cell":[146,129],"thing":"Bed39188","data":{"type":"CautionInput"},"seq":14}
+{"kind":"message","text":"Simple meal has rotted away in storage.","tick":749768,"day":12,"hour":17,"cell":[138,135],"data":{"type":"NegativeEvent"},"seq":15}
+{"kind":"message","text":"Gamble, Builder is fully healed.","tick":757126,"day":12,"hour":20,"cell":[146,129],"thing":"Human490","data":{"type":"PositiveEvent"},"seq":16}
+{"kind":"message","text":"Critical alert: Fire!","tick":762508,"day":12,"hour":23,"cell":[116,153],"thing":"Fire73942","data":{"type":"ThreatBig"},"seq":17}
