@@ -1,9 +1,16 @@
 ---
-name: mood-and-mental-breaks
-description: Pull in when a colonist's mood is below ~40%, a mental break alert fires, or when planning day 1-5 furniture (tables, beds, recreation) to prevent breaks.
-tags: [mood, mental-break, recreation, rooms, early-game]
 always: false
+description: Pull in when a colonist's mood is below ~40%, a mental break alert fires,
+  or when planning day 1-5 furniture (tables, beds, recreation) to prevent breaks.
+name: mood-and-mental-breaks
+tags:
+- mood
+- mental-break
+- recreation
+- rooms
+- early-game
 ---
+
 # Mood and mental breaks
 
 ## Thresholds (rw_state_pawn)
@@ -25,8 +32,13 @@ always: false
 | Ratty apparel (20-50% HP) / Tattered (<20%) | -3 / -5 | Tailor replacements |
 | Observed corpse / rotting corpse | -4 / -6 | Grave or dumping zone off paths |
 | Barracks vs own bedroom | about -5 worse (poor) or -4 (good) | Give each pawn a bedroom |
+| Confined interior (room < ~25 tiles) | -10 | Bedroom must be >= 5x5 interior; a 2-cell room is a -10 trap |
 | Unsightly/ugly environment | -3.5 to -4 | Clean filth (dirt -5, blood -30 beauty per tile), smooth floors/walls (+2) |
 | Darkness, Chilly/Cold, Sweaty/Hot | penalties | Torch, heater/cooler |
+| Badly malnourished | -26 | Food crisis; a starving colonist breaks fast — fix food before mood |
+
+## Confined interior — the small-bedroom trap (verified day 10)
+A bedroom smaller than ~25 interior tiles gives "Confined interior" (-10). A 2-cell room (just a bed + 1 free cell) is the worst case and is a real break trigger on its own. When you build a bedroom, make it at least 5x5 interior (>= 25 tiles) so the debuff never fires. A 4x3 room (12 tiles) still triggers it. Check room size with rw_state_rooms; if a colonist's bedroom is small, expand it (deconstruct the wall, rebuild bigger) rather than leaving the -10.
 
 ## Common buffs
 - Beauty need >65% gives Pretty environment (+2.5 to +4.5); average tile beauty of 6 within 8 tiles pushes it to 100%.
@@ -41,7 +53,7 @@ always: false
 
 ## What to build days 1-5 (rw_ui_build)
 1. Table (1x2 suffices for 3 pawns) plus stools, indoors, before the first meal. Cook simple meals at a Campfire; never let pawns eat raw.
-2. One Bed per pawn (45 stuff, 800 work, Complex furniture) in its own enclosed room; three rooms beat one barracks by 4-5 mood each and remove Disturbed sleep.
+2. One Bed per pawn (45 stuff, 800 work, Complex furniture) in its own enclosed room of at least 5x5 interior; three rooms beat one barracks by 4-5 mood each and remove Disturbed sleep. A room smaller than 5x5 triggers "Confined interior" (-10).
 3. Roof everything, light bedrooms and dining room, set Cleaning 3-4 on everyone.
 4. Horseshoes pin by the dining room, chess table when wood allows. Keep corpses in a dumping zone off walking routes.
 

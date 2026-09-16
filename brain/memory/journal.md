@@ -12,3 +12,6 @@ Killing an "innocent" herbivore (ibex, deer, elk, boar, turkey) triggers the "Ki
 
 ## 2026-09-16 04:51 (episode 1): Stockpiles need roofs or items degrade
 Operator tip: outdoor stockpiles with no roof cause items to degrade (steel, components, food, apparel all lose HP in rain). Check the roof layer over your main stockpile early (rw_map_view layer=roof). If it's all dots, build a roofed storage room or add a roof. Also check `outside_storage.storage_cells_free` in state.summary — if it's low, your stockpile is full and new items pile up loose/outside where they degrade. A roofed storage room (walls + roof + door) covering the stockpile is cheap insurance (~30 wall cells + roof) and protects 20+ stacks.
+
+## 2026-09-16 05:06 (episode 1): Confined interior (-10) is a real break trigger; bedrooms need >= 25 tiles
+A bedroom smaller than ~25 interior tiles gives the "Confined interior" moodlet (-10). A 2-cell room (just a bed + 1 free cell) is the worst case and on its own can push a fragile colonist (neurotic/depressive) to a mental break — verified day 10 with a 2-cell bedroom. Always build bedrooms at least 5x5 interior (>= 25 tiles). Check room size with rw_state_rooms; if a colonist's bedroom is small, expand it (deconstruct the wall, rebuild bigger) rather than leaving the -10.

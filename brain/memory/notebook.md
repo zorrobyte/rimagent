@@ -28,3 +28,5 @@
 - Campfire [150,129], Research bench [148,128], Table [148,130]
 - Horseshoes pin [152,132], Darktorch [151,128]
 - New bedroom [153,128,4,3], door [153,129], bed [154,129]
+
+Day 10 03h: Gamble at 0% mood, minor break (wandering), badly malnourished (-26). Forced Ingest job on MealSimple52883. His bedroom is only 2 cells → "Confined interior" -10. Needs expansion. Storage room blueprints placed (34 walls + door) around stockpile [136,133,13,6]. Rice harvest ~1.7 days. Quest "Solitary Knight" dismissed (too risky). Summer letter closed.
