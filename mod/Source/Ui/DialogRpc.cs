@@ -33,6 +33,24 @@ namespace RimBridge.Ui
                     o["choices"] = new JArray((node?.options ?? new List<DiaOption>()).Select((c, i) => new JObject { ["i"] = i, ["label"] = OptText(c), ["disabled"] = c.disabled, ["reason"] = c.disabled ? c.disabledReason : null }));
                     break;
                 }
+                case Dialog_GiveName gn:
+                {
+                    var t = Traverse.Create(gn);
+                    string? cur = t.Field("curName").GetValue<string>();
+                    string? cur2 = t.Field("curSecondName").GetValue<string>();
+                    bool second = t.Field("useSecondName").GetValue<bool>();
+                    string? key = t.Field("nameMessageKey").GetValue<string>();
+                    var pawn = t.Field("suggestingPawn").GetValue<Pawn>();
+                    string prompt = "";
+                    try { prompt = key != null ? key.Translate(pawn?.LabelShort ?? "", pawn).ToString().StripTags() : ""; } catch { }
+                    if (string.IsNullOrEmpty(cur)) { try { cur = t.Field("nameGenerator").GetValue<Func<string>>()?.Invoke(); t.Field("curName").SetValue(cur); } catch { } }
+                    if (second && string.IsNullOrEmpty(cur2)) { try { cur2 = t.Field("secondNameGenerator").GetValue<Func<string>>()?.Invoke(); t.Field("curSecondName").SetValue(cur2); } catch { } }
+                    o["text"] = prompt;
+                    o["kind"] = "give_name";
+                    o["fields"] = new JObject { ["name"] = cur, ["second_name"] = second ? cur2 : null };
+                    o["how"] = "rw_ui_dialog(name=..., second_name=...) to set your own, or rw_ui_dialog(choice=\"OK\") to accept the suggestions";
+                    break;
+                }
                 case Dialog_MessageBox mb:
                 {
                     o["text"] = mb.text.ToString().StripTags();
@@ -58,7 +76,7 @@ namespace RimBridge.Ui
             return arr;
         }
 
-        [Rpc("ui.dialog", "{i?: window index from state.dialogs (default: topmost), choice: label|index, close?: true} answer or close a dialog")]
+        [Rpc("ui.dialog", "{i?: window index from state.dialogs (default: topmost), choice?: label|index, name?/second_name?: for naming dialogs, close?: true} answer or close a dialog")]
         public static JToken Answer(JObject p)
         {
             var ws = Find.WindowStack?.Windows ?? new List<Window>();
@@ -71,6 +89,20 @@ namespace RimBridge.Ui
             int idx = p["choice"]?.Type == JTokenType.Integer ? (int)p["choice"]! : -1;
             switch (w)
             {
+                case Dialog_GiveName gn:
+                {
+                    var t = Traverse.Create(gn);
+                    bool second = t.Field("useSecondName").GetValue<bool>();
+                    string name = P.OptStr(p, "name") ?? t.Field("curName").GetValue<string>() ?? t.Field("nameGenerator").GetValue<Func<string>>()?.Invoke() ?? "";
+                    string name2 = P.OptStr(p, "second_name") ?? t.Field("curSecondName").GetValue<string>() ?? (second ? t.Field("secondNameGenerator").GetValue<Func<string>>()?.Invoke() : null) ?? "";
+                    if (!t.Method("IsValidName", name).GetValue<bool>()) throw new RpcError($"invalid name '{name}'");
+                    if (second && !t.Method("IsValidSecondName", name2).GetValue<bool>()) throw new RpcError($"invalid second name '{name2}'");
+                    t.Method("Named", name).GetValue();
+                    if (second) t.Method("NamedSecond", name2).GetValue();
+                    Find.WindowStack.TryRemove(gn);
+                    EventLedger.Add("dialog_answered", $"named '{name}'" + (second ? $" / '{name2}'" : ""));
+                    return new JObject { ["named"] = name, ["second_name"] = second ? name2 : null };
+                }
                 case Dialog_NodeTree nt:
                 {
                     var opts = CurNode(nt)?.options ?? new List<DiaOption>();

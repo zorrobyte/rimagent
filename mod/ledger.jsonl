@@ -4951,3 +4951,7 @@
 {"kind":"danger","text":"danger None -> Low (1 hostile targets)","tick":209700,"day":3,"hour":17,"data":{"from":"None","to":"Low","hostiles":1},"seq":3}
 {"kind":"day","text":"day 3","tick":209750,"day":3,"hour":17,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":15297.0,"wealth_items":9394.0,"wealth_buildings":2713.0,"mood_avg":63.0,"nutrition":16.2,"food_days":3.4,"threat_points":35.0,"research_done":7,"temp_outdoor":23.0,"danger":"Low","assisted":false},"seq":4}
 {"kind":"danger","text":"danger Low -> None (0 hostile targets)","tick":212760,"day":3,"hour":19,"data":{"from":"Low","to":"None","hostiles":0},"seq":5}
+{"kind":"day","text":"day 4","tick":240000,"day":4,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":14765.0,"wealth_items":9363.0,"wealth_buildings":2651.0,"mood_avg":69.0,"nutrition":13.5,"food_days":2.8,"threat_points":35.0,"research_done":7,"temp_outdoor":12.0,"danger":"None","assisted":false},"seq":6}
+{"kind":"built","text":"table (1x2) built by Wu","tick":250448,"day":4,"hour":10,"cell":[148,130],"data":{"def":"Table1x2c","by":"Human496"},"seq":7}
+{"kind":"dialog","text":"Dialog_NamePlayerFactionAndSettlement: ","tick":258200,"day":4,"hour":13,"data":{"i":-1,"type":"Dialog_NamePlayerFactionAndSettlement","force_pause":true},"seq":8}
+{"kind":"message","text":"Your faction is now known as Gaeria Sovereign Amalgamation, and this community is now known as Devil's River.","tick":258200,"day":4,"hour":13,"data":{"type":"TaskCompletion"},"seq":9}
