@@ -1,29 +1,31 @@
 def watch(ctx, events):
     """On day tick OR colonist_downed: check every colonist's mood against their
-    major-break threshold.
+    major-break threshold, INCLUDING the catharsis-fade crash.
 
-    Fires when any colonist is below their major-break threshold (the mood level
-    where a major/extreme break becomes likely within ~3 days). This is the
-    pre-break window — the planner can fix the cause before the break event fires.
+    The catharsis-fade crash is the #1 off-guard pattern: after a mental break a
+    colonist gets a +40 (major/extreme) or +30 (minor) catharsis buff that fades
+    over ~2 days. While it's active their displayed mood looks fine (e.g. 50%)
+    even though the underlying debuff (alcohol withdrawal -35, malnutrition -26)
+    is still there. When the buff fades, mood crashes to (raw_mood - catharsis)
+    and can cross the major threshold.
 
-    Also fires on colonist_downed because a downed colonist at 3% mood will break
-    the moment they wake up; the planner needs to know to feed/medicate them.
+    So for each colonist we compute:
+      raw_mood          = displayed mood
+      catharsis_value   = the positive mood of the 'Catharsis' thought (0 if none)
+      post_fade_mood    = raw_mood - catharsis_value
+    and flag when raw_mood < major_threshold  OR  (catharsis present AND
+    post_fade_mood < major_threshold). The second case is the pre-crash window:
+    fix the cause NOW, not after the crash.
 
-    The major-break threshold is a stat:
-      pawn.mindState.mentalBreaker.BreakThresholdMajor
-      = GetStatValue(MentalBreakThreshold) * 4/7
-    Fallback: 28% (Losing is Fun base 22% + one neurotic shift).
+    Also fires on colonist_downed because a downed colonist at low mood will
+    break the moment they wake up.
     """
     out = []
     check_all = False
     for ev in events:
         kind = ev.get("kind")
-        if kind == "day":
+        if kind in ("day", "colonist_downed"):
             check_all = True
-        elif kind == "colonist_downed":
-            # Only check the downed colonist (and any others already low)
-            check_all = True  # check all, it's cheap
-
     if not check_all:
         return out
 
@@ -33,14 +35,17 @@ def watch(ctx, events):
         return out
 
     for p in pawns:
-        mood = p.get("mood")
-        if mood is None:
+        name = p.get("name")
+        raw_mood = p.get("mood")
+        if raw_mood is None:
             continue
+
+        # major-break threshold (percent)
         threshold = None
         try:
             t = ctx.bridge.call(
                 "engine.get",
-                path=f"Pawn:{p.get('name')}.mindState.mentalBreaker.BreakThresholdMajor",
+                path=f"Pawn:{name}.mindState.mentalBreaker.BreakThresholdMajor",
             )
             if isinstance(t, (int, float)):
                 threshold = t
@@ -48,14 +53,42 @@ def watch(ctx, events):
             pass
         if threshold is None:
             threshold = 28  # Losing is Fun + neurotic fallback
-        if mood < threshold:
-            name = p.get("name")
+
+        # catharsis value from per-pawn thoughts
+        catharsis = 0
+        try:
+            detail = ctx.bridge.call("state.pawn", pawn=name)
+            for t in (detail.get("thoughts") or []):
+                label = (t.get("label") or "").lower()
+                key = (t.get("thought") or "").lower()
+                if "catharsis" in label or "catharsis" in key:
+                    v = t.get("mood")
+                    if isinstance(v, (int, float)):
+                        catharsis = max(catharsis, v)
+                    break
+        except Exception:
+            pass
+
+        post_fade = raw_mood - catharsis
+        if raw_mood < threshold:
             out.append({
                 "type": "alert",
                 "text": (
-                    f"MOOD CRISIS: {name} at {mood}% (major-break threshold "
-                    f"{round(threshold*100,1)}%). Run mood_triage to find the "
-                    f"top negative thoughts and fix the biggest one before the break."
+                    f"MOOD CRISIS: {name} at {raw_mood}% (major threshold "
+                    f"{round(threshold*100,1)}%). Run mood_triage and fix the "
+                    f"biggest negative thought now."
+                ),
+                "wake": True,
+            })
+        elif catharsis > 0 and post_fade < threshold:
+            out.append({
+                "type": "alert",
+                "text": (
+                    f"CATHARSIS CRASH IMMINENT: {name} looks fine at {raw_mood}% "
+                    f"but has +{catharsis:.0f} catharsis that will fade -> post-fade "
+                    f"~{post_fade:.0f}% (< major threshold {round(threshold*100,1)}%). "
+                    f"Fix the underlying debuff NOW (alcohol withdrawal? malnutrition? "
+                    f"confined interior?) before the crash. Run mood_triage."
                 ),
                 "wake": True,
             })

@@ -27,3 +27,6 @@ A single fire in a wood-walled base consumes the entire structure in 2-4 hours. 
 
 ## 2026-09-16 09:06 (episode 1): Drafted pawns cannot fight fires
 Drafted colonists cannot extinguish fires. If you draft everyone for a raid and a fire starts, undraft at least one colonist immediately. The fire_alert watcher drafts one colonist on fire events, but if they are already drafted for combat, the draft order is a no-op. Always check: are all colonists drafted? If yes, undraft one for firefighting before the fire spreads.
+
+## 2026-09-16 09:12 (episode 2): Desert: wood is the scarce resource — budget it, don't auto-replace with steel
+In a desert biome wood is the bottleneck (few trees/cacti near the start; ~150 logs from 1 drago + 5 cacti). The "replace all wood walls with steel ASAP" fire-safety advice conflicts with wood scarcity: a wall costs 5 stuff, a door 25. In a desert you cannot afford to re-wall the whole base in steel early. Compromise: keep the day-1 shelter in wood (fast, cheap), but (a) build a 2-wide steel/stone fire break between the campfire/kitchen and the beds, (b) put at least one bed OUTSIDE the main building as a rescue target, and (c) only convert the walls adjacent to the fire source to steel/stone first. Don't queue a full steel re-wall until wood is no longer needed for beds/doors/research bench.
