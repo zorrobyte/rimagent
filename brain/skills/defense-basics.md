@@ -1,15 +1,19 @@
 ---
-name: defense-basics
-description: Pull in when a raid letter arrives, rw_state_threats shows hostiles, or when planning walls, traps, turrets, chokepoints and draft positioning for a small colony.
-tags: [defense, raids, combat, killbox, turrets, cover]
 always: false
+description: Pull in when a raid letter arrives, rw_state_threats shows hostiles,
+  or when planning walls, traps, turrets, chokepoints and draft positioning for a
+  small colony. Also pull in when a mech (Scyther, Centipede, Scorcher, Lancer) is
+  on the map or sleeping nearby.
+name: defense-basics
+tags: []
 ---
+
 # Defense basics
 
 ## What a raid costs
 Raid points = (Wealth points + Pawn points) x Threat scale x Starting factor x Adaption factor. 1 point buys ~1 combat power; minimum 35 points, cap 10,000.
 - Wealth points: 0 at storyteller wealth <= 14,000; 2,400 at 400,000 (~1 point per 161 wealth). Storyteller wealth = items + creatures + half of buildings.
-- Pawn points: 15 per colonist at <= 10,000 wealth, up to 140 per colonist at 400,000. Attack-trainable animals add 8% of their combat power.
+- Pawn points: 15 per colonist at <= 10,000 wealth, up to 140 per colonist at 400,000. Attack-trainable animals add 8% of combat power.
 - Starting factor 0.7 for days 0-10, 1.0 from day 40. Adaption factor starts 0.8, 30-day grace period (range 0.4-1.47).
 - Threat scale: Adventure story 0.60, Strive to survive 1.00, Blood and dust 1.55, Losing is fun 2.20.
 - Combat power: Drifter 35, Tribal archer 45, Warrior 50, Pirate gunner 65, Scyther 150, Centipede 400.
@@ -31,6 +35,19 @@ Human raiders flee once 40-70% of their group is downed or after 10-15 hours; me
 - Spike trap: 45 wood/stone/steel, single use, 5 stab hits from 100 base damage. Not placeable adjacent to another trap; colonists CAN trigger them, raiders cannot see them. Use a 2-wide entrance: traps in one lane, fences in the other so colonists take the fence lane.
 - Mini-turret: Gun turrets research; 30 stuff + 70 steel + 3 components, 80 W, 60 shots per 80 steel reload. 12 damage 2-round burst, range 28.9, ~Shooting 8. 50% chance to explode (50 bomb, 3.9 radius) below 20% HP: space turrets 4+ tiles apart, off your firing line. Dead in a solar flare.
 
+## Sleeping mechs — the warning window (episode 2 lesson)
+When `rw_state_threats` shows a mech with `LordJob_SleepThenAssaultColony` (or any mech within ~150 cells of home):
+1. **This is a countdown, not a raid.** The mech will wake and assault with no warning letter. You have hours, not days.
+2. **Assess immediately:** `rw_state_threats` → note the mech type, count, and distance. Scorcher (flameblaster) + Lancer (charge lance) = 2 mechs, ~300+ combat power combined. A 3-colonist colony cannot win this head-on.
+3. **Build defenses in the window:**
+   - If you have turrets: position them at the approach lane, fire-at-will on.
+   - If you have steel: build sandbags (5 steel each) or a wall line at the chokepoint.
+   - If you have wood: spike traps in the approach lane (5+ traps).
+   - If you have cloth: sandbags (5 cloth each).
+4. **Draft all shooters** and position them at the chokepoint BEFORE the mechs wake.
+5. **If the odds are hopeless** (2+ mechs vs 2-3 colonists, no turrets, no walls): consider whether the colony is already lost. Do not waste steps on a lost cause. Note it in the notebook and end the episode honestly.
+6. **Mechs never flee.** They do not retreat at 40% casualties. Plan for a total engagement or a total loss.
+
 ## Drafting checklist
 1. On the letter: rw_state_threats, then rw_ui_draft every violence-capable pawn BEFORE enemies are in range. Drafted pawns ignore needs, so feed and rest them first if time allows.
 2. rw_ui_goto shooters to wall corners or sandbags facing the approach, 1 tile apart. Up to 3 melee pawns stand just outside the door gap (not in it) to force a 1v3.
@@ -40,5 +57,8 @@ Human raiders flee once 40-70% of their group is downed or after 10-15 hours; me
 
 ## First raid with 3 colonists
 Expect 1-2 poorly armed raiders (35-50 points). Before day 10: walled bedroom block with one door, 3-5 wood spike traps in the approach lane, a chunk or sandbag line, best gun on the best Shooting pawn. Fight from the doorway, others beside a wall corner; never fight in the open.
+
+## Desert biome note
+In a desert biome wood is scarce (~150 logs total). Budget it: keep the day-1 shelter in wood, but (a) build a 2-wide steel/stone fire break between the campfire/kitchen and the beds, (b) put at least one bed OUTSIDE the main building as a rescue target, (c) only convert the walls adjacent to the fire source to steel/stone first. Do not queue a full steel re-wall until wood is no longer needed for beds/doors/research bench.
 
 Sources: Raid points; Raider; Pirates/Pawns; Tribes/Pawns; Defense tactics; Defense structures; Cover; Sandbags; Spike trap; Mini-turret; Drafting

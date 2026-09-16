@@ -1,9 +1,19 @@
 ---
-name: animals-and-hunting
-description: Pull in before designating hunt or tame on any wild animal, when a predator or manhunter pack is on the map, or when deciding which animals to keep, pen, train or butcher.
-tags: [animals, hunting, taming, predators, manhunter, pens, food]
 always: false
+description: Pull in before designating hunt or tame on any wild animal, when a predator
+  or manhunter pack is on the map, or when deciding which animals to keep, pen, train
+  or butcher.
+name: animals-and-hunting
+tags:
+- animals
+- hunting
+- taming
+- predators
+- manhunter
+- pens
+- food
 ---
+
 # Animals and hunting
 
 ## Temperate-forest wildlife
@@ -26,11 +36,13 @@ Meat = 140 x body size (butcher spot 70%; kills by damage 66%). Revenge chance t
 1. Ranged only: rw_ui_designate hunt on one animal at a time (rw_map_find kind animal). Hunters shoot from max range, finish the downed animal and haul it. Melee provokes any species.
 2. Prefer 0% revenge species (deer, elk, boar, turkey). Never hunt predators with one pawn.
 3. Do not hunt while rw_state_threats shows hostiles, in rain or snow (accuracy penalty), or into a muffalo herd. Wounded animals bleed out; do not chase them.
-4. Butcher promptly (rw_ui_add_bill on a butcher table); corpses rot in ~2 days when warm.
+4. **Distance rule (episode 2 lesson):** Never send a hunter more than **30 cells from home** unless the colony has a second armed pawn to respond to threats. Episode 2: Onesan was 61 cells from base when a cougar found her; the colony could not respond in time and she died. If the animal is 30+ cells away, either (a) wait for it to come closer, (b) send two hunters, or (c) skip it.
+5. Butcher promptly (rw_ui_add_bill on a butcher table); corpses rot in ~2 days when warm.
 
 ## Predators
 Wolves, cougars and bears hunt anything smaller than themselves, pets and colonists included, when no meat or corpses are nearby. Their first strike stuns, and they keep attacking downed prey.
 - On a "predator hunting" alert: rw_ui_draft 2-3 armed pawns and kill it together, or keep everyone indoors and let it eat wildlife. Rescue a downed victim immediately.
+- **If the predator is 30+ cells from home:** do NOT chase it. Keep everyone indoors and let it eat wildlife. The colony cannot respond in time if the hunter is far from base.
 - Predators ignore penned animals unless they wander in.
 
 ## Manhunter packs and mad animals

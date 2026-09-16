@@ -28,6 +28,15 @@ Example: Cummings at 50% mood with catharsis +40 → post-fade mood = 10% → be
 
 `mood_triage` tool returns `catharsis_buffer` per flagged pawn so you can see this without reading each pawn individually.
 
+## Simultaneous extreme-break crisis (episode 2 lesson)
+When **two or more colonists are simultaneously below their major threshold** (or one is at extreme and the other's catharsis is fading below major), the colony is in a death spiral:
+1. **No one can tend the other.** If both are in breaks, no one is tending the downed one, no one is building, no one is cooking.
+2. **Check the root cause first.** In episode 2: both colonists were starving (food policy excluded survival packs) → malnutrition -26 → mood collapse → breaks. Fix the food policy BEFORE trying to fix mood.
+3. **If the root cause is food:** set food policy to "Any" immediately. Survival packs are the only food. The malnutrition debuff clears within ~12h of eating.
+4. **If the root cause is drug withdrawal:** you cannot fix it without the drug. Accept the break or trade for the drug.
+5. **If both will break and there is no recovery path** (no food, no medicine, no recovery path): note it in the notebook and consider ending the episode honestly. Do not waste steps on a lost cause.
+6. **Wake in 1-2 hours** when both are at extreme risk. Check: did they eat? Did the catharsis fade? Is the mood still below threshold?
+
 ## How to triage a low-mood colonist (use `mood_triage` tool)
 One call: `mood_triage()` returns for every colonist below their major threshold:
 - `mood`, `major_threshold`, `extreme_threshold`
@@ -36,7 +45,7 @@ One call: `mood_triage()` returns for every colonist below their major threshold
 
 Fix the biggest negative first. The usual hierarchy:
 1. **Alcohol/drug withdrawal (-35)** — finish Brewing research, build FermentingBarrel, make beer. No other fix.
-2. **Malnutrition (-26)** — food crisis; fix food before mood.
+2. **Malnutrition (-26)** — food crisis; fix food before mood. **Check the food policy first** (see early-game-food skill).
 3. **Killed innocent animal (-15)** — hunt sparingly, rotate hunters.
 4. **Confined interior (-10)** — expand bedroom to ≥5×5 interior.
 5. **Rotting/observed corpse (-6)** — haul to dump; desiccated corpses can't be hauled, move them far from base.
@@ -46,10 +55,11 @@ Fix the biggest negative first. The usual hierarchy:
 | Debuff | Mood | Source / fix |
 |---|---|---|
 | **Alcohol/drug withdrawal** | **-35** | A colonist with an addiction who has NO drug in the colony. The single largest early mood killer. If a refugee arrives with an addiction, you MUST bank that drug (or accept the break). Check each new colonist's `needs` for a drug need; set drug policy to allow it. |
+| **Malnutrition** | **-26** | Food crisis. **Check the food policy first** — if the policy excludes the food you have (e.g. "Simple" when only survival packs are in stock), fix the policy before anything else. |
 | Ate corpse meat | -12 | During a food crisis pawns eat corpses; each is -12 and a rot-stink source. Avoid by keeping ANY food above 0. |
 | Ate raw food | -7 | Set food policy to cooked/simple once a stove exists. |
 | Killed innocent animal | -15 | Hunting herbivores — the hunter eats -15 for days. Hunt sparingly, rotate hunters, only when food is critical. |
-| Observed/rotting corpse | -4 / -6 | Corpses near the base cause -6 to ALL colonists. Haul to a dump; desiccated corpses may not be haulable. |
+| Observed/rotting corpse | -4 / -6 | Corpses near the base cause -6 to ALL colonists. Haul to dump; desiccated corpses may not be hauled. |
 | No shepherd role (mod) | -5 | Some mods add a "Shepherd" ideo role; unfilled it is -5 to everyone. |
 
 ## Common early debuffs (exact values)

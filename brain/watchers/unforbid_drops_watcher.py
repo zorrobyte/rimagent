@@ -16,7 +16,23 @@ def watch(ctx, events):
             items = ctx.bridge.call("map.find", kind="item", forbidden=True, radius=40, limit=200)
         except Exception:
             items = []
-        ids = [it["id"] for it in (items or []) if it.get("id")]
+        # items may be a list of dicts with "id" key, or a list of strings (ids), or {"things": [...]}
+        ids = []
+        if isinstance(items, dict):
+            raw = items.get("things") or items.get("items") or []
+            for it in raw:
+                if isinstance(it, dict):
+                    if it.get("id"):
+                        ids.append(it["id"])
+                elif isinstance(it, str):
+                    ids.append(it)
+        elif isinstance(items, list):
+            for it in items:
+                if isinstance(it, dict):
+                    if it.get("id"):
+                        ids.append(it["id"])
+                elif isinstance(it, str):
+                    ids.append(it)
         if ids:
             try:
                 ctx.bridge.call("ui.designate", designator="unforbid", things=ids)

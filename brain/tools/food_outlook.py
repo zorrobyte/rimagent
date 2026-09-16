@@ -2,8 +2,8 @@ from rimagent.registry import tool
 
 @tool("food_outlook",
       "One-call food verdict: food_days, headcount, rice harvest ETA + nutrition, "
-      "existing cooking bills (stove AND campfire), and a verdict "
-      "(self-corrects / add zone / hunt). Run when food_days < 6 instead of "
+      "existing cooking bills (stove AND campfire), food policy check, and a verdict "
+      "(self-corrects / add zone / hunt / fix policy). Run when food_days < 6 instead of "
       "reasoning about crops by hand.",
       {"radius": "search radius for rice (default 60)"})
 def food_outlook(ctx, radius=60):
@@ -14,7 +14,27 @@ def food_outlook(ctx, radius=60):
     meals = ks.get("meals_all", 0)
     meat = ks.get("meat_all", 0)
 
-    # rice harvest ETA (same logic as crop_status, focused on Plant_Rice)
+    # Check food policy vs stock
+    policy = None
+    pawns = ctx.bridge.call("state.pawns", filter="colonists")
+    for p in (pawns or []):
+        if p.get("food_policy"):
+            policy = p["food_policy"]
+            break
+    # Check if survival packs are in stock
+    survival = ks.get("MealSurvivalPack", 0) or ks.get("survival", 0)
+    policy_mismatch = False
+    policy_warning = None
+    if policy and survival > 0:
+        pl = (policy or "").lower()
+        # "Any" allows everything; "Survival" allows survival packs
+        # "Simple", "Raw", "Cooked", "Fine" do NOT allow survival packs
+        if pl not in ("any", "survival", ""):
+            policy_mismatch = True
+            policy_warning = (f"Food policy is '{policy}' but {survival} survival packs in stock "
+                             f"— colonists will NOT eat them. Set policy to 'Any' or 'Survival'.")
+
+    # rice harvest ETA
     plants = []
     try:
         raw = ctx.bridge.call("engine.call",
@@ -34,7 +54,7 @@ def food_outlook(ctx, radius=60):
     est_days = round(max(0.0, (1.0 - avg) * 3.0), 1)
     est_nutrition = round(len(plants) * 0.30, 1)
 
-    # existing cooking bills on any stove / campfire
+    # existing cooking bills
     bills = []
     for bdef in ("FueledStove", "Campfire"):
         try:
@@ -51,7 +71,10 @@ def food_outlook(ctx, radius=60):
             pass
 
     # Verdict
-    if food_days is None:
+    if policy_mismatch:
+        verdict = (f"POLICY MISMATCH: {policy_warning} "
+                   f"Fix the policy BEFORE anything else — this is why food_days is {food_days}.")
+    elif food_days is None:
         verdict = "unknown"
     elif food_days >= 6:
         verdict = "OK - no action"
@@ -71,6 +94,10 @@ def food_outlook(ctx, radius=60):
         "colonists": head,
         "meals_in_storage": meals,
         "meat_in_storage": meat,
+        "survival_packs": survival,
+        "food_policy": policy,
+        "policy_mismatch": policy_mismatch,
+        "policy_warning": policy_warning,
         "rice": {"plants": len(plants), "avg_growth": round(avg, 3),
                  "harvestable": harvestable, "est_days_to_harvest": est_days,
                  "est_nutrition": est_nutrition},
