@@ -436,7 +436,7 @@ footer .r{margin-left:auto}
 <main>
   <section class="tab active col" id="tab-live">
     <div class="toolbar">
-      <span class="dim">Think steps · newest at top · older steps collapse to one line</span>
+      <span class="dim">Think steps · newest first everywhere (steps and the calls inside them) · older steps collapse to one line</span>
       <button style="margin-left:auto" onclick="clearLive()">Clear</button>
     </div>
     <div class="toolbar" style="gap:6px">
@@ -616,7 +616,8 @@ let curStep = null, stepCount = 0;
 function clearLive() { live.innerHTML = ''; curStep = null; }
 function liveAppend(node) {
   const e = live.querySelector('.empty'); if (e) e.remove();
-  if (curStep) curStep.querySelector('.step-body').appendChild(node); else live.insertBefore(node, live.firstChild);
+  const parent = curStep ? curStep.querySelector('.step-body') : live;
+  parent.insertBefore(node, parent.firstChild);   // newest first, everywhere
 }
 async function sayToAgent() {
   const inp = $('say-text'); const text = inp.value.trim(); if (!text) return;
@@ -661,7 +662,7 @@ function itemToolCall(d) {
 function attachResult(d) {
   let card = null;
   if (d.id && curStep) card = curStep.querySelector(`.tool[data-id="${CSS.escape(d.id)}"]`);
-  if (!card && curStep) { const c = curStep.querySelectorAll('.tool.pending'); card = c[c.length - 1] || null; }
+  if (!card && curStep) { const c = curStep.querySelectorAll('.tool.pending'); card = c[0] || null; }
   const txt = d.text || '';
   const LIM = 500;
   const res = document.createElement('div'); res.className = 'result';

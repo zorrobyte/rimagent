@@ -4955,3 +4955,8 @@
 {"kind":"built","text":"table (1x2) built by Wu","tick":250448,"day":4,"hour":10,"cell":[148,130],"data":{"def":"Table1x2c","by":"Human496"},"seq":7}
 {"kind":"dialog","text":"Dialog_NamePlayerFactionAndSettlement: ","tick":258200,"day":4,"hour":13,"data":{"i":-1,"type":"Dialog_NamePlayerFactionAndSettlement","force_pause":true},"seq":8}
 {"kind":"message","text":"Your faction is now known as Gaeria Sovereign Amalgamation, and this community is now known as Devil's River.","tick":258200,"day":4,"hour":13,"data":{"type":"TaskCompletion"},"seq":9}
+{"kind":"game","text":"loaded save rimagent-reload","seq":1}
+{"kind":"game","text":"game loaded/started","data":{"day":4},"seq":2}
+{"kind":"day","text":"day 4","tick":267750,"day":4,"hour":17,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":14939.0,"wealth_items":9171.0,"wealth_buildings":2678.0,"mood_avg":64.0,"nutrition":9.9,"food_days":2.1,"threat_points":35.0,"research_done":7,"temp_outdoor":24.0,"danger":"None","assisted":false},"seq":3}
+{"kind":"message","text":"Gamble, Builder is fully healed.","tick":274126,"day":4,"hour":19,"cell":[146,129],"thing":"Human490","data":{"type":"PositiveEvent"},"seq":4}
+{"kind":"built","text":"spike trap built by Gamble","tick":279703,"day":4,"hour":21,"cell":[149,132],"data":{"def":"TrapSpike","by":"Human490"},"seq":5}
