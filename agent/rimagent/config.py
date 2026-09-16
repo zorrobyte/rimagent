@@ -16,15 +16,17 @@ _DEFAULTS: dict[str, Any] = {
 
 
 def load(path: Path | None = None) -> dict[str, Any]:
+    """config.yaml, then config.local.yaml (gitignored, private endpoints) merged on top."""
     path = path or ROOT / "config.yaml"
     cfg = {k: dict(v) for k, v in _DEFAULTS.items()}
-    if path.exists():
-        user = yaml.safe_load(path.read_text()) or {}
-        for k, v in user.items():
-            if isinstance(v, dict) and k in cfg:
-                cfg[k].update(v)
-            else:
-                cfg[k] = v
+    for p in (path, path.with_name("config.local.yaml")):
+        if p.exists():
+            user = yaml.safe_load(p.read_text()) or {}
+            for k, v in user.items():
+                if isinstance(v, dict) and k in cfg:
+                    cfg[k].update(v)
+                else:
+                    cfg[k] = v
     return cfg
 
 

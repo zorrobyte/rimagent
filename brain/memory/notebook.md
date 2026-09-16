@@ -61,3 +61,15 @@
 Day 9 14h: Kena downed (severe stab wounds: torso 21%, R shoulder 21%, L arm 16%, bleeding 5.75). Kat rescuing to medical bed (Bed51599 set medical). No hostiles on map — cause unknown (possibly wild animal or leftover). Kena health 21%, consciousness 57%. Food still critical (1.4 days). Lumi cancelled hunt, eating.
 
 Day 9 21h: Kena downed (spike trap), health 21%, no bleeding, Kat tending. 3 cooking bills running on Campfire51575. Food 0.9d, rice harvest ~2d. Quest "The Ambushed Knight" expiring — let it expire. Kena food_policy=Lavish (can eat berries/survival packs/simple meals).
+
+Day 10 12h: Kena downed (health 29%, consciousness 49%, multiple stab wounds + crack). Kat tending her in medical bed Bed51599. No hostiles on map — cause unknown. Food 0.7d, rice harvest in 1.8d (+11.4 nutrition). Cooking bill set on Campfire51575. Smithing research at 11%.
+
+Day 10 18h: FOOD CRISIS 0.1d. No food in stockpile. Rice harvest ~2d (38 plants, 44.8% growth). Set cooking bill (Forever CookMealSimple on Campfire51575). Designated turkey (50 cells) + hare (51 cells) for hunting. Lumi Hunting=1. Kena downed (severe stabs, health 32%), Kat tending in medical bed Bed51599. All 3 colonists at/below minor mood threshold (Lumi 42, Kat 36, Kena 37). Outside temps 31C — barracks 33C "hot" problem.
+
+Day 11 9h: Raid letter "Toxin Outfit" — single Drifter "Buzz" (knife only, 134 cells away). All 3 drafted at door. Kena equipping revolver. Spike traps in place. Low threat.
+
+Day 11 11h: Fire alert (false — fire already out). Buzz (Drifter, knife, Toxin Outfit) at [123,124], 8 cells east of barracks, LordJob_AssaultColony. All 3 drafted, positioned at north door. Lumi+Kena have ranged attack orders on Buzz. Kat melee. Speed 1.
+
+Day 11 11h: Buzz (Toxin Outfit drifter, knife, 76% HP) at [119,116] — 0 cells from home. Kena downed (35% HP, bleeding 0.73) at [117,116]. Kat rescuing Kena. Lumi (bolt-action) shooting Buzz. Fire alert false positive (0 fire objects). Food 0 days. Smithing 34%.
+
+Day 11 11h: Buzz (drifter) killed by Lumi. Kena downed in medical bed (health 37%, bleeding stopped, Kat tending with Best/industrial meds). Fire alert was false positive (0 fire objects). Rice harvest designated (11 plants), cooking bill set on Campfire. Lumi Cooking=1, PlantCutting=2. 22 industrial medicine in stock. Kena mood 33% (below minor 35%, but downed so no break risk).

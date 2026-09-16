@@ -1,7 +1,7 @@
 # rimagent configuration
 llm:
-  base_url: http://chaos-srv.tail0a9245.ts.net:18089/v1
-  model: qwen3.8-27b-nvfp4-dflash2
+  base_url: http://127.0.0.1:8000/v1   # any OpenAI-compatible server with native tool calls (vLLM --enable-auto-tool-choice --tool-call-parser hermes)
+  model: Qwen/Qwen3-32B                 # tested with Qwen 3.x 27-32B; put your real endpoint in config.local.yaml (gitignored)
   api_key: not-needed
   max_streams: 4
   thinking: true           # Qwen thinking mode for play/reflection steps

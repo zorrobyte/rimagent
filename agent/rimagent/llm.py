@@ -1,4 +1,4 @@
-"""OpenAI-compatible chat client for the chaos-srv vLLM endpoint (Qwen with thinking + native tool calls)."""
+"""OpenAI-compatible chat client for the OpenAI-compatible endpoint (Qwen with thinking + native tool calls)."""
 from __future__ import annotations
 
 import json

@@ -29,4 +29,4 @@ avoid clashes with `Verse.Game`/`Verse.Map`.
 ## Conventions
 - Log from C# via `BridgeLog` (`[RimBridge]` prefix). Watch `~/Library/Logs/Ludeon Studios/RimWorld by Ludeon Studios/Player.log`.
 - Tool results are truncated (~8k chars); prefer narrow queries in tools and docs.
-- Config: `config.yaml` (LLM endpoint chaos-srv, seeds, cadence). Do not change the chaos-srv server config from here.
+- Config: `config.yaml` (generic) + `config.local.yaml` (gitignored: your LLM endpoint). Seeds, cadence, speeds live there.

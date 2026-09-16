@@ -13,3 +13,7 @@ __pycache__/
 *.pyc
 runs/
 .DS_Store
+config.local.yaml
+mod/ledger.jsonl
+runs/
+docs/*.tmp
