@@ -35,3 +35,12 @@ Day 12: Operator built new compound SE of old room (all blueprints, 153 total).
 Anchors: hall (dining/chairs/campfire/door N to old room via [147,126]), bed1 (8x7, 19 cells S), bed2 (8x7, 20 cells S), kitchen (fueled stove + butcher table), freezer (2 coolers + food stockpile), power (wood-fired gen + battery + conduits), dump (stockpile).
 All 3 set to Construction 1, Hauling 2. Generator is blueprint — fuel with wood once built.
 Tip: beds rot N extend 1 cell up — place 1 cell below wall.
+
+Day12 23h: FIRE at old campfire/research-bench area [150,126] (Critical alert). Gamble beat it out; no fires left near home (others 73+ tiles away). A wall near the fire took damage to ~85% (self-repairs). All 3 set Construction 1 / Firefighter 1 / Hauling 2 to push the 153-blueprint compound. Food 3.0 days. Mood avg 60.
+
+Day12 0h: Operator built compound (153 blueprints, 3 builders on Construction 1). Food 2.8 days but rice harvests in ~0.7 days (+~2 days nutrition) so it self-corrects. 2x CookMealSimple bills running on Campfire39256. Shepherd role still unfilled (-5 mood); role-change ritual dialog opened but had no clear choice, closed it — revisit later. Mood avg 62, no hostiles, threat 35.
+
+Day13 13h: Compound building well — 112 blueprints + 4 frames pending, all 3 on Construction 1 (Gamble/Wu/Sock), building ~25 walls/day. Wood: 61 logs + queued 14 trees for harvestwood (Poplar/Oak near home). Steel 549. Food 2.8 days but rice harvest in 0.6 days (+21.6 nutrition) → self-corrects. Mood avg 66. No hostiles, threat 36.
+Shepherd role alert (-5): role-change ritual dialog force-pauses but presents no clear choice → closed it twice. DROPPED for now (no animals to tend; low value). Revisit only if mood drops.
+
+Day14 3h: Shepherd role alert is a MOD role (not in ideo's cachedPossibleRoles: only Leader/Moralist/MeleeSpecialist/ShootingSpecialist). Not fixable without animals. -5 mood, low priority. Sock swimming at [155,62] for joy (Joy 34%). Rice: 6 harvestable, 0.2 days to full harvest. 25 blueprints + 2 frames pending, all 3 builders on Construction 1. Food 2.2 days → rice harvest will fix it.

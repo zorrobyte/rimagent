@@ -5124,3 +5124,170 @@
 {"kind":"message","text":"Simple meal has rotted away in storage.","tick":749768,"day":12,"hour":17,"cell":[138,135],"data":{"type":"NegativeEvent"},"seq":15}
 {"kind":"message","text":"Gamble, Builder is fully healed.","tick":757126,"day":12,"hour":20,"cell":[146,129],"thing":"Human490","data":{"type":"PositiveEvent"},"seq":16}
 {"kind":"message","text":"Critical alert: Fire!","tick":762508,"day":12,"hour":23,"cell":[116,153],"thing":"Fire73942","data":{"type":"ThreatBig"},"seq":17}
+{"kind":"dialog","text":"Dialog_BeginRitual: ","tick":767188,"day":12,"hour":0,"data":{"i":-1,"type":"Dialog_BeginRitual","force_pause":true},"seq":18}
+{"kind":"built","text":"wall built by Wu","tick":768642,"day":12,"hour":1,"cell":[139,138],"data":{"def":"Wall","by":"Human496"},"seq":19}
+{"kind":"built","text":"wall built by Wu","tick":768957,"day":12,"hour":1,"cell":[140,133],"data":{"def":"Wall","by":"Human496"},"seq":20}
+{"kind":"built","text":"wall built by Wu","tick":769167,"day":12,"hour":1,"cell":[139,133],"data":{"def":"Wall","by":"Human496"},"seq":21}
+{"kind":"built","text":"door built by Wu","tick":770460,"day":12,"hour":2,"cell":[141,133],"data":{"def":"Door","by":"Human496"},"seq":22}
+{"kind":"construction_failed","text":"Wooden wall (building) failed (materials lost)","tick":770523,"day":12,"hour":2,"cell":[142,133],"data":{"def":"Frame_Wall"},"seq":23}
+{"kind":"construction_failed","text":"Wooden wall (building) failed (materials lost)","tick":771177,"day":12,"hour":2,"cell":[136,134],"data":{"def":"Frame_Wall"},"seq":24}
+{"kind":"built","text":"wall built by Wu","tick":771417,"day":12,"hour":2,"cell":[136,133],"data":{"def":"Wall","by":"Human496"},"seq":25}
+{"kind":"construction_failed","text":"Wooden wall (building) failed (materials lost)","tick":773889,"day":12,"hour":3,"cell":[142,133],"data":{"def":"Frame_Wall"},"seq":26}
+{"kind":"built","text":"wall built by Wu","tick":774189,"day":12,"hour":3,"cell":[137,133],"data":{"def":"Wall","by":"Human496"},"seq":27}
+{"kind":"built","text":"wall built by Wu","tick":774597,"day":12,"hour":3,"cell":[138,133],"data":{"def":"Wall","by":"Human496"},"seq":28}
+{"kind":"built","text":"wall built by Gamble","tick":775594,"day":12,"hour":4,"cell":[148,123],"data":{"def":"Wall","by":"Human490"},"seq":29}
+{"kind":"built","text":"door built by Gamble","tick":777481,"day":12,"hour":4,"cell":[147,126],"data":{"def":"Door","by":"Human490"},"seq":30}
+{"kind":"built","text":"wall built by Gamble","tick":777559,"day":12,"hour":5,"cell":[146,123],"data":{"def":"Wall","by":"Human490"},"seq":31}
+{"kind":"built","text":"wall built by Gamble","tick":777610,"day":12,"hour":5,"cell":[145,123],"data":{"def":"Wall","by":"Human490"},"seq":32}
+{"kind":"built","text":"door built by Gamble","tick":777898,"day":12,"hour":5,"cell":[147,123],"data":{"def":"Door","by":"Human490"},"seq":33}
+{"kind":"built","text":"wall built by Gamble","tick":778831,"day":12,"hour":5,"cell":[149,123],"data":{"def":"Wall","by":"Human490"},"seq":34}
+{"kind":"built","text":"wall built by Gamble","tick":778882,"day":12,"hour":5,"cell":[150,123],"data":{"def":"Wall","by":"Human490"},"seq":35}
+{"kind":"built","text":"wall built by Gamble","tick":778948,"day":12,"hour":5,"cell":[151,123],"data":{"def":"Wall","by":"Human490"},"seq":36}
+{"kind":"built","text":"wall built by Gamble","tick":779014,"day":12,"hour":5,"cell":[152,123],"data":{"def":"Wall","by":"Human490"},"seq":37}
+{"kind":"built","text":"wall built by Gamble","tick":779092,"day":12,"hour":5,"cell":[153,123],"data":{"def":"Wall","by":"Human490"},"seq":38}
+{"kind":"day","text":"day 13","tick":780000,"day":13,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":0,"wealth":16830.0,"wealth_items":10327.0,"wealth_buildings":3352.0,"mood_avg":65.0,"nutrition":12.6,"food_days":2.6,"threat_points":36.0,"research_done":8,"temp_outdoor":24.0,"danger":"None","assisted":false},"seq":39}
+{"kind":"built","text":"wall built by Gamble","tick":780385,"day":13,"hour":6,"cell":[145,116],"data":{"def":"Wall","by":"Human490"},"seq":40}
+{"kind":"built","text":"wall built by Gamble","tick":780436,"day":13,"hour":6,"cell":[146,116],"data":{"def":"Wall","by":"Human490"},"seq":41}
+{"kind":"built","text":"wall built by Gamble","tick":780502,"day":13,"hour":6,"cell":[147,115],"data":{"def":"Wall","by":"Human490"},"seq":42}
+{"kind":"built","text":"wall built by Gamble","tick":780553,"day":13,"hour":6,"cell":[147,116],"data":{"def":"Wall","by":"Human490"},"seq":43}
+{"kind":"built","text":"wall built by Gamble","tick":780709,"day":13,"hour":6,"cell":[148,116],"data":{"def":"Wall","by":"Human490"},"seq":44}
+{"kind":"built","text":"wall built by Gamble","tick":780760,"day":13,"hour":6,"cell":[149,116],"data":{"def":"Wall","by":"Human490"},"seq":45}
+{"kind":"built","text":"wall built by Gamble","tick":780856,"day":13,"hour":6,"cell":[150,116],"data":{"def":"Wall","by":"Human490"},"seq":46}
+{"kind":"built","text":"table (2x2) built by Gamble","tick":781480,"day":13,"hour":6,"cell":[147,120],"data":{"def":"Table2x2c","by":"Human490"},"seq":47}
+{"kind":"built","text":"wall built by Gamble","tick":781624,"day":13,"hour":6,"cell":[144,123],"data":{"def":"Wall","by":"Human490"},"seq":48}
+{"kind":"built","text":"wall built by Gamble","tick":781690,"day":13,"hour":6,"cell":[143,123],"data":{"def":"Wall","by":"Human490"},"seq":49}
+{"kind":"built","text":"wall built by Gamble","tick":782842,"day":13,"hour":7,"cell":[147,113],"data":{"def":"Wall","by":"Human490"},"seq":50}
+{"kind":"built","text":"wall built by Wu","tick":782850,"day":13,"hour":7,"cell":[140,122],"data":{"def":"Wall","by":"Human496"},"seq":51}
+{"kind":"built","text":"wall built by Gamble","tick":782893,"day":13,"hour":7,"cell":[147,114],"data":{"def":"Wall","by":"Human490"},"seq":52}
+{"kind":"construction_failed","text":"Steel wall (building) failed (materials lost)","tick":783015,"day":13,"hour":7,"cell":[140,121],"data":{"def":"Frame_Wall"},"seq":53}
+{"kind":"built","text":"door built by Gamble","tick":783220,"day":13,"hour":7,"cell":[144,116],"data":{"def":"Door","by":"Human490"},"seq":54}
+{"kind":"built","text":"wall built by Gamble","tick":783286,"day":13,"hour":7,"cell":[143,116],"data":{"def":"Wall","by":"Human490"},"seq":55}
+{"kind":"built","text":"wall built by Gamble","tick":783352,"day":13,"hour":7,"cell":[142,116],"data":{"def":"Wall","by":"Human490"},"seq":56}
+{"kind":"built","text":"wall built by Gamble","tick":783418,"day":13,"hour":7,"cell":[141,116],"data":{"def":"Wall","by":"Human490"},"seq":57}
+{"kind":"built","text":"wall built by Gamble","tick":783484,"day":13,"hour":7,"cell":[140,115],"data":{"def":"Wall","by":"Human490"},"seq":58}
+{"kind":"built","text":"wall built by Gamble","tick":783535,"day":13,"hour":7,"cell":[140,114],"data":{"def":"Wall","by":"Human490"},"seq":59}
+{"kind":"built","text":"wall built by Gamble","tick":783586,"day":13,"hour":7,"cell":[140,116],"data":{"def":"Wall","by":"Human490"},"seq":60}
+{"kind":"built","text":"wall built by Gamble","tick":783652,"day":13,"hour":7,"cell":[140,113],"data":{"def":"Wall","by":"Human490"},"seq":61}
+{"kind":"built","text":"wall built by Gamble","tick":783730,"day":13,"hour":7,"cell":[140,112],"data":{"def":"Wall","by":"Human490"},"seq":62}
+{"kind":"built","text":"wall built by Gamble","tick":783976,"day":13,"hour":7,"cell":[140,118],"data":{"def":"Wall","by":"Human490"},"seq":63}
+{"kind":"built","text":"wall built by Gamble","tick":784027,"day":13,"hour":7,"cell":[140,119],"data":{"def":"Wall","by":"Human490"},"seq":64}
+{"kind":"built","text":"wall built by Gamble","tick":784093,"day":13,"hour":7,"cell":[140,120],"data":{"def":"Wall","by":"Human490"},"seq":65}
+{"kind":"built","text":"wall built by Gamble","tick":784192,"day":13,"hour":7,"cell":[141,123],"data":{"def":"Wall","by":"Human490"},"seq":66}
+{"kind":"built","text":"wall built by Gamble","tick":784243,"day":13,"hour":7,"cell":[140,123],"data":{"def":"Wall","by":"Human490"},"seq":67}
+{"kind":"built","text":"wall built by Gamble","tick":784294,"day":13,"hour":7,"cell":[142,123],"data":{"def":"Wall","by":"Human490"},"seq":68}
+{"kind":"built","text":"wall built by Gamble","tick":786469,"day":13,"hour":8,"cell":[147,112],"data":{"def":"Wall","by":"Human490"},"seq":69}
+{"kind":"built","text":"wall built by Gamble","tick":786538,"day":13,"hour":8,"cell":[147,111],"data":{"def":"Wall","by":"Human490"},"seq":70}
+{"kind":"built","text":"wall built by Gamble","tick":786634,"day":13,"hour":8,"cell":[148,110],"data":{"def":"Wall","by":"Human490"},"seq":71}
+{"kind":"built","text":"wall built by Gamble","tick":786685,"day":13,"hour":8,"cell":[149,110],"data":{"def":"Wall","by":"Human490"},"seq":72}
+{"kind":"built","text":"wall built by Gamble","tick":786982,"day":13,"hour":8,"cell":[146,110],"data":{"def":"Wall","by":"Human490"},"seq":73}
+{"kind":"built","text":"wall built by Gamble","tick":787033,"day":13,"hour":8,"cell":[145,110],"data":{"def":"Wall","by":"Human490"},"seq":74}
+{"kind":"built","text":"wall built by Gamble","tick":787102,"day":13,"hour":8,"cell":[144,110],"data":{"def":"Wall","by":"Human490"},"seq":75}
+{"kind":"built","text":"wall built by Gamble","tick":787201,"day":13,"hour":8,"cell":[143,110],"data":{"def":"Wall","by":"Human490"},"seq":76}
+{"kind":"built","text":"wall built by Gamble","tick":787381,"day":13,"hour":8,"cell":[151,110],"data":{"def":"Wall","by":"Human490"},"seq":77}
+{"kind":"built","text":"wall built by Gamble","tick":787450,"day":13,"hour":8,"cell":[152,110],"data":{"def":"Wall","by":"Human490"},"seq":78}
+{"kind":"built","text":"wall built by Wu","tick":787731,"day":13,"hour":9,"cell":[142,110],"data":{"def":"Wall","by":"Human496"},"seq":79}
+{"kind":"construction_failed","text":"Steel wall (building) failed (materials lost)","tick":789150,"day":13,"hour":9,"cell":[140,110],"data":{"def":"Frame_Wall"},"seq":80}
+{"kind":"built","text":"wall built by Gamble","tick":789385,"day":13,"hour":9,"cell":[154,113],"data":{"def":"Wall","by":"Human490"},"seq":81}
+{"kind":"built","text":"wall built by Wu","tick":789387,"day":13,"hour":9,"cell":[141,110],"data":{"def":"Wall","by":"Human496"},"seq":82}
+{"kind":"built","text":"wall built by Gamble","tick":789475,"day":13,"hour":9,"cell":[154,114],"data":{"def":"Wall","by":"Human490"},"seq":83}
+{"kind":"built","text":"wall built by Gamble","tick":789559,"day":13,"hour":9,"cell":[154,115],"data":{"def":"Wall","by":"Human490"},"seq":84}
+{"kind":"built","text":"wall built by Gamble","tick":789637,"day":13,"hour":9,"cell":[153,116],"data":{"def":"Wall","by":"Human490"},"seq":85}
+{"kind":"built","text":"wall built by Wu","tick":789654,"day":13,"hour":9,"cell":[140,111],"data":{"def":"Wall","by":"Human496"},"seq":86}
+{"kind":"built","text":"wall built by Gamble","tick":789748,"day":13,"hour":9,"cell":[154,116],"data":{"def":"Wall","by":"Human490"},"seq":87}
+{"kind":"built","text":"wall built by Wu","tick":793836,"day":13,"hour":11,"cell":[154,117],"data":{"def":"Wall","by":"Human496"},"seq":88}
+{"kind":"built","text":"wall built by Wu","tick":794073,"day":13,"hour":11,"cell":[154,118],"data":{"def":"Wall","by":"Human496"},"seq":89}
+{"kind":"built","text":"wall built by Wu","tick":794328,"day":13,"hour":11,"cell":[154,119],"data":{"def":"Wall","by":"Human496"},"seq":90}
+{"kind":"dialog","text":"Dialog_BeginRitual: ","tick":794523,"day":13,"hour":11,"data":{"i":-1,"type":"Dialog_BeginRitual","force_pause":true},"seq":91}
+{"kind":"built","text":"wall built by Gamble","tick":795307,"day":13,"hour":12,"cell":[156,116],"data":{"def":"Wall","by":"Human490"},"seq":92}
+{"kind":"built","text":"door built by Wu","tick":796815,"day":13,"hour":12,"cell":[154,120],"data":{"def":"Door","by":"Human496"},"seq":93}
+{"kind":"built","text":"wall built by Wu","tick":798591,"day":13,"hour":13,"cell":[155,116],"data":{"def":"Wall","by":"Human496"},"seq":94}
+{"kind":"dialog","text":"Dialog_BeginRitual: ","tick":798951,"day":13,"hour":13,"data":{"i":-1,"type":"Dialog_BeginRitual","force_pause":true},"seq":95}
+{"kind":"built","text":"wall built by Gamble","tick":799030,"day":13,"hour":13,"cell":[154,111],"data":{"def":"Wall","by":"Human490"},"seq":96}
+{"kind":"built","text":"wall built by Gamble","tick":799081,"day":13,"hour":13,"cell":[153,110],"data":{"def":"Wall","by":"Human490"},"seq":97}
+{"kind":"built","text":"wall built by Gamble","tick":799174,"day":13,"hour":13,"cell":[154,112],"data":{"def":"Wall","by":"Human490"},"seq":98}
+{"kind":"built","text":"wall built by Gamble","tick":799579,"day":13,"hour":13,"cell":[152,116],"data":{"def":"Wall","by":"Human490"},"seq":99}
+{"kind":"built","text":"wall built by Sock","tick":800018,"day":13,"hour":14,"cell":[161,116],"data":{"def":"Wall","by":"Human493"},"seq":100}
+{"kind":"built","text":"wall built by Gamble","tick":800074,"day":13,"hour":14,"cell":[157,116],"data":{"def":"Wall","by":"Human490"},"seq":101}
+{"kind":"built","text":"door built by Wu","tick":800238,"day":13,"hour":14,"cell":[151,116],"data":{"def":"Door","by":"Human496"},"seq":102}
+{"kind":"built","text":"wall built by Sock","tick":800288,"day":13,"hour":14,"cell":[162,115],"data":{"def":"Wall","by":"Human493"},"seq":103}
+{"kind":"built","text":"door built by Gamble","tick":800416,"day":13,"hour":14,"cell":[158,116],"data":{"def":"Door","by":"Human490"},"seq":104}
+{"kind":"built","text":"wall built by Gamble","tick":800467,"day":13,"hour":14,"cell":[159,116],"data":{"def":"Wall","by":"Human490"},"seq":105}
+{"kind":"construction_failed","text":"Steel wall (building) failed (materials lost)","tick":800483,"day":13,"hour":14,"cell":[162,114],"data":{"def":"Frame_Wall"},"seq":106}
+{"kind":"built","text":"wall built by Gamble","tick":800539,"day":13,"hour":14,"cell":[160,116],"data":{"def":"Wall","by":"Human490"},"seq":107}
+{"kind":"built","text":"wall built by Wu","tick":800541,"day":13,"hour":14,"cell":[154,121],"data":{"def":"Wall","by":"Human496"},"seq":108}
+{"kind":"construction_failed","text":"Steel wall (building) failed (materials lost)","tick":800705,"day":13,"hour":14,"cell":[162,116],"data":{"def":"Frame_Wall"},"seq":109}
+{"kind":"built","text":"wall built by Gamble","tick":800755,"day":13,"hour":14,"cell":[162,117],"data":{"def":"Wall","by":"Human490"},"seq":110}
+{"kind":"built","text":"wall built by Wu","tick":800988,"day":13,"hour":14,"cell":[162,118],"data":{"def":"Wall","by":"Human496"},"seq":111}
+{"kind":"built","text":"wall built by Wu","tick":803301,"day":13,"hour":15,"cell":[158,123],"data":{"def":"Wall","by":"Human496"},"seq":112}
+{"kind":"built","text":"wall built by Wu","tick":803538,"day":13,"hour":15,"cell":[159,123],"data":{"def":"Wall","by":"Human496"},"seq":113}
+{"kind":"built","text":"wall built by Wu","tick":803868,"day":13,"hour":15,"cell":[162,119],"data":{"def":"Wall","by":"Human496"},"seq":114}
+{"kind":"built","text":"wall built by Wu","tick":804144,"day":13,"hour":15,"cell":[162,116],"data":{"def":"Wall","by":"Human496"},"seq":115}
+{"kind":"construction_failed","text":"Campfire (building) failed (materials lost)","tick":804525,"day":13,"hour":15,"cell":[151,121],"data":{"def":"Frame_Campfire"},"seq":116}
+{"kind":"built","text":"wall built by Wu","tick":805116,"day":13,"hour":16,"cell":[162,114],"data":{"def":"Wall","by":"Human496"},"seq":117}
+{"kind":"built","text":"wall built by Wu","tick":805371,"day":13,"hour":16,"cell":[162,113],"data":{"def":"Wall","by":"Human496"},"seq":118}
+{"kind":"built","text":"power conduit built by Wu","tick":805548,"day":13,"hour":16,"cell":[163,114],"data":{"def":"PowerConduit","by":"Human496"},"seq":119}
+{"kind":"built","text":"power conduit built by Wu","tick":805614,"day":13,"hour":16,"cell":[164,114],"data":{"def":"PowerConduit","by":"Human496"},"seq":120}
+{"kind":"built","text":"butcher table built by Sock","tick":806960,"day":13,"hour":16,"cell":[158,118],"data":{"def":"TableButcher","by":"Human493"},"seq":121}
+{"kind":"built","text":"wall built by Sock","tick":808751,"day":13,"hour":17,"cell":[162,121],"data":{"def":"Wall","by":"Human493"},"seq":122}
+{"kind":"built","text":"wall built by Gamble","tick":808897,"day":13,"hour":17,"cell":[154,123],"data":{"def":"Wall","by":"Human490"},"seq":123}
+{"kind":"built","text":"wall built by Gamble","tick":809338,"day":13,"hour":17,"cell":[154,122],"data":{"def":"Wall","by":"Human490"},"seq":124}
+{"kind":"built","text":"wall built by Gamble","tick":809554,"day":13,"hour":17,"cell":[155,123],"data":{"def":"Wall","by":"Human490"},"seq":125}
+{"kind":"built","text":"wall built by Gamble","tick":809605,"day":13,"hour":17,"cell":[156,123],"data":{"def":"Wall","by":"Human490"},"seq":126}
+{"kind":"built","text":"wall built by Gamble","tick":809677,"day":13,"hour":17,"cell":[157,123],"data":{"def":"Wall","by":"Human490"},"seq":127}
+{"kind":"built","text":"fueled stove built by Gamble","tick":810352,"day":13,"hour":18,"cell":[158,121],"data":{"def":"FueledStove","by":"Human490"},"seq":128}
+{"kind":"built","text":"door built by Sock","tick":810422,"day":13,"hour":18,"cell":[162,120],"data":{"def":"Door","by":"Human493"},"seq":129}
+{"kind":"built","text":"wall built by Gamble","tick":810463,"day":13,"hour":18,"cell":[160,123],"data":{"def":"Wall","by":"Human490"},"seq":130}
+{"kind":"built","text":"wall built by Gamble","tick":810553,"day":13,"hour":18,"cell":[162,123],"data":{"def":"Wall","by":"Human490"},"seq":131}
+{"kind":"built","text":"battery built by Wu","tick":810648,"day":13,"hour":18,"cell":[165,116],"data":{"def":"Battery","by":"Human496"},"seq":132}
+{"kind":"built","text":"wall built by Sock","tick":810710,"day":13,"hour":18,"cell":[161,123],"data":{"def":"Wall","by":"Human493"},"seq":133}
+{"kind":"built","text":"power conduit built by Gamble","tick":812470,"day":13,"hour":18,"cell":[163,113],"data":{"def":"PowerConduit","by":"Human490"},"seq":134}
+{"kind":"built","text":"power conduit built by Gamble","tick":812485,"day":13,"hour":18,"cell":[163,112],"data":{"def":"PowerConduit","by":"Human490"},"seq":135}
+{"kind":"built","text":"power conduit built by Gamble","tick":812518,"day":13,"hour":19,"cell":[165,114],"data":{"def":"PowerConduit","by":"Human490"},"seq":136}
+{"kind":"built","text":"power conduit built by Gamble","tick":812551,"day":13,"hour":19,"cell":[165,115],"data":{"def":"PowerConduit","by":"Human490"},"seq":137}
+{"kind":"built","text":"wall built by Wu","tick":813063,"day":13,"hour":19,"cell":[162,110],"data":{"def":"Wall","by":"Human496"},"seq":138}
+{"kind":"built","text":"wall built by Wu","tick":813300,"day":13,"hour":19,"cell":[161,109],"data":{"def":"Wall","by":"Human496"},"seq":139}
+{"kind":"built","text":"power conduit built by Wu","tick":813366,"day":13,"hour":19,"cell":[161,109],"data":{"def":"PowerConduit","by":"Human496"},"seq":140}
+{"kind":"built","text":"wood-fired generator built by Gamble","tick":813412,"day":13,"hour":19,"cell":[166,115],"data":{"def":"WoodFiredGenerator","by":"Human490"},"seq":141}
+{"kind":"built","text":"power conduit built by Gamble","tick":813472,"day":13,"hour":19,"cell":[163,111],"data":{"def":"PowerConduit","by":"Human490"},"seq":142}
+{"kind":"built","text":"wall built by Gamble","tick":813541,"day":13,"hour":19,"cell":[162,112],"data":{"def":"Wall","by":"Human490"},"seq":143}
+{"kind":"built","text":"power conduit built by Gamble","tick":813574,"day":13,"hour":19,"cell":[163,110],"data":{"def":"PowerConduit","by":"Human490"},"seq":144}
+{"kind":"built","text":"wall built by Wu","tick":813606,"day":13,"hour":19,"cell":[162,109],"data":{"def":"Wall","by":"Human496"},"seq":145}
+{"kind":"built","text":"power conduit built by Gamble","tick":813607,"day":13,"hour":19,"cell":[163,109],"data":{"def":"PowerConduit","by":"Human490"},"seq":146}
+{"kind":"built","text":"power conduit built by Wu","tick":813672,"day":13,"hour":19,"cell":[162,109],"data":{"def":"PowerConduit","by":"Human496"},"seq":147}
+{"kind":"built","text":"power conduit built by Gamble","tick":815710,"day":13,"hour":20,"cell":[160,109],"data":{"def":"PowerConduit","by":"Human490"},"seq":148}
+{"kind":"built","text":"power conduit built by Gamble","tick":815728,"day":13,"hour":20,"cell":[159,109],"data":{"def":"PowerConduit","by":"Human490"},"seq":149}
+{"kind":"built","text":"wall built by Gamble","tick":815809,"day":13,"hour":20,"cell":[158,109],"data":{"def":"Wall","by":"Human490"},"seq":150}
+{"kind":"built","text":"power conduit built by Gamble","tick":815827,"day":13,"hour":20,"cell":[158,109],"data":{"def":"PowerConduit","by":"Human490"},"seq":151}
+{"kind":"built","text":"wall built by Wu","tick":816021,"day":13,"hour":20,"cell":[159,109],"data":{"def":"Wall","by":"Human496"},"seq":152}
+{"kind":"construction_failed","text":"Steel wall (building) failed (materials lost)","tick":818385,"day":13,"hour":21,"cell":[162,111],"data":{"def":"Frame_Wall"},"seq":153}
+{"kind":"construction_failed","text":"Steel wall (building) failed (materials lost)","tick":818526,"day":13,"hour":21,"cell":[157,109],"data":{"def":"Frame_Wall"},"seq":154}
+{"kind":"built","text":"power conduit built by Wu","tick":818607,"day":13,"hour":21,"cell":[157,109],"data":{"def":"PowerConduit","by":"Human496"},"seq":155}
+{"kind":"built","text":"power conduit built by Wu","tick":818706,"day":13,"hour":21,"cell":[156,109],"data":{"def":"PowerConduit","by":"Human496"},"seq":156}
+{"kind":"built","text":"cooler built by Gamble","tick":818866,"day":13,"hour":21,"cell":[160,109],"data":{"def":"Cooler","by":"Human490"},"seq":157}
+{"kind":"built","text":"wall built by Wu","tick":819021,"day":13,"hour":21,"cell":[155,109],"data":{"def":"Wall","by":"Human496"},"seq":158}
+{"kind":"construction_failed","text":"Steel wall (building) failed (materials lost)","tick":819435,"day":13,"hour":21,"cell":[157,109],"data":{"def":"Frame_Wall"},"seq":159}
+{"kind":"dialog","text":"Dialog_BeginRitual: ","tick":831982,"day":13,"hour":2,"data":{"i":-1,"type":"Dialog_BeginRitual","force_pause":true},"seq":160}
+{"kind":"built","text":"wall built by Sock","tick":832529,"day":13,"hour":3,"cell":[154,110],"data":{"def":"Wall","by":"Human493"},"seq":161}
+{"kind":"built","text":"wall built by Sock","tick":833105,"day":13,"hour":3,"cell":[154,109],"data":{"def":"Wall","by":"Human493"},"seq":162}
+{"kind":"built","text":"wall built by Sock","tick":833528,"day":13,"hour":3,"cell":[157,109],"data":{"def":"Wall","by":"Human493"},"seq":163}
+{"kind":"built","text":"wall built by Sock","tick":834005,"day":13,"hour":3,"cell":[162,111],"data":{"def":"Wall","by":"Human493"},"seq":164}
+{"kind":"construction_failed","text":"Steel wall (building) failed (materials lost)","tick":837737,"day":13,"hour":5,"cell":[150,110],"data":{"def":"Frame_Wall"},"seq":165}
+{"kind":"built","text":"cooler built by Gamble","tick":839332,"day":13,"hour":5,"cell":[156,109],"data":{"def":"Cooler","by":"Human490"},"seq":166}
+{"kind":"built","text":"wall built by Sock","tick":839414,"day":13,"hour":5,"cell":[150,110],"data":{"def":"Wall","by":"Human493"},"seq":167}
+{"kind":"day","text":"day 14","tick":840000,"day":14,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":0,"wealth":16785.0,"wealth_items":7880.0,"wealth_buildings":5755.0,"mood_avg":68.0,"nutrition":10.8,"food_days":2.2,"threat_points":35.0,"research_done":8,"temp_outdoor":21.0,"danger":"None","assisted":false},"seq":168}
+{"kind":"built","text":"wall built by Gamble","tick":853444,"day":14,"hour":11,"cell":[140,110],"data":{"def":"Wall","by":"Human490"},"seq":169}
+{"kind":"built","text":"wall built by Sock","tick":854936,"day":14,"hour":11,"cell":[147,110],"data":{"def":"Wall","by":"Human493"},"seq":170}
+{"kind":"built","text":"wall built by Gamble","tick":855124,"day":14,"hour":12,"cell":[140,117],"data":{"def":"Wall","by":"Human490"},"seq":171}
+{"kind":"built","text":"wall built by Wu","tick":855186,"day":14,"hour":12,"cell":[162,122],"data":{"def":"Wall","by":"Human496"},"seq":172}
+{"kind":"built","text":"wall built by Gamble","tick":855226,"day":14,"hour":12,"cell":[140,121],"data":{"def":"Wall","by":"Human490"},"seq":173}
+{"kind":"message","text":"Simple meal has deteriorated away in storage.","tick":861143,"day":14,"hour":14,"cell":[143,136],"data":{"type":"NegativeEvent"},"seq":174}
+{"kind":"quest","text":"Cummings's Forlorn Drifters","tick":865000,"day":14,"hour":16,"data":{"id":4,"state":"NotYetAccepted"},"seq":175}
+{"kind":"letter","text":"Quest available: Cummings's Forlorn Drifters","tick":865000,"day":14,"hour":16,"data":{"label":"Quest available: Cummings's Forlorn Drifters","def":"NewQuest","text":"A new quest is available.\n\nThe quest is called 'Cummings's Forlorn Drifters'.\n\nIf you don't accept the quest within 6 days, it will expire.","id":49,"quest":4},"seq":176}
+{"kind":"incident","text":"quest","tick":865000,"day":14,"hour":16,"data":{"def":"GiveQuest_Random","category":"GiveQuest","points":37.0811577,"faction":null,"strategy":null,"arrival":null},"seq":177}
+{"kind":"colonist_joined","text":"Cummings joined the colony","tick":867553,"day":14,"hour":17,"thing":"Human78634","seq":178}
+{"kind":"colonist_joined","text":"Jess joined the colony","tick":867553,"day":14,"hour":17,"thing":"Human78638","seq":179}
+{"kind":"colonist_joined","text":"Babs joined the colony","tick":867553,"day":14,"hour":17,"thing":"Human78642","seq":180}
+{"kind":"letter","text":"Refugees arrived","tick":867553,"day":14,"hour":17,"cell":[2,63],"thing":"Human78634","data":{"label":"Refugees arrived","def":"PositiveEvent","text":"The refugees have arrived. They will stay with you for 20 days so they can rest and regroup.","id":50,"quest":4},"seq":181}
+{"kind":"built","text":"campfire built by Wu","tick":868770,"day":14,"hour":17,"cell":[151,121],"data":{"def":"Campfire","by":"Human496"},"seq":182}
+{"kind":"construction_failed","text":"Wooden bed (building) failed (materials lost)","tick":870204,"day":14,"hour":18,"cell":[149,114],"data":{"def":"Frame_Bed"},"seq":183}
+{"kind":"built","text":"dining chair built by Gamble","tick":870307,"day":14,"hour":18,"cell":[149,120],"data":{"def":"DiningChair","by":"Human490"},"seq":184}
