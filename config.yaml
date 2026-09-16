@@ -10,9 +10,9 @@ llm:
 bridge:
   url: http://127.0.0.1:8765
 play:
-  pause_to_think: true     # slow the game while the agent thinks (see think_speed); false = keep play speed
-  think_speed: 1           # 0 = fully paused while thinking, 1 = normal speed, 2 = fast
-  speed: 3                 # between steps: 1 normal, 2 fast, 3 superfast
+  speed: 3                 # play speed between steps: 1 normal, 2 fast, 3 superfast
+  think_speed: 3           # speed while thinking on calm steps (0 = pause, 1 normal, 2 fast, 3 superfast)
+  danger_think_speed: 0    # speed while thinking on urgent steps (hostiles, downed/dead colonist, mental break, dialog, watcher/critical alerts)
   first_improve_day: 1     # first mid-episode improvement pass (skills/tools/watchers) this many days into a game
   improve_every_days: 3    # and then every N days
   wake_hours: 12           # scheduled think interval (in-game hours) when the model doesn't say

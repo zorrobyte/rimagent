@@ -45,7 +45,8 @@ class Controls:
         self.r.force_end = "operator ended the episode"
 
     def set_no_pause(self, value: bool):
-        self.r.cfg["play"]["pause_to_think"] = not value
+        # dashboard toggle: no-pause = never pause even for danger (think at 1x instead)
+        self.r.cfg["play"]["danger_think_speed"] = 1 if value else 0
 
     def kill(self):
         self.r.stop = True
@@ -228,7 +229,7 @@ class Runner:
                 continue
             trigger = self.wake_trigger(tick, new_events)
             if trigger:
-                self.with_pause(lambda: self.play_step(trigger, tick))
+                self.with_pause(lambda: self.play_step(trigger, tick), urgent=self.is_urgent(trigger))
                 if self.ctx.end_episode_reason:
                     self.end_episode(self.ctx.end_episode_reason)
                     return
@@ -308,10 +309,16 @@ class Runner:
                 del self._seen_alerts[label]  # cleared alerts may wake again if they return
         return trigger
 
-    def with_pause(self, fn) -> None:
-        # think_speed: 0 = pause the game while thinking, 1 = normal speed, 2/3 faster. pause_to_think=False forces play speed.
-        pause = bool(self.cfg["play"].get("pause_to_think", True))
-        think_speed = int(self.cfg["play"].get("think_speed", 1)) if pause else int(self.cfg["play"].get("speed", 3))
+    def is_urgent(self, trigger: str) -> bool:
+        t = trigger.lower()
+        if t.startswith(("watcher alert", "alert (critical)", "operator")):
+            return True
+        return any(k in t for k in self.critical_kinds)
+
+    def with_pause(self, fn, urgent: bool = False) -> None:
+        # Calm steps think at think_speed (default: full play speed); urgent ones at danger_think_speed (default: paused).
+        play = self.cfg["play"]
+        think_speed = int(play.get("danger_think_speed", 0)) if urgent else int(play.get("think_speed", play.get("speed", 3)))
         try:
             if think_speed <= 0:
                 self.bridge.call("game.pause", paused=True)
