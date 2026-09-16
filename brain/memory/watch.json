@@ -27,29 +27,57 @@
   {
    "label": "blueprints",
    "path": "summary.blueprints"
+  },
+  {
+   "label": "kat_mood",
+   "path": "engine:Pawn:Kat.needs.mood.CurLevelPercentage"
+  },
+  {
+   "label": "lumi_mood",
+   "path": "engine:Pawn:Lumi.needs.mood.CurLevelPercentage"
+  },
+  {
+   "label": "food_need_avg",
+   "path": "summary.nutrition"
   }
  ],
  "history": {
   "food_days": [
    0.0,
-   9.7
+   9.7,
+   9.6,
+   9.2,
+   8.6,
+   7.1,
+   6.9,
+   6.4
   ],
   "colonists": [
    3.0
   ],
   "mood_avg": [
-   51.0,
-   70.0,
-   40.0
+   40.0,
+   37.0,
+   32.0,
+   35.0,
+   74.0,
+   65.0,
+   57.0,
+   62.0
   ],
   "wood": [
    0.0,
-   195.0
+   195.0,
+   199.0,
+   285.0,
+   416.0
   ],
   "outside_storage": [
    49.0,
    41.0,
-   9.0
+   9.0,
+   10.0,
+   13.0
   ],
   "threat_points": [
    35.0
@@ -57,7 +85,33 @@
   "blueprints": [
    0.0,
    12.0,
-   0.0
+   0.0,
+   3.0
+  ],
+  "kat_mood": [
+   0.25,
+   0.14,
+   0.6,
+   0.4,
+   0.29,
+   0.41
+  ],
+  "lumi_mood": [
+   0.51,
+   0.54,
+   0.56,
+   0.95,
+   0.87,
+   0.86,
+   0.81
+  ],
+  "food_need_avg": [
+   45.9,
+   44.1,
+   41.4,
+   34.2,
+   33.3,
+   30.6
   ]
  }
 }

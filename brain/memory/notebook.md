@@ -1,30 +1,40 @@
 # Episode 3 — seed rimagent-3 (TemperateForest, Spring)
 
-## Colonists (all healthy, mood ~72)
-- Kena (Human926): Shooting 13!, Artistic 9, Construction 8 — BUILDER. Incapable of Cooking/Growing/PlantCutting (trait).
+## Colonists
+- Kena (Human926): Shooting 13!, Artistic 9, Construction 8 — BUILDER. Incapable of Cooking/Growing/PlantCutting.
 - Lumi (Human929): Shooting 12!!, Melee 12!!, Social 7 — GROWER/COOK + hunter.
 - Kat (Human932): Medicine 11!!, Intellectual 11!!, Melee 7 — DOCTOR/RESEARCHER.
 
-## Roles set
+## Roles
 - Kena: Construction 1, BasicWorker 2, Hauling/Cleaning 3
 - Lumi: Growing/PlantCutting 1, Cooking/Hunting 2, Hauling 3
 - Kat: Doctor 1, Research 2, Hauling 3
 - Everyone: Firefighter/Patient/BedRest 1
 
-## Food (CRISIS FIXED)
-- 50 survival packs clustered at home [127-129,118-120] (~16 days). Food policy was "Lavish" -> set all 3 to "Simple" so they eat the packs. Unforbidden the 3 far packs.
-- Rice field "rice1" at [113,113,6,5] (27 cells, 3 failed) — harvest in ~3d. Lumi Growing 1.
+## FOOD POLICY — CRITICAL (verified from source FoodRestrictionDatabase.cs:109)
+- **"Simple" does NOT include survival packs.** Simple blocks preferability>=9 AND explicitly SetAllow(MealSurvivalPack, false).
+- "Raw" also excludes survival packs. Only "Any" or "Survival" allow them.
+- 50 survival packs in stockpile. To eat them the policy MUST be "Any" or "Survival".
+- Kat starved twice because policy was "Simple" while only survival packs were in stock. FIX: set all 3 to "Any" (or "Survival") so the packs are edible. Do NOT trust "Simple" for survival packs.
+- Rice field "rice1" [113,113,6,5] (27 cells) — once rice is cooked into simple meals, policy can go back to "Simple"/"Cooked".
 
-## Base (blueprints queued, 0 built yet)
-- Shelter: wall outline rect [113,117,10,8], door at [117,117] (south edge), 3 beds at [115/117/119,123] rot S, campfire [116,120], SimpleResearchBench [119,119].
-- Stockpile "main" at [118,110,8,6] (48 cells).
-- Wood: 9 trees designated harvestwood near home.
+## Base
+- Shelter built+roofed 10x8, 3 beds, campfire, research bench, door [117,117] (south chokepoint).
+- 3 spike traps placed [117,116/114/112] in south approach lane.
+- Stockpile "main" [118,110,8,6].
+- Table [114,121] in barracks.
 
 ## Research
-- Batteries queued (400pt). No bench built yet — research won't start until SimpleResearchBench is built.
+- SolarPanels in progress (Batteries done).
+
+## Threats / notes
+- Quail attack day 3: Kat injured (quail bites, bleeding stopped, in bed), Lumi minor injuries. Both tending.
+- Wood walls = fire risk; plan steel fire break when steel flows.
+- First raid ~day 8-10. Chokepoint = door [117,117].
+- Kat consciousness recovering; check in ~4h.
 
 ## Open / next
-- Verify blueprints building (Kena Construction 1). Check wood stock (need 300+ logs; only 0 in storage now — cutting 9 trees).
-- Research bench needs 75 wood + 25 steel. Steel is scattered (forbidden drops at [168,117],[50,118],[183,160]...) — unforbid + haul some steel.
-- Fire safety: wood walls — plan steel/stone fire break later.
-- First raid ~day 8-10. Door at [117,117] is the chokepoint.
+- SET FOOD POLICY TO "Any" (survival packs won't eat under "Simple").
+- Verify rice harvest + cooking bill running.
+- Unforbid+haul steel for turrets/walls later.
+- Fire safety: steel fire break.

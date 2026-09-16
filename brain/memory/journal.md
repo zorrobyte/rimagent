@@ -39,3 +39,13 @@ When rw_state_threats shows a mech with LordJob_SleepThenAssaultColony (or any m
 
 ## 2026-09-16 10:05 (episode 2): Never send a hunter more than 30 cells from home without a second armed pawn
 Episode 2: Onesan was 61 cells from base when a cougar found her. The colony could not respond in time (Glasses was drafted and 64 cells away). Onesan died. Rule: if the animal is 30+ cells from home, either (a) wait for it to come closer, (b) send two hunters, or (c) skip it. A single hunter far from base is a death sentence when a predator finds them.
+
+## 2026-09-16 10:30 (episode 3): Food policy table verified from source (FoodRestrictionDatabase.cs)
+Verified from RimWorld 1.6 source (FoodRestrictionDatabase.GenerateStartingFoodRestrictions):
+- "Simple" (FoodRestrictionSimple): blocks all preferability>=9 AND explicitly SetAllow(MealSurvivalPack, false). So Simple does NOT allow survival packs.
+- "Raw": blocks preferability>=7; does NOT explicitly allow survival packs either.
+- "Fine": blocks preferability>=10.
+- "Lavish": blocks preferability>=10 (same as Fine but labeled).
+- "NutrientPaste": allows everything except InsectJelly/HemogenPack.
+- Only "Any" (no restriction) and "Survival" allow survival packs.
+Rule: if your only food is survival packs, policy MUST be "Any" or "Survival". "Simple" and "Raw" both exclude them. This was the root cause of Kat starving twice in episode 3 (policy was "Simple" while 50 survival packs sat in the stockpile). The food_outlook tool detects this; the food_policy_watcher fires on day ticks.
