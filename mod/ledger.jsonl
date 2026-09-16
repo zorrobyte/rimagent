@@ -63,3 +63,33 @@
 {"kind":"research_finished","text":"air conditioning","tick":0,"day":0,"hour":6,"data":{"def":"AirConditioning"},"seq":9}
 {"kind":"research_finished","text":"deathrest","tick":0,"day":0,"hour":6,"data":{"def":"Deathrest"},"seq":10}
 {"kind":"day","text":"day 0","tick":250,"day":0,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":14582.0,"wealth_items":9579.0,"wealth_buildings":1973.0,"mood_avg":51.0,"nutrition":0.0,"food_days":0.0,"threat_points":35.0,"research_done":8,"temp_outdoor":2.0,"danger":"None","assisted":false},"seq":11}
+{"kind":"built","text":"wall built by Chavi","tick":3983,"day":0,"hour":7,"cell":[131,119],"data":{"def":"Wall","by":"Human765"},"seq":12}
+{"kind":"built","text":"wall built by Chavi","tick":4139,"day":0,"hour":7,"cell":[130,119],"data":{"def":"Wall","by":"Human765"},"seq":13}
+{"kind":"built","text":"wall built by Chavi","tick":4295,"day":0,"hour":7,"cell":[132,119],"data":{"def":"Wall","by":"Human765"},"seq":14}
+{"kind":"built","text":"wall built by Chavi","tick":4478,"day":0,"hour":7,"cell":[128,119],"data":{"def":"Wall","by":"Human765"},"seq":15}
+{"kind":"built","text":"wall built by Chavi","tick":5015,"day":0,"hour":8,"cell":[130,124],"data":{"def":"Wall","by":"Human765"},"seq":16}
+{"kind":"built","text":"wall built by Elekio","tick":5684,"day":0,"hour":8,"cell":[126,122],"data":{"def":"Wall","by":"Human762"},"seq":17}
+{"kind":"built","text":"bed built by Chavi","tick":5921,"day":0,"hour":8,"cell":[131,122],"data":{"def":"Bed","by":"Human765"},"seq":18}
+{"kind":"construction_failed","text":"Wooden wall (building) failed (materials lost)","tick":6032,"day":0,"hour":8,"cell":[131,124],"data":{"def":"Frame_Wall"},"seq":19}
+{"kind":"built","text":"wall built by Chavi","tick":6200,"day":0,"hour":8,"cell":[132,124],"data":{"def":"Wall","by":"Human765"},"seq":20}
+{"kind":"built","text":"bed built by Elekio","tick":6275,"day":0,"hour":8,"cell":[127,122],"data":{"def":"Bed","by":"Human762"},"seq":21}
+{"kind":"construction_failed","text":"Wooden wall (building) failed (materials lost)","tick":6377,"day":0,"hour":8,"cell":[126,121],"data":{"def":"Frame_Wall"},"seq":22}
+{"kind":"built","text":"wall built by Elekio","tick":6494,"day":0,"hour":8,"cell":[126,120],"data":{"def":"Wall","by":"Human762"},"seq":23}
+{"kind":"built","text":"wall built by Elekio","tick":6623,"day":0,"hour":8,"cell":[126,119],"data":{"def":"Wall","by":"Human762"},"seq":24}
+{"kind":"built","text":"wall built by Elekio","tick":6890,"day":0,"hour":8,"cell":[133,122],"data":{"def":"Wall","by":"Human762"},"seq":25}
+{"kind":"built","text":"door built by Chavi","tick":7043,"day":0,"hour":8,"cell":[129,119],"data":{"def":"Door","by":"Human765"},"seq":26}
+{"kind":"built","text":"wall built by Elekio","tick":7997,"day":0,"hour":9,"cell":[131,124],"data":{"def":"Wall","by":"Human762"},"seq":27}
+{"kind":"built","text":"campfire built by Elekio","tick":8243,"day":0,"hour":9,"cell":[129,123],"data":{"def":"Campfire","by":"Human762"},"seq":28}
+{"kind":"built","text":"wall built by Chavi","tick":8270,"day":0,"hour":9,"cell":[126,123],"data":{"def":"Wall","by":"Human765"},"seq":29}
+{"kind":"built","text":"wall built by Elekio","tick":8345,"day":0,"hour":9,"cell":[129,124],"data":{"def":"Wall","by":"Human762"},"seq":30}
+{"kind":"built","text":"wall built by Elekio","tick":8606,"day":0,"hour":9,"cell":[128,124],"data":{"def":"Wall","by":"Human762"},"seq":31}
+{"kind":"built","text":"wall built by Elekio","tick":8753,"day":0,"hour":9,"cell":[127,124],"data":{"def":"Wall","by":"Human762"},"seq":32}
+{"kind":"built","text":"wall built by Elekio","tick":8855,"day":0,"hour":9,"cell":[126,124],"data":{"def":"Wall","by":"Human762"},"seq":33}
+{"kind":"built","text":"bed built by Chavi","tick":9278,"day":0,"hour":9,"cell":[127,123],"data":{"def":"Bed","by":"Human765"},"seq":34}
+{"kind":"built","text":"wall built by Elekio","tick":9761,"day":0,"hour":9,"cell":[133,123],"data":{"def":"Wall","by":"Human762"},"seq":35}
+{"kind":"built","text":"wall built by Elekio","tick":9863,"day":0,"hour":9,"cell":[133,124],"data":{"def":"Wall","by":"Human762"},"seq":36}
+{"kind":"built","text":"wall built by Elekio","tick":9992,"day":0,"hour":9,"cell":[133,121],"data":{"def":"Wall","by":"Human762"},"seq":37}
+{"kind":"built","text":"wall built by Elekio","tick":10109,"day":0,"hour":10,"cell":[133,120],"data":{"def":"Wall","by":"Human762"},"seq":38}
+{"kind":"built","text":"wall built by Elekio","tick":10226,"day":0,"hour":10,"cell":[133,119],"data":{"def":"Wall","by":"Human762"},"seq":39}
+{"kind":"built","text":"wall built by Elekio","tick":10394,"day":0,"hour":10,"cell":[127,119],"data":{"def":"Wall","by":"Human762"},"seq":40}
+{"kind":"built","text":"wall built by Elekio","tick":10511,"day":0,"hour":10,"cell":[126,121],"data":{"def":"Wall","by":"Human762"},"seq":41}

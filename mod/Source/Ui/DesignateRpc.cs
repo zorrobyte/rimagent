@@ -74,7 +74,7 @@ namespace RimBridge.Ui
             return new JObject { ["designator"] = cls, ["applied"] = ok, ["failed"] = failed };
         }
 
-        [Rpc("ui.build", "{def: buildable defName (ThingDef or TerrainDef), at?: [x,z], rot?: N|E|S|W, stuff?: ThingDef, line?: [[x1,z1],[x2,z2]], rect?: [x,z,w,h], fill?: bool (rect: fill vs outline), dry_run?: bool} place blueprints; picks a stuff automatically if omitted (most plentiful allowed). Returns placed and failed cells with reasons.")]
+        [Rpc("ui.build", "{def: buildable defName (ThingDef or TerrainDef), at?: [x,z], rot?: N|E|S|W, stuff: ThingDef (required for stuff-made things; omit once to get the options), line?: [[x1,z1],[x2,z2]], rect?: [x,z,w,h], fill?: bool (rect: fill vs outline), dry_run?: bool} place blueprints; picks a stuff automatically if omitted (most plentiful allowed). Returns placed and failed cells with reasons.")]
         public static JToken Build(JObject p)
         {
             var map = Map();
@@ -87,8 +87,15 @@ namespace RimBridge.Ui
             ThingDef? stuff = null;
             if (def.MadeFromStuff)
             {
-                if (p["stuff"] != null) { stuff = Lookup.Def<ThingDef>(P.Str(p, "stuff")); if (!GenStuff.AllowedStuffsFor(def).Contains(stuff)) throw new RpcError($"{stuff.defName} is not a valid stuff for {defName}"); }
-                else stuff = PickStuff(map, def);
+                var allowed = GenStuff.AllowedStuffsFor(def).ToList();
+                if (p["stuff"] != null) { stuff = Lookup.Def<ThingDef>(P.Str(p, "stuff")); if (!allowed.Contains(stuff)) throw new RpcError($"{stuff.defName} is not a valid stuff for {defName}. Valid: " + string.Join(", ", allowed.Select(a => a.defName))); }
+                else
+                {
+                    // No guessing on the model's behalf: report the options (with what is actually on the map) and let it choose.
+                    var opts = allowed.Select(a => new { a, n = map.resourceCounter.GetCount(a) }).OrderByDescending(x => x.n).Take(12)
+                        .Select(x => $"{x.a.defName}({x.n} stored, x{def.CostStuffCount * (x.a.smallVolume ? 10 : 1)} needed)");
+                    throw new RpcError($"{defName} is made from stuff; pass stuff=<ThingDef>. Options: " + string.Join(", ", opts));
+                }
             }
             bool dry = P.Bool(p, "dry_run", false);
             var cells = new List<IntVec3>();
@@ -124,14 +131,6 @@ namespace RimBridge.Ui
                 ["cost_each"] = new JObject(cost.Select(c => new JProperty(c.thingDef.defName, c.count))),
                 ["work"] = Math.Round(def.GetStatValueAbstract(StatDefOf.WorkToBuild, stuff)),
             };
-        }
-
-        public static ThingDef PickStuff(Verse.Map map, BuildableDef def)
-        {
-            var allowed = GenStuff.AllowedStuffsFor(def).ToList();
-            var best = allowed.OrderByDescending(s => map.resourceCounter.GetCount(s)).ThenBy(s => s.BaseMarketValue).FirstOrDefault();
-            if (best != null && map.resourceCounter.GetCount(best) > 0) return best;
-            return GenStuff.DefaultStuffFor(def);
         }
 
         [Rpc("ui.zone", "{action: create_stockpile|create_growing|delete|add_cells|remove_cells|set_plant|rename|set_priority, label?, cells?/rect?, plant?: ThingDef (e.g. Plant_Rice), priority?, preset?: DefaultStockpile|DumpingStockpile} create/edit zones")]
