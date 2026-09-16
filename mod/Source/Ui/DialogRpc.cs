@@ -146,7 +146,7 @@ namespace RimBridge.Ui
                                 ["i"] = idx2++, ["def"] = tr.ThingDef?.defName, ["label"] = tr.Label,
                                 ["trader_has"] = tr.CountHeldBy(Transactor.Trader), ["colony_has"] = tr.CountHeldBy(Transactor.Colony),
                                 ["buy_price"] = Math.Round(tr.GetPriceFor(TradeAction.PlayerBuys), 1), ["sell_price"] = Math.Round(tr.GetPriceFor(TradeAction.PlayerSells), 1),
-                                ["to_transfer"] = tr.CountToTransfer, ["currency"] = tr.IsCurrency, ["will_trade"] = tr.TraderWillTrade,
+                                ["buying"] = tr.CountToTransfer < 0 ? -tr.CountToTransfer : 0, ["selling"] = tr.CountToTransfer > 0 ? tr.CountToTransfer : 0, ["currency"] = tr.IsCurrency, ["will_trade"] = tr.TraderWillTrade,
                             });
                         }
                         o["silver_colony"] = deal.CurrencyTradeable?.CountHeldBy(Transactor.Colony);
@@ -264,11 +264,11 @@ namespace RimBridge.Ui
                             Tradeable? tr = int.TryParse(kv.Key, out int ti) ? deal.AllTradeables.ElementAtOrDefault(ti) : deal.AllTradeables.FirstOrDefault(x => x.ThingDef?.defName == kv.Key) ?? deal.AllTradeables.FirstOrDefault(x => string.Equals(x.Label, kv.Key, StringComparison.OrdinalIgnoreCase));
                             if (tr == null) { res[kv.Key] = "not found"; continue; }
                             int n = (int)kv.Value!;
-                            // positive = player buys (transfer to colony = negative CountToTransfer in this API? no: CountToTransfer>0 means to destination(colony))
+                            // Our convention: n > 0 = BUY n, n < 0 = SELL n. Engine convention: CountToTransfer > 0 = player sells. So negate.
                             int min = tr.GetMinimumToTransfer(), max = tr.GetMaximumToTransfer();
-                            int want = Math.Max(min, Math.Min(max, n));
+                            int want = Math.Max(min, Math.Min(max, -n));
                             tr.AdjustTo(want);
-                            res[kv.Key] = $"set {tr.CountToTransfer} (allowed {min}..{max})";
+                            res[kv.Key] = $"{(tr.CountToTransfer < 0 ? "buy " + (-tr.CountToTransfer) : tr.CountToTransfer > 0 ? "sell " + tr.CountToTransfer : "none")} (engine range {min}..{max})";
                         }
                         if (label == null && idx < 0) return new JObject { ["trade"] = res, ["dialog"] = Describe(dt, Find.WindowStack.Windows.IndexOf(dt)) };
                     }

@@ -5291,3 +5291,26 @@
 {"kind":"built","text":"campfire built by Wu","tick":868770,"day":14,"hour":17,"cell":[151,121],"data":{"def":"Campfire","by":"Human496"},"seq":182}
 {"kind":"construction_failed","text":"Wooden bed (building) failed (materials lost)","tick":870204,"day":14,"hour":18,"cell":[149,114],"data":{"def":"Frame_Bed"},"seq":183}
 {"kind":"built","text":"dining chair built by Gamble","tick":870307,"day":14,"hour":18,"cell":[149,120],"data":{"def":"DiningChair","by":"Human490"},"seq":184}
+{"kind":"game","text":"loaded save rimagent-reload","seq":1}
+{"kind":"game","text":"game loaded/started","data":{"day":14},"seq":2}
+{"kind":"day","text":"day 14","tick":871250,"day":14,"hour":18,"data":{"colonists":6,"downed":0,"prisoners":0,"animals":0,"wealth":16946.0,"wealth_items":7570.0,"wealth_buildings":6225.0,"mood_avg":59.0,"nutrition":6.3,"food_days":0.7,"threat_points":36.0,"research_done":8,"temp_outdoor":31.0,"danger":"None","assisted":false},"seq":3}
+{"kind":"message","text":"Simple meal has deteriorated away in storage.","tick":871510,"day":14,"hour":18,"cell":[139,134],"data":{"type":"NegativeEvent"},"seq":4}
+{"kind":"construction_failed","text":"Wooden bed (building) failed (materials lost)","tick":871740,"day":14,"hour":18,"cell":[142,114],"data":{"def":"Frame_Bed"},"seq":5}
+{"kind":"built","text":"bed built by Gamble","tick":872299,"day":14,"hour":18,"cell":[149,114],"data":{"def":"Bed","by":"Human490"},"seq":6}
+{"kind":"built","text":"wall built by Sock","tick":873194,"day":14,"hour":19,"cell":[141,138],"data":{"def":"Wall","by":"Human493"},"seq":7}
+{"kind":"construction_failed","text":"Wooden wall (building) failed (materials lost)","tick":873284,"day":14,"hour":19,"cell":[140,138],"data":{"def":"Frame_Wall"},"seq":8}
+{"kind":"construction_failed","text":"Wooden wall (building) failed (materials lost)","tick":873452,"day":14,"hour":19,"cell":[142,138],"data":{"def":"Frame_Wall"},"seq":9}
+{"kind":"built","text":"wall built by Sock","tick":873632,"day":14,"hour":19,"cell":[142,133],"data":{"def":"Wall","by":"Human493"},"seq":10}
+{"kind":"built","text":"wall built by Sock","tick":873908,"day":14,"hour":19,"cell":[136,134],"data":{"def":"Wall","by":"Human493"},"seq":11}
+{"kind":"built","text":"wall built by Sock","tick":874106,"day":14,"hour":19,"cell":[136,135],"data":{"def":"Wall","by":"Human493"},"seq":12}
+{"kind":"built","text":"bed built by Wu","tick":874329,"day":14,"hour":19,"cell":[142,114],"data":{"def":"Bed","by":"Human496"},"seq":13}
+{"kind":"built","text":"dining chair built by Gamble","tick":874384,"day":14,"hour":19,"cell":[146,120],"data":{"def":"DiningChair","by":"Human490"},"seq":14}
+{"kind":"built","text":"wall built by Gamble","tick":875059,"day":14,"hour":20,"cell":[137,138],"data":{"def":"Wall","by":"Human490"},"seq":15}
+{"kind":"construction_failed","text":"Wooden wall (building) failed (materials lost)","tick":875061,"day":14,"hour":20,"cell":[136,137],"data":{"def":"Frame_Wall"},"seq":16}
+{"kind":"construction_failed","text":"Wooden wall (building) failed (materials lost)","tick":875247,"day":14,"hour":20,"cell":[136,136],"data":{"def":"Frame_Wall"},"seq":17}
+{"kind":"built","text":"wall built by Gamble","tick":875275,"day":14,"hour":20,"cell":[138,138],"data":{"def":"Wall","by":"Human490"},"seq":18}
+{"kind":"built","text":"wall built by Gamble","tick":875464,"day":14,"hour":20,"cell":[136,136],"data":{"def":"Wall","by":"Human490"},"seq":19}
+{"kind":"built","text":"wall built by Wu","tick":875478,"day":14,"hour":20,"cell":[136,137],"data":{"def":"Wall","by":"Human496"},"seq":20}
+{"kind":"built","text":"wall built by Wu","tick":875973,"day":14,"hour":20,"cell":[140,138],"data":{"def":"Wall","by":"Human496"},"seq":21}
+{"kind":"built","text":"wall built by Gamble","tick":875989,"day":14,"hour":20,"cell":[136,138],"data":{"def":"Wall","by":"Human490"},"seq":22}
+{"kind":"built","text":"wall built by Wu","tick":876561,"day":14,"hour":20,"cell":[142,138],"data":{"def":"Wall","by":"Human496"},"seq":23}
