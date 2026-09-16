@@ -328,19 +328,24 @@ class Runner:
         except BridgeError:
             pass
         self.thinking = True
+        self.ctx.extra.pop("model_speed", None)
         self.bus.emit("status", {"phase": "thinking"})
         try:
             fn()
         finally:
             self.thinking = False
+            # Restore play speed — unless the model chose one during the step (e.g. 1x for a raid). Never leave it paused.
+            chosen = self.ctx.extra.get("model_speed")
+            speed = int(play.get("speed", 3)) if chosen is None else max(1, int(chosen))
             try:
-                self.bridge.call("game.speed", speed=int(self.cfg["play"].get("speed", 3)))
+                self.bridge.call("game.speed", speed=speed)
                 self.bridge.call("game.pause", paused=False)
             except BridgeError:
                 pass
-            self.bus.emit("status", {"phase": "playing"})
+            self.bus.emit("status", {"phase": "playing", "model_speed": chosen})
 
     def play_step(self, trigger: str, tick: int) -> None:
+        urgent = self.is_urgent(trigger)
         events, self.pending_events = self.pending_events, []
         alerts, self.pending_alerts = self.pending_alerts, []
         self.ctx.watcher_alerts = alerts
@@ -353,7 +358,8 @@ class Runner:
         self.step_notes.append(res.notes)
         play = self.cfg["play"]
         hours = self.ctx.wake.in_hours if self.ctx.wake.in_hours else float(play.get("wake_hours", 8))
-        hours = max(float(play.get("min_wake_hours", 3)), min(48.0, float(hours)))
+        floor = 0.5 if (urgent or self.ctx.extra.get("model_speed") is not None) else float(play.get("min_wake_hours", 3))
+        hours = max(floor, min(48.0, float(hours)))
         try:
             tick = int(self.bridge.status().get("tick", tick))
         except BridgeError:

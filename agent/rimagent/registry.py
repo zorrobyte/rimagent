@@ -109,7 +109,12 @@ class Registry:
 
             def make(method_name: str):
                 def fn(ctx, **params):
-                    return ctx.bridge.call(method_name, **{k: coerce_param(v) for k, v in params.items()})
+                    params = {k: coerce_param(v) for k, v in params.items()}
+                    result = ctx.bridge.call(method_name, **params)
+                    if method_name in ("game.speed", "game.pause"):
+                        # remember the model's explicit choice so the runner keeps it after the step
+                        ctx.extra["model_speed"] = 0 if (method_name == "game.pause" and params.get("paused", True)) else int(params.get("speed", 1) if method_name == "game.speed" else ctx.extra.get("model_speed", 1))
+                    return result
                 return fn
 
             self.tools[name] = Tool(

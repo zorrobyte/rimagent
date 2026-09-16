@@ -4935,3 +4935,9 @@
 {"kind":"day","text":"day 1","tick":60000,"day":1,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":14675.0,"wealth_items":9003.0,"wealth_buildings":2502.0,"mood_avg":71.0,"nutrition":36.0,"food_days":7.5,"threat_points":35.0,"research_done":7,"temp_outdoor":5.0,"danger":"None","assisted":false},"seq":512}
 {"kind":"built","text":"spike trap built by Gamble","tick":63856,"day":1,"hour":7,"cell":[149,132],"data":{"def":"TrapSpike","by":"Human490"},"seq":513}
 {"kind":"day","text":"day 2","tick":120000,"day":2,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":15527.0,"wealth_items":9792.0,"wealth_buildings":2565.0,"mood_avg":58.0,"nutrition":27.0,"food_days":5.6,"threat_points":35.0,"research_done":7,"temp_outdoor":5.0,"danger":"None","assisted":false},"seq":514}
+{"kind":"built","text":"horseshoes pin built by Gamble","tick":129619,"day":2,"hour":9,"cell":[146,124],"data":{"def":"HorseshoesPin","by":"Human490"},"seq":515}
+{"kind":"letter","text":"Visitor","tick":150000,"day":2,"hour":18,"cell":[4,165],"thing":"Human40744","data":{"label":"Visitor","def":"NeutralEvent","text":"A herder from Treaty of Busto is visiting the colony.\n\nShe is named Cat Bartrego.","id":0},"seq":516}
+{"kind":"incident","text":"visitor group","tick":150000,"day":2,"hour":18,"data":{"def":"VisitorGroup","category":"FactionArrival","points":88.0,"faction":"Treaty of Busto","strategy":null,"arrival":null},"seq":517}
+{"kind":"built","text":"horseshoes pin built by Gamble","tick":156910,"day":2,"hour":20,"cell":[151,130],"data":{"def":"HorseshoesPin","by":"Human490"},"seq":518}
+{"kind":"built","text":"spike trap built by Gamble","tick":158785,"day":2,"hour":21,"cell":[147,132],"data":{"def":"TrapSpike","by":"Human490"},"seq":519}
+{"kind":"built","text":"spike trap built by Gamble","tick":160615,"day":2,"hour":22,"cell":[151,132],"data":{"def":"TrapSpike","by":"Human490"},"seq":520}
