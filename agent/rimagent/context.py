@@ -37,6 +37,8 @@ class Context:
     lock: threading.RLock = field(default_factory=threading.RLock)
     started_at: float = field(default_factory=time.time)
     extra: dict[str, Any] = field(default_factory=dict)
+    # set by the runner: returns urgent events that arrived while a step is running (already logged/tracked)
+    interrupt_check: Callable[[], list[str]] | None = None
 
     def reset_turn(self) -> None:
         self.stop_turn = False

@@ -76,6 +76,7 @@ class Runner:
         self.force_end: str | None = None
         self.operator_inbox: list[str] = []
         self.ctx.extra["operator_inbox"] = self.operator_inbox  # shared with the loop so messages land mid-step
+        self.ctx.interrupt_check = self.check_interrupts
         # episode state
         self.episode = len(scorecard.history(10_000))
         self.seed = ""
@@ -262,6 +263,23 @@ class Runner:
         self.pending_events += evs
         self.ctx.recent_events = self.pending_events[-100:]
         return evs
+
+    def check_interrupts(self) -> list[str]:
+        """Called by the loop between tool calls: poll the ledger; return critical events (and pause the game for them)."""
+        try:
+            evs = self.poll_events()
+        except BridgeError:
+            return []
+        urgent = [f"{e.get('kind')}: {e.get('text', '')}" for e in evs if e.get('kind') in self.critical_kinds]
+        alerts = run_watchers(self.ctx, evs)
+        urgent += [f"watcher {a.get('watcher')}: {a.get('text')}" for a in alerts if a.get("wake")]
+        if urgent:
+            try:
+                self.bridge.call("game.pause", paused=True)
+                self.ctx.extra["model_speed"] = None  # runner restores play speed after the step unless the model sets one
+            except BridgeError:
+                pass
+        return urgent
 
     def wake_trigger(self, tick: int, new_events: list[dict[str, Any]]) -> str | None:
         if self.force_think:

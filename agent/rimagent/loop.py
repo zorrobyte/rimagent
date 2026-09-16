@@ -142,6 +142,15 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
             if ctx.stop_turn:
                 break
         messages.extend(image_msgs)
+        if ctx.interrupt_check is not None and not ctx.stop_turn:
+            try:
+                urgent = ctx.interrupt_check()
+            except Exception as e:  # noqa: BLE001
+                urgent = []
+                ctx.emit("error", {"text": f"interrupt check failed: {e}"})
+            if urgent:
+                ctx.emit("log", {"text": "urgent events delivered mid-step: " + "; ".join(u[:60] for u in urgent)})
+                messages.append({"role": "user", "content": "## URGENT — happened while you were thinking (the game is now paused)\n" + "\n".join(f"- {u}" for u in urgent) + "\nDeal with these first (dialogs: rw_ui_dialog; threats: draft/position; downed: rescue), then continue."})
         inbox = ctx.extra.get("operator_inbox")
         if inbox:
             msgs, inbox[:] = list(inbox), []
