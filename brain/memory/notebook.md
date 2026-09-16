@@ -1,39 +1,25 @@
 # Colony notebook — episode 1, seed rimagent-1
 
-## Day 1 (hour 5), all 3 colonists sleeping
-- Home center [141,129], biome TemperateForest, Spring, temp 4C outdoor (cold).
-- Colonists:
-  - Cait (Human600): Melee 15, Social 14, Mining 5. Go-juice addict. Has revolver.
-  - Tail (Human604): Artistic 12, Shooting 6, Crafting 5. Has bolt-action rifle. Researching Batteries (14%).
-  - Yaroslav (Human607): Medicine 10, Animals 7, Construction 5. Tough/Ascetic. Unarmed.
-- 2 shooters: Tail (rifle) + Cait (revolver). Yaroslav unarmed (melee only).
+## Roster (3 colonists, home [135,128], TemperateForest, Spring, ~2C outdoor)
+- **Gamble** (Human490): Construction 12!!, Social 6!, Shooting 4! → BUILDER. Priorities set: Construction 1, Mining 2.
+- **Sock** (Human493): Mining 10!!, Medicine 5!, Social 5! → MINER. Priorities: Mining 1, Growing 2.
+- **Wu** (Human496): Medicine 8!!, Animals 3!!, Shooting 2!! → DOCTOR/RESEARCHER. Priorities: Doctor 1, Research 2, Growing 1. (Firefighter disabled for Wu — Caring?)
 
-## In motion
-- Rice: 48 cells, zone rice1 at [148,138]. Growth 14.3%, harvestable soon (~day 2-3).
-- Cotton: 36 cells, zone cotton1 at [149,145]. Growth 0% (just sown). ~8 days to harvest.
-- 29 meals in stock (food_days 5.4). Cook bills: 2 CookMealSimple on campfire.
-- ~31 trees designated for wood. Wood 29 logs.
-- Steel: 149 in stock. 3 mine designations active.
-- Crafting spot placed at [150,127] (free, instant build).
-- Hand tailoring bench blueprint at [153,126] (75 steel, 2000 work).
-- Research: Batteries at 14%, Tail researching.
+## Done day 0
+- Unforbid 40 crash-pod items (cluster near [134,128]).
+- Stockpile "main" at [135,134,8,6].
+- Growing zone "rice1" rice at [122,143,6,6] (36 cells).
+- Wood: 15 mature trees designated harvest.
+- Shelter blueprints: wooden walls [145,126,8,6], door [149,131], 3 beds ([146,127],[146,129],[146,130]), campfire [150,129], research bench [148,128].
+- Research: Batteries started.
+- Home area [140,122,20,14].
 
-## Winter prep plan
-- Cotton harvest ~day 9 -> craft cloth -> tailoring bench -> parkas before winter (day 46+).
-- Tailoring bench needs 75 steel (have 149) + 2000 work. Yaroslav building it.
-- All 3 colonists need parkas or jackets for winter.
-- Barracks room at 29C (campfire inside) — will need to manage in summer.
+## Loot (crash pod, unforbidden)
+- 50 survival meals, 30 components, 30 med, 450 steel, 300 wood, 800 silver, bolt rifle, revolver, plasteel knife, flak vest/pants, plasteel helmet.
 
-## Open problems
-- No parkas yet: cotton ~day 9 -> craft parkas before winter. Tailoring bench needed.
-- Barracks: all 3 share 1 room -> -7 AwfulBarracks. Split when wood allows.
-- No 2nd ranged weapon for Yaroslav.
-- Winter: need warm clothes + roofed warm rooms. Outdoor 4C and dropping.
-
-## Next checks
-- Rice harvest (~day 2-3).
-- Cotton maturity (~day 9).
-- Tailoring bench build (needs 75 steel, 2000 work).
-- Research progress (Batteries -> SolarPanels).
-- First raid ~day 5-11: draft plan ready.
-- Wood flow (29 logs, 31 trees designated).
+## Open / next
+- Equip weapons on Gamble (rifle) / Sock (revolver) — verify.
+- Add cooking bill on campfire once built.
+- 0 food_days at start but 50 survival meals = ~16 days; rice ~3 days grow.
+- Cold: 2C outdoor, Spring. Need roofed room + campfire for warmth. Consider heaters later.
+- First raid ~day 8-9 on Rough: doorway at [149,131] is the single entrance.

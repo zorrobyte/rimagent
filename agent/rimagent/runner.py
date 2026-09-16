@@ -211,7 +211,9 @@ class Runner:
                         self.bridge.call("game.save", name="rimagent-autosave")
                     except BridgeError as e:
                         self.bus.emit("error", {"text": f"autosave: {e}"})
-                if day - self.last_improve_day >= int(play.get("improve_every_days", 4)):
+                first = int(play.get("first_improve_day", 1))
+                due = (day - self.start_day >= first and self.last_improve_day == self.start_day) or (day - self.last_improve_day >= int(play.get("improve_every_days", 3)))
+                if due:
                     self.last_improve_day = day
                     self.with_pause(lambda: self.run_improve(day))
             if self.controls.paused:
