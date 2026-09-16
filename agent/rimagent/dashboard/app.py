@@ -926,6 +926,7 @@ function handle(ev) {
     case 'episode_end': { const s = curStep; curStep = null; liveAppend(sysLine('episode', t, `episode ${d.episode} ended · score ${d.score}${d.assisted ? ' (assisted)' : ''} · ${d.reason || ''}`)); curStep = s; if (scoresLoaded) loadScores(); break; }
     case 'error': { const s = curStep; curStep = null; liveAppend(sysLine('error', t, 'error: ' + (d.text || JSON.stringify(d)))); curStep = s; break; }
     case 'log': { const s = curStep; curStep = null; liveAppend(sysLine('log', t, d.text || JSON.stringify(d))); curStep = s; break; }
+    case 'reply': { const s = curStep; curStep = null; const n = sysLine('log', t, '🤖 agent: ' + (d.text || '')); n.style.borderLeft = '3px solid var(--ok)'; n.style.fontSize = '13px'; n.style.padding = '6px 8px'; n.style.background = 'rgba(80,200,120,.08)'; liveAppend(n); curStep = s; $('say-status').textContent = 'agent replied ↑'; break; }
     case 'operator': { const s = curStep; curStep = null; const n = sysLine('log', t, '🧑 you: ' + (d.text || '')); n.style.borderLeft = '3px solid var(--warn)'; liveAppend(n); curStep = s; break; }
     default: break;
   }

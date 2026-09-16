@@ -33,6 +33,12 @@ def end_episode(ctx, reason: str):
     return "episode will end after this step"
 
 
+@tool("reply_to_operator", "Reply to the human operator watching the dashboard. Use this whenever you receive an operator message — even a greeting — before continuing your work. Short and direct.", {"text": "your reply"}, group="meta")
+def reply_to_operator(ctx, text: str):
+    ctx.emit("reply", {"text": text})
+    return "delivered to the operator"
+
+
 @tool("run_python", "Run a short Python snippet in the agent process with `ctx` available (ctx.bridge.call(...), ctx.knowledge, json, math). Use for one-off computations over bridge data before turning them into a real tool with tool_write. Return value = the `result` variable.", {"code": "python code that sets `result`"}, group="meta")
 def run_python(ctx, code: str):
     import json

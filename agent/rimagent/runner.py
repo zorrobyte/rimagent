@@ -353,7 +353,7 @@ class Runner:
         extra = ""
         if self.operator_inbox:
             msgs, self.operator_inbox[:] = list(self.operator_inbox), []
-            extra = "## Message from the human operator (they watch the dashboard; answer briefly in your visible text and act on it)\n" + "\n".join(f"- {m}" for m in msgs)
+            extra = "## Message from the human operator\nAnswer it FIRST with the reply_to_operator tool (one or two sentences), then act on it if it asks for something.\n" + "\n".join(f"- {m}" for m in msgs)
         msg, hint = situation_packet(self.ctx, trigger, events, alerts, extra=extra)
         res = think(self.ctx, msg, hint, trigger=trigger)
         self.step_notes.append(res.notes)

@@ -145,7 +145,7 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
             msgs, inbox[:] = list(inbox), []
             for m in msgs:
                 ctx.emit("log", {"text": f"operator message delivered mid-step: {m[:80]}"})
-            messages.append({"role": "user", "content": "## Message from the human operator (answer briefly in visible text, act on it)\n" + "\n".join(f"- {m}" for m in msgs)})
+            messages.append({"role": "user", "content": "## Message from the human operator\nAnswer it NOW with the reply_to_operator tool (one or two sentences), then act on it if it asks for something, then continue.\n" + "\n".join(f"- {m}" for m in msgs)})
         if ctx.stop_turn:
             res.ended_by_tool = True
             res.notes = ctx.wake.notes

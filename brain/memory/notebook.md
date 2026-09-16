@@ -40,3 +40,5 @@
 - Rice1: [123,148,6,6], Rice2: [117,150,6,6]
 - Campfire: [150,129], Research bench: [148,128]
 - Spike trap: [149,132], Table: [148,130]
+
+Day 4 2h: Food crisis (1.7 days). Designated 14 berry bushes + 8 healroot for harvest. Rice1 at ~65% growth, harvestable in ~12h. Cooking bill active (CookMealSimple Forever). Deer 106+ tiles away — too far. Mood avg 63%. No threats. Batteries 66%.
