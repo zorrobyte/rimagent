@@ -1,29 +1,32 @@
 # Colony notebook — episode 1, seed rimagent-1
 
-## Roster (3 colonists, home [135,138], TemperateForest, Summer, 31C)
-- **Gamble** (Human490): Construction 12!!, Social 6!, Shooting 5! → BUILDER/HUNTER. Mood 0, downed (extreme malnutrition, Consciousness 10%, Eating 0%). Wu rescuing to bed.
-- **Sock** (Human493): Mining 10!!, Medicine 5! → MINER/COOK. Revolver. Mood 59. Cooking. Priorities: Cooking 1, Growing 1, Construction 2.
-- **Wu** (Human496): Medicine 8!!, Animals 3!! → DOCTOR/RESEARCHER. Knife. Mood 55. Rescuing Gamble. Priorities: Doctor 1, Patient 1, PatientBedRest 1.
+## Roster (3 colonists, home [135,138], TemperateForest, Summer, 25C)
+- **Gamble** (Human490): Construction 12!!, Social 6!, Shooting 5! → BUILDER. Mood 67% (Catharsis +40). Malnutrition moderate (0.53), Consciousness 65%, Moving 46%. Resting at Bed39188 (now medical). Wu tending. Depressive + Very neurotic traits.
+- **Sock** (Human493): Mining 10!!, Medicine 5! → MINER/COOK. Mood 51%. Cooking. Revolver.
+- **Wu** (Human496): Medicine 8!!, Animals 3!! → DOCTOR/RESEARCHER. Mood 48%. Tending Gamble. Knife.
 
-## Day 11 15h status
-- Gamble downed at [146,129], extreme malnutrition (severity 0.83), Consciousness 10%, Eating 0%. Wu rescuing to bed. Once in bed, malnutrition will recover over time; Eating capacity will return.
-- Food 2.3 days. Rice: 5 harvestable, 0.9 days to full harvest (72 plants, avg growth 0.69). est_nutrition 21.6.
-- 34 blueprints (storage room) pending. Sock Construction 2 will build after food.
-- 31 unroofed deteriorating items — storage room will fix.
+## Day 12 9h status
+- Gamble: mood 67% (Catharsis +40, will fade in ~2 days → mood drops to ~27% then). Malnutrition 0.53, recovering. Resting at medical bed.
+- Food 2.6 days. Rice: 71 plants, avg growth 0.698, 0 harvestable, est 0.9 days to full harvest. est_nutrition 21.3.
+- 17 wall blueprints + 1 door frame pending (storage room). Sock Construction 2 building.
+- 27 unroofed deteriorating items — storage room will fix.
 - No hostiles. threat_points 35.
 - Research: SolarPanels 19%.
-- Campfire39256 [150,129]: CookMealSimple Forever (active).
+- Shepherd role unfilled (-5 mood all). Ritual "role change" pressed but didn't complete. Try again next step.
+- Medical bed set on Bed39188.
 
 ## Open / next
-- Gamble recovery: watch for Eating capacity to return, then feed him.
-- Rice harvest: 5 plants ready, Sock Growing 1 will harvest.
-- Storage room: 34 blueprints, Sock building.
-- Food crisis: 2.3 days, rice field will sustain but tight.
+- Gamble: watch mood after Catharsis fades (~day 14). If <35%, need to fix: private bedroom (Room:9 is 2x1, -10 confined), table, cooked meals.
+- Rice harvest: 0.9 days to full harvest. Sock Growing 1 will harvest.
+- Storage room: 17 blueprints, Sock building.
+- Shepherd role: try ritual again or engine assign.
+- 27 unroofed items: storage room will fix.
 - 4 fleshbeasts ~111 tiles NE (fogged, not urgent).
 
 ## Key coordinates
-- Shelter [145,126,8,6], door [149,131], spike trap [149,132]
-- Stockpile [137,134,8,6], Rice1 [123,148,6,6], Rice2 [117,150,6,6]
+- Shelter [145,126,8,6], door [149,131], spike traps [147,132][149,132][151,132]
+- Stockpile [142,136,8,6], Rice1 [122,143,6,6], Rice2 [119,152,6,6]
 - Campfire [150,129], Research bench [148,128], Table [148,130]
-- Horseshoes pin [152,132], Darktorch [151,128]
-- Beds: [146,129] normal, [146,130] good, [146,127] normal, [154,129] excellent
+- Horseshoes pins [146,124][151,130][152,132], Darktorch [151,128]
+- Beds: [146,129] normal (medical), [146,130] good, [146,127] normal, [154,129] excellent
+- RitualSpot [151,127]
