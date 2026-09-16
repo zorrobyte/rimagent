@@ -5,24 +5,33 @@
 - **Sock** (Human493): Mining 10!!, Medicine 5!, Social 5! → MINER. Revolver equipped.
 - **Wu** (Human496): Medicine 8!!, Animals 3!!, Shooting 2!! → DOCTOR/RESEARCHER. Knife. Firefighter disabled (Caring).
 
-## Done day 0
+## Done day 0-2
 - Unforbid 40 crash-pod items.
 - Stockpile "main" at [137,134,8,6].
-- Growing zone "rice1" rice at [123,148,6,6] (36 cells). Rice at 7.8% grown, harvestable soon.
-- Wood: 15+ trees designated harvest (129 logs in stock).
+- Growing zones: rice1 [123,148,6,6] + rice2 [117,150,6,6] (72 cells total).
 - Shelter BUILT: wooden walls [145,126,8,6], door [149,131], 3 beds, campfire [150,129], research bench [148,128]. Room temp 29C.
-- Research: Batteries started (400 cost, 0% progress).
+- Research: Batteries (25% at day 2).
 - Home area [140,122,20,14].
 - Cooking bill: CookMealSimple on Campfire39256 (Forever mode).
-- Hostile-group watcher active (drafts Gamble+Sock on hostile_group).
+- Hostile-group watcher active.
+- Work priorities set day 2: Gamble=Construction1, Sock=Mining1, Wu=Doctor1+Research1.
 
-## Loot (crash pod, unforbidden)
-- 25 survival meals (~8 days for 3), 30 components, 30 med, 140 steel, 129 wood, 800 silver.
+## Day 2 status
+- Rice at ~38% growth → harvestable in ~2 days.
+- Food: 28 survival meals = 5.2 days. Rice harvest will fix this.
+- Wood: 834, Steel: 1457, Components: 30, Silver: 800, Med: 30.
+- Mood avg 62%. No threats. No blueprints. No designations.
+- Visitor letter (Cat Bartrego) dismissed.
 
 ## Open / next
-- Rice harvest in ~2-3 days → food crisis avoided.
+- Rice harvest in ~2 days → food crisis avoided.
 - Research Batteries → then SolarPanels.
 - First raid ~day 8-9: door [149,131] is single entrance. Gamble (rifle) + Sock (revolver) hold it.
-- Consider: sandbags outside door, more wood for future builds, steel mining.
-- 2 corpses far away (dist 112) — ignore.
-- Check: research progress, rice harvest, food levels, wood stock.
+- Consider: sandbags outside door, table for mood, more wood for future builds.
+- Check: rice harvest, food levels, research progress, wood stock.
+
+## Key coordinates
+- Shelter: [145,126,8,6], door [149,131]
+- Stockpile: [137,134,8,6]
+- Rice1: [123,148,6,6], Rice2: [117,150,6,6]
+- Campfire: [150,129], Research bench: [148,128]
