@@ -35,3 +35,7 @@
 - Stockpile: [137,134,8,6]
 - Rice1: [123,148,6,6], Rice2: [117,150,6,6]
 - Campfire: [150,129], Research bench: [148,128]
+
+Day 3: Food 3.4 days. Rice at 50% growth (~1.5 days to harvest). Designated 5 berry bushes + 1 healroot for harvest. Gamble recalled from [223,107] to home. Rat at [148,133] near door (can't open). Sock now Growing 1. Cooking bill = Forever only.
+
+Day 3 19h: Rat attacked Gamble at door [149,132], now downed there. Spike trap blueprint at same cell. Gamble bleeding (1.22), cowering — Wu should auto-tend. Rice at 53% (~1.5 days to harvest). Food 3.4 days (18 meals). Wu set to Research 2 (was 1) to free her for doctoring.

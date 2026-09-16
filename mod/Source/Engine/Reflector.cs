@@ -162,7 +162,7 @@ namespace RimBridge.Engine
                             // Method group without call syntax: allow when it has no parameters (convenience).
                             var m = FindMethod(type, seg.Name, new JArray(), out var args);
                             if (m != null) next = m.Invoke(m.IsStatic ? null : target, args);
-                            else throw new RpcError($"{type.Name} has no member '{seg.Name}'. Try engine.members on the parent.");
+                            else throw new RpcError($"{type.Name} has no member '{seg.Name}'. {Suggest(type, seg.Name)}");
                         }
                     }
                 }
@@ -352,7 +352,7 @@ namespace RimBridge.Engine
             {
                 var sigs = type.GetMethods(All).Where(x => x.Name.Equals(last.Name, StringComparison.OrdinalIgnoreCase)).Select(Signature).ToList();
                 if (Extensions().TryGetValue(last.Name, out var exts)) sigs.AddRange(exts.Where(e => e.GetParameters()[0].ParameterType.IsAssignableFrom(type)).Select(e => "ext " + Signature(e)));
-                if (sigs.Count == 0) throw new RpcError($"{type.Name} has no method '{last.Name}' (instance, static or extension)");
+                if (sigs.Count == 0) throw new RpcError($"{type.Name} has no method '{last.Name}' (instance, static or extension). {Suggest(type, last.Name)}");
                 throw new RpcError($"no overload of {type.Name}.{last.Name} accepts these {jargs.Count} args. Overloads: " + string.Join(" | ", sigs));
             }
             object? result;
@@ -434,6 +434,16 @@ namespace RimBridge.Engine
             foreach (var pr in t.GetProperties(flags).OrderBy(p => p.Name).Take(300)) props.Add($"{Short(pr.PropertyType)} {pr.Name}{(pr.CanWrite ? "" : " (ro)")}");
             foreach (var m in t.GetMethods(flags).Where(m => !m.IsSpecialName).OrderBy(m => m.Name).Take(400)) methods.Add(Signature(m));
             return new JObject { ["fields"] = fields, ["properties"] = props, ["methods"] = methods };
+        }
+
+        /// <summary>Close-match member names for a typo/guess, so the model can retry without a members() call.</summary>
+        public static string Suggest(Type type, string name)
+        {
+            var names = type.GetFields(All).Select(f => f.Name).Concat(type.GetProperties(All).Select(p => p.Name)).Concat(type.GetMethods(All).Where(m => !m.IsSpecialName).Select(m => m.Name + "()")).Distinct().ToList();
+            string n = name.ToLowerInvariant();
+            var close = names.Where(x => x.ToLowerInvariant().Contains(n) || n.Contains(x.ToLowerInvariant().TrimEnd('(', ')')) && x.Length > 3).Take(10).ToList();
+            if (close.Count == 0) close = names.Where(x => char.IsLower(x[0]) && !x.EndsWith("()")).Take(20).ToList();
+            return close.Count > 0 ? "Similar/available: " + string.Join(", ", close) + " (engine.members for the full list)" : "Try engine.members on the parent.";
         }
 
         public static string Signature(MethodInfo m) =>
