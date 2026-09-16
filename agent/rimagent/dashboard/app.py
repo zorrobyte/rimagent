@@ -442,7 +442,7 @@ footer .r{margin-left:auto}
 
   <section class="tab col" id="tab-watchers">
     <div class="toolbar">
-      <span class="dim">Watcher actions, alerts and errors</span>
+      <span class="dim">Registered: <span id="watch-registered">…</span> — actions, alerts and errors below</span>
       <select id="watch-filter" onchange="applyWatchFilter()"><option value="">all</option><option value="action">actions</option><option value="alert">alerts</option><option value="error">errors</option></select>
     </div>
     <div class="scroll rows" id="watchers"><div class="empty">No watcher events yet.</div></div>
@@ -539,6 +539,7 @@ tabsEl.addEventListener('click', e => {
   document.querySelectorAll('main .tab').forEach(x => x.classList.toggle('active', x.id === 'tab-' + b.dataset.tab));
   try { localStorage.setItem('rimagent.tab', b.dataset.tab); } catch (_) {}
   if (b.dataset.tab === 'brain' && !treeLoaded) { loadTree(); loadGitLog(); }
+  if (b.dataset.tab === 'watchers') loadTree();
   if (b.dataset.tab === 'scores' && !scoresLoaded) loadScores();
   if (b.dataset.tab === 'map' && !mapLoaded) loadMap();
   if (b.dataset.tab === 'live') scrollBottom($('live'), true);
@@ -721,6 +722,7 @@ async function loadTree() {
     grp(`skills (${j.skills.length})`, j.skills.map(s => node('skill', s.file || s.name, s.name, s.chars, s.description, s.always ? 'always' : '')));
     grp(`tools (${j.tools.length})`, j.tools.map(t => node('tool', t, t)));
     grp(`watchers (${j.watchers.length})`, j.watchers.map(w => node('watcher', w, w)));
+    const wr = $('watch-registered'); if (wr) wr.innerHTML = j.watchers.length ? j.watchers.map(w => `<a href="#" onclick="document.querySelector('#tabs button[data-tab=brain]').click();openFile('watcher','${esc(w)}','${esc(w)}');return false">${esc(w)}</a>`).join(', ') : '(none yet)';
     grp('memory', [node('notebook', '', 'notebook.md', j.notebook_chars), node('journal', '', 'journal.md', j.journal_chars)]);
   } catch (e) { $('brain-tree').innerHTML = `<div class="dimmer">tree error: ${esc(e)}</div>`; }
 }
@@ -794,7 +796,7 @@ function addBrainChange(d, t) {
   const r = document.createElement('div'); r.className = 'row';
   r.innerHTML = `<span class="when">${fmtT(t)}</span><span class="badge ${d.kind === 'git' ? 'warn' : 'pur'}" style="min-width:60px">${esc(d.kind)}</span><span class="text"><span class="mono">${esc(d.action || '')}</span> ${esc(d.name || '')}${d.sha ? ` <span class="dimmer mono">${esc(String(d.sha).slice(0, 7))}</span>` : ''}</span>`;
   el.appendChild(r); while (el.children.length > 200) el.firstChild.remove();
-  clearTimeout(treeTimer); treeTimer = setTimeout(() => { if (treeLoaded) { loadTree(); if (d.kind === 'git') loadGitLog(); } }, 800);
+  clearTimeout(treeTimer); treeTimer = setTimeout(() => { loadTree(); if (d.kind === 'git') loadGitLog(); }, 800);
 }
 
 // ---------- scores ----------

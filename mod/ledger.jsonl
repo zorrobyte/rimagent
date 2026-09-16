@@ -4932,3 +4932,5 @@
 {"kind":"built","text":"wall built by Gamble","tick":12331,"day":0,"hour":10,"cell":[152,126],"data":{"def":"Wall","by":"Human490"},"seq":509}
 {"kind":"built","text":"wall built by Gamble","tick":12367,"day":0,"hour":10,"cell":[152,127],"data":{"def":"Wall","by":"Human490"},"seq":510}
 {"kind":"built","text":"wall built by Gamble","tick":12436,"day":0,"hour":10,"cell":[151,126],"data":{"def":"Wall","by":"Human490"},"seq":511}
+{"kind":"day","text":"day 1","tick":60000,"day":1,"hour":6,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":1,"wealth":14675.0,"wealth_items":9003.0,"wealth_buildings":2502.0,"mood_avg":71.0,"nutrition":36.0,"food_days":7.5,"threat_points":35.0,"research_done":7,"temp_outdoor":5.0,"danger":"None","assisted":false},"seq":512}
+{"kind":"built","text":"spike trap built by Gamble","tick":63856,"day":1,"hour":7,"cell":[149,132],"data":{"def":"TrapSpike","by":"Human490"},"seq":513}
