@@ -1,0 +1,55 @@
+{
+ "watch": [
+  {
+   "label": "food_days",
+   "path": "summary.food_days"
+  },
+  {
+   "label": "colonists",
+   "path": "summary.colonists"
+  },
+  {
+   "label": "mood_avg",
+   "path": "summary.mood_avg"
+  },
+  {
+   "label": "wood",
+   "path": "summary.key_stocks.WoodLog"
+  },
+  {
+   "label": "outside_storage",
+   "path": "summary.outside_storage.stacks"
+  },
+  {
+   "label": "threat_points",
+   "path": "summary.threat_points"
+  },
+  {
+   "label": "blueprints",
+   "path": "summary.blueprints"
+  }
+ ],
+ "history": {
+  "food_days": [
+   2.5
+  ],
+  "colonists": [
+   3.0
+  ],
+  "mood_avg": [
+   37.0
+  ],
+  "wood": [
+   null
+  ],
+  "outside_storage": [
+   44.0
+  ],
+  "threat_points": [
+   35.0
+  ],
+  "blueprints": [
+   33.0
+  ]
+ }
+}

@@ -5081,3 +5081,24 @@
 {"kind":"message","text":"Critical alert: Colonist needs rescue","tick":683077,"day":11,"hour":15,"cell":[146,129],"thing":"Human490","data":{"type":"ThreatBig"},"seq":22}
 {"kind":"message","text":"Gamble, Builder is no longer incapable of walking.","tick":686926,"day":11,"hour":16,"cell":[146,129],"thing":"Human490","data":{"type":"PositiveEvent"},"seq":23}
 {"kind":"message","text":"Critical alert: Extreme break risk","tick":686948,"day":11,"hour":16,"cell":[146,129],"thing":"Human490","data":{"type":"ThreatBig"},"seq":24}
+{"kind":"game","text":"loaded save rimagent-reload","seq":1}
+{"kind":"game","text":"game loaded/started","data":{"day":11},"seq":2}
+{"kind":"message","text":"Critical alert: Extreme break risk","tick":687158,"day":11,"hour":16,"cell":[146,129],"thing":"Human490","data":{"type":"ThreatBig"},"seq":3}
+{"kind":"day","text":"day 11","tick":687250,"day":11,"hour":16,"data":{"colonists":3,"downed":0,"prisoners":0,"animals":0,"wealth":15605.0,"wealth_items":10489.0,"wealth_buildings":3056.0,"mood_avg":37.0,"nutrition":12.2,"food_days":2.5,"threat_points":35.0,"research_done":8,"temp_outdoor":31.0,"danger":"None","assisted":false},"seq":4}
+{"kind":"built","text":"wall built by Gamble","tick":706084,"day":11,"hour":0,"cell":[148,136],"data":{"def":"Wall","by":"Human490"},"seq":5}
+{"kind":"built","text":"wall built by Gamble","tick":706147,"day":11,"hour":0,"cell":[148,135],"data":{"def":"Wall","by":"Human490"},"seq":6}
+{"kind":"built","text":"wall built by Gamble","tick":706237,"day":11,"hour":0,"cell":[148,134],"data":{"def":"Wall","by":"Human490"},"seq":7}
+{"kind":"built","text":"wall built by Gamble","tick":706327,"day":11,"hour":0,"cell":[147,133],"data":{"def":"Wall","by":"Human490"},"seq":8}
+{"kind":"construction_failed","text":"Wooden wall (building) failed (materials lost)","tick":706378,"day":11,"hour":0,"cell":[146,133],"data":{"def":"Frame_Wall"},"seq":9}
+{"kind":"built","text":"wall built by Gamble","tick":706441,"day":11,"hour":0,"cell":[148,133],"data":{"def":"Wall","by":"Human490"},"seq":10}
+{"kind":"built","text":"wall built by Gamble","tick":706531,"day":11,"hour":0,"cell":[145,133],"data":{"def":"Wall","by":"Human490"},"seq":11}
+{"kind":"construction_failed","text":"Wooden wall (building) failed (materials lost)","tick":706612,"day":11,"hour":0,"cell":[144,133],"data":{"def":"Frame_Wall"},"seq":12}
+{"kind":"built","text":"wall built by Gamble","tick":706702,"day":11,"hour":0,"cell":[143,133],"data":{"def":"Wall","by":"Human490"},"seq":13}
+{"kind":"built","text":"wall built by Gamble","tick":707068,"day":11,"hour":0,"cell":[148,137],"data":{"def":"Wall","by":"Human490"},"seq":14}
+{"kind":"built","text":"wall built by Gamble","tick":707131,"day":11,"hour":0,"cell":[148,138],"data":{"def":"Wall","by":"Human490"},"seq":15}
+{"kind":"built","text":"wall built by Gamble","tick":708511,"day":11,"hour":1,"cell":[144,133],"data":{"def":"Wall","by":"Human490"},"seq":16}
+{"kind":"built","text":"wall built by Gamble","tick":708811,"day":11,"hour":1,"cell":[143,138],"data":{"def":"Wall","by":"Human490"},"seq":17}
+{"kind":"built","text":"wall built by Gamble","tick":708874,"day":11,"hour":1,"cell":[144,138],"data":{"def":"Wall","by":"Human490"},"seq":18}
+{"kind":"built","text":"wall built by Gamble","tick":708976,"day":11,"hour":1,"cell":[145,138],"data":{"def":"Wall","by":"Human490"},"seq":19}
+{"kind":"built","text":"wall built by Gamble","tick":709066,"day":11,"hour":1,"cell":[146,138],"data":{"def":"Wall","by":"Human490"},"seq":20}
+{"kind":"built","text":"wall built by Gamble","tick":709156,"day":11,"hour":1,"cell":[147,138],"data":{"def":"Wall","by":"Human490"},"seq":21}

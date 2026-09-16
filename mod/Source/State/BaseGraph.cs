@@ -15,7 +15,7 @@ namespace RimBridge.State
     {
         static bool IsPlayerRoom(Room r, Map map)
         {
-            if (r.PsychologicallyOutdoors || r.TouchesMapEdge || r.CellCount > 600 || r.CellCount == 0) return false;
+            if (r.IsDoorway || r.PsychologicallyOutdoors || r.TouchesMapEdge || r.CellCount > 600 || r.CellCount == 0) return false;
             if (r.Role == null || r.Role == RoomRoleDefOf.None) return r.ContainedAndAdjacentThings.Any(t => t.Faction == Faction.OfPlayer && t.def.category == ThingCategory.Building) && r.CellCount <= 200;
             return true;
         }
@@ -127,9 +127,13 @@ namespace RimBridge.State
                     trapped.Add(new JObject { ["pawn"] = pw.LabelShort, ["id"] = pw.ThingID, ["at"] = Snapshot.Cell(pw.Position), ["room"] = room != null ? "Room:" + room.ID : null, ["note"] = "cannot reach home or the map edge — walled in?" });
                 }
             }
+            // furniture that should be indoors but isn't (beds, benches, stoves, tables): the "your barracks is open" signal
+            var furnitureOut = outside.Where(kv => !kv.Key.StartsWith("Wall") && !kv.Key.StartsWith("Door") && !kv.Key.Contains("Trap") && !kv.Key.Contains("Turret") && !kv.Key.Contains("Sandbag") && !kv.Key.Contains("Fence") && !kv.Key.Contains("Spot") && !kv.Key.Contains("Pin") && !kv.Key.Contains("Solar") && !kv.Key.Contains("Wind") && !kv.Key.Contains("Geyser") && !kv.Key.Contains("(planned)"))
+                .Select(kv => $"{kv.Key} x{kv.Value.Count}").ToList();
             return new JObject
             {
                 ["home_center"] = Snapshot.Cell(home),
+                ["furniture_not_in_any_room"] = furnitureOut.Count > 0 ? string.Join(", ", furnitureOut) : null,
                 ["rooms"] = rooms,
                 ["structures_outside_rooms"] = outsideJ,
                 ["anchors"] = AnchorComponent.List(new JObject()),

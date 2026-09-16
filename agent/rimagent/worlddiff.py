@@ -24,6 +24,8 @@ def base_text(base: dict[str, Any], max_rooms: int = 14) -> str:
     if len(rooms) > max_rooms:
         lines.append(f"- …and {len(rooms) - max_rooms} more rooms (state.base for all)")
     out = ["Rooms:"] + (lines or ["- (no enclosed rooms yet)"])
+    if base.get("furniture_not_in_any_room"):
+        out.append("FURNITURE NOT IN ANY ENCLOSED ROOM (open to the sky / walls missing): " + base["furniture_not_in_any_room"])
     so = base.get("structures_outside_rooms") or {}
     if so:
         out.append("Structures outside rooms: " + ", ".join(f"{k} x{len(v) if isinstance(v, list) else str(v).split(' ')[0]}" for k, v in list(so.items())[:12]))
@@ -48,7 +50,7 @@ def snapshot(summary: dict[str, Any], base: dict[str, Any]) -> dict[str, Any]:
     cols = {c.get("name"): (c.get("mood"), c.get("job"), c.get("health")) for c in summary.get("colonist_list") or []}
     nums = {k: summary.get(k) for k in ("colonists", "wealth", "mood_avg", "food_days", "threat_points", "research_done", "blueprints", "frames", "designations", "temp_outdoor")}
     nums.update({"stock." + k: v for k, v in (summary.get("key_stocks") or {}).items()})
-    return {"rooms": rooms, "outside": outside, "cols": cols, "nums": nums, "research": summary.get("research_current"), "day": summary.get("day"), "hour": summary.get("hour"), "trapped": [t.get("pawn") for t in base.get("trapped_colonists") or []]}
+    return {"rooms": rooms, "outside": outside, "cols": cols, "nums": nums, "research": summary.get("research_current"), "day": summary.get("day"), "hour": summary.get("hour"), "trapped": [t.get("pawn") for t in base.get("trapped_colonists") or []], "furniture_out": base.get("furniture_not_in_any_room")}
 
 
 def diff_text(summary: dict[str, Any], base: dict[str, Any]) -> str:
@@ -117,4 +119,6 @@ def diff_text(summary: dict[str, Any], base: dict[str, Any]) -> str:
         out.append(f"colonist gone: {name}")
     if cur["trapped"]:
         out.append("TRAPPED colonists: " + ", ".join(cur["trapped"]))
+    if cur.get("furniture_out") != prev.get("furniture_out"):
+        out.append(f"furniture outside enclosed rooms: {prev.get('furniture_out') or 'none'} → {cur.get('furniture_out') or 'none'}")
     return "\n".join(f"- {l}" for l in out[:40]) if len(out) > 1 else "- nothing notable changed"
