@@ -26,7 +26,7 @@ class LLM:
     def __init__(self):
         c = CONFIG["llm"]
         self.model = c["model"]
-        self.client = OpenAI(base_url=c["base_url"], api_key=c["api_key"], timeout=c.get("timeout_s", 900), max_retries=1)
+        self.client = OpenAI(base_url=c["base_url"], api_key=c["api_key"], timeout=c.get("timeout_s", 240), max_retries=0)  # the loop handles retries; a hung socket must not freeze play
         self._sem = threading.Semaphore(int(c.get("max_streams", 4)))
         self.default_thinking = bool(c.get("thinking", True))
         self.max_tokens = int(c.get("max_tokens", 4000))

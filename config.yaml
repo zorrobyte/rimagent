@@ -6,7 +6,7 @@ llm:
   max_streams: 4
   thinking: true           # Qwen thinking mode for play/reflection steps
   max_tokens: 4000
-  timeout_s: 900
+  timeout_s: 240
 bridge:
   url: http://127.0.0.1:8765
 play:

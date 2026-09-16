@@ -102,11 +102,15 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
             tools_now = [t for t in tools if t["function"]["name"] in ("end_turn", "end_episode")]
         else:
             tools_now = tools
-        try:
-            reply = ctx.llm.chat(messages, tools_now, thinking=thinking)
-        except Exception as e:  # noqa: BLE001
-            ctx.emit("error", {"text": f"LLM call failed: {e}"})
-            res.notes = f"LLM error: {e}"
+        reply = None
+        for attempt in range(2):
+            try:
+                reply = ctx.llm.chat(messages, tools_now, thinking=thinking if attempt == 0 else False)
+                break
+            except Exception as e:  # noqa: BLE001
+                ctx.emit("error", {"text": f"LLM call failed (attempt {attempt + 1}): {e}"})
+        if reply is None:
+            res.notes = "LLM error: gave up after 2 attempts"
             break
         step += 1
         if reply.reasoning:
