@@ -2,17 +2,20 @@ from rimagent.registry import tool
 
 @tool("food_outlook",
       "One-call food verdict: food_days, headcount, rice harvest ETA + nutrition, "
-      "existing cooking bills, and a verdict (self-corrects / add zone / hunt). "
-      "Run when food_days < 6 instead of reasoning about crops by hand.",
+      "existing cooking bills (stove AND campfire), and a verdict "
+      "(self-corrects / add zone / hunt). Run when food_days < 6 instead of "
+      "reasoning about crops by hand.",
       {"radius": "search radius for rice (default 60)"})
 def food_outlook(ctx, radius=60):
     s = ctx.bridge.call("state.summary")
     food_days = s.get("food_days")
     head = s.get("colonists") or 0
-    meals = (s.get("key_stocks") or {}).get("meals_all", 0)
-    meat = (s.get("key_stocks") or {}).get("meat_all", 0)
+    ks = s.get("key_stocks") or {}
+    meals = ks.get("meals_all", 0)
+    meat = ks.get("meat_all", 0)
 
     # rice harvest ETA (same logic as crop_status, focused on Plant_Rice)
+    plants = []
     try:
         raw = ctx.bridge.call("engine.call",
                               path="Map.listerThings.ThingsOfDef", args=["Plant_Rice"])
@@ -31,17 +34,21 @@ def food_outlook(ctx, radius=60):
     est_days = round(max(0.0, (1.0 - avg) * 3.0), 1)
     est_nutrition = round(len(plants) * 0.30, 1)
 
-    # existing cooking bills on any stove/campfire
+    # existing cooking bills on any stove / campfire
     bills = []
-    try:
-        stoves = ctx.bridge.call("map.find", kind="building", def="FueledStove", limit=10)
-        for st in (stoves.get("things") or []):
-            b = ctx.bridge.call("state.bills", thing=st.get("id"))
-            for bill in (b.get("bills") or []):
-                bills.append({"stove": st.get("id"), "recipe": bill.get("recipe"),
-                              "count": bill.get("count")})
-    except Exception:
-        pass
+    for bdef in ("FueledStove", "Campfire"):
+        try:
+            found = ctx.bridge.call("map.find", kind="building",
+                                    **{"def": bdef}, limit=10)
+            for st in (found.get("things") or []):
+                sid = st.get("id")
+                b = ctx.bridge.call("state.bills", thing=sid)
+                for bill in (b.get("bills") or []):
+                    bills.append({"stove": sid, "recipe": bill.get("recipe"),
+                                  "count": bill.get("count"),
+                                  "suspended": bill.get("suspended")})
+        except Exception:
+            pass
 
     # Verdict
     if food_days is None:
@@ -50,8 +57,10 @@ def food_outlook(ctx, radius=60):
         verdict = "OK - no action"
     elif est_days <= food_days + 0.5:
         verdict = (f"SELF-CORRECTS: rice harvest in {est_days}d "
-                   f"(+{est_nutrition} nutrition) before starvation; "
-                   "ensure Growing/PlantCutting 1 on a grower and a cook bill exists")
+                   f"(+{est_nutrition} nutrition) before starvation. "
+                   "BUT only if BOTH hold: (1) a grower has Growing/PlantCutting 1, "
+                   "(2) a cook bill is running on a stove/campfire. "
+                   "Check cooking_bills below - if empty, queue CookMealSimple now.")
     else:
         verdict = (f"ADD CAPACITY NOW: harvest in {est_days}d but food runs out in "
                    f"{food_days}d - add a rice zone OR designate a hunt, and queue cooking bills")

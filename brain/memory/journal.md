@@ -18,3 +18,6 @@ A bedroom smaller than ~25 interior tiles gives the "Confined interior" moodlet 
 
 ## 2026-09-16 05:39 (episode 1): Batteries must be roofed
 Operator tip: batteries placed outside (unroofed) can explode. Always keep batteries inside a roofed room. When placing a power setup, build a proper enclosed room for the battery + generator + conduits before connecting.
+
+## 2026-09-16 06:21 (episode 1): Alcohol/drug withdrawal is the biggest early mood killer (-35)
+A refugee arriving with an alcohol/drug addiction who has NO drug in the colony gets a -35 withdrawal moodlet that alone drives mood to 0% and a psychotic break within ~1 day (verified day 19-20: Cummings at 0% mood, downed, for days). This dwarfs every other early debuff (malnutrition -26, confined interior -10, killed-herbivore -15). On refugee_intake, check each new pawn's needs for a drug need; if present, either bank that drug (trade/produce) or accept the break. Set drug policy to allow it. This is the #1 cause of repeated mental breaks in a small colony.

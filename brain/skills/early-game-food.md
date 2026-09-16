@@ -1,9 +1,17 @@
 ---
-name: early-game-food
-description: Pull in when food stock is under ~10 days, when placing the first growing zones or choosing a crop, before designating any animal for hunting, and when deciding how to cook (campfire vs stove, raw food, food poisoning).
-tags: [food, farming, hunting, cooking, early-game]
 always: false
+description: Pull in when food stock is under ~10 days, when placing the first growing
+  zones or choosing a crop, before designating any animal for hunting, and when deciding
+  how to cook (campfire vs stove, raw food, food poisoning).
+name: early-game-food
+tags:
+- food
+- farming
+- hunting
+- cooking
+- early-game
 ---
+
 # Early-game food
 
 ## Core numbers
@@ -27,13 +35,20 @@ Per tile per day all three are within ~5% (rice slightly ahead). Grow days assum
 - `rw_ui_zone`: only on unroofed soil with fertility >= 70% and light >= 51%, near the kitchen/stockpile. Leave 4-tile gaps between fields (blight radius) and strip flammable plants within 2 tiles (raiders light fields).
 - `rw_ui_set_work`: Growing = 1 for the best Plants pawn.
 
+## "It will self-correct" is only true if BOTH hold (the #1 repeated failure)
+A rice harvest "in 0.5 days" only saves you if:
+1. **A grower has Growing 1 AND PlantCutting 1** — otherwise nobody cuts the rice and it just sits at 100% while the colony starves. When a new colonist joins, the new roster's priorities often reset; re-audit Growing/PlantCutting on everyone.
+2. **A cook bill is running** (CookMealSimple on a campfire/stove) — harvested raw rice is useless until cooked, and raw food gives -7 mood. Check `rw_state_bills` / `food_outlook.cooking_bills`; if empty, queue the bill the same step.
+If either is missing, the harvest ETA is meaningless. Verify both before calling a food crisis "self-correcting."
+
 ## Foraging
-Wild berry bushes give berries (14 days to rot). Find them with `rw_map_find` and harvest via `rw_ui_designate`. This bridges days 1-5 until the first rice comes in.
+Wild berry bushes give berries (14 days to rot). Find them with `rw_map_find` and harvest via `rw_ui_designate`. This bridges days 1-5 until the first rice comes in. In a crisis, designate 40-50 berry bushes for immediate food with no mood penalty.
 
 ## Hunting safely
 - Only pawns holding a **ranged weapon** hunt; never send melee. Hunters fire from max range; long-range, high-damage-per-shot weapons (bolt-action rifle, greatbow) are safest. Revenge chance is **3x higher at close range**.
 - Check **Revenge chance on harm** (`rw_defs_get` or the Wildlife list). Prefer **0%** animals: deer, gazelle, alpaca, dromedary. Do NOT hunt predators, boomrats/boomalopes (explode and start fires), or herd species with revenge chance: one manhunter can pull every same-species animal within 25 tiles.
 - Hunting stealth = 5% per Shooting level + 5% per Animals level (cap 90%); low-skill hunters take only safe or already-injured prey. No incendiary weapons.
+- **Hunted herbivores cost the hunter -15 mood** ("killed innocent animal") for days — in a small fragile colony, hunt sparingly and rotate who hunts.
 - Hunted corpses are auto-unforbidden and hauled by the hunter.
 
 ## Butchering and cooking

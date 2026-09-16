@@ -58,3 +58,7 @@ Wu now researching (was idle). Gamble cleaning dirt (was idle).
 Tattered apparel: Cummings, Jess, Babs. Warm clothes needed for winter (3C). Tailoring bench at [156,119].
 
 Fixed unforbid_drops tool (was broken — map.find returns dict not list).
+
+Day19 15h: Cummings mood 0% (extreme break risk, -35 alcohol withdrawal, no alcohol in colony). Sock mood 11% (major break risk, -15 killed ibex, -12 ate corpse). Food 0.1 days, rice harvests in 0.6 days (43.2 nutrition). Wu has LungRot (minor), set medical policy NormalOrWorse. 4 fleshbeasts ~100 tiles NE fogged. No active fire found (alert likely stale). 6 beds for 6 colonists (alert may be stale). Tattered apparel: Jess, Babs, Cummings. Winter 3C coming — need warm clothes.
+
+Day21 improvement pass (no colony actions): (1) Fixed food_outlook tool (was SyntaxError: `def=` reserved kwarg → `**{"def":...}`); now also checks campfire bills. (2) Added bed_audit tool (per-bed owner setting/medical/owner + colonist-usable count) to settle the recurring "6 beds but alert says not enough" confusion. (3) Extended refugee_intake tool to flag drug-need pawns (-35 withdrawal = #1 break cause). (4) Tightened mood-and-mental-breaks skill: added crisis-debuff table (alcohol withdrawal -35, ate corpse -12, killed herbivore -15, rotting corpse -6, no shepherd -5) + social-fight gun handling. (5) Tightened early-game-food: "self-corrects" only true if a grower has Growing/PlantCutting 1 AND a cook bill is running. Journal: alcohol/drug withdrawal lesson.
