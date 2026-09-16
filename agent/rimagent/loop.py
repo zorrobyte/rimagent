@@ -32,6 +32,9 @@ Protocol for every step: read the situation, act on the most urgent thing with t
 ## Journal (cross-game lessons, latest)
 {journal}
 
+## Standing instructions from the human operator (follow these; they override skills)
+{operator}
+
 ## Episode scores
 {scores}
 
@@ -75,6 +78,7 @@ def build_system(ctx: Context, situation_hint: str) -> str:
         selected_skills="\n\n".join(f"### {s.name}\n{s.body}" for s in selected) or "(none)",
         notebook=memory.notebook_read() or "(empty — start one)",
         journal=memory.journal_read(12) or "(empty)",
+        operator=memory.operator_read() or "(none yet)",
         scores=scorecard.history_text(8),
         tool_errors="\n".join(errs) or "(none)",
     )

@@ -22,7 +22,7 @@ from pydantic import BaseModel
 from sse_starlette.sse import EventSourceResponse
 
 from .. import braingit, scorecard, skills
-from ..paths import JOURNAL, NOTEBOOK, SKILLS, TOOLS, WATCHERS
+from ..paths import JOURNAL, MEMORY, NOTEBOOK, SKILLS, TOOLS, WATCHERS
 
 _KIND_DIRS: dict[str, Path] = {"skill": SKILLS, "tool": TOOLS, "watcher": WATCHERS}
 _CONTROL_ACTIONS = {"pause": "pause", "resume": "resume", "think": "think_now", "end_episode": "end_episode", "no_pause": "set_no_pause", "kill": "kill"}
@@ -39,6 +39,8 @@ def _brain_file(kind: str, name: str | None) -> Path:
         return NOTEBOOK
     if kind == "journal":
         return JOURNAL
+    if kind == "operator":
+        return MEMORY / "operator.md"
     base = _KIND_DIRS.get(kind)
     if base is None:
         raise HTTPException(400, f"unknown kind {kind!r}")
@@ -137,6 +139,7 @@ def create_app(bus: Any, bridge: Any, controls: Any) -> FastAPI:
             "watchers": _list_dir(WATCHERS),
             "notebook_chars": _chars(NOTEBOOK),
             "journal_chars": _chars(JOURNAL),
+            "operator_chars": _chars(MEMORY / "operator.md"),
         }
 
     @app.get("/api/brain/file")
@@ -214,8 +217,12 @@ def create_app(bus: Any, bridge: Any, controls: Any) -> FastAPI:
         fn = getattr(controls, "say", None)
         if not callable(fn):
             return JSONResponse({"ok": False, "error": "runner has no say()"}, status_code=501)
-        fn(text)
-        return {"ok": True}
+        remember = bool(body.get("remember", True))
+        try:
+            fn(text, remember)
+        except TypeError:
+            fn(text)
+        return {"ok": True, "remembered": remember}
 
     @app.post("/api/control")
     def api_control(req: ControlRequest) -> dict[str, Any]:
@@ -441,6 +448,7 @@ footer .r{margin-left:auto}
     </div>
     <div class="toolbar" style="gap:6px">
       <input type="text" id="say-text" placeholder="Say something to the agent — it wakes and reads this at the start of its next step" style="flex:1;min-width:200px" onkeydown="if(event.key==='Enter')sayToAgent()">
+      <label class="dim" title="Also saved to brain/memory/operator.md and shown to the agent in every step, in every game"><input type="checkbox" id="say-remember" checked> standing instruction</label>
       <button class="primary" onclick="sayToAgent()">Send</button>
       <span class="dimmer" id="say-status"></span>
     </div>
@@ -623,7 +631,7 @@ async function sayToAgent() {
   const inp = $('say-text'); const text = inp.value.trim(); if (!text) return;
   $('say-status').textContent = 'sending…';
   try {
-    const r = await fetch('/api/say', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text }) });
+    const r = await fetch('/api/say', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text, remember: $('say-remember').checked }) });
     const j = await r.json(); $('say-status').textContent = j.ok ? 'queued — the agent will read it next step' : ('failed: ' + (j.error || '')); if (j.ok) inp.value = '';
   } catch (e) { $('say-status').textContent = 'failed: ' + e; }
   setTimeout(() => { $('say-status').textContent = ''; }, 6000);
@@ -747,7 +755,7 @@ async function loadTree() {
     grp(`tools (${j.tools.length})`, j.tools.map(t => node('tool', t, t)));
     grp(`watchers (${j.watchers.length})`, j.watchers.map(w => node('watcher', w, w)));
     const wr = $('watch-registered'); if (wr) wr.innerHTML = j.watchers.length ? j.watchers.map(w => `<a href="#" onclick="document.querySelector('#tabs button[data-tab=brain]').click();openFile('watcher','${esc(w)}','${esc(w)}');return false">${esc(w)}</a>`).join(', ') : '(none yet)';
-    grp('memory', [node('notebook', '', 'notebook.md', j.notebook_chars), node('journal', '', 'journal.md', j.journal_chars)]);
+    grp('memory', [node('notebook', '', 'notebook.md', j.notebook_chars), node('journal', '', 'journal.md', j.journal_chars), node('operator', '', 'operator.md', j.operator_chars)]);
   } catch (e) { $('brain-tree').innerHTML = `<div class="dimmer">tree error: ${esc(e)}</div>`; }
 }
 async function openFile(kind, name, label) {
@@ -927,7 +935,7 @@ function handle(ev) {
     case 'error': { const s = curStep; curStep = null; liveAppend(sysLine('error', t, 'error: ' + (d.text || JSON.stringify(d)))); curStep = s; break; }
     case 'log': { const s = curStep; curStep = null; liveAppend(sysLine('log', t, d.text || JSON.stringify(d))); curStep = s; break; }
     case 'reply': { const s = curStep; curStep = null; const n = sysLine('log', t, '🤖 agent: ' + (d.text || '')); n.style.borderLeft = '3px solid var(--ok)'; n.style.fontSize = '13px'; n.style.padding = '6px 8px'; n.style.background = 'rgba(80,200,120,.08)'; liveAppend(n); curStep = s; $('say-status').textContent = 'agent replied ↑'; break; }
-    case 'operator': { const s = curStep; curStep = null; const n = sysLine('log', t, '🧑 you: ' + (d.text || '')); n.style.borderLeft = '3px solid var(--warn)'; liveAppend(n); curStep = s; break; }
+    case 'operator': { const s = curStep; curStep = null; const n = sysLine('log', t, '🧑 you' + (d.remembered ? ' (standing)' : '') + ': ' + (d.text || '')); n.style.borderLeft = '3px solid var(--warn)'; liveAppend(n); curStep = s; break; }
     default: break;
   }
   $('f-seq').textContent = lastSeq; $('f-n').textContent = nEvents;

@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import datetime as _dt
 
-from .paths import JOURNAL, NOTEBOOK
+from .paths import JOURNAL, NOTEBOOK, OPERATOR
 
 NOTEBOOK_BUDGET = 6000  # chars
 
@@ -40,3 +40,19 @@ def journal_append(title: str, text: str, episode: int | None = None) -> None:
         if fh.tell() == 0:
             fh.write("# Journal — lessons that survive between games\n\n")
         fh.write(f"\n## {stamp}{ep}: {title}\n{text.strip()}\n")
+
+
+def operator_read(max_chars: int = 6000) -> str:
+    """Standing instructions from the human operator (persist across games)."""
+    if not OPERATOR.exists():
+        return ""
+    text = OPERATOR.read_text(encoding="utf-8")
+    return text[-max_chars:]
+
+
+def operator_append(text: str) -> None:
+    stamp = _dt.datetime.now().strftime("%Y-%m-%d %H:%M")
+    with OPERATOR.open("a", encoding="utf-8") as fh:
+        if fh.tell() == 0:
+            fh.write("# Standing instructions from the human operator\n\nFollow these. They override skills when they conflict. Newest last.\n")
+        fh.write(f"\n- [{stamp}] {text.strip()}\n")

@@ -51,10 +51,14 @@ class Controls:
     def kill(self):
         self.r.stop = True
 
-    def say(self, text: str):
-        """Operator message: shown in the feed, handed to the model at the start of its next step, and wakes it."""
+    def say(self, text: str, remember: bool = True):
+        """Operator message: shown in the feed, handed to the model (mid-step or next step), and wakes it.
+        remember=True also appends it to brain/memory/operator.md, which is in every system prompt across games."""
+        if remember:
+            memory.operator_append(text)
+            self.r.bus.emit("brain_change", {"kind": "operator", "action": "append"})
         self.r.operator_inbox.append(text)
-        self.r.bus.emit("operator", {"text": text})
+        self.r.bus.emit("operator", {"text": text, "remembered": remember})
         self.r.force_think = "operator message"
 
 
