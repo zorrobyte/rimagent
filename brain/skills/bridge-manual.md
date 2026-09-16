@@ -39,7 +39,7 @@ The roof layer uses `R` thick rock (unminable-overhead, no drop pods), `r` thin 
 8. **Letters and quests — `rw_ui_letter`.** `rw_state_letters` gives `id` and `choices`; `rw_ui_letter(id, action=choose, choice="Accept")` or `action=dismiss`. Unanswered letters pile up and some expire.
 9. **Direct jobs — `rw_ui_job` (last resort).** `rw_ui_job(pawn, job="Ingest", target="MealSimple1234")`, `job="Equip"`, `"Wear"`, `"Rescue"`, `"TendPatient"`, `"HaulToCell"` (`target` = thing, `target_b` = cell), `"Research"`. Use it only when no order/gizmo/designator does the thing; it bypasses the game's own checks and often fails silently if the pawn cannot reach or is incapable.
 
-Game clock: `rw_game_speed(speed=0..3)` (0 pause, 1 normal, 2 fast, 3 superfast), `rw_game_pause(paused=)`, `rw_game_status`, `rw_game_save(name=)`. The runner normally pauses while you think and restores speed after `end_turn`; do not leave the game paused on purpose.
+Game clock: `rw_game_speed(speed=0..3)` (0 pause, 1 normal, 2 fast, 3 superfast), `rw_game_pause(paused=)`, `rw_game_status`, `rw_game_save(name=)`. The runner slows the game to normal speed while you think and restores fast speed after `end_turn`; do not leave the game paused on purpose.
 
 ## 3. The escape hatch: engine access
 
@@ -57,7 +57,7 @@ The mod keeps an append-only event ledger: `letter`, `message`, `incident`, `hos
 
 ## 6. The think-step protocol
 
-A step is one LLM conversation with a tool budget (~30 calls). Every step **must end with `end_turn(notes, wake_in_hours, wake_on)`** — until you call it the game stays paused and nothing you ordered is executed by pawns. `wake_in_hours` is in-game hours (default 6; use 1-2 during a raid or a fire, 8-12 when things are calm), `wake_on` is a list of event kinds that should wake you early. `end_episode(reason)` declares the game lost or hopeless. Order of work inside a step: read (`rw_state_summary`, alerts, letters, new events) -> decide the single most urgent thing -> act -> a quick verification read (`rw_state_designations`, blueprint count, `rw_ui_orders_at` result) -> `notebook_append` if something notable happened -> `end_turn`.
+A step is one LLM conversation with a tool budget (~30 calls). Every step **must end with `end_turn(notes, wake_in_hours, wake_on)`** — until you call it the game crawls at normal speed; pawns do execute your orders as soon as you give them. `wake_in_hours` is in-game hours (default 6; use 1-2 during a raid or a fire, 8-12 when things are calm), `wake_on` is a list of event kinds that should wake you early. `end_episode(reason)` declares the game lost or hopeless. Order of work inside a step: read (`rw_state_summary`, alerts, letters, new events) -> decide the single most urgent thing -> act -> a quick verification read (`rw_state_designations`, blueprint count, `rw_ui_orders_at` result) -> `notebook_append` if something notable happened -> `end_turn`.
 
 ## 7. Pitfalls
 
@@ -66,7 +66,7 @@ A step is one LLM conversation with a tool budget (~30 calls). Every step **must
 - **You need a stockpile before hauling works** (`rw_ui_zone(action=create_stockpile, rect=..., label="main")`). Put it under a roof; steel and food in the rain is fine, but corpses and rot are not.
 - **Walls need a door** or the room is sealed and pawns path around; **roofs need walls** (a roof grows automatically over an enclosed room; unsupported roof further than 6 cells from a wall collapses). A room is only "indoors" (temperature, mood) when enclosed and roofed.
 - **Work priorities: 1 = highest, 4 = lowest, 0 = off.** Firefighter/Patient/BedRest at 1 for everyone. A pawn "incapable" of a work type cannot be assigned it (the tool errors).
-- **Speed.** The runner pauses to think; if `rw_game_status` says `paused: true` after your step something went wrong — do not call `rw_game_pause(paused=true)` yourself.
+- **Speed.** The runner runs the game at normal speed while you think (a step costs 1-3 in-game hours) and at fast speed between steps. Do not call `rw_game_pause(paused=true)` yourself except mid-combat for a single precise order, and unpause before `end_turn`.
 - **Truncation.** Results are cut at ~8k chars. Use `limit`, `category`, `filter`, small map windows, and `layer=` to keep results short; a truncated result is a wasted call.
 - **Thing ids** look like `Steel2851`, `Human102`, `WoodLog2861`; pawns are accepted by name (`"Sparky"`) or id. Ids change between games — never hardcode them into skills.
 - **Blueprints need materials on the map and a builder with Construction enabled.** `rw_state_summary.blueprints` staying constant across steps means nobody is building: check materials (`failed` reasons, stocks), priorities, forbids and reachability.
