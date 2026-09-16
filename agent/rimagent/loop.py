@@ -147,7 +147,9 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
             msgs, inbox[:] = list(inbox), []
             for m in msgs:
                 ctx.emit("log", {"text": f"operator message delivered mid-step: {m[:80]}"})
-            messages.append({"role": "user", "content": "## Message from the human operator\nAnswer it NOW with the reply_to_operator tool (one or two sentences). If it is a tip or instruction about how to play, LEARN it: edit the most relevant skill with skill_write so it says this from now on (mark the line "operator tip"), and act on it in the colony if it applies right now. Then continue.\n" + "\n".join(f"- {m}" for m in msgs)})
+            messages.append({"role": "user", "content": "## Message from the human operator\nAnswer it NOW with the reply_to_operator tool (one or two sentences). "
+                             "If it is a tip or instruction about how to play, LEARN it: edit the most relevant skill with skill_write so it says this from now on "
+                             "(mark the line 'operator tip'), and act on it in the colony if it applies right now. Then continue.\n" + "\n".join(f"- {m}" for m in msgs)})
         if ctx.stop_turn:
             res.ended_by_tool = True
             res.notes = ctx.wake.notes

@@ -355,7 +355,9 @@ class Runner:
         extra = ""
         if self.operator_inbox:
             msgs, self.operator_inbox[:] = list(self.operator_inbox), []
-            extra = "## Message from the human operator\nAnswer it FIRST with the reply_to_operator tool (one or two sentences). If it is a tip or instruction about how to play, LEARN it: edit the most relevant skill with skill_write so it says this from now on (mark the line "operator tip"), and act on it in the colony if it applies right now.\n" + "\n".join(f"- {m}" for m in msgs)
+            extra = ("## Message from the human operator\nAnswer it FIRST with the reply_to_operator tool (one or two sentences). "
+                     "If it is a tip or instruction about how to play, LEARN it: edit the most relevant skill with skill_write so it says this from now on "
+                     "(mark the line 'operator tip'), and act on it in the colony if it applies right now.\n" + "\n".join(f"- {m}" for m in msgs))
         msg, hint = situation_packet(self.ctx, trigger, events, alerts, extra=extra)
         res = think(self.ctx, msg, hint, trigger=trigger)
         self.step_notes.append(res.notes)
