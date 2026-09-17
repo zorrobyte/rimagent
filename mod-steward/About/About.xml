@@ -2,7 +2,7 @@
 <ModMetaData>
     <name>RimBridge: Steward</name>
     <author>zorrobyte</author>
-    <packageId>zorrobyte.rimagent-steward</packageId>
+    <packageId>zorrobyte.rimbridgesteward</packageId>
     <modVersion>0.1.0</modVersion>
     <supportedVersions>
         <li>1.6</li>
@@ -17,6 +17,7 @@
         <li>
             <packageId>zorrobyte.rimbridge</packageId>
             <displayName>RimBridge</displayName>
+            <downloadUrl>https://github.com/zorrobyte/rimbridge</downloadUrl>
         </li>
     </modDependencies>
     <loadAfter>

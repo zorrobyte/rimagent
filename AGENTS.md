@@ -7,7 +7,7 @@ Two halves, the mod as its own repo since 2026-09-16, split further into bridge 
   the pointer here. `Rpc.RegisterAssembly` and `RimBridge.Server.Hooks` (manual-touch, research-finished,
   state.summary contributors) let an add-on mod that loads after RimBridge register its own RPCs and hook into
   core ui.*/ledger/state behavior without RimBridge knowing it exists.
-- `mod-steward/` **RimBridge: Steward** (C#, same toolchain, packageId `zorrobyte.rimagent-steward`): optional
+- `mod-steward/` **RimBridge: Steward** (C#, same toolchain, packageId `zorrobyte.rimbridgesteward`): optional
   add-on, lives in *this* repo (not the bridge repo) since it's rimagent-specific policy, not generic bridge
   infrastructure. References `mod/1.6/Assemblies/RimBridge.dll`, so `script/build.sh` builds `mod/` first. See
   "Steward"/"Orders" below — same behavior as before the split, just a separate mod (`StewardMod.cs`, settings
