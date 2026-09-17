@@ -295,8 +295,21 @@ def coerce_param(v: Any) -> Any:
                 return json.loads(t)
             except json.JSONDecodeError:
                 return v
+        # a bare "x,z[,w,h]" coordinate string: RimBridge's Rect parser only accepts an actual [x,z,w,h]
+        # array (unlike Cell, which does parse "x,z"), so give it one either way.
+        if re.fullmatch(r"-?\d+(\s*,\s*-?\d+){1,3}", t):
+            return [int(n) for n in t.split(",")]
         return v
     if isinstance(v, list):
+        # some models wrap a cell/rect in an extra list layer ([[x,z]] instead of [x,z], [[x,z,w,h]] instead of
+        # [x,z,w,h]); a real RimBridge list param is never a single list-of-one-list, so this unwrap is unambiguous.
+        if len(v) == 1 and isinstance(v[0], list):
+            return coerce_param(v[0])
+        # ... or wrap a "x,z[,w,h]" location string the same way (["100,160,30,20"]). RimBridge's Rect parser
+        # doesn't accept a bare comma string (only Cell does), so unwrap straight to a numeric [x,z,w,h] array.
+        # Other single-item string lists (ids, "off" lists) never match this comma-separated-integers shape.
+        if len(v) == 1 and isinstance(v[0], str) and re.fullmatch(r"-?\d+(\s*,\s*-?\d+){1,3}", v[0].strip()):
+            return [int(n) for n in v[0].split(",")]
         return [coerce_param(x) for x in v]
     if isinstance(v, dict):
         return {k: coerce_param(x) for k, x in v.items()}

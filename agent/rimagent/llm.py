@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import threading
 import time
 from dataclasses import dataclass, field
@@ -16,6 +17,15 @@ from .paths import SFT_RAW
 
 _TOOLS_DIR = SFT_RAW / "tools"
 _TOOLS_DIR.mkdir(parents=True, exist_ok=True)
+
+
+_LEAKED_TOKEN = re.compile(r"<\|[^<>|]{0,32}\|>")
+
+
+def _delk(s: str) -> str:
+    """Hacky cleanup: DiffusionGemma occasionally leaks raw special-token markers like <|"|> into its
+    text/tool-arg output, which breaks downstream JSON/kv parsing (e.g. end_turn notes). Strip them."""
+    return _LEAKED_TOKEN.sub("", s) if s else s
 
 
 def _tools_ref(tools: list[dict[str, Any]] | None) -> str | None:
@@ -48,6 +58,7 @@ class LLM:
         self._sem = threading.Semaphore(int(c.get("max_streams", 4)))
         self.default_thinking = bool(c.get("thinking", True))
         self.max_tokens = int(c.get("max_tokens", 4000))
+        self.omit_sampling_params = bool(c.get("omit_sampling_params", False))  # some backends (e.g. diffusion models) reject temperature/seed/etc.
         self._capture_fh = None
         if bool(c.get("capture", True)):
             self._capture_fh = (SFT_RAW / f"capture-{time.strftime('%Y%m%d-%H%M%S')}-{os.getpid()}.jsonl").open("a", encoding="utf-8")
@@ -72,9 +83,10 @@ class LLM:
             "model": self.model,
             "messages": messages,
             "max_tokens": max_tokens or self.max_tokens,
-            "temperature": temperature,
             "extra_body": {"chat_template_kwargs": {"enable_thinking": thinking}},
         }
+        if not self.omit_sampling_params:
+            kwargs["temperature"] = temperature
         if tools:
             kwargs["tools"] = tools
             if tool_choice:
@@ -84,14 +96,14 @@ class LLM:
             resp = self.client.chat.completions.create(**kwargs)
         msg = resp.choices[0].message
         reply = LLMReply(elapsed=time.time() - t0)
-        reply.content = msg.content or ""
+        reply.content = _delk(msg.content or "")
         raw = msg.model_dump()
         reply.raw_message = raw
-        reply.reasoning = raw.get("reasoning_content") or raw.get("reasoning") or ""
+        reply.reasoning = _delk(raw.get("reasoning_content") or raw.get("reasoning") or "")
         if msg.tool_calls:
             for tc in msg.tool_calls:
                 try:
-                    args = json.loads(tc.function.arguments or "{}")
+                    args = json.loads(_delk(tc.function.arguments or "{}"))
                 except json.JSONDecodeError:
                     args = {"_raw": tc.function.arguments}
                 reply.tool_calls.append({"id": tc.id, "name": tc.function.name, "arguments": args})

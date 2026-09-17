@@ -7,6 +7,7 @@ llm:
   thinking: true           # Qwen thinking mode for play/reflection steps
   max_tokens: 4000
   timeout_s: 240
+  omit_sampling_params: false   # true for backends that reject temperature/seed/etc. (e.g. diffusion models)
 bridge:
   url: http://127.0.0.1:8765
 play:
