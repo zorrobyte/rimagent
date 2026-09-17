@@ -3,12 +3,13 @@
 The play/improve streams only ever touch `brain/` (skills, tools, watchers, memory): hot-reloadable text,
 safe by construction. The watchdog is the other thing entirely. It reads the recent tool-call ERROR stream,
 decides which failures were model noise (a bad guess the model fixed on retry) and which were genuine defects
-in `mod/Source/**` (C#) or `agent/rimagent/**` (Python), and for the genuine ones reads the source, writes a
-minimal fix, and PROVES it with the real build and the real test suites before committing it.
+in `mod/Source/**` (RimBridge, C#), `mod-steward/Source/**` (the optional Steward add-on, C#) or
+`agent/rimagent/**` (Python), and for the genuine ones reads the source, writes a minimal fix, and PROVES it
+with the real build and the real test suites before committing it.
 
 Three hard rules, enforced here in the module rather than in the prompt:
-  1. Scope. Nothing outside `mod/Source/` and `agent/rimagent/` can be read, patched or reverted. No `..`,
-     no absolute escapes, no symlink escapes, no `.git`, no `brain/`, no `config.local.yaml`.
+  1. Scope. Nothing outside `mod/Source/`, `mod-steward/Source/` and `agent/rimagent/` can be read, patched or
+     reverted. No `..`, no absolute escapes, no symlink escapes, no `.git`, no `brain/`, no `config.local.yaml`.
   2. Proof. A patch marks its root "unverified". `watchdog_commit` refuses while any root is unverified,
      and verification is recorded here from the subprocess exit code, never from what the model claims.
   3. No deployment. The watchdog never restarts the game and never writes the live assembly: the
@@ -27,11 +28,11 @@ from typing import Any
 
 from .paths import ROOT, RUNS, WATCHDOG_LOG
 
-# The only two trees the watchdog may see or change, relative to the repo root.
-ALLOWED_ROOTS: tuple[str, ...] = ("mod/Source", "agent/rimagent")
+# The only trees the watchdog may see or change, relative to the repo root.
+ALLOWED_ROOTS: tuple[str, ...] = ("mod/Source", "mod-steward/Source", "agent/rimagent")
 # Which verify tool proves a change under each root.
-ROOT_KEY: dict[str, str] = {"mod/Source": "mod", "agent/rimagent": "agent"}
-VERIFY_TOOL = {"mod": "watchdog_verify_mod", "agent": "watchdog_verify_python"}
+ROOT_KEY: dict[str, str] = {"mod/Source": "mod", "mod-steward/Source": "mod-steward", "agent/rimagent": "agent"}
+VERIFY_TOOL = {"mod": "watchdog_verify_mod", "mod-steward": "watchdog_verify_mod_steward", "agent": "watchdog_verify_python"}
 # Path components that are never legal inside an allowed root (build spoil, VCS internals).
 FORBIDDEN_PARTS = {".git", "__pycache__", "obj", "bin", ".venv", "node_modules"}
 COMMIT_TRAILER = "Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
@@ -55,7 +56,7 @@ def safe_path(path: str) -> str:
     """Normalise `path` to a repo-relative posix path inside an allowed root, or raise WatchdogError.
 
     Rejects: empty, absolute paths outside the repo, any `..` component, anything not under
-    mod/Source/ or agent/rimagent/, .git/build/venv internals, and symlinks that resolve outside
+    mod/Source/, mod-steward/Source/ or agent/rimagent/, .git/build/venv internals, and symlinks that resolve outside
     their allowed root (checked with realpath, so a symlink planted in-tree cannot escape)."""
     raw = str(path or "").strip().replace("\\", "/")
     if not raw:
@@ -96,7 +97,7 @@ def abs_path(path: str) -> Path:
 
 
 def root_key(rel: str) -> str:
-    """"mod" or "agent": which verify tool proves a change to this file."""
+    """"mod", "mod-steward" or "agent": which verify tool proves a change to this file."""
     for r, key in ROOT_KEY.items():
         if rel == r or rel.startswith(r + "/"):
             return key
@@ -171,6 +172,25 @@ def verify_mod() -> tuple[bool, str]:
     if not ok:
         return False, "BUILD FAILED\n" + _tail(out)
     ok2, out2 = _run(["dotnet", "test", "--nologo"], _repo_root() / "mod" / "Tests", env=env)
+    return ok2, ("build ok (scratch output, live assembly untouched)\n" + _tail(out2))
+
+
+def verify_mod_steward() -> tuple[bool, str]:
+    """Build RimBridgeSteward.csproj (to a scratch output dir, never the live Assemblies symlink), then the
+    steward test suite. RimBridgeSteward.csproj references mod/1.6/Assemblies/RimBridge.dll — the live, already
+    -built RimBridge — as a read-only compile-time reference; that's a read, never a write, so it never touches
+    what the running game loaded. If mod/Source and mod-steward/Source were both patched in this pass, verify_mod
+    must run first so that reference reflects the patched RimBridge."""
+    BUILD_OUT.mkdir(parents=True, exist_ok=True)
+    env = {"DOTNET_ROOT": DOTNET_ROOT, "PATH": os.environ.get("PATH", "") + os.pathsep + str(Path(DOTNET_ROOT).parent / "bin")}
+    ok, out = _run(
+        ["dotnet", "build", "Source/RimBridgeSteward.csproj", "-c", "Release", "--nologo", "-v", "quiet",
+         f"-p:OutputPath={BUILD_OUT.resolve()}{os.sep}"],
+        _repo_root() / "mod-steward", env=env,
+    )
+    if not ok:
+        return False, "BUILD FAILED\n" + _tail(out)
+    ok2, out2 = _run(["dotnet", "test", "--nologo"], _repo_root() / "mod-steward" / "Tests", env=env)
     return ok2, ("build ok (scratch output, live assembly untouched)\n" + _tail(out2))
 
 
@@ -316,7 +336,7 @@ def log_pass(state: PassState, episode: int | None = None, day: int | None = Non
     with WATCHDOG_LOG.open("a", encoding="utf-8") as fh:
         if fh.tell() == 0:
             fh.write("# Watchdog log\n\nOne entry per self-correction pass. The watchdog reads the tool-call error\n"
-                     "stream, fixes genuine defects in mod/Source and agent/rimagent, verifies them with the build\n"
+                     "stream, fixes genuine defects in mod/Source, mod-steward/Source or agent/rimagent, verifies them with the build\n"
                      "and test suites, and commits locally. It never deploys: a human restarts the game.\n")
         fh.write(entry)
     return entry
@@ -333,8 +353,9 @@ def read_log(max_chars: int = 40000) -> str:
 SYSTEM = """You are the watchdog stream of rimagent, an autonomous agent that plays RimWorld through a C# mod it also wrote.
 
 You are not playing. You are reviewing the agent's own source code against the errors its tools produced, and fixing
-the real defects among them. You have read and patch access to exactly two trees, mod/Source/** (the RimBridge C# mod)
-and agent/rimagent/** (the Python agent); everything else is refused by the tools. Every patch must pass the real
+the real defects among them. You have read and patch access to exactly three trees, mod/Source/** (the RimBridge C# mod),
+mod-steward/Source/** (the optional Steward add-on) and agent/rimagent/** (the Python agent); everything else
+is refused by the tools. Every patch must pass the real
 build and the real test suite before it can be committed, and the commit tool verifies that for itself.
 
 You never deploy: you cannot restart the game, the verification build does not replace the assembly the running game
@@ -344,9 +365,10 @@ Work with tool calls, not prose. Keep visible text to a line or two per decision
 
 DEFAULT_PROMPT = """Watchdog pass. {n_errors} tool calls failed since your last pass.
 
-Classify each as model noise or a genuine defect in mod/Source/** or agent/rimagent/**. For defects: repo_grep and
-repo_read the source, repo_patch a minimal fix, run watchdog_verify_mod() and/or watchdog_verify_python(), then
-watchdog_commit(message). If a fix does not verify, repo_revert it. Finish with end_watchdog(summary, fixes, skipped).
+Classify each as model noise or a genuine defect in mod/Source/**, mod-steward/Source/** or agent/rimagent/**. For
+defects: repo_grep and repo_read the source, repo_patch a minimal fix, run watchdog_verify_mod()/
+watchdog_verify_mod_steward()/watchdog_verify_python() as needed (verify mod before mod-steward if both changed),
+then watchdog_commit(message). If a fix does not verify, repo_revert it. Finish with end_watchdog(summary, fixes, skipped).
 Budget: {max_calls} tool calls.
 
 ## The errors

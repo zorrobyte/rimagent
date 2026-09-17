@@ -471,6 +471,13 @@ def _repo(*parts: str) -> str:
     return (Path(__file__).resolve().parents[2].joinpath(*parts)).read_text(encoding="utf-8")
 
 
+def _repo_if_exists(*parts: str) -> str | None:
+    """Like _repo, but None for a brain/ file that no longer exists — brain/ is agent-authored and evolves
+    across real episodes (skill_write/skill_delete), so a specific seeded filename is not guaranteed to persist."""
+    p = Path(__file__).resolve().parents[2].joinpath(*parts)
+    return p.read_text(encoding="utf-8") if p.exists() else None
+
+
 def test_skill_prose_matches_order_contracts():
     med = _repo("brain", "skills", "medicine-and-health.md")
     assert "resets to that after 2 days if you set a pawn's care by hand" in med   # Order_Policies.RunMedical: OwnedValues.TwoDays
@@ -482,7 +489,9 @@ def test_skill_prose_matches_order_contracts():
     system = _repo("agent", "rimagent", "prompts", "system.md")
     assert "heater/cooler targets: until you change it back, the order never resets it" in system
     for name in ("animals-and-hunting.md", "example-base-compound.md", "early-game-food.md"):
-        body = _repo("brain", "skills", name)
+        body = _repo_if_exists("brain", "skills", name)
+        if body is None:
+            continue
         assert 'recipe="ButcherCorpse"' not in body and "standing `ButcherCorpse` bill" not in body   # the RecipeDef is ButcherCorpseFlesh
     doctrine = _repo("brain", "skills", "core-doctrine.md")
     assert "`watcher_list`; delete any watcher that drafts, rescues, unforbids, buries, assigns beds or flips food policy" in doctrine

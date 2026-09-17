@@ -1,11 +1,11 @@
 # Third-party notices
 
-RimBridge contains code derived from the following MIT-licensed projects (vendored via the Autopilot mod, 2026).
+The RimBridge: Steward mod (mod-steward/) contains code derived from the following MIT-licensed projects (vendored via the Autopilot mod, 2026).
 Each vendored file carries a header naming its origin and a "modified for RimBridge" line. Textures and other
 original art from these projects are NOT included.
 
 ## Free Will (paul-freeman/rimworld-freewill)
-Files under `mod/Source/Steward/Scorer/` and `ScorerSettings` in `mod/Source/Steward/StewardSettings.cs`.
+Files under `mod-steward/Source/Steward/Scorer/` and `ScorerSettings` in `mod-steward/Source/Steward/StewardSettings.cs`.
 Copyright (c) 2021 Paul Freeman
 Copyright (c) 2026 zorrobyte
 
@@ -28,7 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ## Colony Manager Redux (ilyvion/colony-manager-redux) and Colony Manager (fluffy-mods/ColonyManager)
-Files under `mod/Source/Steward/Stock/` are synchronous rewrites derived from these projects
+Files under `mod-steward/Source/Steward/Stock/` are synchronous rewrites derived from these projects
 (`mod/Tests/StockMathTests.cs` exercises the pure-math parts).
 Copyright 2020 Fluffy (Karel Kroeze)
 Copyright (c) 2024-2026 Alexander Krivács Schrøder

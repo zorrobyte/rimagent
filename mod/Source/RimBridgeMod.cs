@@ -12,7 +12,6 @@ namespace RimBridge
         public bool enabled = true;
         public bool neverPause = false;      // keep time flowing even when dialogs/letters would pause
         public bool devModeOnStart = true;   // turn on Prefs.DevMode when the bridge starts
-        public RimBridge.Steward.StewardSettings steward = new RimBridge.Steward.StewardSettings(); // scorer + stock (steward.settings / steward.enable)
 
         public override void ExposeData()
         {
@@ -20,8 +19,6 @@ namespace RimBridge
             Scribe_Values.Look(ref enabled, "enabled", true);
             Scribe_Values.Look(ref neverPause, "neverPause", false);
             Scribe_Values.Look(ref devModeOnStart, "devModeOnStart", true);
-            Scribe_Deep.Look(ref steward, "steward");
-            steward ??= new RimBridge.Steward.StewardSettings();
         }
     }
 
@@ -53,9 +50,6 @@ namespace RimBridge
             l.CheckboxLabeled("Enabled (restart game to apply)", ref Settings.enabled);
             l.CheckboxLabeled("Never pause (dialogs/letters don't stop time)", ref Settings.neverPause);
             l.CheckboxLabeled("Enable dev mode on start", ref Settings.devModeOnStart);
-            l.GapLine();
-            l.CheckboxLabeled("Steward: score work priorities for managed colonists (default on)", ref Settings.steward.scorer.Enabled);
-            l.CheckboxLabeled("Steward: run stock jobs (forestry, foraging, hunting, mining, production)", ref Settings.steward.stock.Enabled);
             string buf = Settings.port.ToString();
             l.TextFieldNumericLabeled("Port", ref Settings.port, ref buf, 1024, 65535);
             l.End();

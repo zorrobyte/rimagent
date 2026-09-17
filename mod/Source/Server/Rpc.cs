@@ -33,9 +33,15 @@ namespace RimBridge.Server
         private static readonly Dictionary<string, Entry> Methods = new Dictionary<string, Entry>();
         public static int Count => Methods.Count;
 
-        public static void RegisterAll()
+        public static void RegisterAll() => RegisterAssembly(typeof(Rpc).Assembly);
+
+        /// <summary>Scan one assembly for [Rpc]-attributed methods and register them. Lets another mod
+        /// (loaded after RimBridge, referencing RimBridge.dll) add its own RPC methods to this same
+        /// dispatcher/HTTP server without RimBridge knowing anything about it ahead of time — call this
+        /// from that mod's own Mod constructor, e.g. Rpc.RegisterAssembly(typeof(MyMod).Assembly).</summary>
+        public static void RegisterAssembly(Assembly assembly)
         {
-            foreach (var type in typeof(Rpc).Assembly.GetTypes())
+            foreach (var type in assembly.GetTypes())
             foreach (var m in type.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
             {
                 var attr = m.GetCustomAttribute<RpcAttribute>();

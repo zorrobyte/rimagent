@@ -1,9 +1,20 @@
 # rimagent, developer notes (agent-readable)
 
-Two halves in one repo:
-- `mod/` **RimBridge** (C#, RimWorld 1.6, Harmony): loopback HTTP bridge exposing the engine. Symlinked into the
-  RimWorld Mods folder as `RimBridge`. Build `script/build.sh` (needs `DOTNET_ROOT=/opt/homebrew/opt/dotnet/libexec`),
-  then `script/restart-game.sh` (DLLs load at startup only; always launch via Steam so Workshop Harmony loads).
+Two halves, the mod as its own repo since 2026-09-16, split further into bridge + optional add-on since 2026-09-16:
+- `mod/` **RimBridge** (C#, RimWorld 1.6, Harmony): loopback HTTP bridge exposing the engine — bridge only, no
+  autonomy layer. Its own repo, github.com/zorrobyte/rimbridge, vendored here as a git submodule —
+  `git submodule update --init` after cloning, and commit/push mod-side changes from inside `mod/` before bumping
+  the pointer here. `Rpc.RegisterAssembly` and `RimBridge.Server.Hooks` (manual-touch, research-finished,
+  state.summary contributors) let an add-on mod that loads after RimBridge register its own RPCs and hook into
+  core ui.*/ledger/state behavior without RimBridge knowing it exists.
+- `mod-steward/` **RimBridge: Steward** (C#, same toolchain, packageId `zorrobyte.rimagent-steward`): optional
+  add-on, lives in *this* repo (not the bridge repo) since it's rimagent-specific policy, not generic bridge
+  infrastructure. References `mod/1.6/Assemblies/RimBridge.dll`, so `script/build.sh` builds `mod/` first. See
+  "Steward"/"Orders" below — same behavior as before the split, just a separate mod (`StewardMod.cs`, settings
+  under `StewardMod.Settings` instead of nested on RimBridge's own settings).
+- Symlink both `mod/` and `mod-steward/` into the RimWorld Mods folder (as `RimBridge` and `RimBridgeSteward`).
+  Build `script/build.sh` (needs `DOTNET_ROOT=/opt/homebrew/opt/dotnet/libexec`), then `script/restart-game.sh`
+  (DLLs load at startup only; always launch via Steam so Workshop Harmony loads).
 - `agent/` **rimagent** (Python, uv): the brain. `script/start.sh` = launch game if needed + `rimagent play` + dashboard.
 - `brain/` what the agent authors: `skills/*.md` (frontmatter name/description/tags/always), `tools/*.py`,
   `watchers/*.py` (hot-loaded), `memory/notebook.md` (per colony), `memory/journal.md` (cross-game), `scores.jsonl`.
@@ -12,11 +23,12 @@ Two halves in one repo:
 
 ## Bridge
 `POST 127.0.0.1:8765/rpc {"method":"state.summary","params":{}}`; `GET /health /methods /events?since= /screenshot?x=&z=&w=`.
-Method groups: game.* state.* map.* ui.* engine.* defs.* dev.* steward.*, see `[Rpc(name, doc)]` attributes in `mod/Source`.
+Method groups: game.* state.* map.* ui.* engine.* defs.* dev.* anchor.* from `mod/` (see `[Rpc(name, doc)]` attributes
+in `mod/Source`), plus steward.* from the optional `mod-steward/` add-on if it's loaded (`mod-steward/Source`).
 All Verse work runs on the main thread via `MainThreadQueue` (drained in a `Root.Update` postfix); request threads
 only parse/serialize. Never throw into Unity: every RPC error becomes `{ok:false,error}`. Namespaces `GameCtl`/`MapView`
 avoid clashes with `Verse.Game`/`Verse.Map`.
-- **Steward** (`steward.*`, `mod/Source/Steward/`, namespace `RimBridge.Steward`): two vendored engines that run every tick
+- **Steward** (`steward.*`, `mod-steward/Source/Steward/`, namespace `RimBridge.Steward`): two vendored engines that run every tick
   without the LLM. `Scorer/` (Free Will port, MIT) writes work priorities for every *managed* colonist; `Stock/` (synchronous
   rewrite of Colony Manager Redux, MIT) keeps stock jobs (forestry, foraging, hunting, mining, production, livestock) at
   targets by designating work; `StewardRpc.cs` exposes status/enable/pawn/explain/posture/stock.*/settings/research,
@@ -25,7 +37,7 @@ avoid clashes with `Verse.Game`/`Verse.Map`.
   unmanaged before applying and returns `steward_managed: false` (otherwise the scorer would clobber the change);
   `steward.pawn managed=true` hands the pawn back. Nothing in steward.* marks the game assisted. Origins in
   `THIRD_PARTY_NOTICES.md`; keep vendored headers, add "modified for RimBridge" lines.
-- **Orders** (`steward.orders*`, `mod/Source/Steward/Orders/`): standing orders are deterministic reflexes that run from a
+- **Orders** (`steward.orders*`, `mod-steward/Source/Steward/Orders/`): standing orders are deterministic reflexes that run from a
   MapComponentTick, staggered by id, never throw, budget-logged over 20 ms: `combat` (draft capable fighters to the rally
   rect, hold, release, then rescue), `rescue`, `unforbid`, `corpses`, `beds`, `policies`, `blueprints`, `fire`. One class per
   order (`Order_*.cs`, base `Order { Id, Label, Doc, IntervalTicks, Enabled, Run(Map) -> OrderReport, Explain() }`), registry
@@ -66,7 +78,8 @@ avoid clashes with `Verse.Game`/`Verse.Map`.
   symlink the running game loaded) is untouched, the game is never restarted, and there is no push — verified fixes
   are committed locally and wait for a human to deploy at the next natural restart. Log: `brain/memory/watchdog_log.md`
   (append-only, one entry per pass), bus kind `watchdog`, dashboard tab "Watchdog".
-- Tests: `cd agent && uv run pytest -q`; `cd mod/Tests && dotnet test` (PathParser only; keep it Verse-free).
+- Tests: `cd agent && uv run pytest -q`; `cd mod/Tests && dotnet test` (PathParser only); `cd mod-steward/Tests && dotnet test`
+  (Steward's pure logic: stock triggers, plant math, standing-order rules). Both Verse-free by construction.
 
 ## Conventions
 - Log from C# via `BridgeLog` (`[RimBridge]` prefix). Watch `~/Library/Logs/Ludeon Studios/RimWorld by Ludeon Studios/Player.log`.

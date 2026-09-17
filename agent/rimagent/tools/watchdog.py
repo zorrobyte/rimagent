@@ -137,6 +137,19 @@ def watchdog_verify_mod(ctx):
     return {"ok": ok, "suite": "mod build + dotnet test", "output": out}
 
 
+@tool("watchdog_verify_mod_steward", "Build the Steward add-on (against the live mod/1.6/Assemblies/RimBridge.dll, read-only) and run its test suite. Required before committing any change under mod-steward/Source/. If you also patched mod/Source in this pass, run watchdog_verify_mod first so this build sees the patched RimBridge. The build writes to a scratch directory, so the assembly the running game loaded is NOT replaced. Returns pass/fail and the tail of the output.", group="watchdog")
+def watchdog_verify_mod_steward(ctx):
+    ok, out = wd.verify_mod_steward()
+    st = _state(ctx)
+    st.verified["mod-steward"] = ok
+    if ok:
+        st.unverified.discard("mod-steward")
+    else:
+        st.unverified.add("mod-steward")
+    ctx.emit("log", {"text": f"watchdog: mod-steward build+test {'PASSED' if ok else 'FAILED'}", "stream": "watchdog"})
+    return {"ok": ok, "suite": "mod-steward build + dotnet test", "output": out}
+
+
 # ---------------------------------------------------------------- commit / end
 
 @tool("watchdog_commit", "Commit the files you patched, once they verify. Stages exactly the paths you touched (never -A, never brain/, never anything outside mod/Source and agent/rimagent) and appends the co-author trailer for you. REFUSED while any patched root is unverified, or if its verify run failed. There is no push: the commit stays local for a human to deploy at the next restart.",

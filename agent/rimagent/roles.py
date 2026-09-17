@@ -68,7 +68,7 @@ def brief_for(role: str) -> str:
 WATCHDOG = "watchdog"
 _WATCHDOG_TOOLS = frozenset({
     "repo_read", "repo_list", "repo_grep", "repo_patch", "repo_revert",
-    "watchdog_verify_python", "watchdog_verify_mod", "watchdog_commit", "end_watchdog",
+    "watchdog_verify_python", "watchdog_verify_mod", "watchdog_verify_mod_steward", "watchdog_commit", "end_watchdog",
     "search_source", "find_source_files", "read_source", "search_wiki", "read_wiki",
 })
 

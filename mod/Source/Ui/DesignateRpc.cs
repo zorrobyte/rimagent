@@ -4,7 +4,6 @@ using System.Linq;
 using Newtonsoft.Json.Linq;
 using RimBridge.Engine;
 using RimBridge.Server;
-using RimBridge.Steward.Orders;
 using RimWorld;
 using Verse;
 
@@ -58,7 +57,7 @@ namespace RimBridge.Ui
                     var r = d.CanDesignateThing(t);
                     if (!r.Accepted) { failed.Add(new JObject { ["thing"] = t.ThingID, ["reason"] = r.Reason ?? "not applicable" }); continue; }
                     d.DesignateThing(t); ok++;
-                    if (isForbid) StandingOrders.Touch(t, "ui.designate:" + cls);
+                    if (isForbid) Hooks.RaiseManualTouch(t, "ui.designate:" + cls);
                 }
             var cells = Cells(p, map).ToList();
             if (cells.Count > 0)
@@ -78,7 +77,7 @@ namespace RimBridge.Ui
                     if (isForbid)
                         foreach (var c in good)
                             foreach (var th in c.GetThingList(map))
-                                if (th.def.EverHaulable || th is Building) StandingOrders.Touch(th, "ui.designate:" + cls);
+                                if (th.def.EverHaulable || th is Building) Hooks.RaiseManualTouch(th, "ui.designate:" + cls);
                 }
             }
             if (ok == 0 && things == null && cells.Count == 0) throw new RpcError("give cells, rect or things");

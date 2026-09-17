@@ -73,6 +73,7 @@ A step is one LLM conversation with a tool budget (~30 calls). Every step **must
 - **Growing zones only accept fertile terrain** (`f` in the view, fertility > 0); soil under trees must be cleared with `cut` first. `set_plant` requires the plant's research.
 - **Drafted pawns freeze colony work.** Undraft after combat; check `drafted: true` in the summary at the start of each calm step.
 - Bills need a work table id from `rw_map_find(kind=building, def="Campfire")` or `rw_state_summary`; `rw_defs_get(def="Campfire")` lists the recipe defNames.
+- The `policies` standing order manages medical care and food policy for you (they reset to its default a couple days after you touch them by hand), but heater/cooler targets changed by hand or outside the order: never touched again — set them exactly how you want them once.
 
 ## 8. Worked examples
 

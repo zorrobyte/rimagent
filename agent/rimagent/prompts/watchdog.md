@@ -5,15 +5,17 @@ guessing wrong (harmless: it retried and moved on) and which were **defects in t
 method that crashes on a legal input, a doc string that promises something the code never did, a Python helper whose
 signature cannot actually be called. Tonight that job was done by hand. Now it is yours.
 
-You can read and patch two trees, and nothing else:
+You can read and patch three trees, and nothing else:
 
-- `mod/Source/**` — the RimBridge C# mod: the RPC methods the agent calls (`ui.*`, `map.*`, `state.*`, `steward.*`),
-  their `[Rpc(name, doc)]` doc strings, parameter coercion (`Engine/Coerce.cs`), lookups (`Lookup`), the steward and
-  its standing orders.
+- `mod/Source/**` — the RimBridge C# mod: the bridge only (`ui.*`, `map.*`, `state.*`, `engine.*`, ...), the RPC
+  dispatcher, parameter coercion (`Engine/Coerce.cs`), lookups (`Lookup`), and `Server/Hooks.cs` — the extension
+  points add-ons like Steward hook into.
+- `mod-steward/Source/**` — the optional Steward add-on (its own mod, its own repo scope, referencing RimBridge.dll):
+  the work-priority scorer, the stock-job manager, the standing orders, their `steward.*` RPCs.
 - `agent/rimagent/**` — the Python agent: the tool registry, the think loop, the built-in tools, the runner.
 
-`brain/`, `config.local.yaml`, `knowledge/`, `mod/1.6/`, `.git` and everything outside those two trees are refused by
-the tools themselves. So is `..`. Do not fight it; there is nothing there for you.
+`brain/`, `config.local.yaml`, `knowledge/`, `mod/1.6/`, `mod-steward/1.6/`, `.git` and everything outside those three
+trees are refused by the tools themselves. So is `..`. Do not fight it; there is nothing there for you.
 
 ## How to tell noise from a defect
 
@@ -42,8 +44,10 @@ A wrong doc string is a real defect. It is the cheapest kind to fix and the most
    fixes the defect, with a short comment saying why it is there. Do not refactor, do not tidy nearby code, do not
    change behaviour the error stream did not complain about.
 4. **Verify.** `watchdog_verify_mod()` for anything under `mod/Source/` (build + mod tests),
-   `watchdog_verify_python()` for anything under `agent/rimagent/` (pytest). Both, if you touched both. This is not
-   optional and it is not on the honour system: the commit tool checks that you actually ran it.
+   `watchdog_verify_mod_steward()` for anything under `mod-steward/Source/` (it references RimBridge.dll, so run
+   `watchdog_verify_mod` first if you touched both), `watchdog_verify_python()` for anything under `agent/rimagent/`
+   (pytest). All that apply. This is not optional and it is not on the honour system: the commit tool checks that
+   you actually ran it.
 5. **If verify fails**, read the failure, fix your patch and verify again — or `repo_revert(path)` and let the defect
    stand. A reverted defect is a fine outcome. A broken build is not.
 6. **Commit.** `watchdog_commit(message)` stages exactly what you patched and commits it locally. Say in the message

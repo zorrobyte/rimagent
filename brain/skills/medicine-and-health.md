@@ -45,4 +45,8 @@ Immunity gain speed falls when hungry or tired and rises with bed type (ground 1
 ## Prisoners
 Capture downed raiders to a prisoner bed; the same doctor tends them at their own policy (herbal by default). Untended prisoners infect and die, so tend anyone you want to recruit.
 
+## Standing orders you don't have to run yourself
+- The `policies` order keeps medical care set to its default kind (colonist/slave/prisoner/animal) automatically; it leaves a pawn's care alone right after you set it by hand, but that override is not permanent — it resets to that after 2 days if you set a pawn's care by hand and then don't touch it again.
+- The `rescue` order carries downed colonists/animals to a bed and tends bleeders with <6h to death on its own; it keeps running every 300 ticks during a raid, same as any other time.
+
 Sources: Medicine; Herbal medicine; Glitterworld medicine; Doctoring; Infection; Disease; Flu; Plague; Malaria; Immunity Gain Speed; Healroot; Hospital bed; Hediffs/Core/Global/Misc/Blood loss; Rescue; Prisoner; Sleeping spot; Bed

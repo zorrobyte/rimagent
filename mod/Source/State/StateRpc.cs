@@ -15,13 +15,16 @@ namespace RimBridge.State
     {
         static Map Map() { GameCtl.GameControl.RequirePlaying(); return Find.CurrentMap; }
 
-        [Rpc("state.summary", "colony overview: date, colonists (brief), wealth, food, mood, threats, alerts, research, zones, power, key stocks, steward {scorer, stock, posture, stock_brief, problems, orders_active: [order id], rally: bool}")]
+        [Rpc("state.summary", "colony overview: date, colonists (brief), wealth, food, mood, threats, alerts, research, zones, power, key stocks, plus one named block per loaded add-on (e.g. steward {scorer, stock, posture, stock_brief, problems, orders_active: [order id], rally: bool} if the optional Steward mod is loaded)")]
         public static JToken Summary(JObject p)
         {
             var map = Map();
             var o = Snapshot.ColonySummary(map);
-            try { o["steward"] = RimBridge.Steward.StewardRpc.SummaryBlock(map); }
-            catch (Exception ex) { o["steward"] = new JObject { ["error"] = ex.Message }; }
+            foreach (var contribute in Hooks.SummaryContributors)
+            {
+                try { var (key, value) = contribute(map); o[key] = value; }
+                catch (Exception ex) { BridgeLog.Warning("state.summary contributor: " + ex.Message); }
+            }
             return o;
         }
 

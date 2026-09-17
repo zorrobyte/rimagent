@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+    <name>RimBridge: Steward</name>
+    <author>zorrobyte</author>
+    <packageId>zorrobyte.rimagent-steward</packageId>
+    <modVersion>0.1.0</modVersion>
+    <supportedVersions>
+        <li>1.6</li>
+    </supportedVersions>
+    <description>Optional add-on for RimBridge: a work-priority scorer, synchronous stock-job manager, and standing orders that run every tick without an LLM in the loop, exposed as steward.* RPCs. Requires RimBridge loaded first.</description>
+    <modDependencies>
+        <li>
+            <packageId>brrainz.harmony</packageId>
+            <displayName>Harmony</displayName>
+            <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+        </li>
+        <li>
+            <packageId>zorrobyte.rimbridge</packageId>
+            <displayName>RimBridge</displayName>
+        </li>
+    </modDependencies>
+    <loadAfter>
+        <li>brrainz.harmony</li>
+        <li>zorrobyte.rimbridge</li>
+    </loadAfter>
+</ModMetaData>

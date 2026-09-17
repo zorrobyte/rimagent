@@ -6,7 +6,6 @@ using HarmonyLib;
 using Newtonsoft.Json.Linq;
 using RimBridge.Engine;
 using RimBridge.Server;
-using RimBridge.Steward.Orders;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -72,8 +71,8 @@ namespace RimBridge.Ui
             if (g.Disabled) throw new RpcError($"gizmo is disabled: {g.disabledReason?.StripTags()}");
             // beds: any gizmo (the beds order honours ui.press); pawns: only the draft/undraft gizmo pauses the combat order (Hold fire etc. do not)
             string pressLabel = (g as Command)?.Label?.StripTags() ?? g.GetType().Name;
-            if (t is Building_Bed) StandingOrders.Touch(t, "ui.press:" + pressLabel);
-            else if (t is Pawn && pressLabel.IndexOf("draft", StringComparison.OrdinalIgnoreCase) >= 0) StandingOrders.Touch(t, "ui.press:draft");
+            if (t is Building_Bed) Hooks.RaiseManualTouch(t, "ui.press:" + pressLabel);
+            else if (t is Pawn && pressLabel.IndexOf("draft", StringComparison.OrdinalIgnoreCase) >= 0) Hooks.RaiseManualTouch(t, "ui.press:draft");
             switch (g)
             {
                 case Command_Toggle ct: ct.toggleAction(); return new JObject { ["pressed"] = ct.Label?.StripTags(), ["active"] = ct.isActive() };
@@ -161,9 +160,9 @@ namespace RimBridge.Ui
             }
             if (o.Disabled) throw new RpcError($"order is disabled: {o.Label.StripTags()}");
             if (o.action == null) throw new RpcError("order has no action");
-            StandingOrders.Touch(pawn, "ui.order:" + o.Label.StripTags());
-            if (pawn.Drafted) StandingOrders.Touch(pawn, "ui.order.drafted:" + o.Label.StripTags());   // a drafted attack/move order pauses the combat order for this pawn
-            if (target.Thing is Pawn tpawn) StandingOrders.Touch(tpawn, "ui.order:" + o.Label.StripTags());
+            Hooks.RaiseManualTouch(pawn, "ui.order:" + o.Label.StripTags());
+            if (pawn.Drafted) Hooks.RaiseManualTouch(pawn, "ui.order.drafted:" + o.Label.StripTags());   // a drafted attack/move order pauses the combat order for this pawn
+            if (target.Thing is Pawn tpawn) Hooks.RaiseManualTouch(tpawn, "ui.order:" + o.Label.StripTags());
             o.action();
             return new JObject { ["ordered"] = o.Label.StripTags(), ["pawn"] = pawn.LabelShort, ["job"] = State.Snapshot.JobText(pawn) };
         }
@@ -178,7 +177,7 @@ namespace RimBridge.Ui
             if (pawn.drafter == null) throw new RpcError("pawn cannot be drafted");
             if (pawn.Downed) throw new RpcError("pawn is downed");
             pawn.drafter.Drafted = P.Bool(p, "drafted", true);
-            StandingOrders.Touch(pawn, "ui.draft");
+            Hooks.RaiseManualTouch(pawn, "ui.draft");
             return new JObject { ["pawn"] = pawn.LabelShort, ["drafted"] = pawn.Drafted };
         }
 
@@ -194,7 +193,7 @@ namespace RimBridge.Ui
             var job = JobMaker.MakeJob(JobDefOf.Goto, cell);
             job.playerForced = true;
             bool ok = pawn.jobs.TryTakeOrderedJob(job, JobTag.DraftedOrder);
-            StandingOrders.Touch(pawn, "ui.goto");
+            Hooks.RaiseManualTouch(pawn, "ui.goto");
             return new JObject { ["ok"] = ok, ["pawn"] = pawn.LabelShort, ["cell"] = State.Snapshot.Cell(cell), ["drafted"] = pawn.Drafted };
         }
 
@@ -212,7 +211,7 @@ namespace RimBridge.Ui
             job.playerForced = true;
             if (target is Pawn tp) pawn.mindState.enemyTarget = tp;
             bool ok = pawn.jobs.TryTakeOrderedJob(job, JobTag.DraftedOrder);
-            StandingOrders.Touch(pawn, "ui.attack");
+            Hooks.RaiseManualTouch(pawn, "ui.attack");
             return new JObject { ["ok"] = ok, ["pawn"] = pawn.LabelShort, ["target"] = target.ThingID, ["melee"] = melee };
         }
 
@@ -232,13 +231,13 @@ namespace RimBridge.Ui
             bool ok = pawn.jobs.TryTakeOrderedJob(job, JobTag.Misc, P.Bool(p, "queue", false));
             if (def == JobDefOf.Rescue || def == JobDefOf.TendPatient)
             {
-                StandingOrders.Touch(pawn, "ui.job:" + def.defName);
-                if (job.targetA.Thing is Pawn patient) StandingOrders.Touch(patient, "ui.job:" + def.defName);
+                Hooks.RaiseManualTouch(pawn, "ui.job:" + def.defName);
+                if (job.targetA.Thing is Pawn patient) Hooks.RaiseManualTouch(patient, "ui.job:" + def.defName);
             }
             else if (wasDrafted || def == JobDefOf.AttackMelee || def == JobDefOf.AttackStatic || def == JobDefOf.Goto)
             {
                 // a drafted pawn's job, or an attack/move job, is manual military control: the combat order leaves the pawn alone for an hour
-                StandingOrders.Touch(pawn, "ui.job:" + def.defName);
+                Hooks.RaiseManualTouch(pawn, "ui.job:" + def.defName);
             }
             return new JObject { ["ok"] = ok, ["pawn"] = pawn.LabelShort, ["job"] = def.defName, ["now"] = State.Snapshot.JobText(pawn) };
         }
@@ -272,7 +271,7 @@ namespace RimBridge.Ui
                 resolved.Add((kv.Key, wt, Math.Max(0, Math.Min(4, raw))));
             }
             // The steward's scorer would clobber manual priorities on its next pass: mark the pawn unmanaged before writing.
-            RimBridge.Steward.ScorerGate.SetManaged(pawn, false);
+            Hooks.RaisePawnWorkSetManually(pawn);
             Current.Game.playSettings.useWorkPriorities = true;
             var applied = new JObject(); var skipped = new JArray();
             foreach (var (key, wt, v) in resolved)
@@ -326,7 +325,7 @@ namespace RimBridge.Ui
             if (p["hostility"] != null && pawn.playerSettings != null) { pawn.playerSettings.hostilityResponse = (HostilityResponseMode)Enum.Parse(typeof(HostilityResponseMode), P.Str(p, "hostility"), true); o["hostility"] = pawn.playerSettings.hostilityResponse.ToString(); }
             if (p["self_tend"] != null && pawn.playerSettings != null) { pawn.playerSettings.selfTend = P.Bool(p, "self_tend", true); o["self_tend"] = pawn.playerSettings.selfTend; }
             foreach (var key in new[] { "apparel", "food", "drug", "reading", "area", "medical", "hostility", "self_tend" })
-                if (p[key] != null) StandingOrders.Touch(pawn, "ui.set_policies:" + key);
+                if (p[key] != null) Hooks.RaiseManualTouch(pawn, "ui.set_policies:" + key);
             return o;
         }
 
