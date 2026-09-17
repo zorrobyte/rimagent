@@ -10,3 +10,8 @@
     - `bulk_designate`: Allows designating multiple items at once in one call.
 - **Skills updated**:
     - `base-building`: Added notes on "placed" vs "built" verification and trap adjacency pitfalls.
+
+## Day 6 improvement pass
+- Automating repetitive tasks with watchers and tools.
+- Updated `base-building` and `early-game-food` based on recent performance issues.
+- Fixed `auto_reflexes` and `fire_flee` watchers.
