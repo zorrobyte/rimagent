@@ -22,6 +22,9 @@ def clip(text: str, limit: int = LOG_CLIP) -> str:
     return text if len(text) <= limit else text[:limit] + MARK.format(n=len(text) - limit)
 
 
+# Runner.with_pause puts these in ctx.extra for the duration of a step; think_start copies them into the run log.
+THINK_SPEED_KEYS = ("think_speed", "config_think_speed", "config_danger_think_speed", "urgent")
+
 DEFAULT_SYSTEM = """You are rimagent. You run this RimWorld colony by yourself through tools, and you improve your own skills, tools and reflexes between games. Nobody else will help.
 
 Protocol for every step: read the situation, act on the most urgent thing with tools, update the notebook if something important changed, then call end_turn with a wake plan. Be terse in visible text; do the work with tool calls. Tool results are truncated at ~8k chars, so ask narrowly.
@@ -105,7 +108,8 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
     messages: list[dict[str, Any]] = [{"role": "system", "content": system}, {"role": "user", "content": user_message}]
     tools = ctx.registry.specs(groups=tool_groups, allow=tool_allow)
     st = ctx.stream
-    ctx.emit("think_start", {"trigger": trigger, "prompt_chars": len(system) + len(user_message), "tools": len(tools), "stream": st})
+    speed = {k: ctx.extra[k] for k in THINK_SPEED_KEYS if k in ctx.extra}
+    ctx.emit("think_start", {"trigger": trigger, "prompt_chars": len(system) + len(user_message), "tools": len(tools), "stream": st, **speed})
     step = 0
     while True:
         if res.calls >= max_calls:
