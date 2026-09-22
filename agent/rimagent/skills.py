@@ -79,9 +79,24 @@ def read(name: str) -> str:
     raise FileNotFoundError(f"no skill {name!r}; known: {[s.name for s in load_all()]}")
 
 
-def write(name: str, description: str, body: str, tags: list[str] | None = None, always: bool = False) -> Path:
+def write(name: str, description: str, body: str, tags: list[str] | None = None, always: bool | None = None) -> Path:
+    """Write a skill, keeping the frontmatter the caller did not mention.
+
+    `tags` and `always` used to default to `[]` and `False`, so an edit that passed only the body erased
+    them. Episode 3 rewrote `early-game-food.md` and its seven tags became `tags: []` -- and tags are part of
+    the BM25 key in `select`, so the edit quietly made the skill harder to retrieve. The same call on an
+    always-on skill would have demoted it out of every prompt without saying so.
+
+    Pass `tags=[]` or `always=False` explicitly to clear them.
+    """
     path = SKILLS / f"{_slug(name)}.md"
-    post = frontmatter.Post(body.strip() + "\n", name=name, description=description, tags=tags or [], always=always)
+    if tags is None or always is None:
+        prev = next((s for s in load_all() if s.path == path), None)
+        if tags is None:
+            tags = list(prev.tags) if prev else []
+        if always is None:
+            always = prev.always if prev else False
+    post = frontmatter.Post(body.strip() + "\n", name=name, description=description, tags=tags, always=always)
     path.write_text(frontmatter.dumps(post), encoding="utf-8")
     return path
 
