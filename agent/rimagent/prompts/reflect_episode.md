@@ -7,6 +7,8 @@ This is the long reflection between games. The next game starts from the brain a
 
 ## Timeline of the episode (condensed)
 
+{coverage}
+
 {timeline}
 
 ## Final notebook
