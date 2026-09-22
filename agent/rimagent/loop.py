@@ -103,7 +103,8 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
     res = StepResult()
     system = system or build_system(ctx, situation_hint or user_message[:2000])
     messages: list[dict[str, Any]] = [{"role": "system", "content": system}, {"role": "user", "content": user_message}]
-    tools = ctx.registry.specs(groups=tool_groups, allow=tool_allow)
+    # dev.* is reserved, so a scored game cannot reach for god mode. A sandbox episode is told to experiment with it.
+    tools = ctx.registry.specs(groups=tool_groups, allow=tool_allow, unlock={"dev"} if ctx.extra.get("sandbox") else None)
     st = ctx.stream
     ctx.emit("think_start", {"trigger": trigger, "prompt_chars": len(system) + len(user_message), "tools": len(tools), "stream": st})
     step = 0
