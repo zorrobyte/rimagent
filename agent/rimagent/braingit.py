@@ -13,10 +13,17 @@ def _git(*args: str) -> str:
     return r.stdout.strip()
 
 
+# The agent is not the person running it. Without this, everything it writes to
+# brain/ is authored as whoever configured git on the machine, and `git log`
+# cannot tell what the model wrote from what a human did. Author only: the
+# committer stays the human, which is accurate -- their machine made the commit.
+AUTHOR = "rimagent (brain) <rimagent@rimagent.invalid>"
+
+
 def commit(message: str) -> str | None:
     _git("add", "-A", str(BRAIN.relative_to(ROOT)))
     try:
-        _git("commit", "-q", "-m", message, "--", str(BRAIN.relative_to(ROOT)))
+        _git("commit", "-q", "--author", AUTHOR, "-m", message, "--", str(BRAIN.relative_to(ROOT)))
     except RuntimeError as e:
         if "nothing to commit" in str(e) or "no changes added" in str(e):
             return None

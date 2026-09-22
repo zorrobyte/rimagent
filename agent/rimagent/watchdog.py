@@ -271,7 +271,10 @@ def git_commit(paths: list[str], message: str) -> str:
         top, in_rels = groups[key]
         _git("add", "--", *in_rels, cwd=top)
         try:
-            _git("commit", "-q", "-m", body, "--", *in_rels, cwd=top)
+            # Same reason as braingit.AUTHOR: a patch the watchdog wrote is not the
+            # human's work, and source commits are the ones where that matters most.
+            _git("commit", "-q", "--author", "rimagent (watchdog) <rimagent@rimagent.invalid>",
+                 "-m", body, "--", *in_rels, cwd=top)
         except WatchdogError as e:
             if "nothing to commit" in str(e) or "no changes added" in str(e):
                 raise WatchdogError("nothing to commit: the files are identical to HEAD") from e
