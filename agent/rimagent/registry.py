@@ -313,6 +313,11 @@ def coerce_param(v: Any) -> Any:
     """Models often send JSON values as strings ("[97, 98]", "true", "80"). Undo that where it is unambiguous."""
     if isinstance(v, str):
         t = v.strip()
+        # Python's repr of a bool is what a model most often sends, and "False" is not JSON. It fell through as
+        # a non-empty string, which is true, so dry_run="False" left a tool in dry-run while it reported a real
+        # write. "None" is deliberately not in here: unlike "False" it is a plausible label for a thing.
+        if t.lower() in ("true", "false", "null"):
+            t = t.lower()
         if t and (t[0] in "[{" or t in ("true", "false", "null") or re.fullmatch(r"-?\d+(\.\d+)?", t)):
             try:
                 return json.loads(t)
