@@ -219,6 +219,15 @@ def test_commit_trailer_is_appended_by_the_tool_not_the_model(monkeypatch):
     assert "-A" not in add_args and add_args[-1] == "mod/Source/Ui/UiRpc.cs"
 
 
+
+def test_commit_is_authored_by_the_watchdog_not_the_operator(monkeypatch):
+    sent: dict = {}
+    monkeypatch.setattr(wd, "_git", lambda *a, **k: sent.setdefault("args", []).append(a) or "abc1234")
+    wd.git_commit(["mod/Source/Ui/UiRpc.cs"], "fix ui.add_bill aliases")
+    commit_args = [a for a in sent["args"] if a[0] == "commit"][0]
+    assert commit_args[commit_args.index("--author") + 1] == "rimagent (watchdog) <rimagent@rimagent.invalid>"
+
+
 def test_git_commit_refuses_out_of_scope_paths(monkeypatch):
     monkeypatch.setattr(wd, "_git", lambda *a, **k: pytest.fail("git ran on an out-of-scope path"))
     with pytest.raises(wd.WatchdogError):
