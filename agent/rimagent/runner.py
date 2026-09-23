@@ -727,7 +727,7 @@ class Runner:
                   "Be specific: name pawns, places, quantities. Resolve conflicts between roles here (e.g. who gets the wood). Never skip caretaker when there are open dialogs, letters or an operator message. "
                   "The in-game steward already sets work priorities and designates trees/ore/animals toward stock targets: direct it (targets, posture) rather than ordering per-pawn priorities.")
         try:
-            reply = self.llm.chat([{"role": "system", "content": system}, {"role": "user", "content": packet + ("\n\n" + extra if extra else "")}], tools=None, thinking=False, max_tokens=900, temperature=0.3)
+            reply = self.llm.chat([{"role": "system", "content": system}, {"role": "user", "content": packet + ("\n\n" + extra if extra else "")}], tools=None, thinking=False, temperature=0.3)
             text = reply.content.strip()
             start, end = text.find("{"), text.rfind("}")
             plan = _json.loads(text[start:end + 1]) if start >= 0 and end > start else {}

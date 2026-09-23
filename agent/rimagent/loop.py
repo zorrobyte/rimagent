@@ -133,10 +133,10 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
             break
         step += 1
         if reply.reasoning:
-            ctx.emit("reasoning", {"text": reply.reasoning[:20000], "stream": st})
+            ctx.emit("reasoning", {"text": reply.reasoning, "stream": st})
         if reply.content:
             ctx.emit("assistant", {"text": reply.content, "stream": st})
-        res.transcript.append({"role": "assistant", "content": reply.content, "reasoning": reply.reasoning[:4000], "tool_calls": reply.tool_calls})
+        res.transcript.append({"role": "assistant", "content": reply.content, "reasoning": reply.reasoning, "tool_calls": reply.tool_calls})
         messages.append(ctx.llm.assistant_message(reply))
         if not reply.tool_calls:
             # Narration without action. Nudge back into the loop a couple of times before accepting it as the notes.
