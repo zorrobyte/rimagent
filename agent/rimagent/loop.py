@@ -91,6 +91,28 @@ def build_system(ctx: Context, situation_hint: str) -> str:
     )
 
 
+# Written at the end of a step, when the tool list is narrowed to let the step record before it ends.
+MEMORY_TOOLS = ("notebook_write", "notebook_append", "journal_append")
+
+
+def tools_for_budget(tools: list[dict[str, Any]], used: int, max_calls: int, reserve: int,
+                     end_tools: tuple[str, ...]) -> tuple[list[dict[str, Any]], str]:
+    """Which tools a step may still call, and which phase of its budget it is in.
+
+    The last `reserve` calls accept memory writes and the end tools, nothing else. Before this the cap removed
+    every tool but end_turn, so a step that ran long could not write the notebook at the moment it most needed
+    to: the step that watched a colonist die to the colony's own spike trap diagnosed it exactly, was denied
+    notebook_write, put the diagnosis in its end_turn notes -- which no later step reads -- and six steps on the
+    model was working out who had died and how, from the colonist count.
+    """
+    if used >= max_calls:
+        return [t for t in tools if t["function"]["name"] in end_tools], "cap"
+    if used >= max_calls - reserve:
+        keep = set(end_tools) | set(MEMORY_TOOLS)
+        return ([t for t in tools if t["function"]["name"] in keep] or tools), "reserve"
+    return tools, "full"
+
+
 def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_calls: int | None = None, tool_groups: set[str] | None = None, thinking: bool | None = None, trigger: str = "scheduled", tool_allow=None, system: str | None = None, end_tools: tuple[str, ...] = ("end_turn", "end_episode")) -> StepResult:
     """Run a bounded tool-use loop. Returns when the model calls a terminal tool (end_turn/end_episode by default),
     stops calling tools, or hits max_calls. `system` overrides the play system prompt (streams that are not playing
@@ -107,12 +129,18 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
     st = ctx.stream
     ctx.emit("think_start", {"trigger": trigger, "prompt_chars": len(system) + len(user_message), "tools": len(tools), "stream": st})
     step = 0
+    # Calls held back at the end of a step for recording. Scaled so a small budget (the parallel worker
+    # streams run on 10) does not hand most of itself to memory.
+    reserve = max(1, min(int(cfg["play"].get("memory_reserve_calls", 3)), max_calls // 4))
+    reserved_warned = False
     while True:
-        if res.calls >= max_calls:
-            messages.append({"role": "user", "content": f"You have used {res.calls} tool calls, the limit for this step. Call {end_tools[0]} now to finish."})
-            tools_now = [t for t in tools if t["function"]["name"] in end_tools]
-        else:
-            tools_now = tools
+        used = res.calls
+        tools_now, phase = tools_for_budget(tools, used, max_calls, reserve, end_tools)
+        if phase == "cap":
+            messages.append({"role": "user", "content": f"You have used {used} tool calls, the limit for this step. Call {end_tools[0]} now to finish."})
+        elif phase == "reserve" and not reserved_warned:
+            reserved_warned = True
+            messages.append({"role": "user", "content": f"You have used {used} of {max_calls} tool calls. The last {reserve} are reserved: write anything this step must not lose to the notebook (notebook_write / notebook_append) or, if it is a lesson for future colonies, the journal. Then call {end_tools[0]}."})
         reply = None
         for attempt in range(2):
             try:

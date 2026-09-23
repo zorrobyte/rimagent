@@ -1,6 +1,7 @@
 """Episode runner: keeps the game running, wakes the agent, scores episodes, starts the next game."""
 from __future__ import annotations
 
+import json
 import os
 import subprocess
 import webbrowser
@@ -18,11 +19,13 @@ from .loop import ORDER_IDS, situation_packet, think
 from .paths import ROOT, RUNS
 
 EPISODE_FILE = RUNS / "episode.json"
+# Every ledger event and step note of the current episode, one JSON record per line. A resume reloads it,
+# so the episode reflection covers the whole episode and not only the part the current process saw.
+HISTORY_FILE = RUNS / "episode_history.jsonl"
 
 
 def _save_episode(d: dict) -> None:
     try:
-        import json
         EPISODE_FILE.write_text(json.dumps(d))
     except Exception:  # noqa: BLE001
         pass
@@ -30,10 +33,46 @@ def _save_episode(d: dict) -> None:
 
 def _load_episode() -> dict:
     try:
-        import json
         return json.loads(EPISODE_FILE.read_text()) if EPISODE_FILE.exists() else {}
     except Exception:  # noqa: BLE001
         return {}
+
+
+def _history_reset() -> None:
+    try:
+        HISTORY_FILE.write_text("", encoding="utf-8")
+    except OSError:
+        pass
+
+
+def _history_append(records: list[dict]) -> None:
+    if not records:
+        return
+    try:
+        with HISTORY_FILE.open("a", encoding="utf-8") as fh:
+            for r in records:
+                fh.write(json.dumps(r, ensure_ascii=False) + "\n")
+    except (OSError, TypeError, ValueError):
+        pass
+
+
+def _history_load() -> tuple[list[dict], list[str]]:
+    events: list[dict] = []
+    notes: list[str] = []
+    try:
+        lines = HISTORY_FILE.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return events, notes
+    for line in lines:
+        try:
+            r = json.loads(line)
+        except ValueError:
+            continue
+        if "event" in r:
+            events.append(r["event"])
+        elif "note" in r:
+            notes.append(r["note"])
+    return events, notes
 from .registry import Registry
 from .tools import brain as brain_tools
 from .tools import knowledge as knowledge_tools
@@ -176,6 +215,10 @@ class Runner:
         self.critical_kinds.discard("steward")   # steward ledger events (stock stalled/reached, posture expired) are ordinary wakes, never interrupts
         self.critical_kinds.discard("orders")    # standing-order events (combat engaged/released, rescue, corpses, fire) too: the runner already wakes on danger
 
+    def add_note(self, note: str) -> None:
+        self.step_notes.append(note)
+        _history_append([{"note": note}])
+
     # ---------- lifecycle ----------
     def run(self) -> None:
         self.bus.emit("log", {"text": "runner starting"})
@@ -212,10 +255,12 @@ class Runner:
                     self.start_day = int(saved.get("start_day", 0))
                     self.deaths = int(saved.get("deaths", 0)); self.raids = int(saved.get("raids", 0))
                     self.last_improve_day = int(saved.get("last_improve_day", self.start_day))
+                    self.events, self.step_notes = _history_load()
                 else:
                     self.episode = max(self.episode, 1)
                     self.start_day = int(st.get("day", 0))
                     self.last_improve_day = self.start_day
+                    _history_reset()
                 self.last_day = int(st.get("day", 0))
                 self.ctx.last_seq = int(st.get("seq", 0))
                 self.ctx.episode, self.ctx.seed = self.episode, self.seed
@@ -241,6 +286,7 @@ class Runner:
         time.sleep(3)
         st = self.bridge.wait_for("playing", 600)
         self.events, self.pending_events, self.pending_alerts, self.step_notes = [], [], [], []
+        _history_reset()
         self.deaths = self.raids = 0
         self.start_day = self.last_day = int(st.get("day", 0))
         self.last_improve_day = self.start_day
@@ -360,13 +406,16 @@ class Runner:
             return []
         self.ctx.last_seq = int(data.get("last_seq", self.ctx.last_seq))
         for e in evs:
-            self.bus.emit("ledger", e)
             k = e.get("kind")
             if k == "colonist_died":
                 self.deaths += 1
             elif k == "hostile_group":
                 self.raids += 1
+            elif k == "day":
+                e["data"] = {**(e.get("data") or {}), "deaths_so_far": self.deaths}
+            self.bus.emit("ledger", e)
         self.events += evs
+        _history_append([{"event": e} for e in evs])
         self.pending_events += evs
         self.ctx.recent_events = self.pending_events[-100:]
         return evs
@@ -486,7 +535,7 @@ class Runner:
                      "(mark the line 'operator tip'), and act on it in the colony if it applies right now.\n" + "\n".join(f"- {m}" for m in msgs))
         msg, hint = situation_packet(self.ctx, trigger, events, alerts, extra=extra)
         res = think(self.ctx, msg, hint, trigger=trigger)
-        self.step_notes.append(res.notes)
+        self.add_note(res.notes)
         play = self.cfg["play"]
         hours = self.ctx.wake.in_hours if self.ctx.wake.in_hours else float(play.get("wake_hours", 8))
         floor = 0.5 if (urgent or self.ctx.extra.get("model_speed") is not None) else float(play.get("min_wake_hours", 3))
@@ -699,7 +748,7 @@ class Runner:
                 end_reason = ctx_r.end_episode_reason
             if ctx_r.extra.get("model_speed") is not None:
                 self.ctx.extra["model_speed"] = ctx_r.extra["model_speed"]
-        self.step_notes.append(" | ".join(notes))
+        self.add_note(" | ".join(notes))
         if end_reason:
             self.ctx.end_episode_reason = end_reason
         play = self.cfg["play"]
@@ -751,7 +800,7 @@ class Runner:
         def run():
             try:
                 notes = reflect.improve(ctx2, notes_snapshot, day)
-                self.step_notes.append(f"[improvement pass day {day}] {notes}")
+                self.add_note(f"[improvement pass day {day}] {notes}")
                 sha = braingit.commit(f"episode {self.episode} day {day}: improvement pass")
                 if sha:
                     self.bus.emit("brain_change", {"kind": "git", "action": "commit", "sha": sha})
@@ -830,7 +879,7 @@ class Runner:
         self.bus.emit("log", {"text": f"episode {self.episode} over: {reason}; days={days} colonists={colonists} deaths={self.deaths} score={score}"})
         notes = ""
         try:
-            notes = reflect.episode(self.ctx, self.events, self.step_notes, reason, days)
+            notes = reflect.episode(self.ctx, self.events, self.step_notes, reason, days, start_day=self.start_day)
         except Exception as e:  # noqa: BLE001
             self.bus.emit("error", {"text": f"reflection failed: {e}"})
         sha = braingit.commit(f"episode {self.episode} ({self.seed}): {reason}; score {score}\n\n{notes[:800]}") or braingit.head()

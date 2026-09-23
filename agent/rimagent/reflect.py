@@ -23,6 +23,7 @@ Finish with end_turn(notes=<one-paragraph summary of what you changed and why>).
 {operator}
 
 ## Timeline
+{coverage}
 {timeline}
 
 ## Notebook at the end
@@ -66,7 +67,7 @@ def compress_timeline(events: list[dict[str, Any]], step_notes: list[str], limit
             continue
         if k == "day":
             d = e.get("data") or {}
-            lines.append(f"[day {e.get('day')}] colonists={d.get('colonists')} deaths_so_far=? wealth={d.get('wealth')} mood={d.get('mood_avg')} food_days={d.get('food_days')} threat={d.get('threat_points')} research={d.get('research_done')}")
+            lines.append(f"[day {e.get('day')}] colonists={d.get('colonists')} deaths_so_far={d.get('deaths_so_far', '?')} wealth={d.get('wealth')} mood={d.get('mood_avg')} food_days={d.get('food_days')} threat={d.get('threat_points')} research={d.get('research_done')}")
         else:
             lines.append(f"[{e.get('day', '?')}d {e.get('hour', '?')}h] {k}: {e.get('text', '')}")
     text = "\n".join(lines)
@@ -75,11 +76,27 @@ def compress_timeline(events: list[dict[str, Any]], step_notes: list[str], limit
     return out
 
 
-def episode(ctx: Context, events: list[dict[str, Any]], step_notes: list[str], reason: str, days: int) -> str:
+def coverage(events: list[dict[str, Any]], start_day: int | None, end_day: int | None) -> str:
+    """Which game days the timeline holds. A fact about the input, so the reflection can say what it did not see."""
+    days = [int(e["day"]) for e in events if isinstance(e.get("day"), (int, float))]
+    if not days:
+        return "Timeline covers no game days: no events were recorded."
+    first, last = min(days), max(days)
+    line = f"Timeline covers game days {first}-{last}."
+    if start_day is not None:
+        line += f" The episode started on game day {start_day}"
+        line += f" and ended on game day {end_day}." if end_day is not None else "."
+        if first > start_day:
+            line += f" Days {start_day}-{first - 1} are not in it."
+    return line
+
+
+def episode(ctx: Context, events: list[dict[str, Any]], step_notes: list[str], reason: str, days: int, start_day: int | None = None) -> str:
     prompt = _fmt(
         load_prompt("reflect_episode", DEFAULT_EPISODE),
         reason=reason,
         days=str(days),
+        coverage=coverage(events, start_day, None if start_day is None else start_day + days),
         timeline=compress_timeline(events, step_notes),
         operator=memory.operator_read(3000) or "(none)",
         notebook=memory.notebook_read() or "(empty)",
