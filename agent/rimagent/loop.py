@@ -61,7 +61,12 @@ class StepResult:
     calls: int = 0
     elapsed: float = 0.0
     ended_by_tool: bool = False
+    end_turn_called: bool = False
+    end_turn_retried: bool = False
     transcript: list[dict[str, Any]] = field(default_factory=list)
+
+
+END_TURN_RETRY = "You did not call end_turn, so this step recorded no notes and no wake plan. Call end_turn now with your notes and your wake plan."
 
 
 def _fmt(template: str, **kw: str) -> str:
@@ -103,12 +108,15 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
     res = StepResult()
     system = system or build_system(ctx, situation_hint or user_message[:2000])
     messages: list[dict[str, Any]] = [{"role": "system", "content": system}, {"role": "user", "content": user_message}]
-    tools = ctx.registry.specs(groups=tool_groups, allow=tool_allow)
+    # dev.* is reserved, so a scored game cannot reach for god mode. A sandbox episode is told to experiment with it.
+    tools = ctx.registry.specs(groups=tool_groups, allow=tool_allow, unlock={"dev"} if ctx.extra.get("sandbox") else None)
     st = ctx.stream
     ctx.emit("think_start", {"trigger": trigger, "prompt_chars": len(system) + len(user_message), "tools": len(tools), "stream": st})
     step = 0
+    # The end_turn retry spends one unit of the tool-call budget, so a step cannot run away on it.
+    spent = 0
     while True:
-        if res.calls >= max_calls:
+        if res.calls + spent >= max_calls:
             messages.append({"role": "user", "content": f"You have used {res.calls} tool calls, the limit for this step. Call {end_tools[0]} now to finish."})
             tools_now = [t for t in tools if t["function"]["name"] in end_tools]
         else:
@@ -125,17 +133,23 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
             break
         step += 1
         if reply.reasoning:
-            ctx.emit("reasoning", {"text": reply.reasoning[:20000], "stream": st})
+            ctx.emit("reasoning", {"text": reply.reasoning, "stream": st})
         if reply.content:
             ctx.emit("assistant", {"text": reply.content, "stream": st})
-        res.transcript.append({"role": "assistant", "content": reply.content, "reasoning": reply.reasoning[:4000], "tool_calls": reply.tool_calls})
+        res.transcript.append({"role": "assistant", "content": reply.content, "reasoning": reply.reasoning, "tool_calls": reply.tool_calls})
         messages.append(ctx.llm.assistant_message(reply))
         if not reply.tool_calls:
             # Narration without action. Nudge back into the loop a couple of times before accepting it as the notes.
             nudges = res.transcript.count({"role": "nudge"})
-            if nudges < 2 and res.calls < max_calls:
+            if nudges < 2 and res.calls + spent < max_calls:
                 res.transcript.append({"role": "nudge"})
                 messages.append({"role": "user", "content": "You wrote text but called no tool. Continue with tool calls, or call end_turn(notes, wake_in_hours, wake_on) if you are done with this step."})
+                continue
+            if not res.end_turn_called and not res.end_turn_retried and ctx.end_episode_reason is None:
+                res.end_turn_retried = True
+                spent += 1
+                ctx.emit("log", {"text": "step ended without end_turn; asking for it once", "stream": st})
+                messages.append({"role": "user", "content": END_TURN_RETRY})
                 continue
             res.notes = reply.content.strip()
             break
@@ -146,6 +160,8 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
             t1 = time.time()
             result, ok = ctx.registry.execute(ctx, name, args)
             res.calls += 1
+            if ok and name == "end_turn":
+                res.end_turn_called = True
             image = None
             if isinstance(result, dict) and "_image_png_b64" in result:
                 image = result.pop("_image_png_b64")
@@ -193,7 +209,11 @@ def think(ctx: Context, user_message: str, situation_hint: str = "", *, max_call
                 if total < 120_000:
                     break
     res.elapsed = time.time() - t0
-    ctx.emit("think_end", {"notes": res.notes, "wake": {"in_hours": ctx.wake.in_hours, "on_kinds": ctx.wake.on_kinds}, "calls": res.calls, "elapsed": round(res.elapsed, 1), "end_episode": ctx.end_episode_reason, "stream": st})
+    if not res.end_turn_called and ctx.end_episode_reason is None:
+        ctx.emit("log", {"text": "step ended without end_turn: no notes and no wake plan were recorded" + (" (the retry also failed)" if res.end_turn_retried else ""), "stream": st})
+    ctx.emit("think_end", {"notes": res.notes, "wake": {"in_hours": ctx.wake.in_hours, "on_kinds": ctx.wake.on_kinds}, "calls": res.calls,
+                           "end_turn": res.end_turn_called, "end_turn_retried": res.end_turn_retried,
+                           "elapsed": round(res.elapsed, 1), "end_episode": ctx.end_episode_reason, "stream": st})
     return res
 
 

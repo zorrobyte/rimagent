@@ -23,7 +23,11 @@ _TYPE_MAP = {str: "string", int: "integer", float: "number", bool: "boolean", li
 
 # Tool groups that are never handed out unless a stream asks for them by name (see Registry.specs).
 # "watchdog": reads and patches the project's own source; only the watchdog stream may ever see these.
-RESERVED_GROUPS: set[str] = {"watchdog"}
+# "dev": every one of its 13 tools -- reveal_map, god_mode, spawn,
+# unlock_all_research -- was offered to the play model. The bridge gates them on Prefs.DevMode and stamps the
+# game assisted on first use, so nothing was hidden; but on a machine where dev mode is habitually on, the play
+# stream could cheat and only a ledger flag would record it. A sandbox episode unlocks dev deliberately.
+RESERVED_GROUPS: set[str] = {"watchdog", "dev"}
 
 
 def _schema_from_signature(fn: Callable) -> dict[str, Any]:
@@ -242,13 +246,14 @@ class Registry:
         self.watcher_superseded.pop(stem, None)
 
     # ---- execution ----
-    def specs(self, groups: set[str] | None = None, exclude: set[str] | None = None, allow: Callable[[Tool], bool] | None = None) -> list[dict[str, Any]]:
+    def specs(self, groups: set[str] | None = None, exclude: set[str] | None = None, allow: Callable[[Tool], bool] | None = None, unlock: set[str] | None = None) -> list[dict[str, Any]]:
         """Tool specs for one stream. Groups in RESERVED_GROUPS are opt-in: a caller that passes no `groups` at all
         (the play step, which wants everything) still does not get them. They are privileged by design and belong to
-        exactly one stream, which asks for them by name."""
+        exactly one stream, which asks for them by name. `unlock` adds a reserved group to whatever the caller would
+        otherwise get, for a stream that keeps its normal tools and needs one privileged group as well."""
         out = []
         for t in self.tools.values():
-            if t.group in RESERVED_GROUPS and not (groups and t.group in groups):
+            if t.group in RESERVED_GROUPS and not (groups and t.group in groups) and not (unlock and t.group in unlock):
                 continue
             if groups and t.group not in groups and t.source != "brain":
                 continue
@@ -313,6 +318,11 @@ def coerce_param(v: Any) -> Any:
     """Models often send JSON values as strings ("[97, 98]", "true", "80"). Undo that where it is unambiguous."""
     if isinstance(v, str):
         t = v.strip()
+        # Python's repr of a bool is what a model most often sends, and "False" is not JSON. It fell through as
+        # a non-empty string, which is true, so dry_run="False" left a tool in dry-run while it reported a real
+        # write. "None" is deliberately not in here: unlike "False" it is a plausible label for a thing.
+        if t.lower() in ("true", "false", "null"):
+            t = t.lower()
         if t and (t[0] in "[{" or t in ("true", "false", "null") or re.fullmatch(r"-?\d+(\.\d+)?", t)):
             try:
                 return json.loads(t)

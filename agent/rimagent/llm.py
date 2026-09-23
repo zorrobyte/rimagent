@@ -47,7 +47,8 @@ class LLM:
         self.client = OpenAI(base_url=c["base_url"], api_key=c["api_key"], timeout=c.get("timeout_s", 240), max_retries=0)  # the loop handles retries; a hung socket must not freeze play
         self._sem = threading.Semaphore(int(c.get("max_streams", 4)))
         self.default_thinking = bool(c.get("thinking", True))
-        self.max_tokens = int(c.get("max_tokens", 4000))
+        mt = c.get("max_tokens", 4000)
+        self.max_tokens = int(mt) if mt else None  # null or 0: send no cap, the server allows the rest of the context
         self._capture_fh = None
         if bool(c.get("capture", True)):
             self._capture_fh = (SFT_RAW / f"capture-{time.strftime('%Y%m%d-%H%M%S')}-{os.getpid()}.jsonl").open("a", encoding="utf-8")
@@ -71,10 +72,11 @@ class LLM:
         kwargs: dict[str, Any] = {
             "model": self.model,
             "messages": messages,
-            "max_tokens": max_tokens or self.max_tokens,
             "temperature": temperature,
             "extra_body": {"chat_template_kwargs": {"enable_thinking": thinking}},
         }
+        if max_tokens or self.max_tokens:
+            kwargs["max_tokens"] = max_tokens or self.max_tokens
         if tools:
             kwargs["tools"] = tools
             if tool_choice:
