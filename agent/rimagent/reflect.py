@@ -66,7 +66,7 @@ def compress_timeline(events: list[dict[str, Any]], step_notes: list[str], limit
             continue
         if k == "day":
             d = e.get("data") or {}
-            lines.append(f"[day {e.get('day')}] colonists={d.get('colonists')} deaths_so_far=? wealth={d.get('wealth')} mood={d.get('mood_avg')} food_days={d.get('food_days')} threat={d.get('threat_points')} research={d.get('research_done')}")
+            lines.append(f"[day {e.get('day')}] colonists={d.get('colonists')} deaths_so_far={d.get('deaths_so_far', '?')} wealth={d.get('wealth')} mood={d.get('mood_avg')} food_days={d.get('food_days')} threat={d.get('threat_points')} research={d.get('research_done')}")
         else:
             lines.append(f"[{e.get('day', '?')}d {e.get('hour', '?')}h] {k}: {e.get('text', '')}")
     text = "\n".join(lines)

@@ -360,12 +360,14 @@ class Runner:
             return []
         self.ctx.last_seq = int(data.get("last_seq", self.ctx.last_seq))
         for e in evs:
-            self.bus.emit("ledger", e)
             k = e.get("kind")
             if k == "colonist_died":
                 self.deaths += 1
             elif k == "hostile_group":
                 self.raids += 1
+            elif k == "day":
+                e["data"] = {**(e.get("data") or {}), "deaths_so_far": self.deaths}
+            self.bus.emit("ledger", e)
         self.events += evs
         self.pending_events += evs
         self.ctx.recent_events = self.pending_events[-100:]
