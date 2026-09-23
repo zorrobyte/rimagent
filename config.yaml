@@ -24,6 +24,8 @@ play:
   alert_rewake_hours: 24   # the same alert label won't interrupt again for this long
   critical_kinds: [dialog, danger, manhunter, hostile_group, colonist_downed, colonist_died, mental_break, building_lost]
   max_tool_calls: 30       # per think step
+  memory_reserve_calls: 3  # of those, the last N accept only notebook/journal writes and end_turn, so a
+                           # long step records before it ends. Capped at a quarter of the budget.
   max_days: 60             # episode length cap
   autosave: true
   seeds: [rimagent-1, rimagent-2, rimagent-3, rimagent-4, rimagent-5]
