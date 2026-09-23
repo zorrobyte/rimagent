@@ -27,8 +27,8 @@ def skill_read(ctx, name: str):
     return skills.read(name)
 
 
-@tool("skill_write", "Create or overwrite a skill (markdown). Keep skills concrete: triggers, steps, numbers, pitfalls. Prefer editing an existing skill over adding a near-duplicate.", {"name": "short name", "description": "one line: when to use it", "body": "markdown body", "tags": "list of tags", "always": "true to include in every prompt (use sparingly)"}, group="brain")
-def skill_write(ctx, name: str, description: str, body: str, tags: list[str] | None = None, always: bool = False):
+@tool("skill_write", "Create or overwrite a skill (markdown). Keep skills concrete: triggers, steps, numbers, pitfalls. Prefer editing an existing skill over adding a near-duplicate.", {"name": "short name", "description": "one line: when to use it", "body": "markdown body", "tags": "list of tags; omit to keep the skill's current tags, pass [] to clear them (tags are part of how a skill is retrieved)", "always": "true to include in every prompt (use sparingly); omit to keep the current setting"}, group="brain")
+def skill_write(ctx, name: str, description: str, body: str, tags: list[str] | None = None, always: bool | None = None):
     p = skills.write(name, description, body, tags, always)
     ctx.emit("brain_change", {"kind": "skill", "name": name, "action": "write"})
     return f"wrote {p.name} ({len(body)} chars)"
