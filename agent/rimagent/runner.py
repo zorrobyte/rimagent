@@ -446,7 +446,13 @@ class Runner:
     def with_pause(self, fn, urgent: bool = False) -> None:
         # Calm steps think at think_speed (default: full play speed); urgent ones at danger_think_speed (default: paused).
         play = self.cfg["play"]
-        think_speed = int(play.get("danger_think_speed", 0)) if urgent else int(play.get("think_speed", play.get("speed", 3)))
+        calm_speed = int(play.get("think_speed", play.get("speed", 3)))
+        danger_speed = int(play.get("danger_think_speed", 0))
+        think_speed = danger_speed if urgent else calm_speed
+        # Recorded on this step's think_start. set_no_pause rewrites danger_think_speed at runtime, so the
+        # config file does not say what a given step ran at.
+        self.ctx.extra.update({"think_speed": think_speed, "config_think_speed": calm_speed,
+                               "config_danger_think_speed": danger_speed, "urgent": bool(urgent)})
         try:
             if think_speed <= 0:
                 self.bridge.call("game.pause", paused=True)
@@ -462,6 +468,8 @@ class Runner:
             fn()
         finally:
             self.thinking = False
+            for key in ("think_speed", "config_think_speed", "config_danger_think_speed", "urgent"):
+                self.ctx.extra.pop(key, None)  # streams forked outside a step (improve, watchdog) must not copy them
             # Restore play speed, unless the model chose one during the step (e.g. 1x for a raid). Never leave it paused.
             chosen = self.ctx.extra.get("model_speed")
             speed = int(play.get("speed", 3)) if chosen is None else max(1, int(chosen))

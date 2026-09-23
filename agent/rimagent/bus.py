@@ -2,7 +2,9 @@
 
 Every event is {"seq": int, "t": epoch seconds, "kind": str, "data": dict}. Kinds emitted by the runner/loop:
   status        data: game.status dict + {"episode", "seed", "phase": idle|thinking|playing|reflecting|loading}
-  think_start   data: {"trigger": str, "step": int}
+  think_start   data: {"trigger": str, "step": int, "prompt_chars": int, "tools": int, "stream": str}
+                      a play step adds {"think_speed": int (what this step ran at, 0 = paused), "urgent": bool,
+                      "config_think_speed", "config_danger_think_speed": int (live, the dashboard edits them)}
   reasoning     data: {"text": str}                         model thinking text (may be long)
   assistant     data: {"text": str}                         model visible text
   tool_call     data: {"name": str, "args": dict, "id": str}
